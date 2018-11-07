@@ -1,0 +1,19 @@
+{% extends "outline.html" %}
+{% block body %}
+    {% if is_logged == False %}
+        <body>
+            <h1 style="font-family:Teko;font-size:50px">Please Log In</h1>
+            <p style="font-size:25px;">
+                You must be logged in to register for a feis. If you're not
+                signed up with us yet, do so <a href="UserSignUp.php">here</a>
+            </p>
+            <div style="clear:both;" />
+        </body>
+    {% else %}
+        <body>
+            <h1 style="font-family:Teko;font-size:50px">Choose a Feis</h1>
+            {{ function() }}
+            <div style="clear:both;" />
+        </body>
+    {% endif %}
+{% endblock body %}

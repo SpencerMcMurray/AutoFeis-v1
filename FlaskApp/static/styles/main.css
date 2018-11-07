@@ -1,0 +1,136 @@
+html {
+    background-image: linear-gradient(to right, #6ba8ff, #F5F5F5);
+}
+
+hr {
+    border-color: black;
+}
+
+header ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+header li {
+    float: left;
+}
+
+header li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+header {
+    top: 0;
+    background-image: linear-gradient(to right, #6ba8ff, #F5F5F5);
+}
+
+header h1 b {
+    color: purple;
+    padding: 0px 36px 0px 36px;
+}
+
+header h4 b {
+    color: black;
+    padding: 0px 18px 0px 18px;
+}
+
+header img {
+    width: 100px;
+    height: 100px;
+}
+
+body {
+    background-image: linear-gradient(to right, #6ba8ff, #F5F5F5);
+    text-align: center;
+    position: relative;
+}
+
+body h1 {
+    color: purple;
+}
+
+#upcoming {
+    width: 100%;
+}
+
+#left {
+    float: left;
+    border: 2px solid purple;
+    width: 25%;
+}
+
+#center {
+    border: 2px solid purple;
+    width: 25%;
+    margin: 0 auto;
+}
+
+#right {
+    float: right;
+    border: 2px solid purple;
+    width: 25%;
+}
+
+#welcome p {
+    padding: 0 20%;
+}
+
+#hire {
+    position: absolute;
+}
+
+#hire p {
+    padding: 0 20%;
+}
+
+#choose p {
+    padding: 0 20%;
+}
+
+#services td {
+    text-align: left;
+    width: 60%;
+}
+
+#services table {
+    margin: auto;
+}
+
+#footer {
+    position: relative;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+}
+
+li a:hover:not(.log):not(.loghere) {
+    background-color: #111;
+}
+
+.col {
+    float: left;
+    width: 33.33%;
+}
+
+.log {
+    background-color: #228B22;
+}
+
+.log:hover {
+    background-color: #006400;
+}
+
+.here {
+    background-color: #111;
+}
+
+.loghere {
+    background-color: #006400;
+}

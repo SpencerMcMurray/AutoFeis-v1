@@ -1,0 +1,21 @@
+{% extends "outline.html" %}
+{% block body %}
+    <body>
+        <div id='welcome'>
+            <h1 style='font-family:Teko;font-size:50px'>Welcome</h1>
+            <p style='font-size:25px'>
+                    AutoFeis provides the World's <u>Fastest</u> tabulation and
+                    entry service for Irish Dance using the power of Artificial
+                    Intelligence. We provide our services <u>Worldwide</u> at no
+                    extra cost.<br>
+            <img src='../../static/images/border.png' alt='Border' style='width:600px;height:400px'><br>
+            Learn more about the new way to tabulate <a href="{{ url_for('about') }}">here</a>
+            </p>
+        </div><hr>
+            <div id='upcoming'>
+                <h1 style='font-family:Teko;font-size:50px'>Upcoming Feiseanna</h1>
+                {{ function() }}
+            </div>
+            <div style="clear:both;" />
+    </body>
+{% endblock body %}

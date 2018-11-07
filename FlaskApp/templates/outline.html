@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <link rel='icon' href='../../static/images/favicon.ico' type='image/x-icon' />
+        <meta charset='UTF-8'>
+        <title>AutoFeis</title>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css'>
+        <style type='text/css'>
+            body{ font: 14px sans-serif; }
+            .wrapper{ width: 350px; padding: 20px; }
+        </style>
+    </head>
+    <header>
+        <link rel='stylesheet' href='../../static/styles/main.css'>
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Teko'>
+        <h1 align='left'><b style='font-family:Teko;font-size:50px'>AutoFeis</b></h1>
+        <h4 align='left'><b style='font-family:Teko;font-size:25px'>A New Way To Tabulate</b></h4>
+        <ul>
+            <!-- Make home look different depending on where we are -->
+            {% if where == "home" %}
+                <li><a class='here' href="{{ url_for('index') }}">Home</a></li>
+            {% else %}
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+            {% endif %}
+
+            <!-- Make about look different depending on where we are -->
+            {% if where == "about" %}
+                <li><a class='here' href="{{ url_for('about') }}">About</a></li>
+            {% else %}
+                <li><a href="{{ url_for('about') }}">About</a></li>
+            {% endif %}
+
+            <!-- Make feis info look different depending on where we are -->
+            {% if where == "feisinfo" %}
+                <li><a class='here' href="{{ url_for('feisinfo') }}">Feis Info</a></li>
+            {% else %}
+                <li><a href="{{ url_for('feisinfo') }}">Feis Info</a></li>
+            {% endif %}
+
+            <!-- Make results look different depending on where we are -->
+            {% if where == "results" %}
+                <li><a class='here' href="{{ url_for('results') }}">Results</a></li>
+            {% else %}
+                <li><a href="{{ url_for('results') }}">Results</a></li>
+            {% endif %}
+
+            <!-- Make register look different depending on where we are -->
+            {% if where == "register" %}
+                <li><a class='here' href="{{ url_for('register') }}">Register</a></li>
+            {% else %}
+                <li><a href="{{ url_for('register') }}">Register</a></li>
+            {% endif %}
+
+            <!-- Show the correct account links -->
+            {% if is_logged == True %}
+                <li style="float:right"><a class="log" href="{{ url_for('logout') }}">Logout</a></li>
+                {% if where == "welcome" %}
+                    <li style="float:right"><a class="loghere" href="{{ url_for('welcome') }}">My Account</a></li>
+                {% else %}
+                    <li style="float:right"><a class="log" href="{{ url_for('welcome') }}">My Account</a></li>
+                {% endif %}
+
+            {% else %}
+                {% if where == "signup" %}
+                    <li style="float:right"><a class="loghere" href="{{ url_for('signup') }}">Sign Up</a></li>
+                {% else %}
+                    <li style="float:right"><a class="log" href="{{ url_for('signup') }}">Sign Up</a></li>
+                {% endif %}
+
+                {% if where == "login" %}
+                    <li style="float:right"><a class="loghere" href="{{ url_for('login') }}">Log In</a></li>
+                {% else %}
+                    <li style="float:right"><a class="log" href="{{ url_for('login') }}">Log In</a></li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    </header>
+    <main>
+        {% block body %}
+        {% endblock body %}
+    </main><br />
+    <div id="footer"><hr>
+        <p>AutoFeis 2018</p>
+    </div><br />
+</html>

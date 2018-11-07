@@ -1,0 +1,38 @@
+{% extends "outline.html" %}
+{% block body %}
+    <body>
+        <div class="page-header">
+            <h2 style="text-align: center">Welcome, <b><?php echo $name; ?></b>.</h2>
+        </div>
+        <div>
+            <h1 style="font-family:Teko;font-size:50px">My Dancers</h1>
+            <!-- Add a dancer and display all my dancers -->
+            {{ function1() }}
+        </div>
+        <div style="clear:both;" /><hr>
+        <div>
+            <h1 style="font-family:Teko;font-size:50px">My Feiseanna</h1>
+            <!-- Add a feis and display all my feiseanna -->
+            {{ function2() }}
+        </div>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script>
+            function promptDelete(id) {
+                var id=id;
+                if(confirm("If you delete a dancer all of their data will become inaccessible.\nIs this okay?")) {
+                    $.ajax({
+                        url:"DeleteDancer.php",
+                        type:"POST",
+                        data:{id:id},
+                        success:function(result){
+                            location.reload();
+                        }
+                    });
+                }
+            }
+            function cannotDelete() {
+                alert("For security reasons, you cannot delete a feis.\nContact us if you wish to do this.");
+            }
+        </script>
+    </body>
+{% endblock body %}

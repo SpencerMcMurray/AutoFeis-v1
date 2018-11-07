@@ -1,0 +1,29 @@
+{% from "errors.html" import render_field %}
+{% extends "outline.html" %}
+{% block body %}
+    <link rel='stylesheet' href='../../static/styles/signin.css'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Teko'>
+    <body>
+        <form method="POST">
+            <div id="login-box">
+                <div class="center">
+                    <h1 style="font-family:Teko;font-size:50px">Log In</h1>
+
+                    {% with messages = get_flashed_messages()%}
+                        {% if messages %}
+                            <ul>
+                            {% for message in messages%}
+                                <li> {{ message }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endwith %}
+                    {{ render_field(form.email) }}
+                    {{ render_field(form.password) }}
+
+                    <input type="submit" name="login_submit" value="Log in" />
+                </div>
+            </div>
+        </form>
+    </body>
+{% endblock body %}
