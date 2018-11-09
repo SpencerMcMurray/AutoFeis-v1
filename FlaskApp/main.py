@@ -1,11 +1,17 @@
+import os
 import functions as f
-from form import RegistrationForm, LoginForm
+from form import *
 from flask import Flask, render_template, render_template_string, request, redirect, url_for, flash, session
 app = Flask(__name__)
-app.secret_key = b'\x17\x10IO\xff$\xbe&\xf9X5\x9b\x1c\xea\x0c\xdf'
+app.secret_key = os.urandom(24)
+# TODO: Implement flask_login?
+LOGGED = False
 
-with app.test_request_context():
-    LOGGED = 'email' in session
+
+def flip_logged():
+    """flips the value of LOGGED"""
+    global LOGGED
+    LOGGED = not LOGGED
 
 
 @app.route("/")
@@ -48,12 +54,11 @@ def signup():
         # Check if the email given already exists
         if f.email_taken(form.email.data):
             flash("The email provided already belongs to a user")
-            return render_template("signUp.html", form=form, is_logged=False, where="signup")
+            return render_template("signUp.html", form=form, is_logged=LOGGED, where="signup")
 
         # Otherwise sign the user up
-        else:
-            f.sign_up(form.email.data, form.password.data, form.f_name.data, form.l_name.data)
-            return redirect(url_for('login'))
+        f.sign_up(form.email.data, form.password.data, form.f_name.data, form.l_name.data)
+        return redirect(url_for('login'))
     return render_template("signUp.html", form=form, is_logged=LOGGED, where="signup")
 
 
@@ -61,9 +66,10 @@ def signup():
 def login():
     """The login page"""
     # If the user is logged in, send them to the welcome page
-    if 'email' in session:
+    if LOGGED:
         return redirect(url_for("welcome"))
-    form = LoginForm()
+
+    form = LoginForm(request.form)
     if request.method == "POST" and form.validate():
 
         # Make sure the email is in the database
@@ -71,11 +77,12 @@ def login():
             flash("The email provided doesn't belong to a user")
             return render_template("logIn.html", form=form, is_logged=LOGGED, where="login")
         # Make sure the password matches the email given in the database
-        if not f.validate(form.email.data, form.password.hash):
+        if not f.validate(form.email.data, form.password.data):
             flash("The password given doesn't match with the email provided")
             return render_template("logIn.html", form=form, is_logged=LOGGED, where="login")
         # Log the user in
         session['email'] = form.email.data
+        flip_logged()
         return redirect(url_for("welcome"))
     return render_template("logIn.html", form=form, is_logged=LOGGED, where="login")
 
@@ -83,15 +90,43 @@ def login():
 @app.route("/logout")
 def logout():
     """The logout page"""
-    session.clear()
-    return render_template("index.html", is_logged=LOGGED, where="welcome")
+    session.pop("email")
+    flip_logged()
+    return redirect(url_for("index"))
 
 
-@app.route("/welcome")
+@app.route("/welcome", methods=['GET', 'POST'])
 def welcome():
     """The welcome page"""
-    return render_template("welcome.html", is_logged=LOGGED, where="welcome", function1=f.display_my_dancers,
-                           function2=f.display_my_feiseanna)
+
+    feis_fcns_form = FeisFcnsForm(request.form)
+    edit_dancer_form = EditDancerForm(request.form)
+    add_dancer_form = AddDancerForm(request.form)
+    add_feis_form = AddFeisForm(request.form)
+
+    user_id = f.get_id_from_email(session['email'])
+    dancers = f.get_dancers_with_user(user_id)
+    feiseanna = f.get_feiseanna_with_forg(user_id)
+    if request.method == 'POST':
+        if feis_fcns_form.submit.data and feis_fcns_form.validate():
+            return redirect(url_for('feis_functions', id=int(request.form['id'])))
+
+        if edit_dancer_form.submit.data and edit_dancer_form.validate():
+            return redirect(url_for('edit_dancer', id=int(request.form['id'])))
+
+        if add_dancer_form.submit.data and add_dancer_form.validate():
+            return redirect(url_for("add_dancer"))
+
+        if add_feis_form.submit.data and add_feis_form.validate():
+            return redirect(url_for("add_feis"))
+    return render_template("welcome.html", is_logged=LOGGED, where="welcome", email=session["email"],
+                           dancers=dancers,
+                           feiseanna=feiseanna,
+                           edit_dancer=edit_dancer,
+                           dancer_form=add_dancer_form,
+                           feis_form=add_feis_form,
+                           feis_fcns_form=feis_fcns_form,
+                           function=f.display_name)
 
 
 @app.route("/terms")
@@ -99,9 +134,23 @@ def terms():
     return render_template("tos.html", is_logged=LOGGED, where="signup")
 
 
+@app.route("/welcome/add_feis")
+def add_feis():
+    pass
+
+
+@app.route("/welcome/add_dancer")
+def add_dancer():
+    pass
+
+
+@app.route("/welcome/edit_dancer")
+def edit_dancer():
+    pass
+
+
 @app.route("/welcome/functions")
 def feis_functions():
     """The feis functions for a given feis"""
-    feis_id = 0
-    html = f.feis_functions_html(feis_id)
+    html = f.feis_functions_html(request.args['id'])
     return render_template_string(html, is_logged=LOGGED, where="welcome")

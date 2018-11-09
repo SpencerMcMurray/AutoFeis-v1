@@ -1,6 +1,45 @@
 from database import Database
 from werkzeug.security import generate_password_hash, check_password_hash
-from gc import collect
+import gc
+
+
+def get_feiseanna_with_forg(forg_id):
+    db = Database()
+    db.cur.execute("SELECT * FROM feiseanna WHERE forg = %s", forg_id)
+    res = db.cur.fetchall()
+    db.con.close()
+    gc.collect()
+    return res
+
+
+def get_dancers_with_user(user_id):
+    db = Database()
+    db.cur.execute("SELECT * FROM dancers WHERE user = %s", user_id)
+    res = db.cur.fetchall()
+    db.con.close()
+    gc.collect()
+    return res
+
+
+def get_id_from_email(email):
+    db = Database()
+    num_rows = db.cur.execute("SELECT id FROM users WHERE email = %s", email)
+    if num_rows > 0:
+        return db.cur.fetchone()['id']
+    return -1
+
+
+def display_name(email):
+    """Returns a statement welcoming the user"""
+    db = Database()
+    q = "SELECT fName, lName FROM users WHERE email = %s"
+    num_rows = db.cur.execute(q, email)
+    if num_rows == 0:
+        return ""
+    res = db.cur.fetchone()
+    db.con.close()
+    gc.collect()
+    return "Welcome, " + res["fName"] + " " + res["lName"] + "!"
 
 
 def validate(email, password):
@@ -12,7 +51,7 @@ def validate(email, password):
         return False
     res = db.cur.fetchone()
     db.con.close()
-    collect()
+    gc.collect()
     return check_password_hash(res["password"], password)
 
 
@@ -22,7 +61,7 @@ def email_taken(email):
     q = "SELECT email FROM users WHERE email = %s"
     num_rows = db.cur.execute(q, (email,))
     db.con.close()
-    collect()
+    gc.collect()
     return num_rows != 0
 
 
@@ -32,7 +71,7 @@ def sign_up(email, password, f_name, l_name):
     db.cur.execute(q, (email, generate_password_hash(password), f_name, l_name))
     db.con.commit()
     db.con.close()
-    collect()
+    gc.collect()
 
 
 def display_feis():
@@ -51,34 +90,16 @@ def display_open_feiseanna():
     return "<Insert cool table showing all open feiseanna>"
 
 
-def display_my_dancers():
-    return "<Insert cool table with all my dancers>"
-
-
-def display_my_feiseanna():
-    return "<Insert cool table with all my feiseanna>"
-
-
 def feis_functions_html(feis_id):
-    # TODO: Query the database
+    db = Database()
+    q = "SELECT name FROM feiseanna WHERE id = %s"
+    db.cur.execute(q, feis_id)
+    feis = db.cur.fetchone()
     html = """
     {% extends "outline.html" %}
     {% block body %}
-        <body>
-        <style>
-            th, td {
-                text-align:center;
-                padding: 15px;
-                border: 2px solid black;
-            }
-            table tr:nth-child(odd) {
-                background-color: #eee;
-            }
-            table tr:nth-child(even) {
-                background-color: #fff;
-            }
-        </style><br>
-        <b style='font-size:20px;'>What would you like to do with {$name}?</b><hr>
+        <body><br>
+        <b style='font-size:20px;'>What would you like to do with """ + feis['name'] + """?</b><hr>
         <table style='margin:0px auto;text-align:center;font-size:20px;border:2px solid black;width 100%;'>
             <tr>
                 <td>
@@ -99,4 +120,6 @@ def feis_functions_html(feis_id):
         </body>
     {% endblock body %}
     """
+    db.con.close()
+    gc.collect()
     return html

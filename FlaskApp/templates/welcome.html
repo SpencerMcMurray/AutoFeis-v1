@@ -1,19 +1,104 @@
+{% from "errors.html" import render_field %}
 {% extends "outline.html" %}
 {% block body %}
     <body>
-        <div class="page-header">
-            <h2 style="text-align: center">Welcome, <b><?php echo $name; ?></b>.</h2>
-        </div>
+        <style>
+            table {
+                margin:0px auto;
+                text-align:left;
+                font-size:20px;
+                border:2px solid black;
+            } th, td {
+                text-align:left;
+                padding: 15px;
+                border: 2px solid black;
+            }
+            table tr:nth-child(odd) {
+                background-color: #eee;
+            }
+            table tr:nth-child(even) {
+                background-color: #fff;
+            }
+        </style>
         <div>
+            <h2 style="text-align: center">{{ function(email) }}</h2>
+        </div><hr>
+        <div class="dancer_box">
             <h1 style="font-family:Teko;font-size:50px">My Dancers</h1>
             <!-- Add a dancer and display all my dancers -->
-            {{ function1() }}
-        </div>
-        <div style="clear:both;" /><hr>
-        <div>
+                {% if dancers|length > 0 %}
+                    <table>
+                        <tr>
+                            <th style='text-align:center;'>Name</th>
+                            <th style='text-align:center;'>Level</th>
+                            <th style='text-align:center;'>School</th>
+                            <th style='text-align:center;'>Year</th>
+                            <th style='text-align:center;'>Gender</th>
+                            <th style='text-align:center;'>Show/Hide</th>
+                            <th colspan='2' style='text-align:center;'>Alter</th>
+                        </tr>
+                    {% for dancer in dancers %}
+                        <tr>
+                            <td>{{ dancer['fName'] }} {{ dancer['lName'] }}</td>
+                            <td>{{ dancer['level'] }}</td>
+                            <td>{{ dancer['school'] }}</td>
+                            <td>{{ dancer['birthYear'] }}</td>
+                            <td>{{ dancer['gender'] }}</td>
+                            <td>{{ dancer['show'] }}</td>
+                            <td>
+                                <form method="POST">
+                                    <input type="hidden" name="id" value="{ dancer['id'] }" />
+                                    {{ render_field(edit_dancer.submit) }}
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </table><br>
+                {% else %}
+                    <p style='font-size:20px'>No dancers to show!</p>
+                {% endif %}
+            <form method="POST">
+                {{ dancer_form.submit }}
+            </form>
+        </div><hr>
+        <div class="feis_box">
             <h1 style="font-family:Teko;font-size:50px">My Feiseanna</h1>
-            <!-- Add a feis and display all my feiseanna -->
-            {{ function2() }}
+            {% if feiseanna|length > 0 %}
+                <table>
+                    <tr>
+                        <th style='text-align:center;'>Feis Info</th>
+                        <th style='text-align:center;'>Feis Links</th>
+                        <th colspan='2' style='text-align:center;'>Organize</th>
+                    </tr>
+                {% for feis in feiseanna %}
+                    <tr>
+                        <td>
+                            {{ feis['name']}}<br>
+                            {{ feis['date'].strftime('%b %d %Y') }}<br>
+                            {{ feis['location'] }}<br>
+                            {{ feis['region'] }}
+                        </td>
+                        <td>
+                            <a href='{{ feis["website"] }}'>Website</a><br>
+                            <a href='register'>Register</a><br>
+                            <a href='entries'>Entries</a><br>
+                            <a href='syllabus'>Syllabus</a>
+                        </td>
+                        <td>
+                            <form method='POST'>
+                                <input type='hidden' name='id' value="{{ feis['id']|string }}" />
+                                {{ feis_fcns_form.submit }}
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </table><br>
+            {% else %}
+                <p style='font-size:20px'>No feiseanna to show!</p>
+            {% endif %}
+            <form method="POST">
+                {{ feis_form.submit }}
+            </form>
         </div>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>
