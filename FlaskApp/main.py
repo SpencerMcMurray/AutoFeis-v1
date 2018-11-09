@@ -124,6 +124,8 @@ def welcome():
 
 @app.route("/terms")
 def terms():
+    """The terms of service page"""
+    # TODO: Write this up
     return render_template("tos.html", is_logged=LOGGED, where="signup")
 
 
@@ -142,6 +144,14 @@ def add_dancer():
         return redirect(url_for("welcome"))
 
     return render_template("addDancer.html", is_logged=LOGGED, where="welcome", form=form)
+
+
+@app.route("/welcome/delete_dancer", methods=['POST'])
+def delete_dancer():
+    """The path through deleting a dancer"""
+    if request.method == "POST":
+        f.delete_dancer_from_id(request.form.get('id', 0))
+    return redirect(url_for('welcome'))
 
 
 @app.route("/welcome/edit_dancer", methods=['POST'])
@@ -173,12 +183,4 @@ def feis_functions():
     if request.method == "POST":
         name = f.feis_name_from_id(request.form.get('feisId', 0))
         return render_template("feisFunctions.html", is_logged=LOGGED, where="welcome", name=name)
-    return redirect(url_for('welcome'))
-
-
-@app.route("/welcome/delete_dancer", methods=['POST'])
-def delete_dancer():
-    """The path through deleting a dancer"""
-    if request.method == "POST":
-        f.delete_dancer_from_id(request.form.get('id', 0))
     return redirect(url_for('welcome'))

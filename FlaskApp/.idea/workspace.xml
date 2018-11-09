@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e6a99dd6-dad2-4df9-b54d-3c5a79b4e1ba" name="Default Changelist" comment="Editing dancers now works,">
-      <change afterPath="$PROJECT_DIR$/templates/editDancer.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/feisFunctions.html" afterDir="false" />
+    <list default="true" id="e6a99dd6-dad2-4df9-b54d-3c5a79b4e1ba" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/welcome.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/welcome.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -66,7 +61,7 @@
     <session id="-891716575">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.opened" value="2" />
@@ -76,17 +71,17 @@
         <counts>
           <entry key="css" value="386" />
           <entry key="html" value="2377" />
-          <entry key="py" value="8923" />
+          <entry key="py" value="8988" />
           <entry key="scss" value="43" />
-          <entry key="txt" value="233" />
+          <entry key="txt" value="272" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="386" />
           <entry key="HTML" value="2377" />
-          <entry key="PLAIN_TEXT" value="276" />
-          <entry key="Python" value="8923" />
+          <entry key="PLAIN_TEXT" value="315" />
+          <entry key="Python" value="8988" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -113,13 +108,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="149" column="52" selection-start-line="149" selection-start-column="52" selection-end-line="149" selection-end-column="52" />
+            <state relative-caret-position="746">
+              <caret line="149" column="4" selection-start-line="149" selection-start-column="4" selection-end-line="149" selection-end-column="4" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
-                <marker date="1541803326065" expanded="true" signature="4461:4473" ph="..." />
-                <marker date="1541803326065" expanded="true" signature="5614:6089" ph="..." />
-                <marker date="1541803326065" expanded="true" signature="6523:6701" ph="..." />
+                <marker date="1541803428209" expanded="true" signature="4523:4535" ph="..." />
+                <marker date="1541803428209" expanded="true" signature="5931:6406" ph="..." />
+                <marker date="1541803428209" expanded="true" signature="6762:6763" ph="..." />
               </folding>
             </state>
           </provider>
@@ -382,7 +377,14 @@
       <option name="project" value="LOCAL" />
       <updated>1541790611614</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Editing dancers now works, feis functions can be accesses as well">
+      <created>1541803348597</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1541803348597</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView">
@@ -399,7 +401,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.11801897" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.11801897" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.32948583" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.50052685" side_tool="true" weight="0.2993763" />
@@ -407,7 +409,7 @@
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" weight="0.32952183" />
       <window_info anchor="bottom" id="Version Control" order="5" weight="0.32948583" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" sideWeight="0.49947312" visible="true" weight="0.2993763" />
+      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49947312" weight="0.2993763" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.3981289" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -474,7 +476,8 @@
     <MESSAGE value="Continued on the basic functionality. Also made it loom prettier" />
     <MESSAGE value="Finished login issues(for now, flask_login may be nice), and implemented the welcome screen and all of its functionality(but not its children)" />
     <MESSAGE value="Adding a dancer now works" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding a dancer now works" />
+    <MESSAGE value="Editing dancers now works, feis functions can be accesses as well" />
+    <option name="LAST_COMMIT_MESSAGE" value="Editing dancers now works, feis functions can be accesses as well" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/static/images/banner.jpg">
@@ -675,13 +678,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="149" column="52" selection-start-line="149" selection-start-column="52" selection-end-line="149" selection-end-column="52" />
+        <state relative-caret-position="746">
+          <caret line="149" column="4" selection-start-line="149" selection-start-column="4" selection-end-line="149" selection-end-column="4" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <marker date="1541803326065" expanded="true" signature="4461:4473" ph="..." />
-            <marker date="1541803326065" expanded="true" signature="5614:6089" ph="..." />
-            <marker date="1541803326065" expanded="true" signature="6523:6701" ph="..." />
+            <marker date="1541803428209" expanded="true" signature="4523:4535" ph="..." />
+            <marker date="1541803428209" expanded="true" signature="5931:6406" ph="..." />
+            <marker date="1541803428209" expanded="true" signature="6762:6763" ph="..." />
           </folding>
         </state>
       </provider>
