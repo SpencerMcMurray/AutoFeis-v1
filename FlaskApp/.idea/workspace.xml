@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e6a99dd6-dad2-4df9-b54d-3c5a79b4e1ba" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/addDancer.html" afterDir="false" />
+    <list default="true" id="e6a99dd6-dad2-4df9-b54d-3c5a79b4e1ba" name="Default Changelist" comment="Editing dancers now works,">
+      <change afterPath="$PROJECT_DIR$/templates/editDancer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/feisFunctions.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/form.py" beforeDir="false" afterPath="$PROJECT_DIR$/form.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/styles/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/styles/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/logIn.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/logIn.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/signUp.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/signUp.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/welcome.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/welcome.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -77,34 +75,34 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="386" />
-          <entry key="html" value="1564" />
-          <entry key="py" value="7241" />
+          <entry key="html" value="2377" />
+          <entry key="py" value="8923" />
           <entry key="scss" value="43" />
-          <entry key="txt" value="174" />
+          <entry key="txt" value="233" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="386" />
-          <entry key="HTML" value="1564" />
-          <entry key="PLAIN_TEXT" value="217" />
-          <entry key="Python" value="7241" />
+          <entry key="HTML" value="2377" />
+          <entry key="PLAIN_TEXT" value="276" />
+          <entry key="Python" value="8923" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="5" />
-          <entry key="HTML" value="19" />
+          <entry key="HTML" value="34" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="11" />
+          <entry key="Python" value="16" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="5" />
-          <entry key="html" value="19" />
-          <entry key="py" value="11" />
+          <entry key="html" value="34" />
+          <entry key="py" value="16" />
           <entry key="scss" value="1" />
         </counts>
       </usages-collector>
@@ -115,33 +113,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="152" column="58" selection-start-line="152" selection-start-column="58" selection-end-line="152" selection-end-column="58" />
+            <state relative-caret-position="311">
+              <caret line="149" column="52" selection-start-line="149" selection-start-column="52" selection-end-line="149" selection-end-column="52" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
-                <marker date="1541790585196" expanded="true" signature="4750:4762" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/styles/css/main.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="114" column="1" selection-start-line="114" selection-start-column="1" selection-end-line="114" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/form.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
-              <folding>
-                <element signature="e#0#90#0" expanded="true" />
-                <marker date="1541784264084" expanded="true" signature="1011:1867" ph="..." />
+                <marker date="1541803326065" expanded="true" signature="4461:4473" ph="..." />
+                <marker date="1541803326065" expanded="true" signature="5614:6089" ph="..." />
+                <marker date="1541803326065" expanded="true" signature="6523:6701" ph="..." />
               </folding>
             </state>
           </provider>
@@ -150,31 +128,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-63">
-              <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+            <state relative-caret-position="336">
+              <caret line="28" column="52" selection-start-line="28" selection-start-column="52" selection-end-line="28" selection-end-column="52" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
-                <marker date="1541790045237" expanded="true" signature="222:548" ph="..." />
-                <marker date="1541790045237" expanded="true" signature="570:575" ph="..." />
-                <marker date="1541790045237" expanded="true" signature="570:811" ph="..." />
-                <marker date="1541790045237" expanded="true" signature="831:1006" ph="..." />
-                <marker date="1541790045237" expanded="true" signature="1043:1216" ph="..." />
-                <marker date="1541790045237" expanded="true" signature="1251:1422" ph="..." />
-                <marker date="1541790045237" expanded="true" signature="1451:1626" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/addDancer.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
-              <folding>
-                <element signature="n#style#0;n#h1#0;n#body#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#table#0;n#form#0;n#div#0;n#body#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#form#0;n#div#0;n#body#0;n#!!top" expanded="true" />
+                <marker date="1541803203561" expanded="true" signature="172:363" ph="..." />
+                <marker date="1541803203561" expanded="true" signature="393:923" ph="..." />
+                <marker date="1541803203561" expanded="true" signature="614:923" ph="..." />
+                <marker date="1541803203561" expanded="true" signature="1007:1313" ph="..." />
+                <marker date="1541803203561" expanded="true" signature="1335:1340" ph="..." />
+                <marker date="1541803203561" expanded="true" signature="1335:1576" ph="..." />
+                <marker date="1541803203561" expanded="true" signature="1596:1771" ph="..." />
+                <marker date="1541803203561" expanded="true" signature="1808:1985" ph="..." />
+                <marker date="1541803203561" expanded="true" signature="2020:2195" ph="..." />
+                <marker date="1541803203561" expanded="true" signature="2224:2441" ph="..." />
               </folding>
             </state>
           </provider>
@@ -205,6 +172,7 @@
       <find>Data</find>
       <find>collect</find>
       <find>{</find>
+      <find>commit</find>
     </findStrings>
     <replaceStrings>
       <replace>../../static/images</replace>
@@ -221,7 +189,6 @@
       <list>
         <option value="$PROJECT_DIR$/templates/feisinfo.html" />
         <option value="$PROJECT_DIR$/funcs.py" />
-        <option value="$PROJECT_DIR$/templates/register.html" />
         <option value="$PROJECT_DIR$/templates/signUp.py" />
         <option value="$PROJECT_DIR$/templates/about.html" />
         <option value="$PROJECT_DIR$/templates/feisInfo.html" />
@@ -230,7 +197,6 @@
         <option value="$PROJECT_DIR$/static/styles/signin.css" />
         <option value="$PROJECT_DIR$/templates/signUpErrors.html" />
         <option value="$PROJECT_DIR$/static/styles/signIn.css" />
-        <option value="$PROJECT_DIR$/database.py" />
         <option value="$PROJECT_DIR$/user.py" />
         <option value="$PROJECT_DIR$/static/styles/main.css" />
         <option value="$PROJECT_DIR$/static/styles/sass/main.scss" />
@@ -240,15 +206,19 @@
         <option value="$PROJECT_DIR$/templates/addDancer.html" />
         <option value="$PROJECT_DIR$/form.py" />
         <option value="$PROJECT_DIR$/static/styles/css/main.css" />
-        <option value="$PROJECT_DIR$/functions.py" />
+        <option value="$PROJECT_DIR$/templates/feisFunctions.html" />
+        <option value="$PROJECT_DIR$/database.py" />
+        <option value="$PROJECT_DIR$/templates/register.html" />
         <option value="$PROJECT_DIR$/templates/welcome.html" />
+        <option value="$PROJECT_DIR$/templates/editDancer.html" />
+        <option value="$PROJECT_DIR$/functions.py" />
         <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="114" />
-    <option name="y" value="24" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="116" />
+    <option name="y" value="-8" />
     <option name="width" value="1066" />
     <option name="height" value="1087" />
   </component>
@@ -265,24 +235,6 @@
             <path>
               <item name="FlaskApp" type="b2602c69:ProjectViewProjectNode" />
               <item name="FlaskApp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FlaskApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FlaskApp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FlaskApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FlaskApp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="styles" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FlaskApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FlaskApp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="styles" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="FlaskApp" type="b2602c69:ProjectViewProjectNode" />
@@ -317,7 +269,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.Run Flask App">
     <configuration name="Run Flask App" type="PythonConfigurationType" factoryName="Python">
       <module name="FlaskApp" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -326,6 +278,29 @@
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="FLASK_APP" value="main" />
         <env name="FLASK_DEBUG" value="0" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="false" />
+      <option name="ADD_SOURCE_ROOTS" value="false" />
+      <option name="SCRIPT_NAME" value="flask" />
+      <option name="PARAMETERS" value="run" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="true" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Run Flask Debugger" type="PythonConfigurationType" factoryName="Python">
+      <module name="FlaskApp" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="FLASK_APP" value="main" />
+        <env name="FLASK_DEBUG" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -363,6 +338,10 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.Run Flask App" />
+      <item itemvalue="Python.Run Flask Debugger" />
+    </list>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -396,7 +375,14 @@
       <option name="project" value="LOCAL" />
       <updated>1541738239214</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Adding a dancer now works">
+      <created>1541790611614</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1541790611614</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -422,7 +408,7 @@
       <window_info anchor="bottom" id="Find" order="4" weight="0.32952183" />
       <window_info anchor="bottom" id="Version Control" order="5" weight="0.32948583" />
       <window_info active="true" anchor="bottom" id="Run" order="6" sideWeight="0.49947312" visible="true" weight="0.2993763" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.39874083" />
+      <window_info anchor="bottom" id="Debug" order="7" weight="0.3981289" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="10" weight="0.32952183" />
@@ -487,18 +473,12 @@
     <MESSAGE value="Added very basic functionality for our Flask app," />
     <MESSAGE value="Continued on the basic functionality. Also made it loom prettier" />
     <MESSAGE value="Finished login issues(for now, flask_login may be nice), and implemented the welcome screen and all of its functionality(but not its children)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished login issues(for now, flask_login may be nice), and implemented the welcome screen and all of its functionality(but not its children)" />
+    <MESSAGE value="Adding a dancer now works" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding a dancer now works" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/static/images/banner.jpg">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/feisInfo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="20" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/results.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -518,13 +498,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="214">
           <caret line="628" selection-start-line="628" selection-end-line="628" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="9" column="19" lean-forward="true" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -551,20 +524,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/register.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="18" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/signUp.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="56" selection-start-line="3" selection-start-column="56" selection-end-line="3" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/logIn.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="63">
@@ -579,6 +538,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/styles/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="114" column="1" selection-start-line="114" selection-start-column="1" selection-end-line="114" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/feisInfo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="20" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/register.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/feisFunctions.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="3" column="69" selection-start-line="3" selection-start-column="69" selection-end-line="3" selection-end-column="69" />
+          <folding>
+            <element signature="n#style#0;n#b#0;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#body#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/form.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
@@ -590,34 +581,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/styles/css/main.css">
+    <entry file="file://$PROJECT_DIR$/database.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="114" column="1" selection-start-line="114" selection-start-column="1" selection-end-line="114" selection-end-column="1" />
+        <state relative-caret-position="252">
+          <caret line="12" column="90" selection-start-line="12" selection-start-column="90" selection-end-line="12" selection-end-column="90" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/functions.py">
+    <entry file="file://D:/Program Files/Python/Lib/site-packages/flask/globals.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-63">
-          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-            <marker date="1541790045237" expanded="true" signature="222:548" ph="..." />
-            <marker date="1541790045237" expanded="true" signature="570:575" ph="..." />
-            <marker date="1541790045237" expanded="true" signature="570:811" ph="..." />
-            <marker date="1541790045237" expanded="true" signature="831:1006" ph="..." />
-            <marker date="1541790045237" expanded="true" signature="1043:1216" ph="..." />
-            <marker date="1541790045237" expanded="true" signature="1251:1422" ph="..." />
-            <marker date="1541790045237" expanded="true" signature="1451:1626" ph="..." />
-          </folding>
+        <state relative-caret-position="460">
+          <caret line="58" selection-start-line="58" selection-end-line="58" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/addDancer.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
+        <state relative-caret-position="210">
+          <caret line="10" column="16" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
           <folding>
             <element signature="n#style#0;n#h1#0;n#body#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#table#0;n#form#0;n#div#0;n#body#0;n#!!top" expanded="true" />
@@ -626,10 +610,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/editDancer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="24" column="25" lean-forward="true" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+          <folding>
+            <element signature="n#style#0;n#h1h1#0;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#form#0;n#div#0;n#body#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/signUp.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="9" column="21" lean-forward="true" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="63" />
+          <folding>
+            <element signature="n#style#0;n#h1#0;n#div#0;n#div#0;n#form#0;n#body#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="28" column="52" selection-start-line="28" selection-start-column="52" selection-end-line="28" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+            <marker date="1541803203561" expanded="true" signature="172:363" ph="..." />
+            <marker date="1541803203561" expanded="true" signature="393:923" ph="..." />
+            <marker date="1541803203561" expanded="true" signature="614:923" ph="..." />
+            <marker date="1541803203561" expanded="true" signature="1007:1313" ph="..." />
+            <marker date="1541803203561" expanded="true" signature="1335:1340" ph="..." />
+            <marker date="1541803203561" expanded="true" signature="1335:1576" ph="..." />
+            <marker date="1541803203561" expanded="true" signature="1596:1771" ph="..." />
+            <marker date="1541803203561" expanded="true" signature="1808:1985" ph="..." />
+            <marker date="1541803203561" expanded="true" signature="2020:2195" ph="..." />
+            <marker date="1541803203561" expanded="true" signature="2224:2441" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/welcome.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="50" column="36" selection-start-line="50" selection-start-column="36" selection-end-line="50" selection-end-column="36" />
+        <state relative-caret-position="-550">
+          <caret line="62" column="14" selection-start-line="62" selection-start-column="14" selection-end-line="62" selection-end-column="14" />
           <folding>
             <element signature="n#style#0;n#h2#0;n#div#0;n#body#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#h1#0;n#div#1;n#body#0;n#!!top" expanded="true" />
@@ -650,11 +675,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="152" column="58" selection-start-line="152" selection-start-column="58" selection-end-line="152" selection-end-column="58" />
+        <state relative-caret-position="311">
+          <caret line="149" column="52" selection-start-line="149" selection-start-column="52" selection-end-line="149" selection-end-column="52" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <marker date="1541790585196" expanded="true" signature="4750:4762" ph="..." />
+            <marker date="1541803326065" expanded="true" signature="4461:4473" ph="..." />
+            <marker date="1541803326065" expanded="true" signature="5614:6089" ph="..." />
+            <marker date="1541803326065" expanded="true" signature="6523:6701" ph="..." />
           </folding>
         </state>
       </provider>

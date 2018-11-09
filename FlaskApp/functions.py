@@ -4,12 +4,38 @@ import gc
 import datetime as dt
 
 
+def get_dancer_from_id(dancer_id):
+    db = Database()
+    q = "SELECT * FROM `dancers` WHERE `id` = %s"
+    db.cur.execute(q, dancer_id)
+    dancer = db.cur.fetchone()
+    db.con.close()
+    gc.collect()
+    return dancer
+
+
+def delete_dancer_from_id(id):
+    db = Database()
+    q = "DELETE FROM `dancers` WHERE `id` = %s"
+    db.cur.execute(q, (id,))
+    db.con.close()
+    gc.collect()
+
+
+def alter_dancer(dancer_id, f_name, l_name, school, birth_year, level, gender, show):
+    db = Database()
+    q = """UPDATE `dancers` SET `fName` = %s, `lName` = %s, `birthYear` = %s, `school` = %s, `level` = %s,
+    `gender` = %s, `show` = %s WHERE `id` = %s"""
+    db.cur.execute(q, (f_name, l_name,  birth_year, school, level, gender, show, dancer_id))
+    db.con.close()
+    gc.collect()
+
+
 def create_dancer(user_id, f_name, l_name, school, birth_year, level, gender, show):
     db = Database()
     q = """INSERT INTO `dancers` (`user`, `fName`, `lName`, `birthYear`, `school`, `level`, `gender`, `show`) VALUES
     (%s, %s, %s, %s, %s, %s, %s, %s)"""
     db.cur.execute(q, (user_id, f_name, l_name, birth_year, school, level, gender, show))
-    db.con.commit()
     db.con.close()
     gc.collect()
 
@@ -33,7 +59,7 @@ def year_dropdown():
 
 def get_feiseanna_with_forg(forg_id):
     db = Database()
-    db.cur.execute("SELECT * FROM feiseanna WHERE forg = %s", forg_id)
+    db.cur.execute("SELECT * FROM `feiseanna` WHERE `forg` = %s", forg_id)
     res = db.cur.fetchall()
     db.con.close()
     gc.collect()
@@ -42,7 +68,7 @@ def get_feiseanna_with_forg(forg_id):
 
 def get_dancers_with_user(user_id):
     db = Database()
-    db.cur.execute("SELECT * FROM dancers WHERE user = %s", user_id)
+    db.cur.execute("SELECT * FROM `dancers` WHERE `user` = %s", user_id)
     res = db.cur.fetchall()
     db.con.close()
     gc.collect()
@@ -51,16 +77,18 @@ def get_dancers_with_user(user_id):
 
 def get_id_from_email(email):
     db = Database()
-    num_rows = db.cur.execute("SELECT id FROM users WHERE email = %s", email)
+    num_rows = db.cur.execute("SELECT `id` FROM `users` WHERE `email` = %s", email)
     if num_rows > 0:
         return db.cur.fetchone()['id']
+    db.con.close()
+    gc.collect()
     return -1
 
 
 def display_name(email):
     """Returns a statement welcoming the user"""
     db = Database()
-    q = "SELECT fName, lName FROM users WHERE email = %s"
+    q = "SELECT `fName`, `lName` FROM `users` WHERE `email` = %s"
     num_rows = db.cur.execute(q, email)
     if num_rows == 0:
         return ""
@@ -73,7 +101,7 @@ def display_name(email):
 def validate(email, password):
     """Returns True iff password is valid for given email"""
     db = Database()
-    q = "SELECT * FROM users WHERE email = %s"
+    q = "SELECT * FROM `users` WHERE `email` = %s"
     num_rows = db.cur.execute(q, email)
     if num_rows == 0:
         return False
@@ -86,7 +114,7 @@ def validate(email, password):
 def email_taken(email):
     """Returns True iff the email given exists in the database"""
     db = Database()
-    q = "SELECT email FROM users WHERE email = %s"
+    q = "SELECT `email` FROM `users` WHERE `email` = %s"
     num_rows = db.cur.execute(q, (email,))
     db.con.close()
     gc.collect()
@@ -94,10 +122,9 @@ def email_taken(email):
 
 
 def sign_up(email, password, f_name, l_name):
-    q = "INSERT INTO users (email, password, fName, lName) VALUES (%s, %s, %s, %s)"
+    q = "INSERT INTO `users` (`email`, `password`, `fName`, `lName`) VALUES (%s, %s, %s, %s)"
     db = Database()
     db.cur.execute(q, (email, generate_password_hash(password), f_name, l_name))
-    db.con.commit()
     db.con.close()
     gc.collect()
 
@@ -118,36 +145,11 @@ def display_open_feiseanna():
     return "<Insert cool table showing all open feiseanna>"
 
 
-def feis_functions_html(feis_id):
+def feis_name_from_id(feis_id):
     db = Database()
-    q = "SELECT name FROM feiseanna WHERE id = %s"
+    q = "SELECT `name` FROM `feiseanna` WHERE `id` = %s"
     db.cur.execute(q, feis_id)
-    feis = db.cur.fetchone()
-    html = """
-    {% extends "outline.html" %}
-    {% block body %}
-        <body><br>
-        <b style='font-size:20px;'>What would you like to do with """ + feis['name'] + """?</b><hr>
-        <table style='margin:0px auto;text-align:center;font-size:20px;border:2px solid black;width 100%;'>
-            <tr>
-                <td>
-                    Edit Feis Info
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Combine/Split Competitions
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Scoresheet Calculator
-                </td>
-            </tr>
-        </table>
-        </body>
-    {% endblock body %}
-    """
+    name = db.cur.fetchone()['name']
     db.con.close()
     gc.collect()
-    return html
+    return name

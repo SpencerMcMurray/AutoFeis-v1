@@ -26,41 +26,47 @@
         <div class="dancer_box">
             <h1 style="font-family:Teko;font-size:50px">My Dancers</h1>
             <!-- Add a dancer and display all my dancers -->
-                {% if dancers|length > 0 %}
-                    <table>
-                        <tr>
-                            <th style='text-align:center;'>Name</th>
-                            <th style='text-align:center;'>Level</th>
-                            <th style='text-align:center;'>School</th>
-                            <th style='text-align:center;'>Year</th>
-                            <th style='text-align:center;'>Gender</th>
-                            <th style='text-align:center;'>Show/Hide</th>
-                            <th colspan='2' style='text-align:center;'>Alter</th>
-                        </tr>
-                    {% for dancer in dancers %}
-                        <tr>
-                            <td>{{ dancer['fName'] }} {{ dancer['lName'] }}</td>
-                            <td>{{ dancer['level'] }}</td>
-                            <td>{{ dancer['school'] }}</td>
-                            <td>{{ dancer['birthYear'] }}</td>
-                            <td>{{ dancer['gender'] }}</td>
-                            {% if dancer['show'] == 1 %}
-                                <td>Show</td>
-                            {% else %}
-                                <td>Hide</td>
-                            {% endif %}
-                            <td>
-                                <form method="POST">
-                                    <input type="hidden" name="id" value="{ dancer['id'] }" />
-                                    {{ edit_dancer.submit }}
-                                </form>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </table><br>
-                {% else %}
-                    <p style='font-size:20px'>No dancers to show!</p>
-                {% endif %}
+            {% if dancers|length > 0 %}
+                <table>
+                    <tr>
+                        <th style='text-align:center;'>Name</th>
+                        <th style='text-align:center;'>Level</th>
+                        <th style='text-align:center;'>School</th>
+                        <th style='text-align:center;'>Year</th>
+                        <th style='text-align:center;'>Gender</th>
+                        <th style='text-align:center;'>Show/Hide</th>
+                        <th colspan='2' style='text-align:center;'>Alter</th>
+                    </tr>
+                {% for dancer in dancers %}
+                    <tr>
+                        <td>{{ dancer['fName'] }} {{ dancer['lName'] }}</td>
+                        <td>{{ dancer['level'] }}</td>
+                        <td>{{ dancer['school'] }}</td>
+                        <td>{{ dancer['birthYear'] }}</td>
+                        <td>{{ dancer['gender'] }}</td>
+                        {% if dancer['show'] == 1 %}
+                            <td>Show</td>
+                        {% else %}
+                            <td>Hide</td>
+                        {% endif %}
+                        <td>
+                            <form method="POST" action="{{ url_for('edit_dancer') }}">
+                                <input type="hidden" name="dancerId" value="{{ dancer['id'] }}" />
+                                {{ edit_dancer.submit }}
+                            </form>
+                        </td>
+                        <td>
+                            <form method="POST" action="{{ url_for('delete_dancer') }}">
+                                <input type="hidden" value="{{ dancer['id'] }}" name="id" />
+                                <input type="submit" value="Delete" />
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </table><br>
+            {% else %}
+                <p style='font-size:20px'>No dancers to show!</p>
+            {% endif %}
             <form method="POST">
                 {{ dancer_form.submit }}
             </form>
@@ -89,8 +95,8 @@
                             <a href='syllabus'>Syllabus</a>
                         </td>
                         <td>
-                            <form method='POST'>
-                                <input type='hidden' name='id' value="{{ feis['id']|string }}" />
+                            <form method="POST" action="{{ url_for('feis_functions') }}">
+                                <input type="hidden" value="{{ feis['id'] }}" name="feisId" />
                                 {{ feis_fcns_form.submit }}
                             </form>
                         </td>
@@ -104,21 +110,7 @@
                 {{ feis_form.submit }}
             </form>
         </div>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>
-            function promptDelete(id) {
-                var id=id;
-                if(confirm("If you delete a dancer all of their data will become inaccessible.\nIs this okay?")) {
-                    $.ajax({
-                        url:"DeleteDancer.php",
-                        type:"POST",
-                        data:{id:id},
-                        success:function(result){
-                            location.reload();
-                        }
-                    });
-                }
-            }
             function cannotDelete() {
                 alert("For security reasons, you cannot delete a feis.\nContact us if you wish to do this.");
             }

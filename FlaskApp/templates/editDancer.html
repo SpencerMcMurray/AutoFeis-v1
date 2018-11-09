@@ -1,0 +1,57 @@
+{% from "errors.html" import render_field %}
+{% extends "outline.html" %}
+{% block body %}
+    <body>
+        <style>
+            td {
+                text-align: center;
+                padding: 15px;
+                font-size:20px;
+            }
+        </style>
+        <h1 style="font-family:Teko;font-size:50px">Editing {{ dancer['fName'] + ' ' + dancer['lName'] }}'s Info</h1>
+        <div>
+            <form method="POST" action="{{ url_for('alter_dancer') }}">
+                <table style="margin: 0 auto;">
+                    <tr>
+                        <td>
+                            {{ render_field(form.f_name) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{ render_field(form.l_name) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{ render_field(form.year) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{ render_field(form.school) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{ render_field(form.level) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{ render_field(form.gender) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{ render_field(form.show) }}
+                        </td>
+                    </tr>
+                </table><br>
+                <input type="hidden" name="id" value="{{ dancer['id'] }}" />
+                <input style="margin:0 auto; display: table;" type="submit" value="Create">
+            </form>
+        </div>
+    </body>
+{% endblock body %}

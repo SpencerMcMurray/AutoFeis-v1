@@ -10,5 +10,5 @@ class Database:
         db = "mydb"
 
         self.con = pymysql.connect(host=host, port=port, user=user, password=password, db=db,
-                                   cursorclass=pymysql.cursors.DictCursor)
+                                   cursorclass=pymysql.cursors.DictCursor, autocommit=True)
         self.cur = self.con.cursor()

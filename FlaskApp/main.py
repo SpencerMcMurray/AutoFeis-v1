@@ -97,7 +97,7 @@ def logout():
 
 @app.route("/welcome", methods=['GET', 'POST'])
 def welcome():
-    """The welcome page"""
+    """The (not so welcoming) welcome page"""
     feis_fcns_form = FeisFcnsForm(request.form)
     edit_dancer_form = EditDancerForm(request.form)
     add_dancer_form = AddDancerForm(request.form)
@@ -107,12 +107,6 @@ def welcome():
     dancers = f.get_dancers_with_user(user_id)
     feiseanna = f.get_feiseanna_with_forg(user_id)
     if request.method == 'POST':
-        if request.form.get('submit', None) == "Feis Functions":
-            return redirect(url_for('feis_functions', id=int(request.form.get('id', -1))))
-
-        if request.form.get('submit', None) == "Edit Dancer":
-            return redirect(url_for('edit_dancer', id=int(request.form.get('id', -1))))
-
         if request.form.get('submit', None) == "Add a Dancer":
             return redirect(url_for("add_dancer"))
 
@@ -150,13 +144,41 @@ def add_dancer():
     return render_template("addDancer.html", is_logged=LOGGED, where="welcome", form=form)
 
 
-@app.route("/welcome/edit_dancer", methods=['GET', 'POST'])
+@app.route("/welcome/edit_dancer", methods=['POST'])
 def edit_dancer():
-    pass
+    """The edit dancer page for a given dancer"""
+    # TODO: Add current info as default input values
+    if request.method != "POST":
+        return redirect(url_for('welcome'))
+    form = CreateDancer(request.form)
+    print(request.form.get('dancerId', 0))
+    dancer = f.get_dancer_from_id(request.form.get('dancerId', 0))
+    return render_template("editDancer.html", is_logged=LOGGED, where="welcome", dancer=dancer, form=form)
 
 
-@app.route("/welcome/functions")
+@app.route("/welcome/edit_dancer/alter", methods=["POST"])
+def alter_dancer():
+    """The path through altering a dancer"""
+    if request.method != "POST":
+        return redirect(url_for('welcome'))
+    f.alter_dancer(request.form.get('id', -1), request.form.get('f_name', ''), request.form.get('l_name', ''),
+                   request.form.get('school', ''),  request.form.get('year', -1), request.form.get('level', ''),
+                   request.form.get('gender', ''), int(request.form.get('show', -1)))
+    return redirect(url_for('welcome'))
+
+
+@app.route("/welcome/functions", methods=['POST'])
 def feis_functions():
     """The feis functions for a given feis"""
-    html = f.feis_functions_html(request.args['id'])
-    return render_template_string(html, is_logged=LOGGED, where="welcome")
+    if request.method == "POST":
+        name = f.feis_name_from_id(request.form.get('feisId', 0))
+        return render_template("feisFunctions.html", is_logged=LOGGED, where="welcome", name=name)
+    return redirect(url_for('welcome'))
+
+
+@app.route("/welcome/delete_dancer", methods=['POST'])
+def delete_dancer():
+    """The path through deleting a dancer"""
+    if request.method == "POST":
+        f.delete_dancer_from_id(request.form.get('id', 0))
+    return redirect(url_for('welcome'))
