@@ -114,18 +114,6 @@ li a:hover:not(.log):not(.loghere) {
     background-color: #111;
 }
 
-.container {
-    border: 3px solid green;
-}
-
-.dancer_box {
-    border: 3px solid orange;
-}
-
-.feis_box {
-    border: 3px solid yellow;
-}
-
 .col {
     float: left;
     width: 33.33%;

@@ -1,0 +1,56 @@
+{% from "errors.html" import render_field %}
+{% extends "outline.html" %}
+{% block body %}
+    <body>
+        <style>
+            td {
+                text-align: center;
+                padding: 15px;
+                font-size:20px;
+            }
+        </style>
+        <h1 style="font-family:Teko;font-size:50px">Add a dancer</h1>
+        <div>
+            <form method="POST">
+                <table style="margin: 0 auto;">
+                    <tr>
+                      <td>
+                          {{ render_field(form.f_name) }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                          {{ render_field(form.l_name) }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                          {{ render_field(form.year) }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                          {{ render_field(form.school) }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                          {{ render_field(form.level) }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                          {{ render_field(form.gender) }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                          {{ render_field(form.show) }}
+                      </td>
+                    </tr>
+                </table><br>
+                <input style="margin:0 auto; display: table;" type="submit" value="Create">
+            </form>
+        </div>
+    </body>
+{% endblock body %}

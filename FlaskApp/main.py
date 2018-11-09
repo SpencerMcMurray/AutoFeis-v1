@@ -98,7 +98,6 @@ def logout():
 @app.route("/welcome", methods=['GET', 'POST'])
 def welcome():
     """The welcome page"""
-
     feis_fcns_form = FeisFcnsForm(request.form)
     edit_dancer_form = EditDancerForm(request.form)
     add_dancer_form = AddDancerForm(request.form)
@@ -108,21 +107,21 @@ def welcome():
     dancers = f.get_dancers_with_user(user_id)
     feiseanna = f.get_feiseanna_with_forg(user_id)
     if request.method == 'POST':
-        if feis_fcns_form.submit.data and feis_fcns_form.validate():
-            return redirect(url_for('feis_functions', id=int(request.form['id'])))
+        if request.form.get('submit', None) == "Feis Functions":
+            return redirect(url_for('feis_functions', id=int(request.form.get('id', -1))))
 
-        if edit_dancer_form.submit.data and edit_dancer_form.validate():
-            return redirect(url_for('edit_dancer', id=int(request.form['id'])))
+        if request.form.get('submit', None) == "Edit Dancer":
+            return redirect(url_for('edit_dancer', id=int(request.form.get('id', -1))))
 
-        if add_dancer_form.submit.data and add_dancer_form.validate():
+        if request.form.get('submit', None) == "Add a Dancer":
             return redirect(url_for("add_dancer"))
 
-        if add_feis_form.submit.data and add_feis_form.validate():
+        if request.form.get('submit', None) == "Add a Feis":
             return redirect(url_for("add_feis"))
     return render_template("welcome.html", is_logged=LOGGED, where="welcome", email=session["email"],
                            dancers=dancers,
                            feiseanna=feiseanna,
-                           edit_dancer=edit_dancer,
+                           edit_dancer=edit_dancer_form,
                            dancer_form=add_dancer_form,
                            feis_form=add_feis_form,
                            feis_fcns_form=feis_fcns_form,
@@ -139,12 +138,19 @@ def add_feis():
     pass
 
 
-@app.route("/welcome/add_dancer")
+@app.route("/welcome/add_dancer", methods=['GET', 'POST'])
 def add_dancer():
-    pass
+    """The add dancer page"""
+    form = CreateDancer(request.form)
+    if request.method == "POST" and form.validate():
+        f.create_dancer(f.get_id_from_email(session['email']), form.f_name.data, form.l_name.data, form.school.data,
+                        int(form.year.data), form.level.data, form.gender.data, int(form.show.data))
+        return redirect(url_for("welcome"))
+
+    return render_template("addDancer.html", is_logged=LOGGED, where="welcome", form=form)
 
 
-@app.route("/welcome/edit_dancer")
+@app.route("/welcome/edit_dancer", methods=['GET', 'POST'])
 def edit_dancer():
     pass
 

@@ -44,11 +44,15 @@
                             <td>{{ dancer['school'] }}</td>
                             <td>{{ dancer['birthYear'] }}</td>
                             <td>{{ dancer['gender'] }}</td>
-                            <td>{{ dancer['show'] }}</td>
+                            {% if dancer['show'] == 1 %}
+                                <td>Show</td>
+                            {% else %}
+                                <td>Hide</td>
+                            {% endif %}
                             <td>
                                 <form method="POST">
                                     <input type="hidden" name="id" value="{ dancer['id'] }" />
-                                    {{ render_field(edit_dancer.submit) }}
+                                    {{ edit_dancer.submit }}
                                 </form>
                             </td>
                         </tr>

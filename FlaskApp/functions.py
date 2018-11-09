@@ -1,6 +1,34 @@
 from database import Database
 from werkzeug.security import generate_password_hash, check_password_hash
 import gc
+import datetime as dt
+
+
+def create_dancer(user_id, f_name, l_name, school, birth_year, level, gender, show):
+    db = Database()
+    q = """INSERT INTO `dancers` (`user`, `fName`, `lName`, `birthYear`, `school`, `level`, `gender`, `show`) VALUES
+    (%s, %s, %s, %s, %s, %s, %s, %s)"""
+    db.cur.execute(q, (user_id, f_name, l_name, birth_year, school, level, gender, show))
+    db.con.commit()
+    db.con.close()
+    gc.collect()
+
+
+def school_dropdown():
+    # TODO: Store schools in a CSV or something nicer
+    schools = ["Butler Fearon O'Connor", "Goggin Carrol", "Doyle Corrigan"]
+    choices = list()
+    for school in schools:
+        choices.append((school, school))
+    return choices
+
+
+def year_dropdown():
+    curr_year = dt.datetime.now().year
+    choices = list()
+    for i in range(curr_year, curr_year-100-1, -1):
+        choices.append((str(i), str(i)))
+    return choices
 
 
 def get_feiseanna_with_forg(forg_id):
