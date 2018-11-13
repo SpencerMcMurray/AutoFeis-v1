@@ -1,0 +1,87 @@
+{% extends "outline.html" %}
+{% block body %}
+    <body>
+        <style>
+            table {
+                margin:0px auto;
+                text-align:center;
+                font-size:15px;
+                border:2px solid black;
+            } th, td {
+                text-align:center;
+                padding: 15px;
+                border: 2px solid black;
+            }
+            table tr:nth-child(odd) {
+                background-color: #eee;
+            }
+            table tr:nth-child(even) {
+                background-color: #fff;
+            }
+            b {
+                font-size:20px;
+            }
+        </style>
+        <h1 style="font-family:Teko;font-size:50px">Select Senior Ages</h1><hr>
+        <b>The age chosen will be the first age in the senior competitions</b><br>
+        <form method="POST">
+            <table style="margin: 0 auto;">
+                {% if is_local != None %}
+                    <tr>
+                        <td>
+                            <h3>Open Championship:</h3>
+                            <select name="champ">
+                                {% for age in choices %}
+                                    <option value="{{ age }}">{{ age }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h3>Preliminary Championship:</h3>
+                            <select name="prelim">
+                                {% for age in choices %}
+                                    <option value="{{ age }}">{{ age }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h3>Preliminary Championship Sets:</h3>
+                            <select name="sets">
+                                {% for age in choices %}
+                                    <option value="{{ age }}">{{ age }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h4>Grades:</h4>
+                            <select name="grades">
+                                {% for age in choices %}
+                                    <option value="{{ age }}">{{ age }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>
+                            <h2>All Main Competitions:</h2>
+                            <select name="main">
+                                {% for age in choices %}
+                                    <option value="{{ age }}">{{ age }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                {% endif %}
+            </table><br>
+            <input type="hidden" name="next" value="basic" />
+            <input type="submit" value="Continue" />
+        </form>
+    </body>
+{% endblock body %}

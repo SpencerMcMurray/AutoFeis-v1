@@ -1,4 +1,4 @@
-from wtforms import Form, StringField, PasswordField, validators, SubmitField, SelectField
+from wtforms import Form, StringField, PasswordField, validators, SubmitField, SelectField, BooleanField
 from functions import year_dropdown, school_dropdown
 
 
@@ -25,10 +25,16 @@ class CreateDancer(Form):
     school = SelectField('Dance School', choices=school_dropdown())
     level = SelectField('Level', choices=[('Open Championship', 'Open Championship'),
                                           ('Preliminary Championship', 'Preliminary Championship'),
-                                          ('Grades-level', 'Grades-level'),
+                                          ('Grades', 'Grades-level'),
                                           ('Non-Dancer', 'Non-Dancer')])
     gender = SelectField('Gender', choices=[('Female', 'Female'), ('Male', 'Male'), ('Other', 'Other')])
     show = SelectField('Show Online', choices=[('1', 'Show'), ('0', 'Hide')])
+
+
+class ChooseTraitsForm(Form):
+    single_ages = BooleanField('Single Age Groups')
+    include_levels = BooleanField('Include Levels For Main Dances')
+    anyone_register = BooleanField('Anyone Can Register')
 
 
 class FeisFcnsForm(Form):

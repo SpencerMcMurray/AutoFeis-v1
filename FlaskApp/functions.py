@@ -40,6 +40,14 @@ def create_dancer(user_id, f_name, l_name, school, birth_year, level, gender, sh
     gc.collect()
 
 
+def age_dropdown(is_single):
+    choices = list()
+    offset = (1 if is_single else 2)
+    for i in range(3, 100, offset):
+        choices.append(str(i))
+    return choices
+
+
 def school_dropdown():
     # TODO: Store schools in a CSV or something nicer
     schools = ["Butler Fearon O'Connor", "Goggin Carrol", "Doyle Corrigan"]

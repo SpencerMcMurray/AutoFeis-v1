@@ -41,7 +41,6 @@ def results():
 @app.route("/register")
 def register():
     """The register page"""
-
     return render_template("register.html", is_logged=LOGGED, where="register", function=f.display_open_feiseanna)
 
 
@@ -129,9 +128,49 @@ def terms():
     return render_template("tos.html", is_logged=LOGGED, where="signup")
 
 
-@app.route("/welcome/add_feis")
+@app.route("/welcome/add_feis", methods=['GET', 'POST'])
 def add_feis():
-    pass
+    """The whole add feis area, could probably split into different pages, but url handling would be interesting"""
+    traits = ChooseTraitsForm(request.form)
+    if request.method == "POST":
+        if request.form.get('next') == 'ages':
+            # Set traits
+            session['single_ages'] = request.form.get('single_ages')
+            session['include_levels'] = request.form.get('include_levels')
+            session['anyone_register'] = request.form.get('anyone_register')
+            choices = f.age_dropdown(session.get('single_ages'))
+            return render_template("addFeisAges.html", is_logged=LOGGED, where='welcome', choices=choices,
+                                   is_local=session['include_levels'])
+
+        if request.form.get('next') == 'basic':
+            # Set Ages
+            if session.get('include_levels'):
+                session['champ_max'] = int(request.form.get('champ'))
+                session['prelim_max'] = int(request.form.get('prelim'))
+                session['set_max'] = int(request.form.get('sets'))
+                session['grades_max'] = int(request.form.get('grades'))
+            else:
+                session['main_max'] = int(request.form.get('main'))
+            return render_template("addFeisBasic.html", is_logged=LOGGED, where='welcome')
+
+        if request.form.get('next') == 'art':
+
+            return render_template("addFeisArt", is_logged=LOGGED, where='welcome')
+
+        if request.form.get('next') == 'unique':
+            pass
+
+        if request.form.get('next') == 'show':
+            pass
+
+        if request.form.get('next') == 'info':
+            pass
+
+        if request.form.get('next') == 'create':
+            # TODO: Include pay-wall here
+            pass
+
+    return render_template("addFeisStart.html", is_logged=LOGGED, where='welcome', form=traits)
 
 
 @app.route("/welcome/add_dancer", methods=['GET', 'POST'])

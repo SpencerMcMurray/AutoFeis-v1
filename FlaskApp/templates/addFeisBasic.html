@@ -1,0 +1,58 @@
+{% extends "outline.html" %}
+{% block body %}
+     <body>
+        <style>
+            table {
+                margin:0px auto;
+                text-align:left;
+                font-size:20px;
+                border:2px solid black;
+            } th, td {
+                text-align:left;
+                padding: 15px;
+                border: 2px solid black;
+            }
+            table tr:nth-child(odd) {
+                background-color: #eee;
+            }
+            table tr:nth-child(even) {
+                background-color: #fff;
+            }
+        </style>
+        <h1 style="font-family:Teko;font-size:50px">Include Basic Extra Competitions</h1><hr>
+        <form method="POST">
+            <h2>Figures</h2>
+            <table style="margin: 0 auto;" id="FG">
+                <tr>
+                    <th>Start Age</th>
+                    <th>End Age</th>
+                    <th>Gender</th>
+                </tr>
+            </table><br>
+            <input type="button" id="addFG" value="Add Competition" /><hr>
+
+            <h2>Treble Reel</h2>
+            <table style="margin: 0 auto;" id="TR">
+                <tr>
+                    <th>Level</th>
+                    <th>Start Age</th>
+                    <th>End Age</th>
+                    <th>Gender</th>
+                </tr>
+            </table><br>
+            <input type="button" id="addTR" value="Add Competition" /><hr>
+
+            <h2>Tir na nOg/First Feis</h2>
+            <table style="margin: 0 auto;" id="TNN">
+                <tr>
+                    <th>Start Age</th>
+                    <th>End Age</th>
+                </tr>
+            </table><br>
+            <input type="button" id="addTNN" value="Add Competition" />
+
+            <input type="hidden" name="next" value="art" /><br><br>
+            <input type="submit" value="Continue" />
+        </form>
+    </body>
+{% endblock body %}
