@@ -1,0 +1,40 @@
+{% extends "outline.html" %}
+{% block body %}
+    <body>
+        <style>
+            table {
+                margin:0px auto;
+                text-align:center;
+                font-size:20px;
+                border:2px solid black;
+            } th, td {
+                text-align:center;
+                padding: 15px;
+                border: 2px solid black;
+            }
+            table tr:nth-child(odd) {
+                background-color: #eee;
+            }
+            table tr:nth-child(even) {
+                background-color: #fff;
+            }
+        </style>
+        <h1 style="font-family:Teko;font-size:50px">Art & Culture Competitions</h1>
+        <h4><b>Note: </b>for competitions with unique names, hold off until entering a Special Competition later on</h4><hr>
+        <form method="POST">
+            <table style="margin: 0 auto;" id="AR">
+                <tr>
+                    <th>Name</th>
+                    <th>Start Age</th>
+                    <th>End Age</th>
+                    <th>Gender</th>
+                    <th>Remove</th>
+                </tr>
+            </table><br>
+            <input type="button" id="addAR" value="Add Competition" />
+
+            <input type="hidden" name="next" value="unique" /><br><br>
+            <input type="submit" value="Continue" />
+        </form>
+    </body>
+{% endblock body %}

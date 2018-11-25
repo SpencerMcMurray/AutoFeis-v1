@@ -1,0 +1,44 @@
+{% extends "outline.html" %}
+{% block body %}
+    <body>
+        <style>
+            table {
+                margin:0 auto;
+                text-align:center;
+                font-size:20px;
+                border:2px solid black;
+            } th, td {
+                text-align:center;
+                padding: 15px;
+                border: 2px solid black;
+            }
+            table tr:nth-child(odd) {
+                background-color: #eee;
+            }
+            table tr:nth-child(even) {
+                background-color: #fff;
+            }
+        </style>
+        <h1 style="font-family:Teko;font-size:50px">Confirm Competitions</h1><hr>
+        {% for level in comps %}
+            <h1 style="font-family:Teko;font-size:45px">{{ level }}</h1>
+            <table>
+                <tr>
+                    <th>Start Age</th>
+                    <th>End Age</th>
+                    <th>Name</th>
+                    <th>Code</th>
+                    <th>Genders</th>
+                    <th>Level</th>
+                </tr>
+                {% for comp in comps[level] %}
+                    <tr>
+                        {% for item in comp.get_data() %}
+                            <td>{{ item }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endfor %}
+    </body>
+{% endblock body %}

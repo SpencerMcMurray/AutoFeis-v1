@@ -21,7 +21,7 @@ function endAgeIn(name) {
 function genderIn(name) {
     var select = "<select name='" + name + "Gender[]'>";
     select += "<option value='all'>All</option>";
-    if(name == "FG") {
+    if(name === "FG") {
         select += "<option value='mixed'>Mixed Only</option>";
     }
     select += "<option value='female'>Female Only</option>";
@@ -42,23 +42,53 @@ function levelIn(name) {
     return select;
 }
 
+function typeIn(name) {
+    var select = "<select name='" + name + "Type[]'>";
+    select += "<option value='8'>8-Hand</option>";
+    select += "<option value='6'>6-Hand</option>";
+    select += "<option value='4'>4-Hand</option>";
+    select += "<option value='3'>3-Hand</option>";
+    select += "<option value='2'>2-Hand</option>";
+    return select
+}
+
+function nameIn(name) {
+    return "<input type='text' name='" + name + "Name[]' />";
+}
+
+function removeIn() {
+    return "<button class='del'>-</button>";
+}
+
 var nameFG = "FG";
 var nameTR = "TR";
 var nameTNN = "TNN";
+var nameAR = "AR";
+var nameSP = "SP";
 
 $(document).ready(function() {
     $('#addFG').click(function() {
-        alert("Add FG clicked");
-        $('#FG tr:last').after('<tr><td>' + startAgeIn(nameFG) + '</td><td>' + endAgeIn(nameFG) + '</td><td>' + genderIn(nameFG) + '</td></tr>');
+        console.log('hi');
+        $('#FG tr:last').after('<tr><td>' + startAgeIn(nameFG) + '</td><td>' + endAgeIn(nameFG) + '</td><td>' + genderIn(nameFG) + '</td><td>' + typeIn(nameFG) + '</td><td>' + removeIn() + '</td></tr>');
     });
 
     $('#addTR').click(function() {
-        alert("Add TR clicked");
-        $('#TR tr:last').after('<tr><td>' + levelIn(nameTR) + '</td><td>' + startAgeIn(nameTR) + '</td><td>' + endAgeIn(nameTR) + '</td><td>' + genderIn(nameTR) + '</td></tr>');
+        $('#TR tr:last').after('<tr><td>' + levelIn(nameTR) + '</td><td>' + startAgeIn(nameTR) + '</td><td>' + endAgeIn(nameTR) + '</td><td>' + genderIn(nameTR) + '</td><td>' + removeIn() + '</td></tr>');
     });
 
     $('#addTNN').click(function() {
-        alert("Add TNN clicked");
-        $('#TNN tr:last').after('<tr><td>' + startAgeIn(nameTNN) + '</td><td>' + endAgeIn(nameTNN) + '</td></tr>');
+        $('#TNN tr:last').after('<tr><td>' + startAgeIn(nameTNN) + '</td><td>' + endAgeIn(nameTNN) + '</td><td>' + removeIn() + '</td></tr>');
+    });
+
+    $('#addAR').click(function() {
+        $('#AR tr:last').after('<tr><td>' + nameIn(nameAR) + '</td><td>' + startAgeIn(nameAR) + '</td><td>' + endAgeIn(nameAR) + '</td><td>' + genderIn(nameAR) + '</td><td>' + removeIn() + '</td></tr>');
+    });
+
+    $('#addSP').click(function() {
+        $('#SP tr:last').after('<tr><td>' + nameIn(nameSP) + '</td><td>' + levelIn(nameSP) + '</td><td>' + startAgeIn(nameSP) + '</td><td>' + endAgeIn(nameSP) + '</td><td>' + genderIn(nameSP) + '</td><td>' + removeIn() + '</td></tr>');
+    });
+
+    $('table').on('click','.del', function() {
+        $(this).closest('tr').remove();
     });
 });

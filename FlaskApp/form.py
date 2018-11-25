@@ -35,6 +35,8 @@ class ChooseTraitsForm(Form):
     single_ages = BooleanField('Single Age Groups')
     include_levels = BooleanField('Include Levels For Main Dances')
     anyone_register = BooleanField('Anyone Can Register')
+    separate_by_sex_champ = BooleanField('Separate Main Championship-Level Competitions By Sex')
+    separate_by_sex_grades = BooleanField('Separate Main Grades-Level Competitions By Sex')
 
 
 class FeisFcnsForm(Form):

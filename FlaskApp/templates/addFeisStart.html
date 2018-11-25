@@ -26,6 +26,8 @@
                     <th>Single Age Groups?</th>
                     <th>Include Levels?<br>(Majors don't)</th>
                     <th>Can Anyone Register?<br>(Unchecked if only teachers can)</th>
+                    <th>Seperate Boys at Championship level</th>
+                    <th>Seperate Boys at Grades level</th>
                 </tr>
                 <tr>
                     <td>
@@ -36,6 +38,12 @@
                     </td>
                     <td>
                         {{ form.anyone_register }}
+                    </td>
+                    <td>
+                        {{ form.separate_by_sex_champ }}
+                    </td>
+                    <td>
+                        {{ form.separate_by_sex_grades }}
                     </td>
             </table><br>
             <input type="hidden" name="next" value="ages" />

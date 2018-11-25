@@ -1,7 +1,7 @@
 import os
 import functions as f
 from form import *
-from flask import Flask, render_template, render_template_string, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 # TODO: Implement flask_login?
@@ -130,7 +130,7 @@ def terms():
 
 @app.route("/welcome/add_feis", methods=['GET', 'POST'])
 def add_feis():
-    """The whole add feis area, could probably split into different pages, but url handling would be interesting"""
+    """The whole add feis area... This was always gonna be ugly"""
     traits = ChooseTraitsForm(request.form)
     if request.method == "POST":
         if request.form.get('next') == 'ages':
@@ -138,6 +138,8 @@ def add_feis():
             session['single_ages'] = request.form.get('single_ages')
             session['include_levels'] = request.form.get('include_levels')
             session['anyone_register'] = request.form.get('anyone_register')
+            session['boys_champ'] = request.form.get('separate_by_sex_champ')
+            session['boys_grades'] = request.form.get('separate_by_sex_grades')
             choices = f.age_dropdown(session.get('single_ages'))
             return render_template("addFeisAges.html", is_logged=LOGGED, where='welcome', choices=choices,
                                    is_local=session['include_levels'])
@@ -154,14 +156,61 @@ def add_feis():
             return render_template("addFeisBasic.html", is_logged=LOGGED, where='welcome')
 
         if request.form.get('next') == 'art':
+            # Setup FG info
+            FG_dict = dict()
+            FG_dict['type'] = request.form.getlist('FGType[]')
+            FG_dict['start_age'] = request.form.getlist('FGStartAge[]')
+            FG_dict['end_age'] = request.form.getlist('FGEndAge[]')
+            FG_dict['gender'] = request.form.getlist('FGGender[]')
 
-            return render_template("addFeisArt", is_logged=LOGGED, where='welcome')
+            # Setup TR info
+            TR_dict = dict()
+            TR_dict['start_age'] = request.form.getlist('TRStartAge[]')
+            TR_dict['end_age'] = request.form.getlist('TREndAge[]')
+            TR_dict['gender'] = request.form.getlist('TRGender[]')
+            TR_dict['level'] = request.form.getlist('TRLevel[]')
+
+            # Setup TNN info
+            TNN_dict = dict()
+            TNN_dict['start_age'] = request.form.getlist('TNNStartAge[]')
+            TNN_dict['end_age'] = request.form.getlist('TNNEndAge[]')
+
+            session['FG_info'] = FG_dict
+            session['TR_info'] = TR_dict
+            session['TNN_info'] = TNN_dict
+            return render_template("addFeisArt.html", is_logged=LOGGED, where='welcome')
 
         if request.form.get('next') == 'unique':
-            pass
+            # Setup AR info
+            AR_dict = dict()
+            AR_dict['start_age'] = request.form.getlist('ARStartAge[]')
+            AR_dict['end_age'] = request.form.getlist('AREndAge[]')
+            AR_dict['gender'] = request.form.getlist('ARGender[]')
+            AR_dict['name'] = request.form.getlist('ARName[]')
+
+            session['AR_info'] = AR_dict
+            return render_template("addFeisUnique.html", is_logged=LOGGED, where='welcome')
 
         if request.form.get('next') == 'show':
-            pass
+            # Setup SP info
+            SP_dict = dict()
+            SP_dict['start_age'] = request.form.getlist('SPStartAge[]')
+            SP_dict['end_age'] = request.form.getlist('SPEndAge[]')
+            SP_dict['gender'] = request.form.getlist('SPGender[]')
+            SP_dict['name'] = request.form.getlist('SPName[]')
+            SP_dict['level'] = request.form.getlist('SPLevel[]')
+
+            session['SP_info'] = SP_dict
+
+            # Create comps from data
+            comps = f.get_comps_from_session(session)
+
+            # TODO: Remove this
+            for level in comps:
+                for comp in comps[level]:
+                    print(comp)
+
+            return render_template("addFeisShow.html", is_logged=LOGGED, where='welcome', comps=comps)
 
         if request.form.get('next') == 'info':
             pass
