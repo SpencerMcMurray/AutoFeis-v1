@@ -1,5 +1,6 @@
-from wtforms import Form, StringField, PasswordField, validators, SubmitField, SelectField, BooleanField
-from functions import year_dropdown, school_dropdown
+from wtforms import Form, StringField, PasswordField, validators, SubmitField, SelectField, BooleanField, DateField,\
+    FileField
+from functions import year_dropdown, school_dropdown, get_regions
 
 
 class RegistrationForm(Form):
@@ -37,6 +38,13 @@ class ChooseTraitsForm(Form):
     anyone_register = BooleanField('Anyone Can Register')
     separate_by_sex_champ = BooleanField('Separate Main Championship-Level Competitions By Sex')
     separate_by_sex_grades = BooleanField('Separate Main Grades-Level Competitions By Sex')
+
+
+class FeisInfoForm(Form):
+    name = StringField("Feis Name")
+    location = StringField("Location of Feis")
+    region = SelectField("Region of Feis", choices=get_regions())
+    website = StringField("Website for Feis")
 
 
 class FeisFcnsForm(Form):

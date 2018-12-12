@@ -4,6 +4,8 @@ from form import *
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
+app.config['UPLOAD_FOLDER'] = "files/syllabi"
+app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
 # TODO: Implement flask_login?
 LOGGED = False
 
@@ -205,19 +207,44 @@ def add_feis():
             # Create comps from data
             comps = f.get_comps_from_session(session)
 
-            # TODO: Remove this
-            for level in comps:
-                for comp in comps[level]:
-                    print(comp)
+            # Get rid of old session vars, and add our comps dict.
+            session.pop('FG_info')
+            session.pop('TR_info')
+            session.pop('TNN_info')
+            session.pop('AR_info')
+            session.pop('SP_info')
+            if session.get('include_levels'):
+                session.pop('champ_max')
+                session.pop('prelim_max')
+                session.pop('set_max')
+                session.pop('grades_max')
+            else:
+                session.pop('main_max')
+            session['comps'] = f.serialize_comps(comps)
 
             return render_template("addFeisShow.html", is_logged=LOGGED, where='welcome', comps=comps)
 
         if request.form.get('next') == 'info':
-            pass
+            # TODO: Implement file validity checks
+            info_form = FeisInfoForm(request.form)
+            return render_template("addFeisInfo.html", is_logged=LOGGED, where='welcome', form=info_form)
 
         if request.form.get('next') == 'create':
             # TODO: Include pay-wall here
-            pass
+
+            # Upload file
+            # file = request.files['syllabus']
+            # filepath = f.upload_file(file, app.config["UPLOAD_FOLDER"])
+
+            # Create feis
+            feis_id = f.create_feis(f.get_id_from_email(session['email']), request.form.get('name'),
+                                    request.form.get('date'), request.form.get('location'), request.form.get('region'),
+                                    request.form.get('website'), "test")
+
+            # Create all competitions
+            f.create_comps(feis_id, f.deserialize_comps(session['comps']))
+            session.pop('comps')
+            return redirect(url_for('welcome'))
 
     return render_template("addFeisStart.html", is_logged=LOGGED, where='welcome', form=traits)
 

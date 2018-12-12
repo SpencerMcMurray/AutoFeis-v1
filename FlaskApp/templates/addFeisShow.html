@@ -40,5 +40,10 @@
                 {% endfor %}
             </table>
         {% endfor %}
+        <br>
+        <form method="POST">
+            <input type="hidden" name="next" value="info" />
+            <input type="submit" value="Continue" />
+        </form>
     </body>
 {% endblock body %}

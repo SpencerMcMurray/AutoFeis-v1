@@ -1,0 +1,58 @@
+{% extends "outline.html" %}
+{% block body %}
+    <body>
+        <style>
+            table {
+                margin:0 auto;
+                text-align:center;
+            } th, td {
+                text-align:center;
+                padding: 15px;
+                font-size:20px;
+            }
+        </style>
+        <h1 style="font-family:Teko;font-size:50px">Feis Information</h1><hr>
+        <form method="POST">
+            <table>
+                <tr>
+                    <td>
+                        <label>Feis Name</label><br>
+                        {{ form.name }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Date</label><br>
+                        <input type='date' name='date' />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Location</label><br>
+                        {{ form.location }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Region</label><br>
+                        {{ form.region }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Website</label><br>
+                        {{ form.website }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Syllabus</label><br>
+                        <input value='Choose a File' type='file' name='syllabus' accept="application/pdf" />
+                    </td>
+                </tr>
+            </table><br>
+            <input type="hidden" name="next" value="create" />
+            <input type="submit" value="Continue" />
+        </form>
+    </body>
+{% endblock body %}
