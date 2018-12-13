@@ -24,4 +24,5 @@ applied to other competitive events as well.
 ## Acknowledgments
 
 * Convolutional neural network is altered from [this repo](https://github.com/Hvass-Labs/TensorFlow-Tutorials)
+* Digit reading was built upon [this](https://stackoverflow.com/questions/51867834/recognizing-handwritten-digits-off-a-scanned-image) answer
 
