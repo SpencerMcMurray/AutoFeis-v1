@@ -4,9 +4,9 @@ from form import *
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
-app.config['UPLOAD_FOLDER'] = "files/syllabi"
-app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
-# TODO: Implement flask_login?
+app.config['UPLOAD_FOLDER'] = "static/files/syllabi"
+app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024     # 10MB Upload limit
+# TODO: Implement flask_login!
 LOGGED = False
 
 
@@ -232,14 +232,14 @@ def add_feis():
         if request.form.get('next') == 'create':
             # TODO: Include pay-wall here
 
-            # Upload file
-            # file = request.files['syllabus']
-            # filepath = f.upload_file(file, app.config["UPLOAD_FOLDER"])
-
             # Create feis
             feis_id = f.create_feis(f.get_id_from_email(session['email']), request.form.get('name'),
                                     request.form.get('date'), request.form.get('location'), request.form.get('region'),
-                                    request.form.get('website'), "test")
+                                    request.form.get('website'))
+
+            # Upload file
+            file = request.files['syllabus']
+            f.upload_file(file, feis_id, app.config["UPLOAD_FOLDER"])
 
             # Create all competitions
             f.create_comps(feis_id, f.deserialize_comps(session['comps']))

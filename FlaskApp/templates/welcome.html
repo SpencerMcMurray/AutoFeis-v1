@@ -92,7 +92,7 @@
                             <a href='{{ feis["website"] }}'>Website</a><br>
                             <a href='register'>Register</a><br>
                             <a href='entries'>Entries</a><br>
-                            <a href='syllabus'>Syllabus</a>
+                            <a href='{{ "/static/files/syllabi/" + feis["syllabus"] }}'>Syllabus</a>
                         </td>
                         <td>
                             <form method="POST" action="{{ url_for('feis_functions') }}">

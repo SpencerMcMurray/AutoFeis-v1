@@ -63,19 +63,20 @@ def create_comps(feis_id, comps):
     gc.collect()
 
 
-def upload_file(file, upload_folder):
-    filename = secure_filename(file.filename)
-    if file and allowed_file(file.filename):
-        file.save(os.path.join(upload_folder, filename))
-    return filename
+def upload_file(file, name, upload_folder):
+    filename = str(name) + ".pdf"
+    if file and allowed_file(filename):
+        file.save(os.path.join(upload_folder, secure_filename(filename)))
 
 
-def create_feis(forg, name, date, location, region, website, syllabus):
+def create_feis(forg, name, date, location, region, website):
     db = Database()
     q = """INSERT INTO `feiseanna` (`forg`, `name`, `date`, `location`, `region`, `isOpen`, `website`, `syllabus`)
            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
-    db.cur.execute(q, (forg, name, date, location, region, 1, website, syllabus))
+    db.cur.execute(q, (forg, name, date, location, region, 1, website, ""))
     feis_id = db.con.insert_id()
+    q = """UPDATE feiseanna SET `syllabus` = %s WHERE `id` = %s"""
+    db.cur.execute(q, (str(feis_id) + ".pdf", feis_id))
     db.con.close()
     gc.collect()
     return feis_id
