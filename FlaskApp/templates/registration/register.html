@@ -1,0 +1,55 @@
+{% extends "generalTemplates/outline.html" %}
+{% block body %}
+    {% if is_logged == False %}
+        <body>
+            <h1 style="font-family:Teko;font-size:50px">Please Log In</h1>
+            <p style="font-size:25px;">
+                You must be logged in to register for a feis. If you're not
+                signed up with us yet, do so <a href="{{ url_for('signup') }}">here</a>
+            </p>
+        </body>
+    {% else %}
+        <body>
+            <style>
+                table {
+                    margin:0 auto;
+                    font-size:20px;
+                    border:2px solid black;
+                } th, td {
+                    padding: 15px;
+                    border: 2px solid black;
+                } td {
+                    text-align: left;
+                }
+                table tr:nth-child(odd) {
+                    background-color: #eee;
+                }
+                table tr:nth-child(even) {
+                    background-color: #fff;
+                }
+            </style>
+            <h1 style="font-family:Teko;font-size:50px">Choose a Feis</h1>
+            <table>
+            <tr>
+                <th colspan=2 style='text-align:center;'>Available Feiseanna</th>
+            </tr>
+            {% for feis in feiseanna %}
+                <tr>
+                    <td>
+                        <b>{{ feis['name']}}</b><br>
+                        {{ feis['date'].strftime('%B %d, %Y') }}<br>
+                        {{ feis['location'] }}<br>
+                        {{ feis['region'] }}
+                    </td>
+                    <td style="text-align: center; vertical-align: center">
+                        <form method="POST">
+                            <input type="hidden" value="{{ feis['id'] }}" name="id">
+                            <input type="submit" value="Register">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+        </body>
+    {% endif %}
+{% endblock body %}

@@ -1,8 +1,46 @@
-{% extends "outline.html" %}
+{% extends "generalTemplates/outline.html" %}
 {% block body %}
-<body>
-    <h1 style="font-family:Teko;font-size:50px">Feis Info</h1><hr>
-    {{ function() }}
-    <div style="clear:both;" />
-</body>
+    <body>
+        <style>
+            table {
+                margin:0 auto;
+                font-size:20px;
+                border:2px solid black;
+            } th, td {
+                padding: 15px;
+                border: 2px solid black;
+            } td {
+                text-align: left;
+            }
+            table tr:nth-child(odd) {
+                background-color: #eee;
+            }
+            table tr:nth-child(even) {
+                background-color: #fff;
+            }
+        </style>
+        <h1 style="font-family:Teko;font-size:50px">Feis Info</h1>
+        <table>
+            <tr>
+                <th style='text-align:center;'>Feis Info</th>
+                <th style='text-align:center;'>Feis Links</th>
+            </tr>
+            {% for feis in feiseanna %}
+                <tr>
+                    <td>
+                        <b>{{ feis['name']}}</b><br>
+                        {{ feis['date'].strftime('%B %d, %Y') }}<br>
+                        {{ feis['location'] }}<br>
+                        {{ feis['region'] }}
+                    </td>
+                    <td>
+                        <a href='{{ feis["website"] }}'>Website</a><br>
+                        <a href='{{ url_for('register') }}'>Register</a><br>
+                        <a href='entries'>Entries</a><br>
+                        <a href='{{ "/static/files/syllabi/" + feis["syllabus"] }}'>Syllabus</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
 {% endblock body %}

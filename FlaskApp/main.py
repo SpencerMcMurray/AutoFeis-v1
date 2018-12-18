@@ -28,10 +28,11 @@ def about():
     return render_template("about.html", is_logged=LOGGED, where="about")
 
 
-@app.route("/feisinfo")
+@app.route("/info")
 def feisinfo():
     """The Feis info page"""
-    return render_template("feisInfo.html", is_logged=LOGGED, where="feisinfo", function=f.display_all_feiseanna)
+    feiseanna = f.get_all_feiseanna()
+    return render_template("feisInfo.html", is_logged=LOGGED, where="feisinfo", feiseanna=feiseanna)
 
 
 @app.route("/results")
@@ -40,10 +41,30 @@ def results():
     return render_template("results.html", is_logged=LOGGED, where="results", function=f.display_all_results)
 
 
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
-    """The register page"""
-    return render_template("register.html", is_logged=LOGGED, where="register", function=f.display_open_feiseanna)
+    """The register page
+    TODO: Make it so people can't register to the competitions they're already registered for"""
+    if request.method == "POST":
+        if request.form.get("startScript", None) is None:
+            session['feis_id'] = request.form.get("id", -1)
+        # Get the feis info and all the user's dancers
+        feis = f.get_feis_with_id(session['feis_id'])
+        dancers = f.get_dancers_with_user(f.get_id_from_email(session['email']))
+
+        if request.form.get("startScript", None) is not None:
+            for dancer in dancers:
+                f.register(request.form.getlist('register[' + str(dancer['id']) + '][]'),
+                           feis['id'], dancer['id'])
+            session.pop('feis_id')
+            return redirect(url_for('welcome'))
+
+        comps = f.get_all_comps_for_dancers(session['feis_id'], dancers)
+
+        return render_template("registration/registerFor.html", is_logged=LOGGED, where="register",
+                               feis_name=feis['name'], dancers=dancers, comps=comps)
+    feiseanna = f.get_all_feiseanna()
+    return render_template("registration/register.html", is_logged=LOGGED, where="register", feiseanna=feiseanna)
 
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -143,7 +164,7 @@ def add_feis():
             session['boys_champ'] = request.form.get('separate_by_sex_champ')
             session['boys_grades'] = request.form.get('separate_by_sex_grades')
             choices = f.age_dropdown(session.get('single_ages'))
-            return render_template("addFeisAges.html", is_logged=LOGGED, where='welcome', choices=choices,
+            return render_template("createFeis/addFeisAges.html", is_logged=LOGGED, where='welcome', choices=choices,
                                    is_local=session['include_levels'])
 
         if request.form.get('next') == 'basic':
@@ -155,7 +176,7 @@ def add_feis():
                 session['grades_max'] = int(request.form.get('grades'))
             else:
                 session['main_max'] = int(request.form.get('main'))
-            return render_template("addFeisBasic.html", is_logged=LOGGED, where='welcome')
+            return render_template("createFeis/addFeisBasic.html", is_logged=LOGGED, where='welcome')
 
         if request.form.get('next') == 'art':
             # Setup FG info
@@ -180,7 +201,7 @@ def add_feis():
             session['FG_info'] = FG_dict
             session['TR_info'] = TR_dict
             session['TNN_info'] = TNN_dict
-            return render_template("addFeisArt.html", is_logged=LOGGED, where='welcome')
+            return render_template("createFeis/addFeisArt.html", is_logged=LOGGED, where='welcome')
 
         if request.form.get('next') == 'unique':
             # Setup AR info
@@ -191,7 +212,7 @@ def add_feis():
             AR_dict['name'] = request.form.getlist('ARName[]')
 
             session['AR_info'] = AR_dict
-            return render_template("addFeisUnique.html", is_logged=LOGGED, where='welcome')
+            return render_template("createFeis/addFeisUnique.html", is_logged=LOGGED, where='welcome')
 
         if request.form.get('next') == 'show':
             # Setup SP info
@@ -222,12 +243,12 @@ def add_feis():
                 session.pop('main_max')
             session['comps'] = f.serialize_comps(comps)
 
-            return render_template("addFeisShow.html", is_logged=LOGGED, where='welcome', comps=comps)
+            return render_template("createFeis/addFeisShow.html", is_logged=LOGGED, where='welcome', comps=comps)
 
         if request.form.get('next') == 'info':
             # TODO: Implement file validity checks
             info_form = FeisInfoForm(request.form)
-            return render_template("addFeisInfo.html", is_logged=LOGGED, where='welcome', form=info_form)
+            return render_template("createFeis/addFeisInfo.html", is_logged=LOGGED, where='welcome', form=info_form)
 
         if request.form.get('next') == 'create':
             # TODO: Include pay-wall here
@@ -246,7 +267,7 @@ def add_feis():
             session.pop('comps')
             return redirect(url_for('welcome'))
 
-    return render_template("addFeisStart.html", is_logged=LOGGED, where='welcome', form=traits)
+    return render_template("createFeis/addFeisStart.html", is_logged=LOGGED, where='welcome', form=traits)
 
 
 @app.route("/welcome/add_dancer", methods=['GET', 'POST'])
@@ -258,7 +279,7 @@ def add_dancer():
                         int(form.year.data), form.level.data, form.gender.data, int(form.show.data))
         return redirect(url_for("welcome"))
 
-    return render_template("addDancer.html", is_logged=LOGGED, where="welcome", form=form)
+    return render_template("createDancer/addDancer.html", is_logged=LOGGED, where="welcome", form=form)
 
 
 @app.route("/welcome/delete_dancer", methods=['POST'])
@@ -276,9 +297,8 @@ def edit_dancer():
     if request.method != "POST":
         return redirect(url_for('welcome'))
     form = CreateDancer(request.form)
-    print(request.form.get('dancerId', 0))
     dancer = f.get_dancer_from_id(request.form.get('dancerId', 0))
-    return render_template("editDancer.html", is_logged=LOGGED, where="welcome", dancer=dancer, form=form)
+    return render_template("createDancer/editDancer.html", is_logged=LOGGED, where="welcome", dancer=dancer, form=form)
 
 
 @app.route("/welcome/edit_dancer/alter", methods=["POST"])

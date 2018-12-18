@@ -1,0 +1,48 @@
+{% extends "generalTemplates/outline.html" %}
+{% block body %}
+    <body>
+        <style>
+            table {
+                margin:0 auto;
+                font-size:20px;
+                border:2px solid black;
+            } th, td {
+                padding: 15px;
+                border: 2px solid black;
+            } td {
+                text-align: left;
+            }
+            table tr:nth-child(odd) {
+                background-color: #eee;
+            }
+            table tr:nth-child(even) {
+                background-color: #fff;
+            }
+        </style>
+        <h1 style="font-family:Teko;font-size:50px">Registering for {{ feis_name }}</h1>
+        <form method="POST">
+            {% for dancer in comps %}<hr>
+                {% set i = loop.index0 %}
+                <h1 style="font-family:Teko;font-size:45px">{{ dancers[i]['fName'] + " " + dancers[i]['lName'] }}:</h1>
+                <table>
+                    <tr>
+                        <th style='text-align:center;'>Name</th>
+                        <th style='text-align:center;'>Code</th>
+                        <th style='text-align:center;'>Check</th>
+                    </tr>
+                    {% for comp in comps[dancer] %}
+                        <tr>
+                            <td>{{ comp['name'] }}</td>
+                            <td>{{ comp['code'] }}</td>
+                            <td style='text-align:center;'>
+                                <input type="checkbox" name="register[{{ dancers[i]['id'] }}][]" value="{{ comp['id'] }}">
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endfor %}<br>
+            <input type="hidden" name="startScript" value="1">
+            <input type="submit" value="Register">
+        </form>
+    </body>
+{% endblock body %}

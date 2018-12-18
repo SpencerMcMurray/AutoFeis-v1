@@ -1,5 +1,5 @@
-{% from "errors.html" import render_field %}
-{% extends "outline.html" %}
+{% from "generalTemplates/errors.html" import render_field %}
+{% extends "generalTemplates/outline.html" %}
 {% block body %}
     <body>
         <style>
@@ -78,20 +78,20 @@
                     <tr>
                         <th style='text-align:center;'>Feis Info</th>
                         <th style='text-align:center;'>Feis Links</th>
-                        <th colspan='2' style='text-align:center;'>Organize</th>
+                        <th style='text-align:center;'>Organize</th>
                     </tr>
                 {% for feis in feiseanna %}
                     <tr>
                         <td>
-                            {{ feis['name']}}<br>
-                            {{ feis['date'] }}<br>
+                            <b>{{ feis['name']}}</b><br>
+                            {{ feis['date'].strftime('%B %d, %Y') }}<br>
                             {{ feis['location'] }}<br>
                             {{ feis['region'] }}
                         </td>
                         <td>
                             <a href='{{ feis["website"] }}'>Website</a><br>
-                            <a href='register'>Register</a><br>
-                            <a href='entries'>Entries</a><br>
+                            <a href='{{ url_for('register') }}'>Register</a><br>
+                            <a href='c'>Entries</a><br>
                             <a href='{{ "/static/files/syllabi/" + feis["syllabus"] }}'>Syllabus</a>
                         </td>
                         <td>

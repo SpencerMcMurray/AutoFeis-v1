@@ -22,6 +22,48 @@ class Competition:
         return self._data
 
 
+def register(reg, feis_id, dancer_id):
+    """(dict of str:dict of str:int, int, int) -> NoneType
+    Registers all dancer ids to the given competition id
+    """
+    print(reg)
+    db = Database()
+    q = """INSERT INTO `competitor` (`dancerId`, `competition`, `feis`) VALUES (%s, %s, %s)"""
+    for comp in reg:
+        db.cur.execute(q, (dancer_id, comp, feis_id))
+    db.con.close()
+    gc.collect()
+
+
+def get_all_comps_for_dancers(feis_id, dancers):
+    """(int, list of dict of str:obj) -> dict of int:list of dict of str:str/int
+    Gets all the competitions for each dancer that they can register for
+    """
+    comps = dict()
+    db = Database()
+    # Allows people who identify as 'Other' to choose from both Male and Female competitions
+    q = """SELECT `id`, `name`, `code` FROM `competition` WHERE `feis` = %s AND `minAge` <= %s AND `maxAge` >= %s AND
+    (LOCATE(%s, `level`) > 0 or `level` = 'All') AND (`genders` = %s OR `genders` = 'All' OR %s = 'Other')"""
+    for dancer in dancers:
+        age = dt.datetime.now().year - dancer['birthYear']
+        db.cur.execute(q, (feis_id, age, age, dancer['level'], dancer['gender'], dancer['gender']))
+        comps[dancer['id']] = db.cur.fetchall()
+    return comps
+
+
+def get_all_feiseanna():
+    """() -> list of dict of str:obj
+    Returns all open feiseanna from our database
+    """
+    db = Database()
+    q = """SELECT * FROM `feiseanna` WHERE `isOpen` = 1"""
+    db.cur.execute(q)
+    feiseanna = db.cur.fetchall()
+    db.con.close()
+    gc.collect()
+    return feiseanna
+
+
 def make_comp_from_data(data):
     return Competition(data[0], data[1], data[2], data[3], data[4], data[5])
 
@@ -102,25 +144,25 @@ def make_champ_comps(start_age, end_age, step, name, code, affix, boys):
         for age in range(start_age, end_age+1, step):
             curr_name = name + " Under " + str(age)
             curr_code = code + str(age) + affix
-            comps.append(Competition(prev_age, age, curr_name, curr_code, "All", code))
+            comps.append(Competition(prev_age, age, curr_name, curr_code, "All", name))
             prev_age = age + 1
 
         if prev_age == 0:
             curr_name = name + " Under " + str(end_age)
             curr_code = code + str(end_age) + affix
-            comps.append(Competition(0, end_age, curr_name, curr_code, "All", code))
+            comps.append(Competition(0, end_age, curr_name, curr_code, "All", name))
 
         curr_name = name + " Over " + str(end_age)
         curr_code = code + str(99) + affix
-        comps.append(Competition(end_age+1, 99, curr_name, curr_code, "All", code))
+        comps.append(Competition(end_age+1, 99, curr_name, curr_code, "All", name))
     else:
         for age in range(start_age, end_age+1, step):
             b_name = "Boys " + name + " Under " + str(age)
             b_code = "B" + code + str(age) + affix
             g_name = "Girls " + name + " Under " + str(age)
             g_code = "G" + code + str(age) + affix
-            comps += [Competition(prev_age, age, b_name, b_code, "Male", code),
-                      Competition(prev_age, age, g_name, g_code, "Female", code)]
+            comps += [Competition(prev_age, age, b_name, b_code, "Male", name),
+                      Competition(prev_age, age, g_name, g_code, "Female", name)]
             prev_age = age + 1
 
         if prev_age == 0:
@@ -128,15 +170,15 @@ def make_champ_comps(start_age, end_age, step, name, code, affix, boys):
             b_code = "B" + code + str(end_age) + affix
             g_name = "Girls " + name + " Under " + str(end_age)
             g_code = "G" + code + str(end_age) + affix
-            comps += [Competition(0, end_age, b_name, b_code, "Male", code),
-                      Competition(0, end_age, g_name, g_code, "Female", code)]
+            comps += [Competition(0, end_age, b_name, b_code, "Male", name),
+                      Competition(0, end_age, g_name, g_code, "Female", name)]
 
         b_name = "Boys " + name + " Over " + str(end_age)
         b_code = "B" + code + str(99) + affix
         g_name = "Girls " + name + " Over " + str(end_age)
         g_code = "G" + code + str(99) + affix
-        comps += [Competition(end_age+1, 99, b_name, b_code, "Male", code),
-                  Competition(end_age+1, 99, g_name, g_code, "Female", code)]
+        comps += [Competition(end_age+1, 99, b_name, b_code, "Male", name),
+                  Competition(end_age+1, 99, g_name, g_code, "Female", name)]
     return comps
 
 
@@ -149,25 +191,25 @@ def make_grades_comps(start_age, end_age, step, name, code, boys, dance_and_code
             for age in range(start_age, end_age+1, step):
                 curr_name = name + " Under " + str(age) + " " + dance[0]
                 curr_code = code + str(age) + dance[1]
-                comps.append(Competition(prev_age, age, curr_name, curr_code, "All", code))
+                comps.append(Competition(prev_age, age, curr_name, curr_code, "All", "Grades"))
                 prev_age = age + 1
 
             if prev_age == 0:
                 curr_name = name + " Under " + str(end_age) + " " + dance[0]
                 curr_code = code + str(end_age) + dance[1]
-                comps.append(Competition(0, end_age, curr_name, curr_code, "All", code))
+                comps.append(Competition(0, end_age, curr_name, curr_code, "All", "Grades"))
 
             curr_name = name + " Over " + str(end_age) + " " + dance[0]
             curr_code = code + str(99) + dance[1]
-            comps.append(Competition(end_age+1, 99, curr_name, curr_code, "All", code))
+            comps.append(Competition(end_age+1, 99, curr_name, curr_code, "All", "Grades"))
         else:
             for age in range(start_age, end_age+1, step):
                 b_name = "Boys " + name + " Under " + str(age) + " " + dance[0]
                 b_code = "B" + code + str(age) + dance[1]
                 g_name = "Girls " + name + " Under " + str(age) + " " + dance[0]
                 g_code = "G" + code + str(age) + dance[1]
-                comps += [Competition(prev_age, age, b_name, b_code, "Male", code),
-                          Competition(prev_age, age, g_name, g_code, "Female", code)]
+                comps += [Competition(prev_age, age, b_name, b_code, "Male", "Grades"),
+                          Competition(prev_age, age, g_name, g_code, "Female", "Grades")]
                 prev_age = age + 1
 
             if prev_age == 0:
@@ -175,15 +217,15 @@ def make_grades_comps(start_age, end_age, step, name, code, boys, dance_and_code
                 b_code = "B" + code + str(end_age) + dance[1]
                 g_name = "Girls " + name + " Under " + str(end_age) + " " + dance[0]
                 g_code = "G" + code + str(end_age) + dance[1]
-                comps += [Competition(0, end_age, b_name, b_code, "Male", code),
-                          Competition(0, end_age, g_name, g_code, "Female", code)]
+                comps += [Competition(0, end_age, b_name, b_code, "Male", "Grades"),
+                          Competition(0, end_age, g_name, g_code, "Female", "Grades")]
 
             b_name = "Boys " + name + " Over " + str(end_age) + " " + dance[0]
             b_code = "B" + code + str(99) + dance[1]
             g_name = "Girls " + name + " Over " + str(end_age) + " " + dance[0]
             g_code = "G" + code + str(99) + dance[1]
-            comps += [Competition(end_age+1, 99, b_name, b_code, "Male", code),
-                      Competition(end_age+1, 99, g_name, g_code, "Female", code)]
+            comps += [Competition(end_age+1, 99, b_name, b_code, "Male", "Grades"),
+                      Competition(end_age+1, 99, g_name, g_code, "Female", "Grades")]
     return comps
 
 
@@ -304,19 +346,19 @@ def make_figure_competitions(info):
 def make_treble_competitions(info):
     comps = {'Treble Reel': []}
     for i in range(len(info['start_age'])):
-        name = info['level'][i]
+        name = ""
+        code = ""
         if info['level'][i] != "All":
+            name = info['level'][i] + " "
             code = info['level'][i][0]
-        else:
-            code = ""
         gender = info['gender'][i]
         sex = "All"
         if gender == "female":
-            name += " Girls "
+            name += "Girls "
             code = "G" + code
             sex = "Female"
         elif gender == "male":
-            name += " Boys "
+            name += "Boys "
             code = "B" + code
             sex = "Male"
         name += "Treble Reel "
@@ -456,6 +498,15 @@ def get_feiseanna_with_forg(forg_id):
     db = Database()
     db.cur.execute("SELECT * FROM `feiseanna` WHERE `forg` = %s ORDER BY `date` ASC", forg_id)
     res = db.cur.fetchall()
+    db.con.close()
+    gc.collect()
+    return res
+
+
+def get_feis_with_id(feis_id):
+    db = Database()
+    db.cur.execute("SELECT * FROM `feiseanna` WHERE `id` = %s", feis_id)
+    res = db.cur.fetchone()
     db.con.close()
     gc.collect()
     return res
