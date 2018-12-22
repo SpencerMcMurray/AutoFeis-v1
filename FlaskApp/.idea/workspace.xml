@@ -2,31 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e6a99dd6-dad2-4df9-b54d-3c5a79b4e1ba" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/registration/register.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/registration/registerFor.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/addDancer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/createDancer/addDancer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/addFeisAges.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/createFeis/addFeisAges.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/addFeisArt.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/createFeis/addFeisArt.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/addFeisBasic.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/createFeis/addFeisBasic.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/addFeisInfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/createFeis/addFeisInfo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/addFeisShow.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/createFeis/addFeisShow.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/addFeisStart.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/createFeis/addFeisStart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/addFeisUnique.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/createFeis/addFeisUnique.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/editDancer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/createDancer/editDancer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/errors.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/generalTemplates/errors.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/feisFunctions.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/feisFunctions.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/feisInfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/feisInfo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/logIn.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/logIn.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/outline.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/generalTemplates/outline.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/results.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/results.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/signUp.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/signUp.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/tos.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tos.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/welcome.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/welcome.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,7 +13,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/FlaskApp$Run_Flask_App.coverage" NAME="Run Flask App Coverage Results" MODIFIED="1545093073963" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FlaskApp$Run_Flask_App.coverage" NAME="Run Flask App Coverage Results" MODIFIED="1545507957640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -77,7 +54,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="147">
@@ -98,20 +75,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/registration/registerFor.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
-              <caret line="43" column="50" selection-start-line="43" selection-start-column="39" selection-end-line="43" selection-end-column="50" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/functions.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
-              <caret line="25" column="58" lean-forward="true" selection-start-line="25" selection-start-column="58" selection-end-line="25" selection-end-column="58" />
+              <caret line="43" column="5" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -210,13 +178,13 @@
         <option value="$PROJECT_DIR$/templates/tos.html" />
         <option value="$PROJECT_DIR$/templates/addFeisInfo.html" />
         <option value="$PROJECT_DIR$/templates/feisInfo.html" />
-        <option value="$PROJECT_DIR$/templates/welcome.html" />
         <option value="$PROJECT_DIR$/templates/register.html" />
         <option value="$PROJECT_DIR$/templates/registration/register.html" />
         <option value="$PROJECT_DIR$/templates/registration/registerFor.html" />
-        <option value="$PROJECT_DIR$/functions.py" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/3d0901dc-c764-4227-bb62-3eacdbd663d8/console.sql" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/templates/welcome.html" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/3d0901dc-c764-4227-bb62-3eacdbd663d8/console.sql" />
+        <option value="$PROJECT_DIR$/functions.py" />
       </list>
     </option>
   </component>
@@ -232,7 +200,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -255,13 +222,14 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="database.console.LAST_STATE" value="false" />
+    <property name="database.console.LAST_STATE" value="true" />
     <property name="jsx.switch.disabled" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -386,7 +354,8 @@
       <workItem from="1544559081545" duration="5137000" />
       <workItem from="1544656333528" duration="7150000" />
       <workItem from="1545070291682" duration="22000" />
-      <workItem from="1545070321134" duration="19717000" />
+      <workItem from="1545070321134" duration="19862000" />
+      <workItem from="1545507307108" duration="717000" />
     </task>
     <task id="LOCAL-00001" summary="Added very basic functionality for our Flask app,">
       <created>1541362070067</created>
@@ -458,11 +427,18 @@
       <option name="project" value="LOCAL" />
       <updated>1544663607773</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Organized code a bit&#10;Implemented registration">
+      <created>1545093202943</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1545093202943</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55653000" />
+    <option name="totallyTimeSpent" value="56515000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -478,7 +454,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.1337953" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.13486141" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.32948583" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.50052685" side_tool="true" weight="0.2993763" />
@@ -491,7 +467,7 @@
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="10" weight="0.32917964" />
-      <window_info anchor="bottom" id="Database Console" order="11" weight="0.33437175" />
+      <window_info active="true" anchor="bottom" id="Database Console" order="11" visible="true" weight="0.33437175" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -580,7 +556,8 @@
     <MESSAGE value="Finished adding feiseanna, still need to allow for file upload for&#10;syllabi" />
     <MESSAGE value="Allowed for uploading and reading of syllabi" />
     <MESSAGE value="Allowed for uploading and reading of syllabi.&#10;Adding feis complete for now" />
-    <option name="LAST_COMMIT_MESSAGE" value="Allowed for uploading and reading of syllabi.&#10;Adding feis complete for now" />
+    <MESSAGE value="Organized code a bit&#10;Implemented registration" />
+    <option name="LAST_COMMIT_MESSAGE" value="Organized code a bit&#10;Implemented registration" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/static/images/banner.jpg">
@@ -732,8 +709,8 @@
       <provider editor-type-id="csv-table-editor">
         <state showInfoPanel="true" rowLines="3" />
       </provider>
-      <provider selected="true" editor-type-id="csv-text-editor" />
       <provider editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="csv-text-editor" />
     </entry>
     <entry file="file://D:/Program Files/Python/Lib/site-packages/flask/app.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -836,26 +813,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/welcome.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="85" column="52" selection-start-line="85" selection-start-column="52" selection-end-line="85" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/registration/registerFor.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="43" column="50" selection-start-line="43" selection-start-column="39" selection-end-line="43" selection-end-column="50" />
+        <state relative-caret-position="138">
+          <caret line="16" column="13" lean-forward="true" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/functions.py">
+    <entry file="file://$PROJECT_DIR$/templates/welcome.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="25" column="58" lean-forward="true" selection-start-line="25" selection-start-column="58" selection-end-line="25" selection-end-column="58" />
+        <state relative-caret-position="336">
+          <caret line="91" column="75" selection-start-line="91" selection-start-column="75" selection-end-line="91" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="46" column="93" selection-start-line="46" selection-start-column="93" selection-end-line="46" selection-end-column="93" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -867,12 +844,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file://$PROJECT_DIR$/functions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="46" column="93" selection-start-line="46" selection-start-column="93" selection-end-line="46" selection-end-column="93" />
+        <state relative-caret-position="210">
+          <caret line="43" column="5" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
