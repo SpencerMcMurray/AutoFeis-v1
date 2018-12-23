@@ -56,28 +56,6 @@ body h1 {
     color: purple;
 }
 
-#upcoming {
-    width: 100%;
-}
-
-#left {
-    float: left;
-    border: 2px solid purple;
-    width: 25%;
-}
-
-#center {
-    border: 2px solid purple;
-    width: 25%;
-    margin: 0 auto;
-}
-
-#right {
-    float: right;
-    border: 2px solid purple;
-    width: 25%;
-}
-
 #welcome p {
     padding: 0 20%;
 }

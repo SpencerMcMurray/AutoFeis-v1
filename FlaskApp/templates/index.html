@@ -1,21 +1,62 @@
 {% extends "generalTemplates/outline.html" %}
 {% block body %}
+    <style>
+        table {
+            margin:0 auto;
+            font-size:20px;
+            border:2px solid black;
+        } th, td {
+            padding: 15px;
+            border: 2px solid black;
+        }  td {
+            text-align: left;
+        }  table tr:nth-child(odd) {
+            background-color: #eee;
+        }  table tr:nth-child(even) {
+           background-color: #fff;
+        }
+    </style>
     <body>
         <div id='welcome'>
             <h1 style='font-family:Teko;font-size:50px'>Welcome</h1>
             <p style='font-size:25px'>
-                    AutoFeis provides the World's <u>Fastest</u> tabulation and
-                    entry service for Irish Dance using the power of Artificial
-                    Intelligence. We provide our services <u>Worldwide</u> at no
-                    extra cost.<br>
-            <img src='../../static/images/border.png' alt='Border' style='width:600px;height:400px'><br>
-            Learn more about the new way to tabulate <a href="{{ url_for('about') }}">here</a>
+                AutoFeis provides the World's <u>Fastest</u> tabulation and
+                entry service for Irish Dance using the power of Artificial
+                Intelligence. We provide our services <u>Worldwide</u> at no
+                extra cost.<br>
+                <img src='../../static/images/border.png' alt='Border' style='width:600px;height:400px'><br>
+                Learn more about the new way to tabulate <a href="{{ url_for('about') }}">here</a>
             </p>
         </div><hr>
-            <div id='upcoming'>
+            <div style="width:100%;">
                 <h1 style='font-family:Teko;font-size:50px'>Upcoming Feiseanna</h1>
-                {{ function() }}
+                <div style="width:75%;display: flex;justify-content: center;margin: 0 auto;">
+                    <div style="display: flex;width: 100%;align-items: center;justify-content: space-around;flex-wrap: wrap;">
+                        {% if feiseanna|length > 0 %}
+                            {% for feis in feiseanna %}
+                                <div style="width: 25%;">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <b>{{ feis['name']}}</b><br>
+                                                {{ feis['date'].strftime('%B %d, %Y') }}<br>
+                                                {{ feis['location'] }}<br>
+                                                {{ feis['region'] }}
+                                            </td>
+                                            <td>
+                                                <a href='{{ feis["website"] }}'>Website</a><br>
+                                                <a href='{{ url_for('entries', feis=feis['id']) }}'>Entries</a><br>
+                                                <a href='{{ "/static/files/syllabi/" + feis["syllabus"] }}'>Syllabus</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>No feiseanna to show!</p>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-            <div style="clear:both;" />
     </body>
 {% endblock body %}

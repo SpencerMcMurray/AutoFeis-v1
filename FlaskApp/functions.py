@@ -22,6 +22,19 @@ class Competition:
         return self._data
 
 
+def get_latest_three_feiseanna():
+    """() -> list of dict of str:str
+    Returns the 3 most upcoming feiseanna
+    """
+    db = Database()
+    q = """SELECT * FROM `feiseanna` ORDER BY `date` ASC LIMIT 3"""
+    db.cur.execute(q)
+    feiseanna = db.cur.fetchall()
+    db.con.close()
+    gc.collect()
+    return feiseanna
+
+
 def parse_dancers_for_entries(dancers):
     """(list of dict of str:int) -> dict of str:list of str/(list of str)
     Takes the list of dancer ids, and their respective competition ids and formats it to make it easy for
@@ -620,20 +633,8 @@ def sign_up(email, password, f_name, l_name):
     gc.collect()
 
 
-def display_feis():
-    return "<Insert cool 3-widget feis display>"
-
-
-def display_all_feiseanna():
-    return "<Insert cool display of all feiseanna info>"
-
-
 def display_all_results():
     return "<Insert cool display of all results>"
-
-
-def display_open_feiseanna():
-    return "<Insert cool table showing all open feiseanna>"
 
 
 def feis_name_from_id(feis_id):

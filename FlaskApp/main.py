@@ -19,7 +19,8 @@ def flip_logged():
 @app.route("/")
 def index():
     """The index page"""
-    return render_template("index.html", is_logged=LOGGED, where="home", function=f.display_feis)
+    feiseanna = f.get_latest_three_feiseanna()
+    return render_template("index.html", is_logged=LOGGED, where="home", feiseanna=feiseanna)
 
 
 @app.route("/about")
