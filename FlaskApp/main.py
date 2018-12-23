@@ -41,10 +41,17 @@ def results():
     return render_template("results.html", is_logged=LOGGED, where="results", function=f.display_all_results)
 
 
+@app.route("/entries/<int:feis>")
+def entries(feis):
+    """The entries page
+    TODO: Take away id from url"""
+    return render_template("entries.html", is_logged=LOGGED, where="feisinfo", entries=f.get_entries_from_feis(feis),
+                           name=f.feis_name_from_id(feis))
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    """The register page
-    TODO: Make it so people can't register to the competitions they're already registered for"""
+    """The register page"""
     if request.method == "POST":
         if request.form.get("startScript", None) is None:
             session['feis_id'] = request.form.get("id", -1)

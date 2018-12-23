@@ -1,0 +1,44 @@
+{% extends "generalTemplates/outline.html" %}
+{% block body %}
+    <body>
+        <style>
+            table {
+                margin:0 auto;
+                font-size:20px;
+                border:2px solid black;
+                width:50%;
+            } th, td {
+                padding: 15px;
+                border: 2px solid black;
+            } td {
+                text-align: left;
+            }
+            table tr:nth-child(odd) {
+                background-color: #eee;
+            }
+            table tr:nth-child(even) {
+                background-color: #fff;
+            }
+        </style>
+        <h1 style='font-family:Teko;font-size:50px'>{{ name }} Entries</h1><hr><br>
+        {% for entry in entries['dancers'] %}
+            {% set i = loop.index0 %}
+            <table>
+                <tr>
+                    <th style="width:40%;">{{ entries['codes'][loop.index0] }}</th>
+                    <th>{{ entries['comps'][loop.index0] }}</th>
+                </tr>
+                <tr>
+                    <th style="width:40%;">Name</th>
+                    <th>School</th>
+                </tr>
+                {% for dancer in entry %}
+                    <tr>
+                        <td style="width:40%;">{{ dancer }}</td>
+                        <td>{{ entries['schools'][i][loop.index0] }}</td>
+                    </tr>
+                {% endfor %}
+            </table><br><br>
+        {% endfor %}
+    </body>
+{% endblock body %}
