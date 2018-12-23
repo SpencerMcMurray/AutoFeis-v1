@@ -1,9 +1,9 @@
 # AutoFeis
 
-A python 3.x program which uses neural networks to provide the fastest
+A Python 3 program which uses a neural network to provide very fast
 tabulation of results from competitions with handwritten marks. Originally
 made for Irish Step Dancing competitions, however it could most likely be
-applied to other competitive events as well.
+applied to other competitive events as well quite easily.
 
 ## Library Dependencies
 
