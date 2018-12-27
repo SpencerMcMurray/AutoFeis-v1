@@ -56,7 +56,8 @@ def results():
 @app.route("/entries/<int:feis>")
 def entries(feis):
     """The entries page
-    TODO: Take away id from url"""
+    TODO: Take away id from url
+    TODO: Use flex to make nicer"""
     return render_template("entries.html", is_logged=LOGGED, where="feisinfo", entries=f.get_entries_from_feis(feis),
                            name=f.feis_name_from_id(feis))
 
@@ -337,8 +338,9 @@ def feis_functions():
     if request.method == "POST":
         feis_id = request.form.get('feisId', 0)
         name = f.feis_name_from_id(feis_id)
+        is_open = f.get_open_from_id(feis_id)
         return render_template("functions/feisFunctions.html", is_logged=LOGGED, where="welcome", name=name,
-                               feis_id=feis_id)
+                               is_open=is_open, feis_id=feis_id)
     return redirect(url_for('welcome'))
 
 
@@ -368,6 +370,32 @@ def edit_feis():
 
 @app.route("/welcome/functions/alter", methods=["POST"])
 def alter_comps():
+    """Page displaying all competitions, offering the split/merge ability"""
+    if request.method == "POST":
+        comps = f.get_comps_from_feis_id(request.form.get('feisId', 0))
+        return render_template("functions/alterComps.html", is_logged=LOGGED, where="welcome", comps=comps)
+    return redirect(url_for("welcome"))
+
+
+@app.route("/welcome/functions/alter/merge", methods=["POST"])
+def merge_comps():
+    """Page for merging two competitions"""
+    if request.method == "POST":
+        if request.form.get('compatCompId', None) is not None:
+            f.merge_comps(request.form.get('compId'), request.form.get('compatCompId'))
+        else:
+            comp = f.get_comp_from_id(request.form.get('compId', 0))
+            mergable = f.get_mergeable_comps(comp)
+            return render_template("functions/mergeComps.html", isLogged=LOGGED, where="welcome", comp=comp,
+                                   merge=mergable)
+    return redirect(url_for("welcome"))
+
+
+@app.route("/welcome/functions/alter/split", methods=["POST"])
+def split_comps():
+    """Page for splitting a competition in two"""
+    if request.method == "POST":
+        comp = f.get_comp_from_id(request.form.get('compId', 0))
     return redirect(url_for("welcome"))
 
 

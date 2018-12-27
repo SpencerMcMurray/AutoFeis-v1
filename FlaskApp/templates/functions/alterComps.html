@@ -1,0 +1,49 @@
+{% extends "generalTemplates/outline.html" %}
+{% block body %}
+    <style>
+        table {
+            margin:0 auto;
+            font-size:20px;
+            border:2px solid black;
+        } th, td {
+            padding: 15px;
+            border: 2px solid black;
+        } td {
+            text-align: center;
+        }
+        table tr:nth-child(odd) {
+            background-color: #eee;
+        }
+        table tr:nth-child(even) {
+            background-color: #fff;
+        }
+    </style>
+    <body>
+        <h1 style="font-family:Teko;font-size:50px">Which competition do you want to alter?</h1>
+        <table>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th colspan="2">Alter</th>
+            </tr>
+            {% for comp in comps %}
+                <tr>
+                    <td>{{ comp['code'] }}</td>
+                    <td>{{ comp['name'] }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('merge_comps') }}">
+                            <input type="hidden" value="{{ comp['id'] }}" name="compId">
+                            <input type="submit" value="Merge">
+                        </form>
+                    </td>
+                    <td>
+                        <form method="POST" action="{{ url_for('split_comps') }}">
+                            <input type="hidden" value="{{ comp['id'] }}" name="compId">
+                            <input type="submit" value="Split">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+{% endblock body %}

@@ -1,0 +1,49 @@
+{% extends "generalTemplates/outline.html" %}
+{% block body %}
+    <style>
+        table {
+            margin:0 auto;
+            font-size:20px;
+            border:2px solid black;
+        } th, td {
+            padding: 15px;
+            border: 2px solid black;
+        } td {
+            text-align: center;
+        }
+        table tr:nth-child(odd) {
+            background-color: #eee;
+        }
+        table tr:nth-child(even) {
+            background-color: #fff;
+        }
+    </style>
+    <body>
+        <h1 style="font-family:Teko;font-size:50px">Select the competition to merge with {{ comp['code'] }}</h1>
+        <table>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Select</th>
+            </tr>
+            {% for compat_comp in merge %}
+                <tr>
+                    <td>{{ compat_comp['code'] }}</td>
+                    <td>{{ compat_comp['name'] }}</td>
+                    <td>
+                        <form method="POST">
+                            {% if compat_comp['maxAge'] > comp['maxAge'] %}
+                                <input type="hidden" value="{{ comp['id'] }}" name="compatCompId">
+                                <input type="hidden" value="{{ compat_comp['id'] }}" name="compId">
+                            {% else %}
+                                <input type="hidden" value="{{ compat_comp['id'] }}" name="compatCompId">
+                                <input type="hidden" value="{{ comp['id'] }}" name="compId">
+                            {% endif %}
+                            <input type="submit" value="Merge">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+{% endblock body %}

@@ -33,7 +33,7 @@
                 </tr>
                 {% for comp in comps[level] %}
                     <tr>
-                        {% for item in comp.get_data() %}
+                        {% for item in comp.get_data()[0:6] %}
                             <td>{{ item }}</td>
                         {% endfor %}
                     </tr>

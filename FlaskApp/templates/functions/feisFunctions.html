@@ -28,10 +28,14 @@
                 </tr>
                 <tr>
                     <td>
-                        <form method="POST" action="{{ url_for('alter_comps') }}">
-                            <input type="hidden" value="{{ feis_id }}" name="feisId" />
-                            <input type="submit" value="Merge/Split Competitions" />
-                        </form>
+                        {% if not is_open %}
+                            <form method="POST" action="{{ url_for('alter_comps') }}">
+                                <input type="hidden" value="{{ feis_id }}" name="feisId" />
+                                <input type="submit" value="Merge/Split Competitions" />
+                            </form>
+                        {% else %}
+                            Merge/Split Competitions
+                        {% endif %}
                     </td>
                 </tr>
                 <tr>
@@ -44,5 +48,8 @@
                 </tr>
             </table>
         </div>
+        {% if is_open %}
+            <br><b style="font-size: 15px">(Note: Merge/Split is unavailable until the feis is closed to registration)</b>
+        {% endif %}
     </body>
 {% endblock body %}
