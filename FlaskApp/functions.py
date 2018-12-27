@@ -5,6 +5,10 @@ import gc
 import datetime as dt
 import csv
 import os
+import math
+
+
+DANCERS_PER_PAGE = 17
 
 
 class Competition:
@@ -20,6 +24,53 @@ class Competition:
 
     def get_data(self):
         return self._data
+
+
+def get_all_clopen_feiseanna(is_open):
+    """(bool) -> list of dict of str:obj
+    Gets all open feiseanna
+    """
+    db = Database()
+    q = """SELECT * FROM `feiseanna` WHERE `isOpen` = %s ORDER BY `id` DESC"""
+    db.cur.execute(q, int(is_open))
+    feiseanna = db.cur.fetchall()
+    db.con.close()
+    gc.collect()
+    return feiseanna
+
+
+def get_sheets_for_comps(comps):
+    """(list of dict of str:obj) -> list of dict of str:obj
+    Calculates the number of scoresheets per judge for each competitions based on entries
+    """
+    db = Database()
+    q = """SELECT `feis` FROM `competitor` WHERE `competition` = %s"""
+    data = list()
+    total = 0
+    for comp in comps:
+        db.cur.execute(q, comp['id'])
+        entries = len(db.cur.fetchall())
+
+        # You need one sheet for every(up to) 17 dancers
+        entries = math.ceil(entries/DANCERS_PER_PAGE)
+        total += entries
+        data.append({'name': comp['name'], 'code': comp['code'], 'entries': entries})
+    db.con.close()
+    gc.collect()
+    return data, total
+
+
+def get_comps_from_feis_id(feis_id):
+    """(int) -> list of dict of str:obj
+    Gets all competitions associated with the given feis id
+    """
+    db = Database()
+    q = """SELECT `id`, `name`, `code` FROM `competition` WHERE `feis` = %s"""
+    db.cur.execute(q, feis_id)
+    comps = db.cur.fetchall()
+    db.con.close()
+    gc.collect()
+    return comps
 
 
 def get_latest_three_feiseanna():
@@ -166,6 +217,27 @@ def upload_file(file, name, upload_folder):
     filename = str(name) + ".pdf"
     if file and allowed_file(filename):
         file.save(os.path.join(upload_folder, secure_filename(filename)))
+
+
+def set_defaults_for_feis(feis, form):
+    """(dict of str:obj) -> Form
+    Creates a feis form with all defaults set to current feis data
+    """
+    form.name.default = feis['name']
+    form.location.default = feis['location']
+    form.region.default = feis['region']
+    form.website.default = feis['website']
+    form.process()
+    return form
+
+
+def update_feis(feis_id, name, date, location, region, website):
+    db = Database()
+    q = """UPDATE `feiseanna` SET `name` = %s, `date` = %s, `location` = %s, `region` = %s, `website` = %s WHERE
+           `id` = %s"""
+    db.cur.execute(q, (name, date, location, region, website, feis_id))
+    db.con.close()
+    gc.collect()
 
 
 def create_feis(forg, name, date, location, region, website):
@@ -588,8 +660,8 @@ def get_id_from_email(email):
     return -1
 
 
-def display_name(email):
-    """Returns a statement welcoming the user"""
+def get_name_from_email(email):
+    """Gets the users name from their email"""
     db = Database()
     q = "SELECT `name` FROM `users` WHERE `email` = %s"
     num_rows = db.cur.execute(q, email)
@@ -598,7 +670,7 @@ def display_name(email):
     res = db.cur.fetchone()
     db.con.close()
     gc.collect()
-    return "Welcome, " + res['name'] + "!"
+    return res['name']
 
 
 def validate(email, password):
@@ -631,10 +703,6 @@ def sign_up(email, password, f_name, l_name):
     db.cur.execute(q, (email, generate_password_hash(password), name))
     db.con.close()
     gc.collect()
-
-
-def display_all_results():
-    return "<Insert cool display of all results>"
 
 
 def feis_name_from_id(feis_id):

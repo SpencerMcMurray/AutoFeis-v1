@@ -16,6 +16,12 @@ def flip_logged():
     LOGGED = not LOGGED
 
 
+@app.errorhandler(404)
+def catch_404(e):
+    """Page for catching the 404 not found error"""
+    return render_template("errorCatching/404.html")
+
+
 @app.route("/")
 def index():
     """The index page"""
@@ -36,10 +42,15 @@ def feisinfo():
     return render_template("feisInfo.html", is_logged=LOGGED, where="feisinfo", feiseanna=feiseanna)
 
 
-@app.route("/results")
+@app.route("/results", methods=['GET', 'POST'])
 def results():
     """The results page"""
-    return render_template("results.html", is_logged=LOGGED, where="results", function=f.display_all_results)
+    if request.method == "POST":
+        feis_id = request.form.get('id', 0)
+        comps = f.get_comps_from_feis_id(feis_id)
+        return render_template("results/resultsForFeis.html", is_logged=LOGGED, where="results", comps=comps)
+    feiseanna = f.get_all_clopen_feiseanna(False)
+    return render_template("results/results.html", is_logged=LOGGED, where="results", feiseanna=feiseanna)
 
 
 @app.route("/entries/<int:feis>")
@@ -71,7 +82,7 @@ def register():
 
         return render_template("registration/registerFor.html", is_logged=LOGGED, where="register",
                                feis_name=feis['name'], dancers=dancers, comps=comps)
-    feiseanna = f.get_all_feiseanna()
+    feiseanna = f.get_all_clopen_feiseanna(True)
     return render_template("registration/register.html", is_logged=LOGGED, where="register", feiseanna=feiseanna)
 
 
@@ -142,14 +153,14 @@ def welcome():
 
         if request.form.get('submit', None) == "Add a Feis":
             return redirect(url_for("add_feis"))
-    return render_template("welcome.html", is_logged=LOGGED, where="welcome", email=session["email"],
+    return render_template("welcome.html", is_logged=LOGGED, where="welcome",
                            dancers=dancers,
                            feiseanna=feiseanna,
                            edit_dancer=edit_dancer_form,
                            dancer_form=add_dancer_form,
                            feis_form=add_feis_form,
                            feis_fcns_form=feis_fcns_form,
-                           function=f.display_name)
+                           name=f.get_name_from_email(session['email']))
 
 
 @app.route("/terms")
@@ -324,6 +335,50 @@ def alter_dancer():
 def feis_functions():
     """The feis functions for a given feis"""
     if request.method == "POST":
-        name = f.feis_name_from_id(request.form.get('feisId', 0))
-        return render_template("feisFunctions.html", is_logged=LOGGED, where="welcome", name=name)
+        feis_id = request.form.get('feisId', 0)
+        name = f.feis_name_from_id(feis_id)
+        return render_template("functions/feisFunctions.html", is_logged=LOGGED, where="welcome", name=name,
+                               feis_id=feis_id)
     return redirect(url_for('welcome'))
+
+
+@app.route("/welcome/functions/edit", methods=['POST'])
+def edit_feis():
+    """The edit feis function page"""
+    if request.method == 'POST':
+        feis_id = request.form.get('feisId', 0)
+        if 'go' in session:
+            session.pop('go')
+
+            # Update feis
+            f.update_feis(feis_id, request.form.get('name'), request.form.get('date'), request.form.get('location'),
+                          request.form.get('region'), request.form.get('website'))
+
+            # Upload new syllabus if entered
+            if 'syllabus' in request.files:
+                file = request.files['syllabus']
+                f.upload_file(file, feis_id, app.config["UPLOAD_FOLDER"])
+            return redirect(url_for('welcome'))
+        session['go'] = True
+        feis = f.get_feis_with_id(feis_id)
+        form = f.set_defaults_for_feis(feis, FeisInfoForm(request.form))
+        return render_template("functions/editFeisInfo.html", is_logged=LOGGED, where="welcome", feis=feis, form=form)
+    return redirect(url_for("welcome"))
+
+
+@app.route("/welcome/functions/alter", methods=["POST"])
+def alter_comps():
+    return redirect(url_for("welcome"))
+
+
+@app.route("/welcome/functions/scoresheet", methods=["POST"])
+def score_calc():
+    """The Scoresheet calculator page"""
+    if request.method == "POST":
+        feis_id = request.form.get('feisId', 0)
+
+        comps = f.get_comps_from_feis_id(feis_id)
+        sheets, total = f.get_sheets_for_comps(comps)
+        return render_template("functions/scoresheetCalc.html", is_logged=LOGGED, where="welcome", sheets=sheets,
+                               total=total)
+    return redirect("welcome")

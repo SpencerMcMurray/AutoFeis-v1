@@ -1,0 +1,59 @@
+{% extends "generalTemplates/outline.html" %}
+{% block body %}
+    <body>
+        <style>
+            table {
+                margin:0 auto;
+                text-align:center;
+            } th, td {
+                text-align:center;
+                padding: 15px;
+                font-size:20px;
+            }
+        </style>
+        <h1 style="font-family:Teko;font-size:50px">Editing {{ feis['name'] }}'s Information</h1><hr>
+        <form method="POST" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>
+                        <label>Feis Name</label><br>
+                        {{ form.name }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Date</label><br>
+                        <input type='date' name='date' value="{{ feis['date'] }}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Location</label><br>
+                        {{ form.location }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Region</label><br>
+                        {{ form.region }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Website</label><br>
+                        {{ form.website }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Syllabus</label><br>
+                        <input value='Choose a File' type='file' name='syllabus' accept="application/pdf" />
+                        <h4>(Leave empty if unchanged)</h4>
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" value="{{ feis['id'] }}" name="feisId" />
+            <input type="submit" value="Save" />
+        </form>
+    </body>
+{% endblock body %}

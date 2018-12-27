@@ -1,0 +1,37 @@
+{% extends "generalTemplates/outline.html" %}
+{% block body %}
+    <style>
+        table {
+            margin:0 auto;
+            font-size:20px;
+            border:2px solid black;
+        } th, td {
+            padding: 15px;
+            border: 2px solid black;
+        } td {
+            text-align: left;
+        }
+        table tr:nth-child(odd) {
+            background-color: #eee;
+        }
+        table tr:nth-child(even) {
+            background-color: #fff;
+        }
+    </style>
+    <body>
+        <h1 style="font-family:Teko;font-size:50px">Feis Results</h1>
+        <table>
+            {% for feis in feiseanna %}
+                <tr>
+                    <td>{{ feis['name'] }}</td>
+                    <td>
+                        <form method="POST">
+                            <input type="hidden" value="{{ feis['id'] }}" name="id">
+                            <input type="submit" value="Results">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+{% endblock body %}

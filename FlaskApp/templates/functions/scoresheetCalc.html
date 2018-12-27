@@ -1,0 +1,39 @@
+{% extends "generalTemplates/outline.html" %}
+{% block body %}
+    <body>
+        <style>
+            table {
+                margin:0 auto;
+                font-size:20px;
+                border:2px solid black;
+            } th, td {
+                padding: 15px;
+                border: 2px solid black;
+            } td {
+                text-align: left;
+            }
+            table tr:nth-child(odd) {
+                background-color: #eee;
+            }
+            table tr:nth-child(even) {
+                background-color: #fff;
+            }
+        </style>
+        <h1 style="font-family:Teko;font-size:50px">Total scoresheets needed: {{ total }}</h1><hr>
+        <h4>(Note: This calculates the number of sheets needed for one judge in all competitions)</h4>
+        <table>
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Sheets</th>
+            </tr>
+            {% for sheet in sheets %}
+                <tr>
+                    <td>{{ sheet['code'] }}</td>
+                    <td>{{ sheet['name'] }}</td>
+                    <td>{{ sheet['entries'] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+{% endblock body %}

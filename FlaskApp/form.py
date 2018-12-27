@@ -1,6 +1,8 @@
-from wtforms import Form, StringField, PasswordField, validators, SubmitField, SelectField, BooleanField, DateField,\
-    FileField
+from wtforms import Form, StringField, PasswordField, validators, SubmitField, SelectField, BooleanField
 from functions import year_dropdown, school_dropdown, get_regions
+
+
+WEBSITE = "www.autofeis.com"
 
 
 class RegistrationForm(Form):
@@ -44,7 +46,7 @@ class FeisInfoForm(Form):
     name = StringField("Feis Name")
     location = StringField("Location of Feis")
     region = SelectField("Region of Feis", choices=get_regions())
-    website = StringField("Website for Feis")
+    website = StringField("Website for Feis", default=WEBSITE)
 
 
 class FeisFcnsForm(Form):

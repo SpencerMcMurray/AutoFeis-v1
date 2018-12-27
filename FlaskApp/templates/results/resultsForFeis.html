@@ -1,0 +1,31 @@
+{% extends "generalTemplates/outline.html" %}
+{% block body %}
+    <style>
+        table {
+            margin:0 auto;
+            font-size:20px;
+            border:2px solid black;
+        } th, td {
+            padding: 15px;
+            border: 2px solid black;
+        } td {
+            text-align: center;
+        }
+        table tr:nth-child(odd) {
+            background-color: #eee;
+        }
+        table tr:nth-child(even) {
+            background-color: #fff;
+        }
+    </style>
+    <body>
+        <h1 style="font-family:Teko;font-size:50px">Choose a competition</h1>
+        <table>
+            {% for comp in comps %}
+                <tr>
+                    <td><a href="{{ "/static/files/results/" ~ comp['id'] ~ ".pdf" }}">{{ comp['name'] }}</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+{% endblock body %}
