@@ -38,6 +38,15 @@ def change_over(name):
     return name
 
 
+def update_name(name, age):
+    """(str, int) -> str
+    Updates the name if needed
+    """
+    if name.find('Over') > 0:
+        name = re.sub("\\d+", str(age - 1), name)
+    return name
+
+
 def split_by_age(comp, age):
     """(dict of str:obj, int) -> NoneType
     Splits the competition given in two new comps split by age
@@ -50,13 +59,15 @@ def split_by_age(comp, age):
     # Replace the age in the name and code with the new age
     name_young = re.sub("\\d+", str(age - 1), change_over(comp['name']))
     code_young = re.sub("\\d+", str(age - 1), comp['code'])
-    name_old = comp['name']
+    name_old = update_name(comp['name'], age)
     code_old = comp['code']
 
-    id_young = db.cur.execute(q, (comp['feis'], name_young, code_young, comp['minAge'], age - 1, comp['level'],
-                                  comp['genders'], comp['dance']))
-    id_old = db.cur.execute(q, (comp['feis'], name_old, code_old, age, comp['maxAge'], comp['level'], comp['genders'],
-                                comp['dance']))
+    db.cur.execute(q, (comp['feis'], name_young, code_young, comp['minAge'], age - 1, comp['level'],
+                       comp['genders'], comp['dance']))
+    id_young = db.cur.lastrowid
+    db.cur.execute(q, (comp['feis'], name_old, code_old, age, comp['maxAge'], comp['level'], comp['genders'],
+                       comp['dance']))
+    id_old = db.cur.lastrowid
 
     # Gather all competitor info and assign them the correct competition
     q = """SELECT `id`, `dancerId` FROM `competitor` WHERE `competition` = %s"""
@@ -65,11 +76,12 @@ def split_by_age(comp, age):
     q = """UPDATE `competitor` SET `competition` = %s WHERE `id` = %s"""
     dancer_q = """SELECT `birthYear` FROM `dancer` WHERE `id` = %s"""
     for competitor in competitors:
-        dancer = db.cur.execute(dancer_q, competitor['dancerId'])
+        db.cur.execute(dancer_q, competitor['dancerId'])
+        dancer = db.cur.fetchone()
         if dt.datetime.now().year - dancer['birthYear'] >= age:
-            db.cur.execute(q, (id_old, comp['id']))
+            db.cur.execute(q, (id_old, competitor['id']))
         else:
-            db.cur.execute(q, (id_young, comp['id']))
+            db.cur.execute(q, (id_young, competitor['id']))
 
     # Remove the original competition
     delete_comp(comp['id'])
@@ -92,10 +104,12 @@ def split_into_ab(comp):
     name_b = comp['name'] + " B"
     code_b = comp['code'] + "B"
 
-    id_a = db.cur.execute(q, (comp['feis'], name_a, code_a, comp['minAge'], comp['maxAge'], comp['level'],
-                              comp['genders'], comp['dance']))
-    id_b = db.cur.execute(q, (comp['feis'], name_b, code_b, comp['minAge'], comp['maxAge'], comp['level'],
-                              comp['genders'], comp['dance']))
+    db.cur.execute(q, (comp['feis'], name_a, code_a, comp['minAge'], comp['maxAge'], comp['level'],
+                       comp['genders'], comp['dance']))
+    id_a = db.cur.lastrowid
+    db.cur.execute(q, (comp['feis'], name_b, code_b, comp['minAge'], comp['maxAge'], comp['level'],
+                       comp['genders'], comp['dance']))
+    id_b = db.cur.lastrowid
 
     # Gather all the competitors in the original competition and assign them a new comp
     q = """SELECT `id` FROM `competitor` WHERE `competition` = %s"""
@@ -158,11 +172,13 @@ def update_min_age(comp_id, other_id):
     Updates the min age of the first comp with the min age of the second
     """
     db = Database()
-    min_q = """SELECT `minAge` FROM `competition` WHERE `id` = %s"""
+    min_q = """SELECT `minAge`, `name` FROM `competition` WHERE `id` = %s"""
     db.cur.execute(min_q, other_id)
-    min_age = db.cur.fetchone()['minAge']
-    update_q = """UPDATE `competition` SET `minAge` = %s WHERE `id` = %s"""
-    db.cur.execute(update_q, (min_age, comp_id))
+    comp = db.cur.fetchone()
+    min_age = comp['minAge']
+    name = comp['name']
+    update_q = """UPDATE `competition` SET `minAge` = %s, `name` = %s WHERE `id` = %s"""
+    db.cur.execute(update_q, (min_age, update_name(name, min_age), comp_id))
     db.con.close()
     gc.collect()
 
@@ -291,30 +307,30 @@ def parse_dancers_for_entries(dancers):
     db = Database()
     data = {'comps': list(), 'codes': list(), 'dancers': list(), 'schools': list()}
     comp_q = """SELECT `name`, `code` FROM `competition` WHERE `id` = %s"""
-    dancer_q = """SELECT `fName`, `lName`, `school` FROM `dancer` WHERE `id` = %s"""
+    dancer_q = """SELECT `fName`, `lName`, `school` FROM `dancer` WHERE `id` = %s AND `show` = %s"""
     for dancer in dancers:
         # Fetch data from competition, and dancer tables
         db.cur.execute(comp_q, dancer['competition'])
         comp = db.cur.fetchone()
-        db.cur.execute(dancer_q, dancer['dancerId'])
+        db.cur.execute(dancer_q, (dancer['dancerId'], 1))
         curr_dancer = db.cur.fetchone()
-
-        # Maintain format for the data dict
-        if comp['code'] not in data["codes"]:
-            data['comps'].append(comp['name'])
-            data['codes'].append(comp['code'])
-            data['dancers'].append([curr_dancer['fName'] + " " + curr_dancer['lName']])
-            data['schools'].append([curr_dancer['school']])
-        else:
-            data['dancers'][-1].append(curr_dancer['fName'] + " " + curr_dancer['lName'])
-            data['schools'][-1].append(curr_dancer['school'])
+        if curr_dancer is not None:
+            # Maintain format for the data dict
+            if comp['code'] not in data["codes"]:
+                data['comps'].append(comp['name'])
+                data['codes'].append(comp['code'])
+                data['dancers'].append([curr_dancer['fName'] + " " + curr_dancer['lName']])
+                data['schools'].append([curr_dancer['school']])
+            else:
+                data['dancers'][-1].append(curr_dancer['fName'] + " " + curr_dancer['lName'])
+                data['schools'][-1].append(curr_dancer['school'])
     db.con.close()
     gc.collect()
     return data
 
 
 def get_entries_from_feis(feis_id):
-    """(int) ->
+    """(int) -> list of dict of str:obj
     Returns all the entries for all competitions for a given feis
     """
     db = Database()

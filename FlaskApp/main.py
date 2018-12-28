@@ -9,6 +9,8 @@ app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024     # 10MB Upload limit
 # TODO: Implement flask_login!
 LOGGED = False
 
+# TODO: Start fresh tomorrow with new a feis
+
 
 def flip_logged():
     """flips the value of LOGGED"""
@@ -323,7 +325,8 @@ def edit_dancer():
 
 @app.route("/welcome/edit_dancer/alter", methods=["POST"])
 def alter_dancer():
-    """The path through altering a dancer"""
+    """The path through altering a dancer
+    TODO: Add defaults"""
     if request.method != "POST":
         return redirect(url_for('welcome'))
     f.alter_dancer(request.form.get('id', -1), request.form.get('f_name', ''), request.form.get('l_name', ''),
