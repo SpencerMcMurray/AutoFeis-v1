@@ -396,6 +396,29 @@ def split_comps():
     """Page for splitting a competition in two"""
     if request.method == "POST":
         comp = f.get_comp_from_id(request.form.get('compId', 0))
+        ages = [x + 1 for x in range(comp['minAge'], comp['maxAge'])]
+        return render_template("functions/splitComps.html", isLogged=LOGGED, where="welcome", comp=comp, ages=ages)
+    return redirect(url_for("welcome"))
+
+
+@app.route("/welcome/functions/alter/split/AB", methods=["POST"])
+def split_ab():
+    """Script to split one competition with one age group into two sub-comps"""
+    if request.method == "POST":
+        comp_id = request.form.get('compId', 0)
+        comp = f.get_comp_from_id(comp_id)
+        f.split_into_ab(comp)
+    return redirect(url_for("welcome"))
+
+
+@app.route("/welcome/functions/alter/split/age", methods=["POST"])
+def split_age():
+    """Script to split one competition with many age groups into two sub-comps"""
+    if request.method == "POST":
+        comp_id = request.form.get('compId', 0)
+        age = int(request.form.get('age', -1))
+        comp = f.get_comp_from_id(comp_id)
+        f.split_by_age(comp, age)
     return redirect(url_for("welcome"))
 
 

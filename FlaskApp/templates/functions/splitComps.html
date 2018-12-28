@@ -1,0 +1,53 @@
+{% extends "generalTemplates/outline.html" %}
+{% block body %}
+    <style>
+        table {
+            margin:0 auto;
+            font-size:20px;
+            border:2px solid black;
+        } th, td {
+            padding: 15px;
+            border: 2px solid black;
+        } td {
+            text-align: center;
+        }
+        table tr:nth-child(odd) {
+            background-color: #eee;
+        }
+        table tr:nth-child(even) {
+            background-color: #fff;
+        }
+        p {
+            font-size: 15px;
+        }
+    </style>
+    <body>
+        <h1 style="font-family:Teko;font-size:50px">Splitting: {{ comp['code'] }}</h1><hr>
+        {% if comp['minAge'] == comp['maxAge'] %}
+            <p>
+                This competition only covers one age group, would you like to split it into two separate competitions?
+            </p>
+            <form style="text-align: center" method="POST" action="{{ url_for('split_ab') }}">
+                <input type="hidden" value="{{ comp['id'] }}" name="compId">
+                <input type="submit" value="Yes">
+            </form>
+            <b>
+                (Note: Competitors will be distributed randomly, but the size of the competitions will be at most
+                 within one competitor of each other)
+            </b>
+        {% else %}
+            <p>
+                This competition covers many ages, please choose the starting age of the older split
+            </p>
+            <form style="text-align: center" method="POST" action="{{ url_for('split_age') }}">
+                <input type="hidden" value="{{ comp['id'] }}" name="compId">
+                <select name="age">
+                    {% for age in ages %}
+                        <option value="{{ age }}">{{ age }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Split">
+            </form>
+        {% endif %}
+    </body>
+{% endblock body %}

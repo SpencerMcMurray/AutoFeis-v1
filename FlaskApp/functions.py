@@ -6,6 +6,8 @@ import datetime as dt
 import csv
 import os
 import math
+import random as rnd
+import re
 
 
 DANCERS_PER_PAGE = 17
@@ -24,6 +26,110 @@ class Competition:
 
     def get_data(self):
         return self._data
+
+
+def change_over(name):
+    """(str) -> str
+    If the given name contains 'Over', replace it with 'Under'
+    """
+    pos = name.find("Over")
+    if pos >= 0:
+        name = name[:pos] + "Under" + name[pos+4:]
+    return name
+
+
+def split_by_age(comp, age):
+    """(dict of str:obj, int) -> NoneType
+    Splits the competition given in two new comps split by age
+    TODO: Check it works with Non-leveled feiseanna
+    """
+    db = Database()
+    q = """INSERT INTO `competition` (`feis`, `name`, `code`, `minAge`, `maxAge`, `level`, `genders`, `dance`) VALUES
+           (%s, %s, %s, %s, %s, %s, %s, %s)"""
+    # Create two competitions split by age
+    # Replace the age in the name and code with the new age
+    name_young = re.sub("\\d+", str(age - 1), change_over(comp['name']))
+    code_young = re.sub("\\d+", str(age - 1), comp['code'])
+    name_old = comp['name']
+    code_old = comp['code']
+
+    id_young = db.cur.execute(q, (comp['feis'], name_young, code_young, comp['minAge'], age - 1, comp['level'],
+                                  comp['genders'], comp['dance']))
+    id_old = db.cur.execute(q, (comp['feis'], name_old, code_old, age, comp['maxAge'], comp['level'], comp['genders'],
+                                comp['dance']))
+
+    # Gather all competitor info and assign them the correct competition
+    q = """SELECT `id`, `dancerId` FROM `competitor` WHERE `competition` = %s"""
+    db.cur.execute(q, comp['id'])
+    competitors = db.cur.fetchall()
+    q = """UPDATE `competitor` SET `competition` = %s WHERE `id` = %s"""
+    dancer_q = """SELECT `birthYear` FROM `dancer` WHERE `id` = %s"""
+    for competitor in competitors:
+        dancer = db.cur.execute(dancer_q, competitor['dancerId'])
+        if dt.datetime.now().year - dancer['birthYear'] >= age:
+            db.cur.execute(q, (id_old, comp['id']))
+        else:
+            db.cur.execute(q, (id_young, comp['id']))
+
+    # Remove the original competition
+    delete_comp(comp['id'])
+
+    db.con.close()
+    gc.collect()
+    
+
+def split_into_ab(comp):
+    """(dict of str:obj) -> NoneType
+    Splits the competition given in two equal, randomly distributed new comps.
+    """
+    db = Database()
+
+    # Make two new competitions which are identical, but called A and B
+    q = """INSERT INTO `competition` (`feis`, `name`, `code`, `minAge`, `maxAge`, `level`, `genders`, `dance`) VALUES
+           (%s, %s, %s, %s, %s, %s, %s, %s)"""
+    name_a = comp['name'] + " A"
+    code_a = comp['code'] + "A"
+    name_b = comp['name'] + " B"
+    code_b = comp['code'] + "B"
+
+    id_a = db.cur.execute(q, (comp['feis'], name_a, code_a, comp['minAge'], comp['maxAge'], comp['level'],
+                              comp['genders'], comp['dance']))
+    id_b = db.cur.execute(q, (comp['feis'], name_b, code_b, comp['minAge'], comp['maxAge'], comp['level'],
+                              comp['genders'], comp['dance']))
+
+    # Gather all the competitors in the original competition and assign them a new comp
+    q = """SELECT `id` FROM `competitor` WHERE `competition` = %s"""
+    db.cur.execute(q, comp['id'])
+    dancers = db.cur.fetchall()
+    q = """UPDATE `competitor` SET `competition` = %s WHERE `id` = %s"""
+    push_a = True
+    size = len(dancers)
+    for i in range(size):
+        # Get a random index to use
+        r = rnd.randrange(len(dancers))
+        if push_a:
+            db.cur.execute(q, (id_a, dancers[r]['id']))
+        else:
+            db.cur.execute(q, (id_b, dancers[r]['id']))
+        dancers.pop(r)
+        push_a = not push_a
+
+    # Remove the original competition
+    delete_comp(comp['id'])
+
+    db.con.close()
+    gc.collect()
+
+
+def delete_comp(comp_id):
+    """(int) -> NoneType
+    Deletes the competition with the given id
+    """
+    db = Database()
+    q = """DELETE FROM `competition` WHERE `id` = %s"""
+    db.cur.execute(q, comp_id)
+    db.con.close()
+    gc.collect()
 
 
 def merge_comps(comp_id, other_id):
@@ -156,7 +262,7 @@ def get_comps_from_feis_id(feis_id):
     Gets all competitions associated with the given feis id
     """
     db = Database()
-    q = """SELECT `id`, `name`, `code` FROM `competition` WHERE `feis` = %s"""
+    q = """SELECT `id`, `name`, `code` FROM `competition` WHERE `feis` = %s ORDER BY `dance`, `level`, `minAge`"""
     db.cur.execute(q, feis_id)
     comps = db.cur.fetchall()
     db.con.close()
