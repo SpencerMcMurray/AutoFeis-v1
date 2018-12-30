@@ -7,10 +7,6 @@
     <list default="true" id="e6a99dd6-dad2-4df9-b54d-3c5a79b4e1ba" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/feisInfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/feisInfo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/functions/alterComps.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/functions/alterComps.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/generalTemplates/outline.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/generalTemplates/outline.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,7 +15,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/FlaskApp$Run_Flask_App.coverage" NAME="Run Flask App Coverage Results" MODIFIED="1546204016135" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FlaskApp$Run_Flask_App.coverage" NAME="Run Flask App Coverage Results" MODIFIED="1546205456918" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -70,25 +66,25 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/3d0901dc-c764-4227-bb62-3eacdbd663d8/console.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="5" column="45" lean-forward="true" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
+            <state relative-caret-position="42">
+              <caret line="2" column="17" selection-end-line="3" selection-end-column="21" />
               <folding>
-                <marker date="1546204369011" expanded="true" signature="16:75" ph="..." />
-                <marker date="1546204369011" expanded="true" signature="18:71" ph="..." />
-                <marker date="1546204369011" expanded="true" signature="194:199" ph="..." />
+                <marker date="1546204755702" expanded="true" signature="16:75" ph="..." />
+                <marker date="1546204755702" expanded="true" signature="18:71" ph="..." />
+                <marker date="1546204755702" expanded="true" signature="194:199" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="538">
-              <caret line="68" column="21" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
+            <state relative-caret-position="55">
+              <caret line="183" column="19" selection-start-line="183" selection-start-column="19" selection-end-line="183" selection-end-column="19" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -159,7 +155,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/agesAddFeis.html" />
         <option value="$PROJECT_DIR$/templates/outline.html" />
         <option value="$PROJECT_DIR$/templates/addFeisUnique.html" />
         <option value="$PROJECT_DIR$/templates/addFeisArt.html" />
@@ -208,8 +203,9 @@
         <option value="$PROJECT_DIR$/functions/mergeOps.py" />
         <option value="$PROJECT_DIR$/templates/functions/alterComps.html" />
         <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/functions.py" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/3d0901dc-c764-4227-bb62-3eacdbd663d8/console.sql" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
+        <option value="$PROJECT_DIR$/functions.py" />
       </list>
     </option>
   </component>
@@ -253,7 +249,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="database.console.LAST_STATE" value="true" />
+    <property name="database.console.LAST_STATE" value="false" />
     <property name="jsx.switch.disabled" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -386,7 +382,7 @@
       <workItem from="1545941908404" duration="17574000" />
       <workItem from="1546020006660" duration="10674000" />
       <workItem from="1546126189776" duration="5366000" />
-      <workItem from="1546191876032" duration="9968000" />
+      <workItem from="1546191876032" duration="11028000" />
     </task>
     <task id="LOCAL-00001" summary="Added very basic functionality for our Flask app,">
       <created>1541362070067</created>
@@ -521,11 +517,18 @@
       <option name="project" value="LOCAL" />
       <updated>1546032885073</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Remade split/merge. No seen bugs for now.">
+      <created>1546204509864</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1546204509864</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="129376000" />
+    <option name="totallyTimeSpent" value="130436000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -549,12 +552,12 @@
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" weight="0.32917964" />
       <window_info anchor="bottom" id="Version Control" order="5" weight="0.32917964" />
-      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49947312" weight="0.32087228" />
+      <window_info active="true" anchor="bottom" id="Run" order="6" sideWeight="0.49947312" visible="true" weight="0.32087228" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.39771548" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="10" weight="0.32917964" />
-      <window_info active="true" anchor="bottom" id="Database Console" order="11" visible="true" weight="0.28037384" />
+      <window_info anchor="bottom" id="Database Console" order="11" weight="0.28037384" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -652,7 +655,8 @@
     <MESSAGE value="Implemented merging competitions" />
     <MESSAGE value="Implemented splitting competitions, still need to bug fix" />
     <MESSAGE value="More bug fixing, and more to come" />
-    <option name="LAST_COMMIT_MESSAGE" value="More bug fixing, and more to come" />
+    <MESSAGE value="Remade split/merge. No seen bugs for now." />
+    <option name="LAST_COMMIT_MESSAGE" value="Remade split/merge. No seen bugs for now." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/353a7c50-af8e-4f25-9723-581b3a375714/console.sql" />
@@ -947,6 +951,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/3d0901dc-c764-4227-bb62-3eacdbd663d8/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="17" selection-end-line="3" selection-end-column="21" />
+          <folding>
+            <marker date="1546204755702" expanded="true" signature="16:75" ph="..." />
+            <marker date="1546204755702" expanded="true" signature="18:71" ph="..." />
+            <marker date="1546204755702" expanded="true" signature="194:199" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
@@ -959,22 +975,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/functions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="538">
-          <caret line="68" column="21" selection-start-line="68" selection-start-column="21" selection-end-line="68" selection-end-column="21" />
+        <state relative-caret-position="55">
+          <caret line="183" column="19" selection-start-line="183" selection-start-column="19" selection-end-line="183" selection-end-column="19" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/3d0901dc-c764-4227-bb62-3eacdbd663d8/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="45" lean-forward="true" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
-          <folding>
-            <marker date="1546204369011" expanded="true" signature="16:75" ph="..." />
-            <marker date="1546204369011" expanded="true" signature="18:71" ph="..." />
-            <marker date="1546204369011" expanded="true" signature="194:199" ph="..." />
           </folding>
         </state>
       </provider>

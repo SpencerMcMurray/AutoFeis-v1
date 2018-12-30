@@ -62,11 +62,9 @@ def split_by_age(comp, age):
     competitors = db.cur.fetchall()
     q = """UPDATE `competitor` SET `competition` = %s WHERE `id` = %s"""
     dancer_q = """SELECT `birthYear` FROM `dancer` WHERE `id` = %s"""
-    print(competitors)
     for competitor in competitors:
         db.cur.execute(dancer_q, competitor['dancerId'])
         dancer = db.cur.fetchone()
-        print(dancer)
         if dt.datetime.now().year - dancer['birthYear'] >= age:
             db.cur.execute(q, (id_old, competitor['id']))
         else:
@@ -110,6 +108,9 @@ def update_names_with_age(id_young, id_old):
         if comp['dance'] == "Main":
             code = re.sub("\\d+", str(comp['minAge'] - 1), code)
     db.cur.execute(update_q, (name, code, id_old))
+
+    db.con.close()
+    gc.collect()
 
 
 def split_into_ab(comp):
@@ -180,14 +181,17 @@ def merge_comps(comp_id, other_id):
     update_competitor_comp(comp_id, other_id)
     update_min_age(comp_id, other_id)
     db = Database()
-    q = """SELECT `name`, `minAge`, `maxAge` FROM `competition` WHERE `id` = %s"""
+    q = """SELECT * FROM `competition` WHERE `id` = %s"""
     db.cur.execute(q, comp_id)
     comp = db.cur.fetchone()
     # If the competition is a senior comp update the over to account for the new min age
     if comp['maxAge'] == 99:
-        q = """UPDATE `competition` SET `name` = %s WHERE `id` = %s"""
-        name = update_name(comp['name'], comp['minAge'])
-        db.cur.execute(q, (name, comp_id))
+        q = """UPDATE `competition` SET `name` = %s, `code` = %s WHERE `id` = %s"""
+        name = re.sub("\\d+", str(comp['minAge'] - 1), comp['name'])
+        code = comp['code']
+        if comp['dance'] == "Main":
+            code = re.sub("\\d+", str(comp['minAge'] - 1), comp['code'])
+        db.cur.execute(q, (name, code, comp_id))
     db.con.close()
     gc.collect()
     delete_comp(other_id)
@@ -646,10 +650,7 @@ def make_main_major_competitions(single_ages, boys, age_max):
     prev_age = 0
     if not boys:
         for age in range(start, age_max+1, step):
-            if prev_age == 0:
-                curr_name = "Mixed Under " + str(age)
-            else:
-                curr_name = str(prev_age) + " to " + str(age)
+            curr_name = "Mixed Under " + str(age)
             curr_code = "U" + str(age)
             comps['Main'].append(Competition(prev_age, age, curr_name, curr_code, "All", "All", "Main"))
             prev_age = age + 1
@@ -665,12 +666,8 @@ def make_main_major_competitions(single_ages, boys, age_max):
         comps['Main'].append(Competition(age_max+1, 99, curr_name, curr_code, "All", "All", "Main"))
     else:
         for age in range(start, age_max+1, step):
-            if prev_age == 0:
-                b_name = "Boys Under " + str(age)
-                g_name = "Girls Under " + str(age)
-            else:
-                b_name = "Boys " + str(prev_age) + " to " + str(age)
-                g_name = "Girls " + str(prev_age) + " to " + str(age)
+            b_name = "Boys Under " + str(age)
+            g_name = "Girls Under " + str(age)
             b_code = "BU" + str(age)
             g_code = "GU" + str(age)
             comps['Main'] += [Competition(prev_age, age, b_name, b_code, "Male", "All", "Main"),
