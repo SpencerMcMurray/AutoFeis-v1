@@ -4,9 +4,43 @@
     <bookmark url="file://$PROJECT_DIR$/templates/results/resultsForFeis.html" line="25" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6a99dd6-dad2-4df9-b54d-3c5a79b4e1ba" name="Default Changelist" comment="">
+    <list default="true" id="e6a99dd6-dad2-4df9-b54d-3c5a79b4e1ba" name="Default Changelist" comment="Changed folder stucture, made the FlaskApp the main package">
+      <change beforePath="$PROJECT_DIR$/../CropSheet.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DigitClassifierCNN.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GUI.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GenerateFiles.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GetDigits.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MNIST_data/t10k-images-idx3-ubyte.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MNIST_data/t10k-labels-idx1-ubyte.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MNIST_data/train-images-idx3-ubyte.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MNIST_data/train-labels-idx1-ubyte.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TODO.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Tabulate.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../checkpoints/best_validation.data-00000-of-00001" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../checkpoints/best_validation.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../checkpoints/best_validation.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../checkpoints/checkpoint" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../filler.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../icon.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../marksheets/dec.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../marksheets/no_dec.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../outlines/1j1r.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../outlines/1j2r.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../outlines/1j3r.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../outlines/2j1r.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../outlines/2j2r.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../outlines/2j3r.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../outlines/3j1r.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../outlines/3j2r.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../outlines/3j3r.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../outlines/Judge Sheet/outline.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../outlines/Judge Sheet/outline.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../outlines/Judge Sheet/outline.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../outlines/overall.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../outlines/round.xlsx" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -66,11 +100,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/3d0901dc-c764-4227-bb62-3eacdbd663d8/console.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="2" column="17" selection-end-line="3" selection-end-column="21" />
+            <state relative-caret-position="210">
+              <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
               <folding>
                 <marker date="1546204755702" expanded="true" signature="16:75" ph="..." />
                 <marker date="1546204755702" expanded="true" signature="18:71" ph="..." />
@@ -80,11 +114,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="55">
-              <caret line="183" column="19" selection-start-line="183" selection-start-column="19" selection-end-line="183" selection-end-column="19" />
+            <state relative-caret-position="181">
+              <caret line="189" column="55" selection-start-line="189" selection-start-column="55" selection-end-line="189" selection-end-column="55" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -204,8 +238,8 @@
         <option value="$PROJECT_DIR$/templates/functions/alterComps.html" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/3d0901dc-c764-4227-bb62-3eacdbd663d8/console.sql" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
         <option value="$PROJECT_DIR$/functions.py" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
       </list>
     </option>
   </component>
@@ -232,12 +266,7 @@
             <path>
               <item name="FlaskApp" type="b2602c69:ProjectViewProjectNode" />
               <item name="FlaskApp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FlaskApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FlaskApp" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="tabulation" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -251,7 +280,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="jsx.switch.disabled" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="SQL Dialects" />
   </component>
@@ -382,7 +411,7 @@
       <workItem from="1545941908404" duration="17574000" />
       <workItem from="1546020006660" duration="10674000" />
       <workItem from="1546126189776" duration="5366000" />
-      <workItem from="1546191876032" duration="11028000" />
+      <workItem from="1546191876032" duration="11700000" />
     </task>
     <task id="LOCAL-00001" summary="Added very basic functionality for our Flask app,">
       <created>1541362070067</created>
@@ -524,11 +553,25 @@
       <option name="project" value="LOCAL" />
       <updated>1546204509864</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Fixed small bug with age on Main over merges">
+      <created>1546205564776</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1546205564776</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Changed folder stucture, made the FlaskApp the main package">
+      <created>1546205979292</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1546205979292</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="130436000" />
+    <option name="totallyTimeSpent" value="131108000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -541,10 +584,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.14498934" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.14498934" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.32948583" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.50052685" side_tool="true" weight="0.2993763" />
@@ -552,7 +594,7 @@
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" weight="0.32917964" />
       <window_info anchor="bottom" id="Version Control" order="5" weight="0.32917964" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" sideWeight="0.49947312" visible="true" weight="0.32087228" />
+      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49947312" weight="0.32087228" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.39771548" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -656,7 +698,9 @@
     <MESSAGE value="Implemented splitting competitions, still need to bug fix" />
     <MESSAGE value="More bug fixing, and more to come" />
     <MESSAGE value="Remade split/merge. No seen bugs for now." />
-    <option name="LAST_COMMIT_MESSAGE" value="Remade split/merge. No seen bugs for now." />
+    <MESSAGE value="Fixed small bug with age on Main over merges" />
+    <MESSAGE value="Changed folder stucture, made the FlaskApp the main package" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed folder stucture, made the FlaskApp the main package" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/353a7c50-af8e-4f25-9723-581b3a375714/console.sql" />
@@ -951,18 +995,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/3d0901dc-c764-4227-bb62-3eacdbd663d8/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="17" selection-end-line="3" selection-end-column="21" />
-          <folding>
-            <marker date="1546204755702" expanded="true" signature="16:75" ph="..." />
-            <marker date="1546204755702" expanded="true" signature="18:71" ph="..." />
-            <marker date="1546204755702" expanded="true" signature="194:199" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
@@ -975,10 +1007,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/functions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="55">
-          <caret line="183" column="19" selection-start-line="183" selection-start-column="19" selection-end-line="183" selection-end-column="19" />
+        <state relative-caret-position="181">
+          <caret line="189" column="55" selection-start-line="189" selection-start-column="55" selection-end-line="189" selection-end-column="55" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/3d0901dc-c764-4227-bb62-3eacdbd663d8/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+          <folding>
+            <marker date="1546204755702" expanded="true" signature="16:75" ph="..." />
+            <marker date="1546204755702" expanded="true" signature="18:71" ph="..." />
+            <marker date="1546204755702" expanded="true" signature="194:199" ph="..." />
           </folding>
         </state>
       </provider>
