@@ -48,9 +48,9 @@
 
             <!-- Make register look different depending on where we are -->
             {% if where == "register" %}
-                <li><a class='here' href="{{ url_for('register') }}">Register</a></li>
+                <li><a class='here' href="{{ url_for('register_page') }}">Register</a></li>
             {% else %}
-                <li><a href="{{ url_for('register') }}">Register</a></li>
+                <li><a href="{{ url_for('register_page') }}">Register</a></li>
             {% endif %}
 
             <!-- Show the correct account links -->

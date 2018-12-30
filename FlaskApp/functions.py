@@ -28,14 +28,7 @@ class Competition:
         return self._data
 
 
-def change_over(name):
-    """(str) -> str
-    If the given name contains 'Over', replace it with 'Under'
-    """
-    pos = name.find("Over")
-    if pos >= 0:
-        name = name[:pos] + "Under" + name[pos+4:]
-    return name
+"""  SPLIT COMPETITIONS  """
 
 
 def update_name(name, age):
@@ -50,24 +43,18 @@ def update_name(name, age):
 def split_by_age(comp, age):
     """(dict of str:obj, int) -> NoneType
     Splits the competition given in two new comps split by age
-    TODO: Check it works with Non-leveled feiseanna
     """
     db = Database()
     q = """INSERT INTO `competition` (`feis`, `name`, `code`, `minAge`, `maxAge`, `level`, `genders`, `dance`) VALUES
            (%s, %s, %s, %s, %s, %s, %s, %s)"""
     # Create two competitions split by age
-    # Replace the age in the name and code with the new age
-    name_young = re.sub("\\d+", str(age - 1), change_over(comp['name']))
-    code_young = re.sub("\\d+", str(age - 1), comp['code'])
-    name_old = update_name(comp['name'], age)
-    code_old = comp['code']
-
-    db.cur.execute(q, (comp['feis'], name_young, code_young, comp['minAge'], age - 1, comp['level'],
+    db.cur.execute(q, (comp['feis'], comp['name'], comp['code'], comp['minAge'], age - 1, comp['level'],
                        comp['genders'], comp['dance']))
     id_young = db.cur.lastrowid
-    db.cur.execute(q, (comp['feis'], name_old, code_old, age, comp['maxAge'], comp['level'], comp['genders'],
+    db.cur.execute(q, (comp['feis'], comp['name'], comp['code'], age, comp['maxAge'], comp['level'], comp['genders'],
                        comp['dance']))
     id_old = db.cur.lastrowid
+    update_names_with_age(id_young, id_old)
 
     # Gather all competitor info and assign them the correct competition
     q = """SELECT `id`, `dancerId` FROM `competitor` WHERE `competition` = %s"""
@@ -75,9 +62,11 @@ def split_by_age(comp, age):
     competitors = db.cur.fetchall()
     q = """UPDATE `competitor` SET `competition` = %s WHERE `id` = %s"""
     dancer_q = """SELECT `birthYear` FROM `dancer` WHERE `id` = %s"""
+    print(competitors)
     for competitor in competitors:
         db.cur.execute(dancer_q, competitor['dancerId'])
         dancer = db.cur.fetchone()
+        print(dancer)
         if dt.datetime.now().year - dancer['birthYear'] >= age:
             db.cur.execute(q, (id_old, competitor['id']))
         else:
@@ -88,7 +77,40 @@ def split_by_age(comp, age):
 
     db.con.close()
     gc.collect()
-    
+
+
+def update_names_with_age(id_young, id_old):
+    """(int, int, int) -> NoneType
+    Updates the name to reflect the competitions new properties
+    """
+    db = Database()
+    grab_q = """SELECT * FROM `competition` WHERE `id` = %s"""
+    update_q = """UPDATE `competition` SET `name` = %s, `code` = %s WHERE `id` = %s"""
+
+    # Update younger competition
+    db.cur.execute(grab_q, id_young)
+    comp = db.cur.fetchone()
+    name = comp['name'].replace('Over', 'Under')
+    code = comp['code']
+    if comp['dance'] == "Main":
+        code = code.replace('O', 'U')
+
+    # Use a regex to change the old age in the name and code to the new age
+    name = re.sub("\\d+", str(comp['maxAge']), name)
+    code = re.sub("\\d+", str(comp['maxAge']), code)
+    db.cur.execute(update_q, (name, code, id_young))
+
+    # Update older competition
+    db.cur.execute(grab_q, id_old)
+    comp = db.cur.fetchone()
+    name = comp['name']
+    code = comp['code']
+    if name.count('Over') > 0:
+        name = re.sub("\\d+", str(comp['minAge'] - 1), name)
+        if comp['dance'] == "Main":
+            code = re.sub("\\d+", str(comp['minAge'] - 1), code)
+    db.cur.execute(update_q, (name, code, id_old))
+
 
 def split_into_ab(comp):
     """(dict of str:obj) -> NoneType
@@ -146,25 +168,29 @@ def delete_comp(comp_id):
     gc.collect()
 
 
+"""  MERGE COMPETITIONS  """
+
+
 def merge_comps(comp_id, other_id):
     """(int, int) -> NoneType
     Merges the two competitions into one
     Note: comp_id is the id of the competition with the greater maxAge
+    Note: Merging a senior comp with a junior comp(minAge=0) results in a name with 'Over -1'
     """
     update_competitor_comp(comp_id, other_id)
     update_min_age(comp_id, other_id)
-    remove_comp(other_id)
-
-
-def remove_comp(comp_id):
-    """(int) -> NoneType
-    Removes the competition with given id
-    """
     db = Database()
-    q = """DELETE FROM `competition` WHERE `id` = %s"""
+    q = """SELECT `name`, `minAge`, `maxAge` FROM `competition` WHERE `id` = %s"""
     db.cur.execute(q, comp_id)
+    comp = db.cur.fetchone()
+    # If the competition is a senior comp update the over to account for the new min age
+    if comp['maxAge'] == 99:
+        q = """UPDATE `competition` SET `name` = %s WHERE `id` = %s"""
+        name = update_name(comp['name'], comp['minAge'])
+        db.cur.execute(q, (name, comp_id))
     db.con.close()
     gc.collect()
+    delete_comp(other_id)
 
 
 def update_min_age(comp_id, other_id):
@@ -172,13 +198,12 @@ def update_min_age(comp_id, other_id):
     Updates the min age of the first comp with the min age of the second
     """
     db = Database()
-    min_q = """SELECT `minAge`, `name` FROM `competition` WHERE `id` = %s"""
+    min_q = """SELECT `minAge` FROM `competition` WHERE `id` = %s"""
     db.cur.execute(min_q, other_id)
     comp = db.cur.fetchone()
     min_age = comp['minAge']
-    name = comp['name']
-    update_q = """UPDATE `competition` SET `minAge` = %s, `name` = %s WHERE `id` = %s"""
-    db.cur.execute(update_q, (min_age, update_name(name, min_age), comp_id))
+    update_q = """UPDATE `competition` SET `minAge` = %s WHERE `id` = %s"""
+    db.cur.execute(update_q, (min_age, comp_id))
     db.con.close()
     gc.collect()
 
@@ -199,7 +224,6 @@ def get_mergeable_comps(comp):
     Returns all the competitions that are able to merge with the given competition
     """
     db = Database()
-    # TODO: incorporate dances for grades comps
     q = """SELECT * FROM `competition` WHERE `level` = %s AND (`maxAge` = %s OR `minAge` = %s OR `maxAge` = %s
            OR `minAge` = %s) AND NOT `id` = %s AND `feis` = %s AND `dance` = %s AND `genders` = %s"""
     # These are to check if the competition's min/max will line up with our max/min
@@ -252,6 +276,9 @@ def get_all_clopen_feiseanna(is_open):
     return feiseanna
 
 
+"""  SCORESHEET CALCULATOR  """
+
+
 def get_sheets_for_comps(comps):
     """(list of dict of str:obj) -> list of dict of str:obj
     Calculates the number of scoresheets per judge for each competitions based on entries
@@ -299,6 +326,9 @@ def get_latest_three_feiseanna():
     return feiseanna
 
 
+"""  ENTRIES  """
+
+
 def parse_dancers_for_entries(dancers):
     """(list of dict of str:int) -> dict of str:list of str/(list of str)
     Takes the list of dancer ids, and their respective competition ids and formats it to make it easy for
@@ -342,6 +372,9 @@ def get_entries_from_feis(feis_id):
     return parse_dancers_for_entries(dancers)
 
 
+"""  REGISTRATION  """
+
+
 def register(reg, feis_id, dancer_id):
     """(dict of str:dict of str:int, int, int) -> NoneType
     Registers all dancer ids to the given competition id
@@ -376,15 +409,18 @@ def get_all_comps_for_dancers(feis_id, dancers):
 
 def get_all_feiseanna():
     """() -> list of dict of str:obj
-    Returns all open feiseanna from our database
+    Returns all feiseanna from our database ordered by date
     """
     db = Database()
-    q = """SELECT * FROM `feiseanna` WHERE `isOpen` = 1"""
+    q = """SELECT * FROM `feiseanna` ORDER BY `date` DESC"""
     db.cur.execute(q)
     feiseanna = db.cur.fetchall()
     db.con.close()
     gc.collect()
     return feiseanna
+
+
+"""  FEIS CREATION  """
 
 
 def make_comp_from_data(data):
@@ -721,8 +757,12 @@ def make_treble_competitions(info):
 def make_tir_competitions(info):
     comps = {'Tir na nOg': []}
     for i in range(len(info['start_age'])):
-        name = "Tir na nOg Under " + str(info['end_age'][i])
-        code = "TNN" + str(info['end_age'][i])
+        if int(info['end_age'][i]) == 99:
+            name = "Tir na nOg Over " + str(info['start_age'][i])
+            code = "TNN" + str(info['end_age'][i])
+        else:
+            name = "Tir na nOg Under " + str(info['end_age'][i])
+            code = "TNN" + str(info['end_age'][i])
         comps['Tir na nOg'].append(Competition(info['start_age'][i], info['end_age'][i], name, code, "All", "All",
                                                "Tir"))
     return comps
@@ -795,6 +835,9 @@ def delete_dancer_from_id(uid):
     db.cur.execute(q, (uid,))
     db.con.close()
     gc.collect()
+
+
+"""  DANCER CREATION  """
 
 
 def alter_dancer(dancer_id, f_name, l_name, school, birth_year, level, gender, show):
@@ -888,6 +931,9 @@ def get_name_from_email(email):
     db.con.close()
     gc.collect()
     return res['name']
+
+
+"""  LOGIN/SIGN UP  """
 
 
 def validate(email, password):

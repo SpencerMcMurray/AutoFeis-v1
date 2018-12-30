@@ -31,13 +31,13 @@
                     <td>{{ comp['code'] }}</td>
                     <td>{{ comp['name'] }}</td>
                     <td>
-                        <form method="POST" action="{{ url_for('merge_comps') }}">
+                        <form method="POST" action="{{ url_for('merge') }}">
                             <input type="hidden" value="{{ comp['id'] }}" name="compId">
                             <input type="submit" value="Merge">
                         </form>
                     </td>
                     <td>
-                        <form method="POST" action="{{ url_for('split_comps') }}">
+                        <form method="POST" action="{{ url_for('split') }}">
                             <input type="hidden" value="{{ comp['id'] }}" name="compId">
                             <input type="submit" value="Split">
                         </form>
