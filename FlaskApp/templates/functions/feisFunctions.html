@@ -40,6 +40,14 @@
                 </tr>
                 <tr>
                     <td>
+                        <form method="POST" action="{{ url_for('choose_for_editor') }}">
+                            <input type="hidden" value="{{ feis_id }}" name="feisId" />
+                            <input type="submit" value="Add/Edit Competitions" />
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <form method="POST" action="{{ url_for('score_calc') }}">
                             <input type="hidden" value="{{ feis_id }}" name="feisId" />
                             <input type="submit" value="Scoresheet Calculator" />

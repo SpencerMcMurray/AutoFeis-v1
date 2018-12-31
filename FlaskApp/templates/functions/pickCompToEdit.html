@@ -1,0 +1,38 @@
+{% extends "generalTemplates/outline.html" %}
+{% block body %}
+    <body>
+        <style>
+            table {
+                font-size:20px;
+                border:2px solid black;
+            } th, td {
+                padding: 15px;
+                border: 2px solid black;
+            } table tr:nth-child(odd) {
+                background-color: #eee;
+            }
+            table tr:nth-child(even) {
+                background-color: #fff;
+            }
+        </style><br>
+        <h1 style="font-family:Teko;font-size:50px">Which competition type do you want to edit/add</h1><hr>
+        {{ isLogged }}
+        <div style="width:50%;display: flex;margin: 0 auto;justify-content: center;">
+            <table>
+                <tr>
+                    <td>
+                        <form method="POST" action="{{ url_for('add_edit') }}">
+                            <select name="type">
+                                {% for type in comp_types %}
+                                    <option value="{{ type }}">{{ type }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="hidden" value="{{ feis_id }}" name="feisId">
+                            <input type="submit" value="Select">
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+{% endblock body %}

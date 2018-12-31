@@ -294,7 +294,7 @@ def add_dancer():
     form = CreateDancer(request.form)
     if request.method == "POST" and form.validate():
         create_dancer(get_id_from_email(session['email']), form.f_name.data, form.l_name.data, form.school.data,
-                        int(form.year.data), form.level.data, form.gender.data, int(form.show.data))
+                      int(form.year.data), form.level.data, form.gender.data, int(form.show.data))
         return redirect(url_for("welcome"))
 
     return render_template("createDancer/addDancer.html", is_logged=LOGGED, where="welcome", form=form)
@@ -326,8 +326,8 @@ def alter_dancer():
     if request.method != "POST":
         return redirect(url_for('welcome'))
     alter_dancer(request.form.get('id', -1), request.form.get('f_name', ''), request.form.get('l_name', ''),
-                   request.form.get('school', ''),  request.form.get('year', -1), request.form.get('level', ''),
-                   request.form.get('gender', ''), int(request.form.get('show', -1)))
+                 request.form.get('school', ''),  request.form.get('year', -1), request.form.get('level', ''),
+                 request.form.get('gender', ''), int(request.form.get('show', -1)))
     return redirect(url_for('welcome'))
 
 
@@ -385,7 +385,7 @@ def merge():
         else:
             comp = get_comp_from_id(request.form.get('compId', 0))
             mergable = get_mergeable_comps(comp)
-            return render_template("functions/mergeComps.html", isLogged=LOGGED, where="welcome", comp=comp,
+            return render_template("functions/mergeComps.html", is_logged=LOGGED, where="welcome", comp=comp,
                                    merge=mergable)
     return redirect(url_for("welcome"))
 
@@ -396,7 +396,7 @@ def split():
     if request.method == "POST":
         comp = get_comp_from_id(request.form.get('compId', 0))
         ages = [x + 1 for x in range(comp['minAge'], comp['maxAge'])]
-        return render_template("functions/splitComps.html", isLogged=LOGGED, where="welcome", comp=comp, ages=ages)
+        return render_template("functions/splitComps.html", is_logged=LOGGED, where="welcome", comp=comp, ages=ages)
     return redirect(url_for("welcome"))
 
 
@@ -421,12 +421,32 @@ def split_age():
     return redirect(url_for("welcome"))
 
 
+@app.route("/welcome/functions/choose", methods=["POST"])
+def choose_for_editor():
+    """The Add/Edit main page"""
+    if request.method == "POST":
+        comp_types = ["Main", "Treble Reel", "Figure", "Art", "Special"]
+        return render_template("functions/pickCompToEdit.html", is_logged=LOGGED, where="welcome", comp_types=comp_types,
+                               feis_id=request.form.get('feisId', 0))
+    return redirect(url_for("welcome"))
+
+
+@app.route("/welcome/functions/choose/add_edit", methods=["POST"])
+def add_edit():
+    """The Page displaying all competitions to edit and an add button"""
+    if request.method == "POST":
+        feis_id, comp_type = request.form.get('feisId'), request.form.get('type')
+        titles, tables = make_titles_tables_for(feis_id, comp_type)
+        return render_template("functions/compEditor.html", is_logged=LOGGED, where="welcome", titles=titles,
+                               tables=tables)
+    return redirect(url_for("welcome"))
+
+
 @app.route("/welcome/functions/scoresheet", methods=["POST"])
 def score_calc():
     """The Scoresheet calculator page"""
     if request.method == "POST":
         feis_id = request.form.get('feisId', 0)
-
         comps = get_comps_from_feis_id(feis_id)
         sheets, total = get_sheets_for_comps(comps)
         return render_template("functions/scoresheetCalc.html", is_logged=LOGGED, where="welcome", sheets=sheets,

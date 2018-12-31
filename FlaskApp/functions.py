@@ -21,11 +21,59 @@ class Competition:
         return str(self._data)
 
     def serialize(self):
-        # Make sure its a copy
+        # Make sure its a hard copy
         return {"data": self._data[:]}
 
     def get_data(self):
         return self._data
+
+
+"""  COMPETITION EDITOR  """
+
+
+def nested_empty_lists(in_list):
+    """(list( of list)* of dict of str:obj) -> bool
+    Recursively returns True iff all nested lists are empty
+    """
+    if not isinstance(in_list, list):
+        return False
+    if isinstance(in_list, list) and len(in_list) == 0:
+        return True
+    # Else in_list is a list, and it has at least one element
+    ret_bool = True
+    i = 0
+    while ret_bool and i < len(in_list):
+        ret_bool = ret_bool and nested_empty_lists(in_list[i])
+        i += 1
+    return ret_bool
+
+
+def make_titles_tables_for(feis_id, comp_type):
+    """(int, str) -> list of str, list of list of dict of str:obj
+    Makes all the titles for the tables, and also fetches all the competitions necessary for each type
+    """
+    db = Database()
+    comps = list()
+    if comp_type == "Main":
+        levels = ["Open Championship", "Preliminary Championship", "Preliminary Championship Set", "Beginner",
+                  "Advanced Beginner", "Novice", "Open Prizewinner"]
+        q = """SELECT * FROM `competition` WHERE `level` = %s AND `feis` = %s ORDER BY `dance`, `level`, `minAge`"""
+        for level in levels:
+            db.cur.execute(q, (level, feis_id))
+            comps.append(db.cur.fetchall())
+        if nested_empty_lists(comps):
+            q = """SELECT * FROM `competition` WHERE `dance` = %s AND `feis` = %s ORDER BY `dance`, `level`, `minAge`"""
+            db.cur.execute(q, "Main")
+            comps.clear()
+            levels.clear()
+            levels.append("Main")
+            comps.append(db.cur.fetchall())
+        return levels, comps
+    levels = [comp_type]
+    q = """SELECT * FROM `competition` WHERE `dance` = %s AND `feis` = %s ORDER BY `dance`, `level`, `minAge`"""
+    db.cur.execute(q, (comp_type.split(' ')[0], feis_id))
+    comps.append(db.cur.fetchall())
+    return levels, comps
 
 
 """  SPLIT COMPETITIONS  """
@@ -716,7 +764,6 @@ def make_figure_competitions(info):
             code += "X"
             name = "Mixed " + name
         comps['Figure'].append(Competition(info['start_age'][i], info['end_age'][i], name, code, sex, "All", "Figure"))
-
     return comps
 
 
