@@ -17,19 +17,22 @@
         }
     </style>
     <body>
+        <div class="jumbotron">
+            <h1 class="display-1">AutoFeis</h1>
+        </div>
         <div id='welcome'>
-            <h1 style='font-family:Teko;font-size:50px'>Welcome</h1>
+            <h1 class="display-4">Welcome</h1>
             <p style='font-size:25px'>
                 AutoFeis provides the World's <u>Fastest</u> tabulation and
                 entry service for Irish Dance using the power of Artificial
                 Intelligence. We provide our services <u>Worldwide</u> at no
                 extra cost.<br>
-                <img src='../../static/images/border.png' alt='Border' style='width:600px;height:400px'><br>
+                <img src='{{ url_for('static', filename='images/border.png') }}' alt='Border' style="width:50%;height:50%;"><br>
                 Learn more about the new way to tabulate <a href="{{ url_for('about') }}">here</a>
             </p>
         </div><hr>
             <div style="width:100%;">
-                <h1 style='font-family:Teko;font-size:50px'>Upcoming Feiseanna</h1>
+                <h1 class="display-4">Upcoming Feiseanna</h1><br>
                 <div style="width:75%;display: flex;justify-content: center;margin: 0 auto;">
                     <div style="display: flex;width: 100%;align-items: center;justify-content: space-around;">
                         {% if feiseanna|length > 0 %}

@@ -6,19 +6,7 @@ hr {
     border-color: black;
 }
 
-header ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-}
-
-header li {
-    float: left;
-}
-
-header li a {
+header div a {
     display: block;
     color: white;
     text-align: center;
@@ -31,29 +19,20 @@ header {
     background-image: linear-gradient(to right, #6ba8ff, #F5F5F5);
 }
 
-header h1 b {
-    color: purple;
-    padding: 0px 36px 0px 36px;
-}
-
-header h4 b {
-    color: black;
-    padding: 0px 18px 0px 18px;
-}
-
 header img {
     width: 100px;
     height: 100px;
 }
 
 body {
+    padding-top: 50px;
     background-image: linear-gradient(to right, #6ba8ff, #F5F5F5);
     text-align: center;
     position: relative;
 }
 
 body h1 {
-    color: purple;
+    color: #7100bc;
 }
 
 #welcome p {
@@ -88,7 +67,7 @@ body h1 {
     width: 100%;
 }
 
-li a:hover:not(.log):not(.loghere) {
+.top-bar a:hover:not(.log):not(.loghere) {
     background-color: #111;
 }
 

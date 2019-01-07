@@ -2,86 +2,98 @@
 <html lang='en'>
     <head>
         <link rel='icon' href='{{ url_for('static', filename='images/favicon.ico') }}' type='image/x-icon' />
+
         <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
         <script type="text/javascript" src="{{ url_for('static', filename='scripts/addField.js') }}"></script>
+
         <meta charset='UTF-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>AutoFeis</title>
-        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css'>
-        <style type='text/css'>
-            body{ font: 14px sans-serif; }
-            .wrapper{ width: 350px; padding: 20px; }
-        </style>
     </head>
     <header>
         <link rel='stylesheet' href='{{ url_for('static', filename='styles/css/main.css') }}'>
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Teko'>
-        <h1 align='left'><b style='font-family:Teko;font-size:50px'>AutoFeis</b></h1>
-        <h4 align='left'><b style='font-family:Teko;font-size:25px'>A New Way To Tabulate</b></h4>
-        <ul>
-            <!-- Make home look different depending on where we are -->
-            {% if where == "home" %}
-                <li><a class='here' href="{{ url_for('index') }}">Home</a></li>
-            {% else %}
-                <li><a href="{{ url_for('index') }}">Home</a></li>
-            {% endif %}
+        <nav class="navbar fixed-top navbar-expand-md bg-dark navbar-dark">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{{ url_for('welcome') }}">AutoFeis</a>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav mr-auto">
+                        {% if where == "home" %}
+                            <li class="nav-item"><a class="nav-link active" href="{{ url_for('index') }}">Home</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
+                        {% endif %}
 
-            <!-- Make about look different depending on where we are -->
-            {% if where == "about" %}
-                <li><a class='here' href="{{ url_for('about') }}">About</a></li>
-            {% else %}
-                <li><a href="{{ url_for('about') }}">About</a></li>
-            {% endif %}
+                        {% if where == "about" %}
+                            <li class="nav-item"><a class="nav-link active" href="{{ url_for('about') }}">About</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+                        {% endif %}
 
-            <!-- Make feis info look different depending on where we are -->
-            {% if where == "feisinfo" %}
-                <li><a class='here' href="{{ url_for('feisinfo') }}">Feis Info</a></li>
-            {% else %}
-                <li><a href="{{ url_for('feisinfo') }}">Feis Info</a></li>
-            {% endif %}
+                        {% if where == "feisinfo" %}
+                            <li class="nav-item"><a class="nav-link active" href="{{ url_for('feisinfo') }}">Feis Info</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('feisinfo') }}">Feis Info</a></li>
+                        {% endif %}
 
-            <!-- Make results look different depending on where we are -->
-            {% if where == "results" %}
-                <li><a class='here' href="{{ url_for('results') }}">Results</a></li>
-            {% else %}
-                <li><a href="{{ url_for('results') }}">Results</a></li>
-            {% endif %}
+                        {% if where == "results" %}
+                            <li class="nav-item"><a class="nav-link active" href="{{ url_for('results') }}">Results</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('results') }}">Results</a></li>
+                        {% endif %}
 
-            <!-- Make register look different depending on where we are -->
-            {% if where == "register" %}
-                <li><a class='here' href="{{ url_for('register_page') }}">Register</a></li>
-            {% else %}
-                <li><a href="{{ url_for('register_page') }}">Register</a></li>
-            {% endif %}
+                        {% if where == "register" %}
+                            <li class="nav-item"><a class="nav-link active" href="{{ url_for('register_page') }}">Register</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('register_page') }}">Register</a></li>
+                        {% endif %}
+                    </ul>
+                    <ul class="navbar-nav">
+                        {% if is_logged == True %}
+                            {% if where == "welcome" %}
+                                <li class="nav-item"><a class="nav-link active" href="{{ url_for('welcome') }}">My Account</a></li>
+                            {% else %}
+                                <li class="nav-item"><a class="nav-link" href="{{ url_for('welcome') }}">My Account</a></li>
+                            {% endif %}
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
 
-            <!-- Show the correct account links -->
-            {% if is_logged == True %}
-                <li style="float:right"><a class="log" href="{{ url_for('logout') }}">Logout</a></li>
-                {% if where == "welcome" %}
-                    <li style="float:right"><a class="loghere" href="{{ url_for('welcome') }}">My Account</a></li>
-                {% else %}
-                    <li style="float:right"><a class="log" href="{{ url_for('welcome') }}">My Account</a></li>
-                {% endif %}
+                        {% else %}
+                            {% if where == "signup" %}
+                                <li class="nav-item"><a class="nav-link active" href="{{ url_for('signup') }}">Sign Up</a></li>
+                            {% else %}
+                                <li class="nav-item"><a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a></li>
+                            {% endif %}
 
-            {% else %}
-                {% if where == "signup" %}
-                    <li style="float:right"><a class="loghere" href="{{ url_for('signup') }}">Sign Up</a></li>
-                {% else %}
-                    <li style="float:right"><a class="log" href="{{ url_for('signup') }}">Sign Up</a></li>
-                {% endif %}
-
-                {% if where == "login" %}
-                    <li style="float:right"><a class="loghere" href="{{ url_for('login') }}">Log In</a></li>
-                {% else %}
-                    <li style="float:right"><a class="log" href="{{ url_for('login') }}">Log In</a></li>
-                {% endif %}
-            {% endif %}
-        </ul>
+                            {% if where == "login" %}
+                                <li class="nav-item"><a class="nav-link active" href="{{ url_for('login') }}">Log In</a></li>
+                            {% else %}
+                                <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Log In</a></li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </header>
+    {% if where != 'home' %}
+        <br>
+    {% endif %}
     <main>
         {% block body %}
         {% endblock body %}
-    </main><br />
-    <div id="footer"><hr>
+    </main>
+    <hr class="my-4">
+    <div class="container-fluid">
         <p>AutoFeis 2018</p>
-    </div><br />
+    </div>
 </html>

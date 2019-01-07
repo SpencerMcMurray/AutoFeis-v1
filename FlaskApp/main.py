@@ -422,22 +422,23 @@ def split_age():
 
 
 @app.route("/welcome/functions/choose", methods=["POST"])
-def choose_for_editor():
-    """The Add/Edit main page"""
+def choose_comp_type():
+    """The page displaying the competition types to show
+    TODO: Merge with show_comps, that'd be cool"""
     if request.method == "POST":
         comp_types = ["Main", "Treble Reel", "Figure", "Art", "Special"]
-        return render_template("functions/pickCompToEdit.html", is_logged=LOGGED, where="welcome", comp_types=comp_types,
-                               feis_id=request.form.get('feisId', 0))
+        return render_template("functions/pickCompType.html", is_logged=LOGGED, where="welcome",
+                               comp_types=comp_types, feis_id=request.form.get('feisId', 0))
     return redirect(url_for("welcome"))
 
 
-@app.route("/welcome/functions/choose/add_edit", methods=["POST"])
-def add_edit():
-    """The Page displaying all competitions to edit and an add button"""
+@app.route("/welcome/functions/choose/show", methods=["POST"])
+def show_comps():
+    """The Page displaying all competitions of the given type"""
     if request.method == "POST":
         feis_id, comp_type = request.form.get('feisId'), request.form.get('type')
         titles, tables = make_titles_tables_for(feis_id, comp_type)
-        return render_template("functions/compEditor.html", is_logged=LOGGED, where="welcome", titles=titles,
+        return render_template("functions/showCompType.html", is_logged=LOGGED, where="welcome", titles=titles,
                                tables=tables)
     return redirect(url_for("welcome"))
 

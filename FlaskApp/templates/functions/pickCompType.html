@@ -15,24 +15,23 @@
                 background-color: #fff;
             }
         </style><br>
-        <h1 style="font-family:Teko;font-size:50px">Which competition type do you want to edit/add</h1><hr>
-        {{ isLogged }}
+        <h1 style="font-family:Teko;font-size:50px">Which competition type do you want to show</h1>
         <div style="width:50%;display: flex;margin: 0 auto;justify-content: center;">
-            <table>
-                <tr>
-                    <td>
-                        <form method="POST" action="{{ url_for('add_edit') }}">
+            <form method="POST" action="{{ url_for('show_comps') }}">
+                <table>
+                    <tr>
+                        <td>
                             <select name="type">
                                 {% for type in comp_types %}
                                     <option value="{{ type }}">{{ type }}</option>
                                 {% endfor %}
                             </select>
                             <input type="hidden" value="{{ feis_id }}" name="feisId">
-                            <input type="submit" value="Select">
-                        </form>
-                    </td>
-                </tr>
-            </table>
+                        </td>
+                    </tr>
+                    <tr><td><input type="submit" value="Select"></td></tr>
+                </table>
+            </form>
         </div>
     </body>
 {% endblock body %}

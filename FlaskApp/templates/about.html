@@ -2,17 +2,17 @@
 {% block body %}
     <body>
         <div id="choose">
-            <h1 style="font-family:Teko;font-size:50px">Why Choose Us?</h1>
+            <h1 class="display-4">Why Choose Us?</h1>
             <p style="font-size:25px">
                 Paying people to tabulate for you is expensive, slow and hard,
                 so why not try the newest tabulation service which uses the
                 most cutting edge technology to make tabulation better for
                 everyone!
-                <img src="../../static/images/border.png" alt="Border" style="width:600px;height:400px"><br>
+                <img src='{{ url_for('static', filename='images/border.png') }}' alt='Border' style="width:50%;height:50%;"><br>
             </p>
             <div class="aboutContainter">
                 <div class="col" style="font-size:25px"><b>Cost Effective</b><br>
-                    <img src="../../static/images/border.png" alt="Border" style="width:50%"><br>
+                    <img src='{{ url_for('static', filename='images/border.png') }}' alt='Border' style="width:50%;height:50%;"><br>
                     <p style="font-size:25px;padding:0 5%"><br>
                         Stop paying heaps of money for people to tabulate for you. Instead have our
                         <u>Artificial Intelligence</u> system read the numbers right off the score sheets
@@ -20,7 +20,7 @@
                     </p>
                 </div>
                 <div class="col" style="font-size:25px"><b>The Speed of an A.I</b><br>
-                    <img src="../../static/images/border.png" alt="Border" style="width:50%"><br>
+                    <img src='{{ url_for('static', filename='images/border.png') }}' alt='Border' style="width:50%;height:50%;"><br>
                     <p style="font-size:25px;padding:0 5%"><br>
                         If you hate waiting around for awards, recalls, or even grades-level results this
                         is the service for you. With the power and speed of our Artificial Intelligence you
@@ -28,7 +28,7 @@
                     </p>
                 </div>
                 <div class="col" style="font-size:25px"><b>Ease of Use</b><br>
-                    <img src="../../static/images/border.png" alt="Border" style="width:50%"><br>
+                    <img src='{{ url_for('static', filename='images/border.png') }}' alt='Border' style="width:50%;height:50%;"><br>
                     <p style="font-size:25px;padding:0 5%"><br>
                         We have abstracted all of the hard and tedious parts away from tabulation. This
                         means the feis volunteers in charge of tabulation will simply have to fix some errors
@@ -36,22 +36,21 @@
                     </p><br>
                 </div>
                 <h2 style="font-size:25px">If you have any questions, don't hesitate to <a href="mailto:spencermcmurray@hotmail.com">contact us</a></h2>
-                <div style="clear:both;" />
             </div>
         </div>
         <div id="services">
-            <h1 style="font-family:Teko;font-size:50px">Services</h1>
-            <img src="../../static/images/border.png" alt="Border" style="width:600px;height:400px"><br><br>
+            <h1 class="display-4">Services</h1>
+            <img src='{{ url_for('static', filename='images/border.png') }}' alt='Border' style="width:50%;height:50%;"><br>
             <table>
                 <tr>
-                    <td style="font-size:25px">
+                    <td>
                         <ul>
                             <li>Artificial Intelligence-Powered Tabulation</li>
                             <li>Individual results stored privately</li>
                             <li>Quick setup for any feis worldwide</li>
                         </ul>
                     </td>
-                    <td style="font-size:25px">
+                    <td>
                         <ul>
                             <li>Easy online registration</li>
                             <li>Overall results stored online</li>
@@ -60,29 +59,28 @@
                     </td>
                 </tr>
             </table>
-            <div style="clear:both;" />
         </div>
-        <div id="story">
-            <h1 style="font-family:Teko;font-size:50px">The Story of AutoFeis</h1>
-            <img src="../../static/images/border.png" alt="Border" style="width:600px;height:400px">
+        <div style="width: 75%; margin: 0 auto;">
+            <h1 class="display-4">The Story of AutoFeis</h1>
+            <img src='{{ url_for('static', filename='images/border.png') }}' alt='Border' style="width:50%;height:50%;">
             <br /><br />
-            <h1 style="font-family:Teko;font-size:40px;color:purple">Introduction</h1>
-            <p style="font-size:25px">
+            <h1>Introduction</h1>
+            <p>
                 AutoFeis was made solely by me, Spencer McMurray, a 19-year old
                 Computer Science student at the University of Toronto. I've
                 been dancing since I was 10, but been at feiseanna since I was
                 2 thanks to my sister who also dances.
             </p><br />
-            <h1 style="font-family:Teko;font-size:40px;color:purple">Backstory</h1>
-            <p style="font-size:25px">
+            <h1>Backstory</h1>
+            <p>
                 At all of the many feiseanna I've attended, results have always
                 taken a long time to arrive. When I was younger I didn't understand
                 why, but as I got older I started to see how much effort went
                 into tabulation, and I grew much more respect for those who
                 tabulate our results.
             </p><br />
-            <h1 style="font-family:Teko;font-size:40px;color:purple">The Story</h1>
-            <p style="font-size:25px">
+            <h1>The Story</h1>
+            <p>
                 I've had an intrest in Computer Science for a long time, but
                 only recently have I delved into the insane topic of Artificial
                 Intelligence. It's far too complicated to explain to you in one
@@ -90,20 +88,19 @@
                 A.I if this intrests you. Anyway, I grew intrested in the idea
                 of automating human tasks like driving cars and mastering games.
             </p>
-            <p style="font-size:25px">
+            <p>
                 One day I was at a feis and I was curious to see how long it
                 would take to tabulate our results. Two hours later we had our
                 results, and I knew that A.I could speed up the process, while
                 reducing the amount of human resources needed by a large amount.
             </p>
-            <p style="font-size:25px">
+            <p>
                 It took many days full of programming, late nights, and early
                 mornings, but I managed to complete it in just few months. So
                 hopefully you can enjoy much more relaxed tabulation, along
                 with knowing that the tech that went into this system may one
                 day take over the world ;)
-            </p><br />
-            <div style="clear:both;" />
+            </p>
         </div>
     </body>
 {% endblock body %}
