@@ -1,5 +1,6 @@
 {% extends "generalTemplates/outline.html" %}
 {% block body %}
+    <script src="{{ url_for('static', filename='scripts/linkedDots.js') }}"></script>
     <style>
         table {
             margin:0 auto;
@@ -17,49 +18,48 @@
         }
     </style>
     <body>
-        <div class="jumbotron">
-            <h1 class="display-1">AutoFeis</h1>
-        </div>
+        <div id="sketch"></div>
         <div id='welcome'>
             <h1 class="display-4">Welcome</h1>
             <p style='font-size:25px'>
                 AutoFeis provides the World's <u>Fastest</u> tabulation and
                 entry service for Irish Dance using the power of Artificial
                 Intelligence. We provide our services <u>Worldwide</u> at no
-                extra cost.<br>
-                <img src='{{ url_for('static', filename='images/border.png') }}' alt='Border' style="width:50%;height:50%;"><br>
+                extra cost.
+            </p>
+            <p>
                 Learn more about the new way to tabulate <a href="{{ url_for('about') }}">here</a>
             </p>
         </div><hr>
-            <div style="width:100%;">
-                <h1 class="display-4">Upcoming Feiseanna</h1><br>
-                <div style="width:75%;display: flex;justify-content: center;margin: 0 auto;">
-                    <div style="display: flex;width: 100%;align-items: center;justify-content: space-around;">
-                        {% if feiseanna|length > 0 %}
-                            {% for feis in feiseanna %}
-                                <div style="width: 25%;">
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <b>{{ feis['name']}}</b><br>
-                                                {{ feis['date'].strftime('%B %d, %Y') }}<br>
-                                                {{ feis['location'] }}<br>
-                                                {{ feis['region'] }}
-                                            </td>
-                                            <td>
-                                                <a href='{{ feis["website"] }}'>Website</a><br>
-                                                <a href='{{ url_for('entries', feis=feis['id']) }}'>Entries</a><br>
-                                                <a href='{{ "/static/files/syllabi/" + feis["syllabus"] }}'>Syllabus</a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            {% endfor %}
-                        {% else %}
-                            <p>No feiseanna to show!</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
+		<div style="width:100%;">
+			<h1 class="display-4">Upcoming Feiseanna</h1><br>
+			<div style="width:75%;display: flex;justify-content: center;margin: 0 auto;">
+				<div style="display: flex;width: 100%;align-items: center;justify-content: space-around;">
+					{% if feiseanna|length > 0 %}
+						{% for feis in feiseanna %}
+							<div style="width: 25%;">
+								<table>
+									<tr>
+										<td>
+											<b>{{ feis['name']}}</b><br>
+											{{ feis['date'].strftime('%B %d, %Y') }}<br>
+											{{ feis['location'] }}<br>
+											{{ feis['region'] }}
+										</td>
+										<td>
+											<a href='{{ feis["website"] }}'>Website</a><br>
+											<a href='{{ url_for('entries', feis=feis['id']) }}'>Entries</a><br>
+											<a href='{{ "/static/storage/syllabi/" + feis["syllabus"] }}'>Syllabus</a>
+										</td>
+									</tr>
+								</table>
+							</div>
+						{% endfor %}
+					{% else %}
+						<p>No feiseanna to show!</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
     </body>
 {% endblock body %}

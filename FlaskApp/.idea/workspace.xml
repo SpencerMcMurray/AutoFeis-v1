@@ -2,21 +2,27 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/templates/results/resultsForFeis.html" line="25" />
-    <bookmark url="file://$PROJECT_DIR$/templates/generalTemplates/outline.html" line="20" />
+    <bookmark url="file://$PROJECT_DIR$/templates/generalTemplates/outline.html" line="23" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6a99dd6-dad2-4df9-b54d-3c5a79b4e1ba" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/static/fonts/Oswald-Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/scripts/linkedDots.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/FlaskApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FlaskApp.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/files/syllabi/12.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/static/storage/syllabi/12.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/files/syllabi/13.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/static/storage/syllabi/13.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/files/syllabi/14.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/static/storage/syllabi/14.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/files/syllabi/15.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/static/storage/syllabi/15.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/files/syllabi/16.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/static/storage/syllabi/16.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/styles/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/styles/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/styles/css/signIn.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/styles/css/signIn.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/functions/compEditor.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/functions/showCompType.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/functions/feisFunctions.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/functions/feisFunctions.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/functions/pickCompToEdit.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/functions/pickCompType.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tabulation/GenerateFiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/tabulation/GenerateFiles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/feisInfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/feisInfo.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/generalTemplates/outline.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/generalTemplates/outline.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/results/resultsForFeis.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/results/resultsForFeis.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/welcome.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/welcome.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,7 +31,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/FlaskApp$Run_Flask_App.coverage" NAME="Run Flask App Coverage Results" MODIFIED="1546833080507" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FlaskApp$Run_Flask_App.coverage" NAME="Run Flask App Coverage Results" MODIFIED="1546985106245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -65,56 +71,46 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/styles/css/main.css">
+        <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-497">
-              <caret line="27" column="19" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
+            <state relative-caret-position="564">
+              <caret line="441" column="44" selection-start-line="441" selection-start-column="44" selection-end-line="441" selection-end-column="44" />
+              <folding>
+                <element signature="e#0#23#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/scripts/linkedDots.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="483">
+              <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/about.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="62" column="47" selection-start-line="62" selection-start-column="47" selection-end-line="62" selection-end-column="47" />
-              <folding>
-                <element signature="e#191#213#0#HTML" expanded="true" />
-                <element signature="e#565#594#0#HTML" expanded="true" />
-                <element signature="e#817#846#0#HTML" expanded="true" />
-                <element signature="e#875#910#0#HTML" expanded="true" />
-                <element signature="e#1258#1280#0#HTML" expanded="true" />
-                <element signature="e#1410#1439#0#HTML" expanded="true" />
-                <element signature="e#1468#1503#0#HTML" expanded="true" />
-                <element signature="e#1886#1908#0#HTML" expanded="true" />
-                <element signature="e#2030#2059#0#HTML" expanded="true" />
-                <element signature="e#2088#2123#0#HTML" expanded="true" />
-                <element signature="e#2483#2505#0#HTML" expanded="true" />
-                <element signature="e#2816#2845#0#HTML" expanded="true" />
-                <element signature="e#3607#3642#0#HTML" expanded="true" />
-                <element signature="e#3801#3830#0#HTML" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3">
-              <caret line="29" column="120" selection-start-line="29" selection-start-column="120" selection-end-line="29" selection-end-column="120" />
+            <state relative-caret-position="396">
+              <caret line="54" column="40" lean-forward="true" selection-start-line="54" selection-start-column="40" selection-end-line="54" selection-end-column="40" />
+              <folding>
+                <element signature="e#1154#1173#0#HTML" expanded="true" />
+                <element signature="e#1236#1307#0#HTML" expanded="true" />
+                <element signature="e#1318#1402#0#HTML" expanded="true" />
+                <element signature="e#1485#1504#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.py">
+        <entry file="file://$PROJECT_DIR$/templates/generalTemplates/outline.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9009">
-              <caret line="441" column="44" selection-start-line="441" selection-start-column="44" selection-end-line="441" selection-end-column="44" />
-              <folding>
-                <element signature="e#0#23#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="312">
+              <caret line="76" column="75" selection-start-line="76" selection-start-column="75" selection-end-line="76" selection-end-column="75" />
             </state>
           </provider>
         </entry>
@@ -125,6 +121,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="JavaScript File" />
         <option value="HTML File" />
       </list>
     </option>
@@ -190,8 +187,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/static/scripts/addField.js" />
-        <option value="$PROJECT_DIR$/templates/addFeisBasic.html" />
         <option value="$PROJECT_DIR$/templates/addFeisShow.html" />
         <option value="$PROJECT_DIR$/templates/signUp.html" />
         <option value="$PROJECT_DIR$/templates/logIn.html" />
@@ -204,7 +199,6 @@
         <option value="$PROJECT_DIR$/templates/register.html" />
         <option value="$PROJECT_DIR$/templates/registration/register.html" />
         <option value="$PROJECT_DIR$/templates/registration/registerFor.html" />
-        <option value="$PROJECT_DIR$/templates/feisInfo.html" />
         <option value="$PROJECT_DIR$/templates/entries.html" />
         <option value="$PROJECT_DIR$/templates/createDancer/editDancer.html" />
         <option value="$PROJECT_DIR$/templates/feisFunctions.html" />
@@ -237,10 +231,13 @@
         <option value="$PROJECT_DIR$/templates/functions/pickCompType.html" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/static/styles/css/signIn.css" />
+        <option value="$PROJECT_DIR$/templates/about.html" />
+        <option value="$PROJECT_DIR$/templates/feisInfo.html" />
         <option value="$PROJECT_DIR$/static/styles/css/main.css" />
+        <option value="$PROJECT_DIR$/static/scripts/linkedDots.js" />
+        <option value="$PROJECT_DIR$/templates/test.html" />
         <option value="$PROJECT_DIR$/templates/generalTemplates/outline.html" />
         <option value="$PROJECT_DIR$/templates/index.html" />
-        <option value="$PROJECT_DIR$/templates/about.html" />
       </list>
     </option>
   </component>
@@ -256,7 +253,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -267,17 +263,13 @@
             <path>
               <item name="FlaskApp" type="b2602c69:ProjectViewProjectNode" />
               <item name="FlaskApp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FlaskApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FlaskApp" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -292,11 +284,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Users\Spencer\Desktop\CS Projects\AutoFeis\FlaskApp\templates" />
+      <recent name="D:\Users\Spencer\Desktop\CS Projects\AutoFeis\FlaskApp\static\fonts" />
       <recent name="D:\Users\Spencer\Desktop\CS Projects\AutoFeis\FlaskApp" />
       <recent name="D:\Users\Spencer\Desktop\CS Projects\AutoFeis\FlaskApp\templates\results" />
       <recent name="D:\Users\Spencer\Desktop\CS Projects\AutoFeis\FlaskApp\templates\functions" />
-      <recent name="D:\Users\Spencer\Desktop\CS Projects\AutoFeis\FlaskApp\templates\registration" />
-      <recent name="D:\Users\Spencer\Desktop\CS Projects\AutoFeis\FlaskApp\templates\generalTemplates" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -423,6 +415,11 @@
       <workItem from="1546792604374" duration="2826000" />
       <workItem from="1546806953755" duration="6331000" />
       <workItem from="1546824353863" duration="8486000" />
+      <workItem from="1546833164273" duration="107000" />
+      <workItem from="1546902716365" duration="5695000" />
+      <workItem from="1546971684721" duration="5427000" />
+      <workItem from="1546977846489" duration="859000" />
+      <workItem from="1546984939115" duration="163000" />
     </task>
     <task id="LOCAL-00001" summary="Added very basic functionality for our Flask app,">
       <created>1541362070067</created>
@@ -592,11 +589,18 @@
       <option name="project" value="LOCAL" />
       <updated>1546282148524</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Finished comp adder/editor for now;&#10;Started reworking UI with using bootstrap 4;">
+      <created>1546833269164</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1546833269164</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="154712000" />
+    <option name="totallyTimeSpent" value="166963000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -609,9 +613,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.14658849" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.15298508" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.32948583" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.50052685" side_tool="true" weight="0.2993763" />
@@ -619,7 +624,7 @@
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" weight="0.32917964" />
       <window_info anchor="bottom" id="Version Control" order="5" weight="0.32917964" />
-      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49947312" weight="0.32087228" />
+      <window_info active="true" anchor="bottom" id="Run" order="6" sideWeight="0.49947312" visible="true" weight="0.32087228" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.39771548" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -683,7 +688,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added very basic functionality for our Flask app," />
     <MESSAGE value="Continued on the basic functionality. Also made it loom prettier" />
     <MESSAGE value="Finished login issues(for now, flask_login may be nice), and implemented the welcome screen and all of its functionality(but not its children)" />
     <MESSAGE value="Adding a dancer now works" />
@@ -708,38 +712,18 @@
     <MESSAGE value="Changed folder stucture, made the FlaskApp the main package" />
     <MESSAGE value="More directory sorting" />
     <MESSAGE value="Added basic competition editor, still need to allow for editing but view is all good" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added basic competition editor, still need to allow for editing but view is all good" />
+    <MESSAGE value="Finished comp adder/editor for now;&#10;Started reworking UI with using bootstrap 4;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished comp adder/editor for now;&#10;Started reworking UI with using bootstrap 4;" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/scripts/addField.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="945">
-          <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/csv/regions.csv">
-      <provider editor-type-id="text-editor" />
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" rowLines="3" />
-      </provider>
-      <provider selected="true" editor-type-id="csv-text-editor" />
-    </entry>
-    <entry file="file://D:/Program Files/Python/Lib/site-packages/flask/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="2113" selection-start-line="2113" selection-end-line="2113" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/csv/schools.csv">
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" rowLines="3" />
-      </provider>
       <provider selected="true" editor-type-id="csv-text-editor">
         <state relative-caret-position="42">
           <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
         </state>
+      </provider>
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" rowLines="3" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/createDancer/addDancer.html">
@@ -798,13 +782,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-630">
           <caret column="104" selection-start-column="104" selection-end-column="104" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/feisInfo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="8" lean-forward="true" selection-start-line="3" selection-start-column="8" selection-end-line="20" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -996,9 +973,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/about.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="62" column="47" selection-start-line="62" selection-start-column="47" selection-end-line="62" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/scripts/addField.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1008" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/feisInfo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="14" column="37" lean-forward="true" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/styles/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/scripts/linkedDots.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/generalTemplates/outline.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="76" column="75" selection-start-line="76" selection-start-column="75" selection-end-line="76" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9009">
+        <state relative-caret-position="564">
           <caret line="441" column="44" selection-start-line="441" selection-start-column="44" selection-end-line="441" selection-end-column="44" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
@@ -1006,46 +1023,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/generalTemplates/outline.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="88" column="8" selection-start-line="88" selection-start-column="8" selection-end-line="88" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/styles/css/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-497">
-          <caret line="27" column="19" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3">
-          <caret line="29" column="120" selection-start-line="29" selection-start-column="120" selection-end-line="29" selection-end-column="120" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/about.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="62" column="47" selection-start-line="62" selection-start-column="47" selection-end-line="62" selection-end-column="47" />
+        <state relative-caret-position="396">
+          <caret line="54" column="40" lean-forward="true" selection-start-line="54" selection-start-column="40" selection-end-line="54" selection-end-column="40" />
           <folding>
-            <element signature="e#191#213#0#HTML" expanded="true" />
-            <element signature="e#565#594#0#HTML" expanded="true" />
-            <element signature="e#817#846#0#HTML" expanded="true" />
-            <element signature="e#875#910#0#HTML" expanded="true" />
-            <element signature="e#1258#1280#0#HTML" expanded="true" />
-            <element signature="e#1410#1439#0#HTML" expanded="true" />
-            <element signature="e#1468#1503#0#HTML" expanded="true" />
-            <element signature="e#1886#1908#0#HTML" expanded="true" />
-            <element signature="e#2030#2059#0#HTML" expanded="true" />
-            <element signature="e#2088#2123#0#HTML" expanded="true" />
-            <element signature="e#2483#2505#0#HTML" expanded="true" />
-            <element signature="e#2816#2845#0#HTML" expanded="true" />
-            <element signature="e#3607#3642#0#HTML" expanded="true" />
-            <element signature="e#3801#3830#0#HTML" expanded="true" />
+            <element signature="e#1154#1173#0#HTML" expanded="true" />
+            <element signature="e#1236#1307#0#HTML" expanded="true" />
+            <element signature="e#1318#1402#0#HTML" expanded="true" />
+            <element signature="e#1485#1504#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>

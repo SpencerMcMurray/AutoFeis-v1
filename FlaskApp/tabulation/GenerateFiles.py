@@ -10,7 +10,7 @@ ALPHA = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "
 def build_individuals(dancers, feis_name, comp_name, judge_names):
     """(list of Dancer, str, str, list of str) -> NoneType
     Builds individual tabulated sheets for each dancer telling them their marks and the competition's marks. Saves
-    these files to to_print/<competition name>/<dancer number>.xlsx for all dancer numbers in the competition.
+    these storage to to_print/<competition name>/<dancer number>.xlsx for all dancer numbers in the competition.
     """
     num_judges = len(dancers[0].scores)
     num_rounds = len(dancers[0].scores[0]) - 1

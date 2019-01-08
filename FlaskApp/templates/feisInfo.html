@@ -37,7 +37,7 @@
                         <a href='{{ feis["website"] }}'>Website</a><br>
                         <a href='{{ url_for('register_page') }}'>Register</a><br>
                         <a href='{{ url_for('entries', feis=feis['id']) }}'>Entries</a><br>
-                        <a href='{{ "/static/files/syllabi/" + feis["syllabus"] }}'>Syllabus</a>
+                        <a href='{{ "/static/storage/syllabi/" + feis["syllabus"] }}'>Syllabus</a>
                     </td>
                 </tr>
             {% endfor %}

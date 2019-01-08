@@ -23,7 +23,7 @@
         <table>
             {% for comp in comps %}
                 <tr>
-                    <td><a href="{{ "/static/files/results/" ~ comp['id'] ~ ".pdf" }}">{{ comp['name'] }}</a></td>
+                    <td><a href="{{ "/static/storage/results/" ~ comp['id'] ~ ".pdf" }}">{{ comp['name'] }}</a></td>
                 </tr>
             {% endfor %}
         </table>

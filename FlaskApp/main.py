@@ -1,9 +1,10 @@
 from functions import *
 from form import *
 from flask import Flask, render_template, request, redirect, url_for, flash, session
+import os
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
-app.config['UPLOAD_FOLDER'] = "static/files/syllabi"
+app.config['UPLOAD_FOLDER'] = "static/storage/syllabi"
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024     # 10MB Upload limit
 # TODO: Implement flask_login!
 LOGGED = False
