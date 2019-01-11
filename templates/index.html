@@ -1,22 +1,6 @@
 {% extends "generalTemplates/outline.html" %}
 {% block body %}
     <script src="{{ url_for('static', filename='scripts/linkedDots.js') }}"></script>
-    <style>
-        table {
-            margin:0 auto;
-            font-size:20px;
-            border:2px solid black;
-        } th, td {
-            padding: 15px;
-            border: 2px solid black;
-        }  td {
-            text-align: left;
-        }  table tr:nth-child(odd) {
-            background-color: #eee;
-        }  table tr:nth-child(even) {
-           background-color: #fff;
-        }
-    </style>
     <body>
         <div id="sketch"></div>
         <div id='welcome'>
@@ -33,32 +17,32 @@
         </div><hr>
 		<div style="width:100%;">
 			<h1 class="display-4">Upcoming Feiseanna</h1><br>
-			<div style="width:75%;display: flex;justify-content: center;margin: 0 auto;">
-				<div style="display: flex;width: 100%;align-items: center;justify-content: space-around;">
-					{% if feiseanna|length > 0 %}
-						{% for feis in feiseanna %}
-							<div style="width: 25%;">
-								<table>
-									<tr>
-										<td>
-											<b>{{ feis['name']}}</b><br>
-											{{ feis['date'].strftime('%B %d, %Y') }}<br>
-											{{ feis['location'] }}<br>
-											{{ feis['region'] }}
-										</td>
-										<td>
-											<a href='{{ feis["website"] }}'>Website</a><br>
-											<a href='{{ url_for('entries', feis=feis['id']) }}'>Entries</a><br>
-											<a href='{{ "/static/storage/syllabi/" + feis["syllabus"] }}'>Syllabus</a>
-										</td>
-									</tr>
-								</table>
-							</div>
-						{% endfor %}
-					{% else %}
-						<p>No feiseanna to show!</p>
-					{% endif %}
-				</div>
+			<div class="container">
+                {% if feiseanna|length > 0 %}
+                    {% for feis in feiseanna %}
+                        <div style="margin: 0 auto;">
+                            <div class="row vert-align" style="border: 1px solid black;">
+                                <div class="col-md-6">
+                                    <div>
+                                        <b>{{ feis['name']}}</b><br>
+                                        {{ feis['date'].strftime('%B %d, %Y') }}<br>
+                                        {{ feis['location'] }}<br>
+                                        {{ feis['region'] }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div>
+                                        <a href='{{ feis["website"] }}'>Website</a><br>
+                                        <a href='{{ url_for('entries', feis=feis['id']) }}'>Entries</a><br>
+                                        <a href='{{ "/static/storage/syllabi/" + feis["syllabus"] }}'>Syllabus</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No feiseanna to show!</p>
+                {% endif %}
 			</div>
 		</div>
     </body>

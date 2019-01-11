@@ -1,4 +1,4 @@
-html:not(canvas) {
+html {
     background-image: linear-gradient(to right, #6ba8ff, #F5F5F5);
 }
 
@@ -35,6 +35,8 @@ body h1 {
     color: #7100bc;
 }
 
+
+
 #welcome p {
     padding: 0 20%;
 }
@@ -67,27 +69,14 @@ body h1 {
     width: 100%;
 }
 
-.top-bar a:hover:not(.log):not(.loghere) {
-    background-color: #111;
-}
-
 .col {
     float: left;
     width: 33.33%;
 }
 
-.log {
-    background-color: #228B22;
-}
-
-.log:hover {
-    background-color: #006400;
-}
-
-.here {
-    background-color: #111;
-}
-
-.loghere {
-    background-color: #006400;
+.vert-align {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
 }
