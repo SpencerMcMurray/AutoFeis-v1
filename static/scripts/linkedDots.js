@@ -20,7 +20,7 @@ function preload() {
 }
 
 function setup() {
-    var canvas = createCanvas(windowWidth, 400);
+    var canvas = createCanvas(document.getElementById('sketch').clientWidth, 400);
     canvas.style('display', 'block');
     canvas.parent('sketch');
 	NUM_DOTS = width / 20;
@@ -56,7 +56,7 @@ function draw() {
 }
 
 function windowResized() {
-	resizeCanvas(windowWidth, 400);
+	resizeCanvas(document.getElementById('sketch').clientWidth, 400);
 }
 
 // Gets a random number in range(-M, M), avoiding range(-m, m)
