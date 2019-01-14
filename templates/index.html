@@ -17,26 +17,20 @@
         </div><hr>
 		<div style="width:100%;">
 			<h1 class="display-4">Upcoming Feiseanna</h1><br>
-			<div class="container">
+			<div class="d-flex flex-wrap justify-context-center" style="width: 75%;margin: 0 auto;">
                 {% if feiseanna|length > 0 %}
                     {% for feis in feiseanna %}
-                        <div style="margin: 0 auto;">
-                            <div class="row vert-align" style="border: 1px solid black;">
-                                <div class="col-md-6">
-                                    <div>
-                                        <b>{{ feis['name']}}</b><br>
-                                        {{ feis['date'].strftime('%B %d, %Y') }}<br>
-                                        {{ feis['location'] }}<br>
-                                        {{ feis['region'] }}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div>
-                                        <a href='{{ feis["website"] }}'>Website</a><br>
-                                        <a href='{{ url_for('entries', feis=feis['id']) }}'>Entries</a><br>
-                                        <a href='{{ "/static/storage/syllabi/" + feis["syllabus"] }}'>Syllabus</a>
-                                    </div>
-                                </div>
+                        <div class="d-flex p-2 bd-highlight" style="margin: 0 auto;border: 1px solid rgb(25, 25, 25);background-color: rgb(225, 225, 225)">
+                            <div class="align-self-center" style="padding: 10px 10px;">
+                                <b>{{ feis['name']}}</b><br>
+                                {{ feis['date'].strftime('%B %d, %Y') }}<br>
+                                {{ feis['location'] }}<br>
+                                {{ feis['region'] }}
+                            </div>
+                            <div class="align-self-center" style="padding: 10px 10px;">
+                                <a href='{{ feis["website"] }}'>Website</a><br>
+                                <a href='{{ url_for('entries', feis=feis['id']) }}'>Entries</a><br>
+                                <a href='{{ "/static/storage/syllabi/" + feis["syllabus"] }}'>Syllabus</a>
                             </div>
                         </div>
                     {% endfor %}

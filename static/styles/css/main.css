@@ -73,10 +73,3 @@ body h1 {
     float: left;
     width: 33.33%;
 }
-
-.vert-align {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-}
