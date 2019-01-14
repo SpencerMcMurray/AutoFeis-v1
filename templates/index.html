@@ -28,9 +28,9 @@
                                 {{ feis['region'] }}
                             </div>
                             <div class="align-self-center" style="padding: 10px 10px;">
-                                <a href='{{ feis["website"] }}'>Website</a><br>
-                                <a href='{{ url_for('entries', feis=feis['id']) }}'>Entries</a><br>
-                                <a href='{{ "/static/storage/syllabi/" + feis["syllabus"] }}'>Syllabus</a>
+                                <a href='{{ feis["website"] }}' role="button" class="btn btn-link btn-sm">Website</a><br>
+                                <a href='{{ url_for('entries', feis=feis['id']) }}' role="button" class="btn btn-link btn-sm">Entries</a><br>
+                                <a href='{{ "/static/storage/syllabi/" + feis["syllabus"] }}' role="button" class="btn btn-link btn-sm">Syllabus</a>
                             </div>
                         </div>
                     {% endfor %}
