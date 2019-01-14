@@ -73,3 +73,9 @@ body h1 {
     float: left;
     width: 33.33%;
 }
+
+.d-flex.p-2.bd-highlight.rounded.feis-box {
+    margin: 0 auto;
+    border: 1px solid rgb(25, 25, 25);
+    background-color: rgb(245, 245, 245);
+}

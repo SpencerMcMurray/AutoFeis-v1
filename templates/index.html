@@ -20,7 +20,7 @@
 			<div class="d-flex flex-wrap justify-context-center" style="width: 75%;margin: 0 auto;">
                 {% if feiseanna|length > 0 %}
                     {% for feis in feiseanna %}
-                        <div class="d-flex p-2 bd-highlight" style="margin: 0 auto;border: 1px solid rgb(25, 25, 25);background-color: rgb(225, 225, 225)">
+                        <div class="d-flex p-2 bd-highlight rounded feis-box">
                             <div class="align-self-center" style="padding: 10px 10px;">
                                 <b>{{ feis['name']}}</b><br>
                                 {{ feis['date'].strftime('%B %d, %Y') }}<br>
