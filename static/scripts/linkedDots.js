@@ -16,11 +16,8 @@ STROKE_MIN = 150;
 
 BACKGROUND = 50;
 
-function preload() {
-	fontOswald = loadFont('../static/fonts/Oswald-Regular.ttf');
-}
-
 function setup() {
+	fontOswald = loadFont('../static/fonts/Oswald-Regular.ttf');
     var canvas = createCanvas(document.getElementById('sketch').clientWidth, 400);
     canvas.style('display', 'block');
     canvas.parent('sketch');
