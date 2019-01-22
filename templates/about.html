@@ -1,64 +1,45 @@
 {% extends "generalTemplates/outline.html" %}
 {% block body %}
     <body>
-        <div id="choose">
-            <h1 class="display-4">Why Choose Us?</h1>
-            <p style="font-size:25px">
-                Paying people to tabulate for you is expensive, slow and hard,
-                so why not try the newest tabulation service which uses the
-                most cutting edge technology to make tabulation better for
-                everyone!
-                <img src='{{ url_for('static', filename='images/border.png') }}' alt='Border' style="width:50%;height:50%;"><br>
-            </p>
-            <div class="aboutContainter">
-                <div class="col" style="font-size:25px"><b>Cost Effective</b><br>
-                    <img src='{{ url_for('static', filename='images/border.png') }}' alt='Border' style="width:50%;height:50%;"><br>
-                    <p style="font-size:25px;padding:0 5%"><br>
-                        Stop paying heaps of money for people to tabulate for you. Instead have our
-                        <u>Artificial Intelligence</u> system read the numbers right off the score sheets
-                        and tabulate them immediately!
-                    </p>
-                </div>
-                <div class="col" style="font-size:25px"><b>The Speed of an A.I</b><br>
-                    <img src='{{ url_for('static', filename='images/border.png') }}' alt='Border' style="width:50%;height:50%;"><br>
-                    <p style="font-size:25px;padding:0 5%"><br>
-                        If you hate waiting around for awards, recalls, or even grades-level results this
-                        is the service for you. With the power and speed of our Artificial Intelligence you
-                        can increase your tabulation speeds by around <b>300%</b>
-                    </p>
-                </div>
-                <div class="col" style="font-size:25px"><b>Ease of Use</b><br>
-                    <img src='{{ url_for('static', filename='images/border.png') }}' alt='Border' style="width:50%;height:50%;"><br>
-                    <p style="font-size:25px;padding:0 5%"><br>
-                        We have abstracted all of the hard and tedious parts away from tabulation. This
-                        means the feis volunteers in charge of tabulation will simply have to fix some errors
-                        made by the Artificial Intelligence system.
-                    </p><br>
-                </div>
-                <h2 style="font-size:25px">If you have any questions, don't hesitate to <a href="mailto:spencermcmurray@hotmail.com">contact us</a></h2>
-            </div>
+        <div class="jumbotron" style="background: none">
+            <h1 class="display-3">Why Choose Us?</h1>
         </div>
+        <hr>
+        <div style="width: 100%;">
+            <div class="d-flex flex-wrap flex-direction-column justify-content-center" style="width: 75%;margin: 0 auto;">
+                <div class="d-flex p-2 bd-highlight border border-dark rounded col-md-7" style="width: 100%;height: 20%;background-color: rgb(245, 245, 245);">
+                    <div class="d-flex flex-column align-self-center" style="padding: 10px 10px;margin: 0 auto;">
+                        <h1 class="display-4">Cost Effective</h1>
+                        <p style="font-size:25px;padding:0 5%">
+                            Stop paying heaps of money for feis services! AutoFeis provides <strong>low, flat price
+                            </strong> for hosting your feis.
+                        </p>
+                    </div>
+                </div><br>
+                <div class="d-flex p-2 bd-highlight border border-dark rounded col-md-7" style="width: 100%;height: 20%;background-color: rgb(245, 245, 245);">
+                    <div class="d-flex flex-column align-self-center" style="padding: 10px 10px;margin: 0 auto;">
+                        <h1 class="display-4">High-Tech System</h1>
+                        <p style="font-size:25px;padding:0 5%">
+                            Our cutting edge <strong>Artificial Intelligence Technology</strong> saves you hours from
+                            doing the boring jobs.
+                        </p>
+                    </div>
+                </div><br>
+                <div class="d-flex p-2 bd-highlight border border-dark rounded col-md-7" style="width: 100%;height: 20%;background-color: rgb(245, 245, 245);">
+                    <div class="d-flex flex-column align-self-center" style="padding: 10px 10px;margin: 0 auto;">
+                        <h1 class="display-4">Ease of Use</h1>
+                        <p style="font-size:25px;padding:0 5%">
+                            The user experience is our top priority, meaning <strong>anyone</strong> will feel at home
+                            using our services.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div><br>
+        <h2 style="font-size:25px">If you have any questions, don't hesitate to <a href="mailto:spencermcmurray@hotmail.com">contact us</a></h2>
+        <hr>
         <div id="services">
             <h1 class="display-4">Services</h1>
-            <img src='{{ url_for('static', filename='images/border.png') }}' alt='Border' style="width:50%;height:50%;"><br>
-            <table>
-                <tr>
-                    <td>
-                        <ul>
-                            <li>Artificial Intelligence-Powered Tabulation</li>
-                            <li>Individual results stored privately</li>
-                            <li>Quick setup for any feis worldwide</li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
-                            <li>Easy online registration</li>
-                            <li>Overall results stored online</li>
-                            <li>Few requirements to run smoothly</li>
-                        </ul>
-                    </td>
-                </tr>
-            </table>
         </div>
         <div style="width: 75%; margin: 0 auto;">
             <h1 class="display-4">The Story of AutoFeis</h1>

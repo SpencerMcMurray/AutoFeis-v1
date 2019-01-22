@@ -15,9 +15,9 @@
                 Learn more about the new way to tabulate <a href="{{ url_for('about') }}">here</a>
             </p>
         </div><hr>
-		<div style="width:100%;">
+		<div class="container-fluid">
 			<h1 class="display-4">Upcoming Feiseanna</h1><br>
-			<div class="d-flex flex-wrap justify-context-center" style="width: 75%;margin: 0 auto;">
+			<div class="container d-flex flex-wrap justify-context-center" style="margin: 0 auto;">
                 {% if feiseanna|length > 0 %}
                     {% for feis in feiseanna %}
                         <div class="d-flex p-2 bd-highlight rounded feis-box">

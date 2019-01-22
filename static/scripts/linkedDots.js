@@ -3,6 +3,7 @@ CAN_CONNECT = 100;
 MAX_LINE_WEIGHT = 200;
 TITLE_FONT_SIZE = 128;
 SUBTITLE_FONT_SIZE = 48;
+OFFSCREEN_OFFSET = 10;
 
 MAX_CONN = 5;
 VEL_MAX = 1;
@@ -105,7 +106,8 @@ function Dot() {
 	};
 
 	this.isOffScreen = function() {
-		return (this.pos.x > width + this.size / 2 || this.pos.y > height + this.size / 2 ||
-			 			this.pos.x + this.size / 2 < 0 || this.pos.y + this.size / 2 < 0);
+		return (this.pos.x > OFFSCREEN_OFFSET + width + this.size / 2 || this.pos.y > OFFSCREEN_OFFSET + height +
+				this.size / 2 || OFFSCREEN_OFFSET + this.pos.x + this.size / 2 < 0 || OFFSCREEN_OFFSET + this.pos.y +
+				this.size / 2 < 0);
 	};
 }

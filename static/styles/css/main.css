@@ -2,10 +2,6 @@ html {
     background-image: linear-gradient(to right, #6ba8ff, #F5F5F5);
 }
 
-hr {
-    border-color: black;
-}
-
 header div a {
     display: block;
     color: white;
@@ -35,7 +31,15 @@ body h1 {
     color: #7100bc;
 }
 
-
+hr.fade {
+  border: 0;
+    height: 1px;
+    background: #333;
+    background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
+    background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
+    background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
+    background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
+}
 
 #welcome p {
     padding: 0 20%;
@@ -51,15 +55,6 @@ body h1 {
 
 #choose p {
     padding: 0 20%;
-}
-
-#services td {
-    text-align: left;
-    width: 60%;
-}
-
-#services table {
-    margin: auto;
 }
 
 #footer {
