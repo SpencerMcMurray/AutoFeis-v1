@@ -1,8 +1,9 @@
 INSIDE = 10;
 CAN_CONNECT = 100;
 MAX_LINE_WEIGHT = 200;
-TITLE_FONT_SIZE = 128;
-SUBTITLE_FONT_SIZE = 48;
+FONT_MULTIPLIER = 12;
+SUBFONT_DIFF_FACTOR = 8/2;
+TITLE_FONT_SIZE = 96;
 OFFSCREEN_OFFSET = 10;
 
 MAX_CONN = 5;
@@ -18,10 +19,10 @@ BACKGROUND = 50;
 
 function setup() {
 	fontOswald = loadFont('../static/fonts/Oswald-Regular.ttf');
-    var canvas = createCanvas(document.getElementById('sketch').clientWidth, 400);
+    var canvas = createCanvas(document.getElementById('sketch').clientWidth, document.getElementById('sketch').clientHeight);
     canvas.style('display', 'block');
     canvas.parent('sketch');
-	NUM_DOTS = width / 20;
+	NUM_DOTS = (width / 20);
 	dots = [];
 	for(i = 0; i < NUM_DOTS; i++) {
 		dots[i] = new Dot();
@@ -43,18 +44,20 @@ function draw() {
 			}
 		}
 	}
+	// Font size adjusts with screen size
+	fontSize = Math.floor(Math.log(width)/Math.log(10)) * FONT_MULTIPLIER;
 	stroke(MAX_LINE_WEIGHT + BACKGROUND);
 	fill(MAX_LINE_WEIGHT + BACKGROUND);
-	textSize(TITLE_FONT_SIZE);
+	textSize(fontSize * SUBFONT_DIFF_FACTOR);
 	textFont(fontOswald);
 	textAlign(CENTER);
-	text('AutoFeis', width / 2, height / 1.75);
-	textSize(SUBTITLE_FONT_SIZE);
-	text('The New Way To Tabulate', width / 2, height / 1.35);
+	text('AutoFeis', width / 2, height / 2);
+	textSize(fontSize);
+	text('The New Way To Tabulate', width / 2, height / 1.75);
 }
 
 function windowResized() {
-	resizeCanvas(document.getElementById('sketch').clientWidth, 400);
+	resizeCanvas(document.getElementById('sketch').clientWidth, document.getElementById('sketch').clientHeight);
 }
 
 // Gets a random number in range(-M, M), avoiding range(-m, m)
