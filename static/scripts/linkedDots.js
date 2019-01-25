@@ -51,9 +51,9 @@ function draw() {
 	textSize(fontSize * SUBFONT_DIFF_FACTOR);
 	textFont(fontOswald);
 	textAlign(CENTER);
-	text('AutoFeis', width / 2, height / 2);
+	text('AutoFeis', width / 2, height / 1.75);
 	textSize(fontSize);
-	text('The New Way To Tabulate', width / 2, height / 1.75);
+	text('The New Way To Tabulate', width / 2, height / 1.35);
 }
 
 function windowResized() {

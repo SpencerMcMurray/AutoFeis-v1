@@ -1,5 +1,4 @@
 html {
-    background-image: linear-gradient(to right, #6ba8ff, #F5F5F5);
 }
 
 header div a {
@@ -12,7 +11,6 @@ header div a {
 
 header {
     top: 0;
-    background-image: linear-gradient(to right, #6ba8ff, #F5F5F5);
 }
 
 header img {
@@ -21,7 +19,7 @@ header img {
 }
 
 body {
-    background-image: linear-gradient(to right, #6ba8ff, #F5F5F5);
+    padding-top: 50px;
     text-align: center;
     position: relative;
 }
@@ -31,7 +29,7 @@ body h1 {
 }
 
 hr.fade {
-  border: 0;
+    border: 0;
     height: 1px;
     background: #333;
     background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
@@ -40,8 +38,18 @@ hr.fade {
     background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
 }
 
+.title {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.box {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
 #sketch {
-    height: 100vh;
+    height: 400px;
 }
 
 #welcome p {

@@ -3,41 +3,51 @@
     <script src="{{ url_for('static', filename='scripts/linkedDots.js') }}"></script>
     <body>
         <div id="sketch"></div>
-        <div id='welcome'>
-            <h1 class="display-4">Welcome</h1>
-            <p style='font-size:25px'>
-                AutoFeis provides the World's <u>Fastest</u> tabulation and
-                entry service for Irish Dance using the power of Artificial
-                Intelligence. We provide our services <u>Worldwide</u> at no
-                extra cost.
-            </p>
-            <p>
-                Learn more about the new way to tabulate <a href="{{ url_for('about') }}">here</a>
-            </p>
+        <div class="box">
+            <div id='welcome'>
+                <div class="title">
+                    <h1 class="display-3">Welcome</h1>
+                </div>
+                <p style='font-size:25px'>
+                    AutoFeis is a feis organization platform providing its services
+                    <strong>Worldwide</strong> at the same, low price.
+                </p><br>
+                <p style='font-size:25px'>
+                    We tabulate using <strong>Artificial Intelligence</strong> to provide results
+                    faster than your favourite tabulators by a mile.
+                </p><br>
+                <p style='font-size:25px'>
+                    Learn more about the new way to tabulate <a href="{{ url_for('about') }}">here</a>
+                </p>
+            </div>
         </div><hr>
-		<div class="container-fluid">
-			<h1 class="display-4">Upcoming Feiseanna</h1><br>
-			<div class="container d-flex flex-wrap justify-context-center" style="margin: 0 auto;">
-                {% if feiseanna|length > 0 %}
-                    {% for feis in feiseanna %}
-                        <div class="d-flex p-2 bd-highlight rounded feis-box">
-                            <div class="align-self-center" style="padding: 10px 10px;">
-                                <b>{{ feis['name']}}</b><br>
-                                {{ feis['date'].strftime('%B %d, %Y') }}<br>
-                                {{ feis['location'] }}<br>
-                                {{ feis['region'] }}
+        <div class="box">
+            <div class="container-fluid">
+                <div class="title">
+                    <h1 class="display-3">Upcoming Feiseanna</h1>
+                </div>
+                <div class="container d-flex flex-wrap justify-context-center" style="margin: 0 auto;">
+                    {% if feiseanna|length > 0 %}
+                        {% for feis in feiseanna %}
+                            <div class="d-flex p-2 bd-highlight rounded feis-box">
+                                <div class="align-self-center" style="padding: 10px 10px;">
+                                    <b>{{ feis['name']}}</b><br>
+                                    {{ feis['date'].strftime('%B %d, %Y') }}<br>
+                                    {{ feis['location'] }}<br>
+                                    {{ feis['region'] }}
+                                </div>
+                                <div class="align-self-center" style="padding: 10px 10px;">
+                                    <a href='{{ feis["website"] }}' role="button" class="btn btn-link btn-sm">Website</a><br>
+                                    <a href='{{ url_for('entries', feis=feis['id']) }}' role="button" class="btn btn-link btn-sm">Entries</a><br>
+                                    <a href='{{ "/static/storage/syllabi/" + feis["syllabus"] }}' role="button" class="btn btn-link btn-sm">Syllabus</a>
+                                </div>
                             </div>
-                            <div class="align-self-center" style="padding: 10px 10px;">
-                                <a href='{{ feis["website"] }}' role="button" class="btn btn-link btn-sm">Website</a><br>
-                                <a href='{{ url_for('entries', feis=feis['id']) }}' role="button" class="btn btn-link btn-sm">Entries</a><br>
-                                <a href='{{ "/static/storage/syllabi/" + feis["syllabus"] }}' role="button" class="btn btn-link btn-sm">Syllabus</a>
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <p style="margin: 0 auto;">No feiseanna to show!</p>
-                {% endif %}
-			</div>
-		</div>
+                        {% endfor %}
+                    {% else %}
+                        <p style="margin: 0 auto;font-size:25px;">No feiseanna to show!</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </body>
 {% endblock body %}
