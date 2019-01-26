@@ -1,24 +1,29 @@
 {% extends "generalTemplates/outline.html" %}
 {% block body %}
+    <script>
+
+    </script>
     <script src="{{ url_for('static', filename='scripts/linkedDots.js') }}"></script>
     <body>
         <div id="sketch"></div>
         <div class="box">
             <div id='welcome'>
-                <div class="title">
+                <div class="title animated fadeInUp slow">
                     <h1 class="display-3">Welcome</h1>
                 </div>
-                <p style='font-size:25px'>
-                    AutoFeis is a feis organization platform providing its services
-                    <strong>Worldwide</strong> at the same, low price.
-                </p><br>
-                <p style='font-size:25px'>
-                    We tabulate using <strong>Artificial Intelligence</strong> to provide results
-                    faster than your favourite tabulators by a mile.
-                </p><br>
-                <p style='font-size:25px'>
-                    Learn more about the new way to tabulate <a href="{{ url_for('about') }}">here</a>
-                </p>
+                <div class="animated fadeInUp slow">
+                    <p style='font-size:25px'>
+                        AutoFeis is a feis organization platform providing its services
+                        <strong>Worldwide</strong> at the same, low price.
+                    </p><br>
+                    <p style='font-size:25px'>
+                        We tabulate using <strong>Artificial Intelligence</strong> to provide results
+                        faster than your favourite tabulators by a mile.
+                    </p><br>
+                    <p style='font-size:25px'>
+                        Learn more about the new way to tabulate <a href="{{ url_for('about') }}">here</a>
+                    </p>
+                </div>
             </div>
         </div><hr>
         <div class="box">
@@ -29,7 +34,7 @@
                 <div class="container d-flex flex-wrap justify-context-center" style="margin: 0 auto;">
                     {% if feiseanna|length > 0 %}
                         {% for feis in feiseanna %}
-                            <div class="d-flex p-2 bd-highlight rounded feis-box">
+                            <div class="feis-box d-flex p-2 bd-highlight rounded" style="font-size:25px">
                                 <div class="align-self-center" style="padding: 10px 10px;">
                                     <b>{{ feis['name']}}</b><br>
                                     {{ feis['date'].strftime('%B %d, %Y') }}<br>
@@ -37,7 +42,7 @@
                                     {{ feis['region'] }}
                                 </div>
                                 <div class="align-self-center" style="padding: 10px 10px;">
-                                    <a href='{{ feis["website"] }}' role="button" class="btn btn-link btn-sm">Website</a><br>
+                                    <a href='{{ feis["website"] }}' role="button" class="btn btn-link btn-sm" style="">Website</a><br>
                                     <a href='{{ url_for('entries', feis=feis['id']) }}' role="button" class="btn btn-link btn-sm">Entries</a><br>
                                     <a href='{{ "/static/storage/syllabi/" + feis["syllabus"] }}' role="button" class="btn btn-link btn-sm">Syllabus</a>
                                 </div>
