@@ -11,7 +11,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.sound.min.js"></script>
 
         <script type="text/javascript" src="{{ url_for('static', filename='scripts/addField.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='scripts/inView.js') }}"></script>
@@ -24,12 +23,13 @@
         function applyAllAnimations(elements, classes) {
             elements.forEach(function (el) {
                 // If the element comes on screen, apply all animation classes
-                if(!(el.classList.contains('animated')) &&
-                    isAnyPartOfElementInViewport(el)) {
+                if(!(el.classList.contains('animated')) && isAnyPartOfElementInViewport(el)) {
                     el.classList.add('animated');
+                    el.classList.remove('hide');
                     classes.forEach(function (currClass) {
                         el.classList.add(currClass);
                     });
+                    console.log('done!');
                 }
             });
         }
@@ -132,7 +132,7 @@
     </main>
     <hr>
     <div class="box">
-        <div class="container-fluid fade-id">
+        <div class="container-fluid hide fade-id">
             <p>AutoFeis 2019</p>
         </div>
     </div>

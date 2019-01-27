@@ -24,28 +24,18 @@ body {
     position: relative;
 }
 
-body h1 {
-    //color: #7100bc;
-}
-
-hr.fade {
-    border: 0;
-    height: 1px;
-    background: #333;
-    background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
-    background-image: -moz-linear-gradient(left, #ccc, #333, #ccc);
-    background-image: -ms-linear-gradient(left, #ccc, #333, #ccc);
-    background-image: -o-linear-gradient(left, #ccc, #333, #ccc);
+.hide {
+    opacity: 0;
 }
 
 .title {
-    margin-top: 50px;
-    margin-bottom: 50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .box {
-    margin-top: 100px;
-    margin-bottom: 100px;
+    padding-top: 100px;
+    padding-bottom: 100px;
 }
 
 #sketch {
@@ -81,6 +71,7 @@ hr.fade {
 }
 
 .feis-box {
+    width: 350px;
     margin: 0 auto;
     border: 1px solid rgb(25, 25, 25);
     background-color: rgb(245, 245, 245);

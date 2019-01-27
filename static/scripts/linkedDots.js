@@ -1,3 +1,4 @@
+// Many constants for quick alterations
 INSIDE = 10;
 CAN_CONNECT = 100;
 MAX_LINE_WEIGHT = 200;
@@ -17,21 +18,24 @@ STROKE_MIN = 150;
 
 BACKGROUND = 50;
 
-function setup() {
+function preload() {
 	fontOswald = loadFont('../static/fonts/Oswald-Regular.ttf');
+}
+
+function setup() {
     var canvas = createCanvas(document.getElementById('sketch').clientWidth, document.getElementById('sketch').clientHeight);
     canvas.style('display', 'block');
     canvas.parent('sketch');
-	NUM_DOTS = (width / 20);
+    NUM_DOTS = (width / 20);
 	dots = [];
-	for(i = 0; i < NUM_DOTS; i++) {
+	for(var i = 0; i < NUM_DOTS; i++) {
 		dots[i] = new Dot();
 	}
 }
 
 function draw() {
   	background(BACKGROUND);
-	for(i = 0; i < dots.length; i++) {
+	for(var i = 0; i < dots.length; i++) {
 		dots[i].render();
 		dots[i].update();
 		if(dots[i].isOffScreen()) {
@@ -45,7 +49,7 @@ function draw() {
 		}
 	}
 	// Font size adjusts with screen size
-	fontSize = Math.floor(Math.log(width)/Math.log(10)) * FONT_MULTIPLIER;
+	var fontSize = Math.floor(Math.log(width)/Math.log(10)) * FONT_MULTIPLIER;
 	stroke(MAX_LINE_WEIGHT + BACKGROUND);
 	fill(MAX_LINE_WEIGHT + BACKGROUND);
 	textSize(fontSize * SUBFONT_DIFF_FACTOR);
@@ -62,7 +66,7 @@ function windowResized() {
 
 // Gets a random number in range(-M, M), avoiding range(-m, m)
 function randomAvoidZero(m, M) {
-	nums = [random(-M, m), random(m, M)];
+	var nums = [random(-M, m), random(m, M)];
 	return nums[round(random(1))];
 }
 
@@ -80,8 +84,8 @@ function Dot() {
 	this.stroke = random(STROKE_MIN, 255);
 
 	this.connect = function(dot) {
-		dif = createVector(this.pos.x - dot.pos.x, this.pos.y - dot.pos.y);
-		mag = dif.mag();
+		var dif = createVector(this.pos.x - dot.pos.x, this.pos.y - dot.pos.y);
+		var mag = dif.mag();
 		if(mag < CAN_CONNECT) {
 			stroke(squish(mag));
 			line(this.pos.x, this.pos.y, dot.pos.x, dot.pos.y);
