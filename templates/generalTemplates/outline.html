@@ -20,6 +20,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>AutoFeis</title>
     </head>
+    <script>
+        function fadeInAll(arr) {
+            arr.forEach(function (el) {
+                // If the element comes on screen, fade it up slowly
+                if(!(el.classList.contains('fadeInUp') || el.classList.contains('slow')) &&
+                    isAnyPartOfElementInViewport(el)) {
+                    el.classList.add('fadeInUp', 'slow');
+                }
+            });
+        }
+        $(document).ready(function (e) {
+            // Get all elements to dynamically fade in, and fade in the ones currently onscreen
+            var toAnimate = document.querySelectorAll(".animated");
+            fadeInAll(toAnimate);
+
+            // When the scroll wheel is scrolled and a section is visible, fade it in
+            $(window).on('resize scroll', function () {
+                fadeInAll(toAnimate);
+            });
+        });
+    </script>
     <header>
         <link rel='stylesheet' href='{{ url_for('static', filename='styles/css/main.css') }}'>
         <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Teko'>

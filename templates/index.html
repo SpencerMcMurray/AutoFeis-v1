@@ -1,17 +1,11 @@
 {% extends "generalTemplates/outline.html" %}
 {% block body %}
-    <script>
-
-    </script>
     <script src="{{ url_for('static', filename='scripts/linkedDots.js') }}"></script>
     <body>
         <div id="sketch"></div>
         <div class="box">
             <div id='welcome'>
-                <div class="title animated fadeInUp slow">
-                    <h1 class="display-3">Welcome</h1>
-                </div>
-                <div class="animated fadeInUp slow">
+                <div class="animated">
                     <p style='font-size:25px'>
                         AutoFeis is a feis organization platform providing its services
                         <strong>Worldwide</strong> at the same, low price.
@@ -28,7 +22,7 @@
         </div><hr>
         <div class="box">
             <div class="container-fluid">
-                <div class="title">
+                <div class="title animated">
                     <h1 class="display-3">Upcoming Feiseanna</h1>
                 </div>
                 <div class="container d-flex flex-wrap justify-context-center" style="margin: 0 auto;">
