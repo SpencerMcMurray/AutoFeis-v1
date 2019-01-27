@@ -21,23 +21,35 @@
         <title>AutoFeis</title>
     </head>
     <script>
-        function fadeInAll(arr) {
-            arr.forEach(function (el) {
-                // If the element comes on screen, fade it up slowly
-                if(!(el.classList.contains('fadeInUp') || el.classList.contains('slow')) &&
+        function applyAllAnimations(elements, classes) {
+            elements.forEach(function (el) {
+                // If the element comes on screen, apply all animation classes
+                if(!(el.classList.contains('animated')) &&
                     isAnyPartOfElementInViewport(el)) {
-                    el.classList.add('animated', 'fadeInUp', 'slow');
+                    el.classList.add('animated');
+                    classes.forEach(function (currClass) {
+                        el.classList.add(currClass);
+                    });
                 }
             });
         }
         $(document).ready(function (e) {
-            // Get all elements to dynamically fade in, and fade in the ones currently onscreen
-            var toAnimate = document.querySelectorAll(".fade-text");
-            fadeInAll(toAnimate);
+            // Define all animations
+            var fadeInAnimations = ['fadeInUp', 'slow'];
+            var bounceAnimations = ['zoomIn', 'slow'];
 
-            // When the scroll wheel is scrolled and a section is visible, fade it in
+            // Get all elements to fade in, and apply fadeInUp and slow
+            var toFadeIn = document.querySelectorAll(".fade-id");
+            applyAllAnimations(toFadeIn, fadeInAnimations);
+
+            // Get all the elements to bounce in, and apply bounce
+            var toBounce = document.querySelectorAll(".zoom-id");
+            applyAllAnimations(toBounce, bounceAnimations);
+
+            // When the scroll wheel is scrolled and a section is visible, apply the correct animations
             $(window).on('resize scroll', function () {
-                fadeInAll(toAnimate);
+                applyAllAnimations(toFadeIn, fadeInAnimations);
+                applyAllAnimations(toBounce, bounceAnimations);
             });
         });
     </script>
@@ -120,7 +132,7 @@
     </main>
     <hr>
     <div class="box">
-        <div class="container-fluid">
+        <div class="container-fluid fade-id">
             <p>AutoFeis 2019</p>
         </div>
     </div>
