@@ -26,13 +26,13 @@
                 // If the element comes on screen, fade it up slowly
                 if(!(el.classList.contains('fadeInUp') || el.classList.contains('slow')) &&
                     isAnyPartOfElementInViewport(el)) {
-                    el.classList.add('fadeInUp', 'slow');
+                    el.classList.add('animated', 'fadeInUp', 'slow');
                 }
             });
         }
         $(document).ready(function (e) {
             // Get all elements to dynamically fade in, and fade in the ones currently onscreen
-            var toAnimate = document.querySelectorAll(".animated");
+            var toAnimate = document.querySelectorAll(".fade-text");
             fadeInAll(toAnimate);
 
             // When the scroll wheel is scrolled and a section is visible, fade it in
