@@ -39,72 +39,59 @@
                     </div>
                 </div>
             </div>
-            <p class="hide fade-id" style="font-size:25px;bottom: 0;">If you have any questions, don't hesitate to <a href="mailto:spencermcmurray@hotmail.com">contact us</a></p>
         </div>
         <hr>
         <div class="box">
             <div class="container-fluid">
-                <div class="container">
-                    <div class="title">
-                        <h1 class="display-3">Services</h1>
+                <div class="title hide fade-id">
+                    <h1 class="display-3">Services</h1>
+                </div>
+                <div class="d-flex flex-wrap justify-content-center">
+                    <div class="sub-box bd-highlight col-md-5 border border-dark rounded mx-auto hide fade-left-id" style="background-color: rgb(245, 245, 245);">
+                        <h1 class="display-4">Tabulation</h1>
+                        <p style="font-size:25px;padding:0 5%">
+                            Data entry is a thing of the past with our A.I-powered tabulation system. Decrease the wait
+                            time between dancing and results by over 300%!
+                        </p>
                     </div>
-                    <div class="container-fluid d-flex flex-wrap justify-content-space-between">
-                        <div class="row">
-                            <div class="col-md-3 border border-dark rounded">Test</div>
-                            <div class="col-md-3 border border-dark rounded">Test</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 border border-dark rounded">Test</div>
-                            <div class="col-md-3 border border-dark rounded">Test</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 border border-dark rounded">Test</div>
-                            <div class="col-md-3 border border-dark rounded">Test</div>
-                        </div>
+                    <div class="sub-box bd-highlight col-md-5 border border-dark rounded mx-auto hide fade-right-id" style="background-color: rgb(245, 245, 245);">
+                        <h1 class="display-4">Feis Creation</h1>
+                        <p style="font-size:25px;padding:0 5%">
+                            The AutoFeis feis creation system is dynamic and easy to use. Select the options that fit your
+                            needs, create unique competitions, and watch your feis be created for you.
+                        </p>
+                    </div>
+                    <div class="sub-box bd-highlight col-md-5 border border-dark rounded mx-auto hide fade-left-id" style="background-color: rgb(245, 245, 245);">
+                        <h1 class="display-4">Registration</h1>
+                        <p style="font-size:25px;padding:0 5%">
+                            We take care of all your registrations and make it as simple as possible. Simply log in,
+                            click register, and AutoFeis will show you all the competitions your dancers can enter.
+                        </p>
+                    </div>
+                    <div class="sub-box bd-highlight col-md-5 border border-dark rounded mx-auto hide fade-right-id" style="background-color: rgb(245, 245, 245);">
+                        <h1 class="display-4">Entry List</h1>
+                        <p style="font-size:25px;padding:0 5%">
+                            Our entry lists are sorted by competition to make it easier for people to see who they're up
+                            against. You'll never fall out of the loop; our entry lists are updated in real-time.
+                        </p>
+                    </div>
+                    <div class="sub-box bd-highlight col-md-5 border border-dark rounded mx-auto hide fade-left-id" style="background-color: rgb(245, 245, 245);">
+                        <h1 class="display-4">Merge/Split</h1>
+                        <p style="font-size:25px;padding:0 5%">
+                            Merging and splitting competitions are automated, meaning that with a click of a button any
+                            competition can be split or merged giving you control over how you feis runs.
+                        </p>
+                    </div>
+                    <div class="sub-box bd-highlight col-md-5 border border-dark rounded mx-auto hide fade-right-id" style="background-color: rgb(245, 245, 245);">
+                        <h1 class="display-4">Advertising</h1>
+                        <p style="font-size:25px;padding:0 5%">
+                            When your feis is hosted with AutoFeis it will be displayed on our <a href="{{ url_for('feisinfo') }}">Feis Info</a>
+                            page, as well as our <a href="{{ url_for('index') }}">Home</a> page if its coming up soon.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-        <div style="width: 75%; margin: 0 auto;">
-            <h1 class="display-5">The Story of AutoFeis</h1>
-            <br /><br />
-            <h1>Introduction</h1>
-            <p>
-                AutoFeis was made solely by me, Spencer McMurray, a 19-year old
-                Computer Science student at the University of Toronto. I've
-                been dancing since I was 10, but been at feiseanna since I was
-                2 thanks to my sister who also dances.
-            </p><br />
-            <h1>Backstory</h1>
-            <p>
-                At all of the many feiseanna I've attended, results have always
-                taken a long time to arrive. When I was younger I didn't understand
-                why, but as I got older I started to see how much effort went
-                into tabulation, and I grew much more respect for those who
-                tabulate our results.
-            </p><br />
-            <h1>The Story</h1>
-            <p>
-                I've had an intrest in Computer Science for a long time, but
-                only recently have I delved into the insane topic of Artificial
-                Intelligence. It's far too complicated to explain to you in one
-                paragraph, but I reccommend you search what goes into modern
-                A.I if this intrests you. Anyway, I grew intrested in the idea
-                of automating human tasks like driving cars and mastering games.
-            </p>
-            <p>
-                One day I was at a feis and I was curious to see how long it
-                would take to tabulate our results. Two hours later we had our
-                results, and I knew that A.I could speed up the process, while
-                reducing the amount of human resources needed by a large amount.
-            </p>
-            <p>
-                It took many days full of programming, late nights, and early
-                mornings, but I managed to complete it in just few months. So
-                hopefully you can enjoy much more relaxed tabulation, along
-                with knowing that the tech that went into this system may one
-                day take over the world ;)
-            </p>
-        </div>
+        <p class="hide fade-id" style="font-size:25px;bottom: 0;">If you have any questions, don't hesitate to <a href="mailto:spencermcmurray@hotmail.com">contact us</a></p>
     </body>
 {% endblock body %}
