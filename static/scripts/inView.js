@@ -1,4 +1,4 @@
-EXTRA_SCREEN = 25;
+EXTRA_SCREEN = 50;
 
 function isAnyPartOfElementInViewport(el) {
 
