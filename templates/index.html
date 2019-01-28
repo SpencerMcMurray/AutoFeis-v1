@@ -25,17 +25,17 @@
                 <div class="title hide fade-id">
                     <h1 class="display-3">Upcoming Feiseanna</h1>
                 </div>
-                <div class="title container d-flex flex-wrap justify-context-center" style="margin: 0 auto;">
+                <div class="title container d-flex flex-wrap justify-content-center" style="margin: 0 auto;">
                     {% if feiseanna|length > 0 %}
                         {% for feis in feiseanna %}
-                            <div class="feis-box d-flex p-2 bd-highlight rounded hide zoom-id" style="font-size:20px">
-                                <div class="align-self-center" style="padding: 10px 10px;">
+                            <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight justify-content-center rounded hide zoom-id" style="font-size:20px">
+                                <div style="padding: 10px 10px;">
                                     <b>{{ feis['name']}}</b><br>
                                     {{ feis['date'].strftime('%B %d, %Y') }}<br>
                                     {{ feis['location'] }}<br>
                                     {{ feis['region'] }}
                                 </div>
-                                <div class="align-self-center" style="padding: 10px 10px;">
+                                <div style="padding: 10px 10px;">
                                     <a href='{{ feis["website"] }}' role="button" class="btn btn-link btn-sm" style="font-size:20px">
                                         Website
                                     </a><br>

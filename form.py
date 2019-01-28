@@ -2,7 +2,7 @@ from wtforms import Form, StringField, PasswordField, validators, SubmitField, S
 from functions import year_dropdown, school_dropdown, get_regions
 
 
-WEBSITE = "www.autofeis.com"
+WEBSITE = "https://www.autofeis.com"
 
 
 class RegistrationForm(Form):
