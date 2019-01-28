@@ -4,11 +4,11 @@ A Python 3 Flask-based website. AutoFeis manages the creation, registration,
 and tabulation of Irish Dance competitions, it also allows for creators to
 manage their competition.
 
-Its distinguishing factor is tabulation. It uses a neural network
+Its distinguishing factor is tabulation. It uses computer vision and a neural network
 to provide very fast tabulation of results from Irish Dancing competitions.
 
-Its worth noting that the tabulation could be easily extend to other judged 
-competitions with handwritten marks.
+Its worth noting that the tabulation could be easily be extended to other judged 
+competitions with handwritten marks as well.
 
 ## Dependencies
 
