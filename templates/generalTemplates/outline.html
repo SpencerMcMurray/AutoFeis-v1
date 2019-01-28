@@ -39,19 +39,28 @@
              */
             // Define all animations
             var fadeInAnimations = ['fadeInUp', 'slow'];
+            var fadeLeftAnimations = ['fadeInLeft', 'slow'];
+            var fadeRightAnimations = ['fadeInRight', 'slow'];
             var bounceAnimations = ['zoomIn', 'slow'];
 
-            // Get all elements to fade in, and apply fadeInUp and slow
+            // Apply all animations to elements on the screen on startup
             var toFadeIn = document.querySelectorAll(".fade-id");
             applyAllAnimations(toFadeIn, fadeInAnimations);
 
-            // Get all the elements to bounce in, and apply bounce
+            var toFadeLeft = document.querySelectorAll(".fade-left-id");
+            applyAllAnimations(toFadeLeft, fadeLeftAnimations);
+
+            var toFadeRight = document.querySelectorAll(".fade-right-id");
+            applyAllAnimations(toFadeRight, fadeRightAnimations);
+
             var toBounce = document.querySelectorAll(".zoom-id");
             applyAllAnimations(toBounce, bounceAnimations);
 
             // When the scroll wheel is scrolled and a section is visible, apply the correct animations
             $(window).on('resize scroll', function () {
                 applyAllAnimations(toFadeIn, fadeInAnimations);
+                applyAllAnimations(toFadeLeft, fadeLeftAnimations);
+                applyAllAnimations(toFadeRight, fadeRightAnimations);
                 applyAllAnimations(toBounce, bounceAnimations);
             });
         });
