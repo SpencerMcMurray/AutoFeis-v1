@@ -39,7 +39,9 @@ def about():
 def feisinfo():
     """The Feis info page"""
     feiseanna = get_all_feiseanna()
-    return render_template("feisInfo.html", is_logged=LOGGED, where="feisinfo", feiseanna=feiseanna)
+    box_animations = ['fade-left-id', 'zoom-id', 'fade-right-id']
+    return render_template("feisInfo.html", is_logged=LOGGED, where="feisinfo", feiseanna=feiseanna,
+                           animations=box_animations)
 
 
 @app.route("/results", methods=['GET', 'POST'])
