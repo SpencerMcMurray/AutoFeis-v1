@@ -52,7 +52,9 @@ def results():
         comps = get_comps_from_feis_id(feis_id)
         return render_template("results/resultsForFeis.html", is_logged=LOGGED, where="results", comps=comps)
     feiseanna = get_all_clopen_feiseanna(False)
-    return render_template("results/results.html", is_logged=LOGGED, where="results", feiseanna=feiseanna)
+    box_animations = ['fade-left-id', 'zoom-id', 'fade-right-id']
+    return render_template("results/results.html", is_logged=LOGGED, where="results", feiseanna=feiseanna,
+                           animations=box_animations)
 
 
 @app.route("/entries/<int:feis>")
