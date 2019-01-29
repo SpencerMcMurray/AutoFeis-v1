@@ -1,44 +1,38 @@
 {% extends "generalTemplates/outline.html" %}
 {% block body %}
     <body>
-        <style>
-            table {
-                margin:0 auto;
-                font-size:20px;
-                border:2px solid black;
-                width:50%;
-            } th, td {
-                padding: 15px;
-                border: 2px solid black;
-            } td {
-                text-align: left;
-            }
-            table tr:nth-child(odd) {
-                background-color: #eee;
-            }
-            table tr:nth-child(even) {
-                background-color: #fff;
-            }
-        </style>
-        <h1 style='font-family:Teko;font-size:50px'>{{ name }} Entries</h1><hr><br>
-        {% for entry in entries['dancers'] %}
-            {% set i = loop.index0 %}
-            <table>
-                <tr>
-                    <th style="width:40%;">{{ entries['codes'][loop.index0] }}</th>
-                    <th>{{ entries['comps'][loop.index0] }}</th>
-                </tr>
-                <tr>
-                    <th style="width:40%;">Name</th>
-                    <th>School</th>
-                </tr>
-                {% for dancer in entry %}
-                    <tr>
-                        <td style="width:40%;">{{ dancer }}</td>
-                        <td>{{ entries['schools'][i][loop.index0] }}</td>
-                    </tr>
+        <div class="sub-box">
+            <div class="container-fluid">
+                <div class="title">
+                    <h1 class="display-3 hide fade-id">{{ name }} Entries</h1>
+                </div>
+            </div>
+            <div class="container">
+                {% for entry in entries['dancers'] %}
+                    {% set i = loop.index0 %}
+                    <div class="title">
+                        <p class="hide fade-id" style="font-size: 35px;">{{ entries['comps'][loop.index0] }}</p>
+                        <p class="hide fade-id" style="font-size: 25px;">{{ entries['codes'][loop.index0] }}</p>
+                    </div>
+                    <div class="text-left sub-title border border-dark rounded bd-highlight container d-flex flex-wrap align-items-center justify-content-center hide zoom-id" style="margin: 0 auto;border: 1px solid rgb(25, 25, 25);background-color: rgb(245, 245, 245);">
+                        {% for dancer in entry %}
+                            {% if loop.index == entry|length %}
+                                {% set extra_border = "" %}
+                            {% else %}
+                                {% set extra_border = "border-bottom border-dark" %}
+                            {% endif %}
+                            <div class="py-2 {{ extra_border }} col-md-12 d-flex flex-wrap align-items-center justify-content-center">
+                                <div class="col-md-5 d-flex flex-wrap align-items-center justify-content-start" style="font-size:20px">
+                                    <h1 style="font-size: 25px;">{{ dancer }}</h1>
+                                </div>
+                                <div class="col-md-5 d-flex flex-wrap align-items-center justify-content-start" style="font-size:20px">
+                                    <h1 style="font-size: 25px;">{{ entries['schools'][i][loop.index0] }}</h1>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
                 {% endfor %}
-            </table><br><br>
-        {% endfor %}
+            </div>
+        </div>
     </body>
 {% endblock body %}

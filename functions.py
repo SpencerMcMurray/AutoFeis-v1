@@ -1030,10 +1030,10 @@ def get_comps_by_level(feis_id):
     Given the feis id, returns all competitions divided by their competitions
     """
     db = Database()
-    q = """SELECT * FROM `competition` ORDER BY `level`, `dance`, `minAge`"""
+    q = """SELECT * FROM `competition` WHERE `feis` = %s ORDER BY `level`, `dance`, `minAge`"""
     comps = list()
     levels = list()
-    db.cur.execute(q)
+    db.cur.execute(q, feis_id)
     all = db.cur.fetchall()
     prev_level = ""
     for one in all:

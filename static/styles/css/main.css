@@ -33,6 +33,11 @@ body {
     padding-bottom: 50px;
 }
 
+.sub-title {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
 .box {
     margin-top: 100px;
     margin-bottom: 100px;
