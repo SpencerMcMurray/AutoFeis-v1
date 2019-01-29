@@ -1,48 +1,54 @@
 {% extends "generalTemplates/outline.html" %}
 {% block body %}
     <body>
-        <style>
-            table {
-                margin:0 auto;
-                font-size:20px;
-                border:2px solid black;
-            } th, td {
-                padding: 15px;
-                border: 2px solid black;
-            } td {
-                text-align: left;
-            }
-            table tr:nth-child(odd) {
-                background-color: #eee;
-            }
-            table tr:nth-child(even) {
-                background-color: #fff;
-            }
-        </style>
-        <h1 style="font-family:Teko;font-size:50px">Registering for {{ feis_name }}</h1>
-        <form method="POST">
-            {% for dancer in comps %}<hr>
-                {% set i = loop.index0 %}
-                <h1 style="font-family:Teko;font-size:45px">{{ dancers[i]['fName'] + " " + dancers[i]['lName'] }}:</h1>
-                <table>
-                    <tr>
-                        <th style='text-align:center;'>Name</th>
-                        <th style='text-align:center;'>Code</th>
-                        <th style='text-align:center;'>Check</th>
-                    </tr>
-                    {% for comp in comps[dancer] %}
-                        <tr>
-                            <td>{{ comp['name'] }}</td>
-                            <td>{{ comp['code'] }}</td>
-                            <td style='text-align:center;'>
-                                <input type="checkbox" name="register[{{ dancers[i]['id'] }}][]" value="{{ comp['id'] }}">
-                            </td>
-                        </tr>
+        <div class="sub-box">
+            <div class="container-fluid">
+                <div class="title">
+                    <h1 class="display-3 hide fade-id">Registering for {{ feis_name }}</h1>
+                </div>
+            </div>
+            <div class="title container d-flex flex-wrap justify-content-center" style="margin: 0 auto;">
+                <form method="POST">
+                    {% for dancer in comps %}
+                        {% set i = loop.index0 %}
+                        <div class="title">
+                            <h1 class="display-3 hide fade-id">{{ dancers[i]['fName'] + " " + dancers[i]['lName'] }}:</h1>
+                        </div>
+                        {% if comps[dancer]|length > 0 %}
+                            {% for comp in comps[dancer] %}
+                                {% if loop.index == comps[dancer]|length and comps[dancer]|length % 3 != 3 %}
+                                    {% set animation = animations[loop.index % 3] %}
+                                {% else %}
+                                    {% set animation = animations[loop.index0 % 3] %}
+                                {% endif %}
+                                <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded hide {{ animation }}" style="font-size:20px">
+                                    <div style="padding: 10px 10px;">
+                                        {{ comp['name'] }}<br>
+                                        {{ comp['code'] }}
+                                    </div>
+                                    <div style="padding: 10px 10px;">
+                                        <label>
+                                            <input style="transform: scale(2);" type="checkbox" name="register[{{ dancers[i]['id'] }}][]" value="{{ comp['id'] }}">
+                                        </label>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="sub-box">
+                                <p style="margin: 0 auto;font-size:20px;" class="hide zoom-id">
+                                    {{ dancers[i]['fName'] }} doesn't fit any competition's criteria that they aren't already
+                                    registered for.
+                                </p>
+                            </div>
+                        {% endif %}
+                        {% if loop.index != comps[dancer]|length %}
+                            <hr>
+                        {% endif %}
                     {% endfor %}
-                </table>
-            {% endfor %}<br>
-            <input type="hidden" name="startScript" value="1">
-            <input type="submit" value="Register">
-        </form>
+                    <input type="hidden" name="startScript" value="1">
+                    <button class="btn btn-primary" type="submit">Register</button>
+                </form>
+            </div>
+        </div>
     </body>
 {% endblock body %}

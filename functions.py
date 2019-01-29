@@ -320,7 +320,7 @@ def get_all_clopen_feiseanna(is_open):
     Gets all open feiseanna
     """
     db = Database()
-    q = """SELECT * FROM `feiseanna` WHERE `isOpen` = %s ORDER BY `id` DESC"""
+    q = """SELECT * FROM `feiseanna` WHERE `isOpen` = %s ORDER BY `date` ASC"""
     db.cur.execute(q, int(is_open))
     feiseanna = db.cur.fetchall()
     db.con.close()

@@ -70,6 +70,7 @@ def entries(feis):
 @app.route("/register", methods=["GET", "POST"])
 def register_page():
     """The register page"""
+    box_animations = ['fade-left-id', 'zoom-id', 'fade-right-id']
     if request.method == "POST":
         if request.form.get("startScript", None) is None:
             session['feis_id'] = request.form.get("id", -1)
@@ -86,9 +87,10 @@ def register_page():
         comps = get_all_comps_for_dancers(session['feis_id'], dancers)
 
         return render_template("registration/registerFor.html", is_logged=LOGGED, where="register",
-                               feis_name=feis['name'], dancers=dancers, comps=comps)
+                               feis_name=feis['name'], dancers=dancers, comps=comps, animations=box_animations)
     feiseanna = get_all_clopen_feiseanna(True)
-    return render_template("registration/register.html", is_logged=LOGGED, where="register", feiseanna=feiseanna)
+    return render_template("registration/register.html", is_logged=LOGGED, where="register", feiseanna=feiseanna,
+                           animations=box_animations)
 
 
 @app.route("/signup", methods=["GET", "POST"])

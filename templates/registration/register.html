@@ -1,55 +1,46 @@
 {% extends "generalTemplates/outline.html" %}
 {% block body %}
-    {% if is_logged == False %}
-        <body>
-            <h1 style="font-family:Teko;font-size:50px">Please Log In</h1>
-            <p style="font-size:25px;">
-                You must be logged in to register for a feis. If you're not
-                signed up with us yet, do so <a href="{{ url_for('signup') }}">here</a>
-            </p>
-        </body>
-    {% else %}
-        <body>
-            <style>
-                table {
-                    margin:0 auto;
-                    font-size:20px;
-                    border:2px solid black;
-                } th, td {
-                    padding: 15px;
-                    border: 2px solid black;
-                } td {
-                    text-align: left;
-                }
-                table tr:nth-child(odd) {
-                    background-color: #eee;
-                }
-                table tr:nth-child(even) {
-                    background-color: #fff;
-                }
-            </style>
-            <h1 style="font-family:Teko;font-size:50px">Choose a Feis</h1>
-            <table>
-            <tr>
-                <th colspan=2 style='text-align:center;'>Available Feiseanna</th>
-            </tr>
-            {% for feis in feiseanna %}
-                <tr>
-                    <td>
-                        <b>{{ feis['name']}}</b><br>
-                        {{ feis['date'].strftime('%B %d, %Y') }}<br>
-                        {{ feis['location'] }}<br>
-                        {{ feis['region'] }}
-                    </td>
-                    <td style="text-align: center; vertical-align: center">
-                        <form method="POST">
-                            <input type="hidden" value="{{ feis['id'] }}" name="id">
-                            <input type="submit" value="Register">
-                        </form>
-                    </td>
-                </tr>
-            {% endfor %}
-            </table>
-        </body>
-    {% endif %}
+    <body>
+        <div class="sub-box">
+            {% if is_logged == False %}
+                <div class="title">
+                    <h1 class="display-3 hide fade-id">Please Log In</h1>
+                </div>
+                <p style="margin: 0 auto;font-size:25px;" class="hide zoom-id">
+                    To register for a feis you must <a href="{{ url_for('signup') }}">Sign Up</a> and <a href="{{ url_for('login') }}">Log In.</a>
+                </p>
+            {% else %}
+                <div class="title">
+                    <h1 class="display-3 hide fade-id">Choose A Feis</h1>
+                </div>
+                <div class="title container d-flex flex-wrap justify-content-center" style="margin: 0 auto;">
+                    {% if feiseanna|length > 0 %}
+                        {% for feis in feiseanna %}
+                            {% if loop.index == feiseanna|length and feiseanna|length % 3 != 3 %}
+                                {% set animation = animations[loop.index % 3] %}
+                            {% else %}
+                                {% set animation = animations[loop.index0 % 3] %}
+                            {% endif %}
+                            <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded hide {{ animation }}" style="font-size:20px">
+                                <div class="col-md-12 justify-content-center" style="padding: 10px 10px;">
+                                    <b class="pb-2">{{ feis['name']}}</b><br>
+                                    {{ feis['date'].strftime('%B %d, %Y') }}<br>
+                                    {{ feis['location'] }}<br>
+                                    {{ feis['region'] }}
+                                </div>
+                                <div class="col-md-12 justify-content-center" style="padding: 10px 10px;">
+                                    <form method="POST">
+                                        <input type="hidden" value="{{ feis['id'] }}" name="id">
+                                        <button class="btn btn-primary" type="submit">Register</button>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p style="margin: 0 auto;font-size:25px;" class="hide zoom-id">No feiseanna to show</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </body>
 {% endblock body %}
