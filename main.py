@@ -47,12 +47,13 @@ def feisinfo():
 @app.route("/results", methods=['GET', 'POST'])
 def results():
     """The results page"""
+    box_animations = ['fade-left-id', 'zoom-id', 'fade-right-id']
     if request.method == "POST":
         feis_id = request.form.get('id', 0)
-        comps = get_comps_from_feis_id(feis_id)
-        return render_template("results/resultsForFeis.html", is_logged=LOGGED, where="results", comps=comps)
+        levels, comps = get_comps_by_level(feis_id)
+        return render_template("results/resultsForFeis.html", is_logged=LOGGED, where="results", comps=comps,
+                               levels=levels, animations=box_animations)
     feiseanna = get_all_clopen_feiseanna(False)
-    box_animations = ['fade-left-id', 'zoom-id', 'fade-right-id']
     return render_template("results/results.html", is_logged=LOGGED, where="results", feiseanna=feiseanna,
                            animations=box_animations)
 

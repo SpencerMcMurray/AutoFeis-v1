@@ -1,31 +1,35 @@
 {% extends "generalTemplates/outline.html" %}
 {% block body %}
-    <style>
-        table {
-            margin:0 auto;
-            font-size:20px;
-            border:2px solid black;
-        } th, td {
-            padding: 15px;
-            border: 2px solid black;
-        } td {
-            text-align: center;
-        }
-        table tr:nth-child(odd) {
-            background-color: #eee;
-        }
-        table tr:nth-child(even) {
-            background-color: #fff;
-        }
-    </style>
     <body>
-        <h1 style="font-family:Teko;font-size:50px">Choose a competition</h1>
-        <table>
-            {% for comp in comps %}
-                <tr>
-                    <td><a href="{{ "/static/storage/results/" ~ comp['id'] ~ ".pdf" }}">{{ comp['name'] }}</a></td>
-                </tr>
-            {% endfor %}
-        </table>
+        <div class="sub-box">
+            <div class="container-fluid">
+                <div class="title">
+                    <h1 class="display-3 hide fade-id">Choose a competition</h1>
+                    <p class="hide fade-id" style="font-size: 25px;">Sorted by level</p>
+                </div>
+            </div>
+            <div class="title container d-flex flex-wrap justify-content-center" style="margin: 0 auto;">
+                {% for group in comps %}
+                    <div class="title col-md-12">
+                        <h1 class="display-4 hide fade-id">{{ levels[loop.index0] }}</h1>
+                    </div>
+                    {% for comp in group %}
+                        {% if loop.index == group|length and group|length % 3 != 0 %}
+                            {% set animation = animations[loop.index % 3] %}
+                        {% else %}
+                            {% set animation = animations[loop.index0 % 3] %}
+                        {% endif %}
+                        <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded hide {{ animation }}" style="font-size:20px">
+                            <div class="d-flex col-md-12 justify-content-center" style="padding: 10px;">
+                                <form method="POST">
+                                    <input type="hidden" value="{{ comp['id'] }}" name="id">
+                                    <button class="btn btn-primary" type="submit">{{ comp['name'] }}</button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
     </body>
 {% endblock body %}
