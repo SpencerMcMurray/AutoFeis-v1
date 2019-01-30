@@ -3,30 +3,48 @@
 {% block body %}
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Teko'>
     <body>
-        <form method="POST">
-            <div id="login-box">
-                <div class="center">
-                    <h1 style="font-family:Teko;font-size:50px">Sign up</h1>
-
-                    {% with messages = get_flashed_messages()%}
-                        {% if messages %}
-                            <ul class="errors">
-                            {% for message in messages%}
-                                <li> {{ message }} </li>
-                            {% endfor %}
-                            </ul>
-                        {% endif %}
-                    {% endwith %}
-                    {{ render_field(form.f_name) }}
-                    {{ render_field(form.l_name) }}
-                    {{ render_field(form.email) }}
-                    {{ render_field(form.password) }}
-                    {{ render_field(form.confirm) }}
-
-                    <input type="submit" name="signup_submit" value="Sign up" />
-                    <p>By continuing, you accept our <a href="{{ url_for('terms') }}">Terms of Service</a></p>
+        <div class="sub-box">
+            {% if errors|length > 0 %}
+                <div class="sub-title d-flex container mx-auto hide shake-id justify-content-center align-items-center flex-wrap pb-0" style="color: red;">
+                    {% for error in errors %}
+                        <div class="col-md-12">
+                            <p style="font-size: 20px;">{{ error }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="container-fluid">
+                <div class="title">
+                    <h1 class="display-3 hide fade-id">Sign Up</h1>
                 </div>
             </div>
-        </form>
+            <form method="POST">
+                <div class="text-left feis-box mx-auto sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded hide zoom-id" style="font-size:20px">
+                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
+                        <label for="fname">First Name</label>
+                        {{ form.f_name(class_="form-control", placeholder="Enter First Name", id="fname") }}
+                    </div>
+                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
+                        <label for="lname">Last Name</label>
+                        {{ form.l_name(class_="form-control", placeholder="Enter Last Name", id="lname") }}
+                    </div>
+                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
+                        <label for="email">Email</label>
+                        {{ form.email(class_="form-control", type="email", placeholder="Enter Email", id="email") }}
+                    </div>
+                    <div class="form-group col-md-12 justify-content-center" style="padding-bottom: 10px;">
+                        <label for="pass">Password</label>
+                        {{ form.password(class_="form-control", type="password", placeholder="Enter Password", id="pass") }}
+                    </div>
+                    <div class="form-group col-md-12 justify-content-center" style="padding-bottom: 10px;">
+                        <label for="repass">Re-type Password</label>
+                        {{ form.confirm(class_="form-control", type="password", placeholder="Confirm Password", id="repass") }}
+                    </div>
+                    <div class="text-center form-group col-md-12 justify-content-center" style="padding-bottom: 10px;">
+                        <button type="submit" class="btn btn-primary">Log In</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </body>
 {% endblock body %}

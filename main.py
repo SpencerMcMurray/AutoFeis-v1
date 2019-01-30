@@ -96,18 +96,25 @@ def register_page():
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     """The sign up page"""
+    errors = list()
     form = RegistrationForm(request.form)
-    if request.method == "POST" and form.validate():
+    if request.method == "POST":
 
-        # Check if the email given already exists
+        # Create any errors needed
         if email_taken(form.email.data):
-            flash("The email provided already belongs to a user")
-            return render_template("signUp.html", form=form, is_logged=LOGGED, where="signup")
+            errors.append("The email provided already belongs to a user")
+        if form.password.data != form.confirm.data:
+            errors.append("The passwords given dont match")
+        if not password_is_good(form.password.data):
+            errors.append("Your password should contain at least 6 characters, and contain a symbol")
+
+        if len(errors) > 0:
+            return render_template("signUp.html", form=form, is_logged=LOGGED, where="signup", errors=errors)
 
         # Otherwise sign the user up
         sign_up(form.email.data, form.password.data, form.f_name.data, form.l_name.data)
         return redirect(url_for('login'))
-    return render_template("signUp.html", form=form, is_logged=LOGGED, where="signup")
+    return render_template("signUp.html", form=form, is_logged=LOGGED, where="signup", errors=errors)
 
 
 @app.route("/login", methods=["GET", "POST"])

@@ -1003,6 +1003,17 @@ def email_taken(email):
     return num_rows != 0
 
 
+def password_is_good(pw):
+    """(str) -> bool
+    Returns True iff pw has at least 6 characters and 1 symbol
+    """
+    symbols = {'@', '#', '$', '%', '^', '&', '*'}
+    for char in pw:
+        if char in symbols:
+            return True
+    return False
+
+
 def sign_up(email, password, f_name, l_name):
     q = "INSERT INTO `users` (`email`, `password`, `name`) VALUES (%s, %s, %s)"
     db = Database()
