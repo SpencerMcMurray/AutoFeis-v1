@@ -1,29 +1,38 @@
 {% extends "generalTemplates/outline.html" %}
 {% from "generalTemplates/errors.html" import render_field %}
 {% block body %}
-    <link rel='stylesheet' href='../static/styles/css/signIn.css'>
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Teko'>
     <body>
-        <form method="POST">
-            <div id="login-box">
-                <div class="center">
-                    <h1 style="font-family:Teko;font-size:50px">Log In</h1>
-
-                    {% with messages = get_flashed_messages()%}
-                        {% if messages %}
-                            <ul class="errors">
-                            {% for message in messages%}
-                                <li> {{ message }} </li>
-                            {% endfor %}
-                            </ul>
-                        {% endif %}
-                    {% endwith %}
-                    {{ render_field(form.email) }}
-                    {{ render_field(form.password) }}
-
-                    <input type="submit" name="login_submit" value="Log in" />
+        <div class="sub-box">
+            {% if errors|length > 0 %}
+                <div class="sub-title d-flex container mx-auto hide shake-id justify-content-center align-items-center flex-wrap pb-0" style="color: red;">
+                    {% for error in errors %}
+                        <div class="col-md-12">
+                            <p style="font-size: 20px;">{{ error }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="container-fluid">
+                <div class="title">
+                    <h1 class="display-3 hide fade-id">Log In</h1>
                 </div>
             </div>
-        </form>
+            <form method="POST">
+                <div class="text-left feis-box mx-auto sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded hide zoom-id" style="font-size:20px">
+                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
+                        <label for="email">Email</label>
+                        {{ form.email(class_="form-control", type="email", placeholder="Enter Email", id="email") }}
+                    </div>
+                    <div class="form-group col-md-12 justify-content-center" style="padding-bottom: 10px;">
+                        <label for="pass">Password</label>
+                        {{ form.password(class_="form-control", type="password", placeholder="Enter Password", id="pass") }}
+                    </div>
+                    <div class="text-center form-group col-md-12 justify-content-center" style="padding-bottom: 10px;">
+                        <button type="submit" class="btn btn-primary">Log In</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </body>
 {% endblock body %}

@@ -116,23 +116,23 @@ def login():
     # If the user is logged in, send them to the welcome page
     if LOGGED:
         return redirect(url_for("welcome"))
-
+    errors = list()
     form = LoginForm(request.form)
-    if request.method == "POST" and form.validate():
+    if request.method == "POST":
 
         # Make sure the email is in the database
         if not email_taken(form.email.data):
-            flash("The email provided doesn't belong to a user")
-            return render_template("logIn.html", form=form, is_logged=LOGGED, where="login")
+            errors.append("The email given isn't registered with us")
+            return render_template("logIn.html", form=form, is_logged=LOGGED, where="login", errors=errors)
         # Make sure the password matches the email given in the database
         if not validate(form.email.data, form.password.data):
-            flash("The password given doesn't match with the email provided")
-            return render_template("logIn.html", form=form, is_logged=LOGGED, where="login")
+            errors.append("The password given is incorrect")
+            return render_template("logIn.html", form=form, is_logged=LOGGED, where="login", errors=errors)
         # Log the user in
         session['email'] = form.email.data
         flip_logged()
         return redirect(url_for("welcome"))
-    return render_template("logIn.html", form=form, is_logged=LOGGED, where="login")
+    return render_template("logIn.html", form=form, is_logged=LOGGED, where="login", errors=errors)
 
 
 @app.route("/logout")
