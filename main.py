@@ -1,13 +1,36 @@
 from functions import *
 from form import *
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, session
+from flask_login import *
 import os
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.config['UPLOAD_FOLDER'] = "static/storage/syllabi"
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024     # 10MB Upload limit
-# TODO: Implement flask_login!
-LOGGED = False
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+""" FLASK LOGIN """
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    user = get_user_from_id(int(user_id))
+    return User(user['id'], user['email'], user['name'])
+
+
+class User(UserMixin):
+    def __init__(self, usr_id, email, name):
+        self.id = int(usr_id)
+        self.email = email
+        self.name = name
+
+
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
 
 
 def flip_logged():
@@ -16,10 +39,16 @@ def flip_logged():
     LOGGED = not LOGGED
 
 
+""" HTTP ERROR HANDLING """
+
+
 @app.errorhandler(404)
 def catch_404(e):
     """Page for catching the 404 not found error"""
     return render_template("errorCatching/404.html")
+
+
+""" APP PAGES """
 
 
 @app.route("/")
@@ -136,8 +165,8 @@ def login():
             errors.append("The password given is incorrect")
             return render_template("logIn.html", form=form, is_logged=LOGGED, where="login", errors=errors)
         # Log the user in
-        session['email'] = form.email.data
-        flip_logged()
+        user = get_user_from_email(form.email.data)
+        login_user(User(user['id'], user['email'], user['name']))
         return redirect(url_for("welcome"))
     return render_template("logIn.html", form=form, is_logged=LOGGED, where="login", errors=errors)
 
@@ -145,8 +174,7 @@ def login():
 @app.route("/logout")
 def logout():
     """The logout page"""
-    session.pop("email")
-    flip_logged()
+    logout_user()
     return redirect(url_for("index"))
 
 

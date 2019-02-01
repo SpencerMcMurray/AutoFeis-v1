@@ -1033,6 +1033,32 @@ def feis_name_from_id(feis_id):
     return name
 
 
+def get_user_from_id(usr_id):
+    """(int) -> dict of str:obj
+    Returns the user with the given id
+    """
+    db = Database()
+    q = """SELECT * FROM `users` WHERE `id` = %s"""
+    db.cur.execute(q, usr_id)
+    user = db.cur.fetchone()
+    db.con.close()
+    gc.collect()
+    return user
+
+
+def get_user_from_email(usr_email):
+    """(str) -> dict of str:obj
+    Returns the user with the given email
+    """
+    db = Database()
+    q = """SELECT * FROM `users` WHERE `email` = %s"""
+    db.cur.execute(q, usr_email)
+    user = db.cur.fetchone()
+    db.con.close()
+    gc.collect()
+    return user
+
+
 """  RESULTS  """
 
 
