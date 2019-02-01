@@ -1,7 +1,7 @@
 from functions import *
 from form import *
 from flask import Flask, render_template, request, redirect, url_for, session
-from flask_login import *
+from flask_login import LoginManager, UserMixin, current_user, logout_user, login_user
 import os
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -103,7 +103,7 @@ def register_page():
             session['feis_id'] = request.form.get("id", -1)
         # Get the feis info and all the user's dancers
         feis = get_feis_with_id(session['feis_id'])
-        dancers = get_dancers_with_user(get_id_from_email(session['email']))
+        dancers = get_dancers_with_user(current_user.id)
 
         if request.form.get("startScript", None) is not None:
             for dancer in dancers:
@@ -190,9 +190,8 @@ def welcome():
     add_dancer_form = AddDancerForm(request.form)
     add_feis_form = AddFeisForm(request.form)
 
-    user_id = get_id_from_email(session['email'])
-    dancers = get_dancers_with_user(user_id)
-    feiseanna = get_feiseanna_with_forg(user_id)
+    dancers = get_dancers_with_user(current_user.id)
+    feiseanna = get_feiseanna_with_forg(current_user.id)
     if request.method == 'POST':
         if request.form.get('submit', None) == "Add a Dancer":
             return redirect(url_for("add_dancer"))
@@ -206,7 +205,7 @@ def welcome():
                            dancer_form=add_dancer_form,
                            feis_form=add_feis_form,
                            feis_fcns_form=feis_fcns_form,
-                           name=get_name_from_email(session['email']))
+                           name=current_user.name)
 
 
 @app.route("/terms")
@@ -324,7 +323,7 @@ def add_feis():
             # TODO: Include pay-wall here
 
             # Create feis
-            feis_id = create_feis(get_id_from_email(session['email']), request.form.get('name'),
+            feis_id = create_feis(current_user.id, request.form.get('name'),
                                   request.form.get('date'), request.form.get('location'), request.form.get('region'),
                                   request.form.get('website'))
 
@@ -346,7 +345,7 @@ def add_dancer():
     """The add dancer page"""
     form = CreateDancer(request.form)
     if request.method == "POST" and form.validate():
-        create_dancer(get_id_from_email(session['email']), form.f_name.data, form.l_name.data, form.school.data,
+        create_dancer(current_user.id, form.f_name.data, form.l_name.data, form.school.data,
                       int(form.year.data), form.level.data, form.gender.data, int(form.show.data))
         return redirect(url_for("welcome"))
 
