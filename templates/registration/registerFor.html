@@ -4,7 +4,7 @@
         <div class="sub-box">
             <div class="container-fluid">
                 <div class="title">
-                    <h1 class="display-3 hide fade-id">Registering for {{ feis_name }}</h1>
+                    <h1 class="display-3">Registering for {{ feis_name }}</h1>
                 </div>
             </div>
             <div class="title container d-flex flex-wrap justify-content-center" style="margin: 0 auto;">
@@ -12,7 +12,7 @@
                     {% for dancer in comps %}
                         {% set i = loop.index0 %}
                         <div class="title">
-                            <h1 class="display-3 hide fade-id">{{ dancers[i]['fName'] + " " + dancers[i]['lName'] }}:</h1>
+                            <h1 class="display-3">{{ dancers[i]['fName'] + " " + dancers[i]['lName'] }}:</h1>
                         </div>
                         {% if comps[dancer]|length > 0 %}
                             {% for comp in comps[dancer] %}

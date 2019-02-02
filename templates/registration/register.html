@@ -4,14 +4,14 @@
         <div class="sub-box">
             {% if is_logged == False %}
                 <div class="title">
-                    <h1 class="display-3 hide fade-id">Please Log In</h1>
+                    <h1 class="display-3">Please Log In</h1>
                 </div>
                 <p style="margin: 0 auto;font-size:25px;" class="hide zoom-id">
                     To register for a feis you must <a href="{{ url_for('signup') }}">Sign Up</a> and <a href="{{ url_for('login') }}">Log In.</a>
                 </p>
             {% else %}
                 <div class="title">
-                    <h1 class="display-3 hide fade-id">Choose A Feis</h1>
+                    <h1 class="display-3">Choose A Feis</h1>
                 </div>
                 <div class="title container d-flex flex-wrap justify-content-center" style="margin: 0 auto;">
                     {% if feiseanna|length > 0 %}

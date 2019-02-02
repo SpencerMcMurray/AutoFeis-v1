@@ -4,15 +4,15 @@
         <div class="sub-box">
             <div class="container-fluid">
                 <div class="title">
-                    <h1 class="display-3 hide fade-id">{{ name }} Entries</h1>
+                    <h1 class="display-3">{{ name }} Entries</h1>
                 </div>
             </div>
             <div class="container">
                 {% for entry in entries['dancers'] %}
                     {% set i = loop.index0 %}
                     <div class="title">
-                        <p class="hide fade-id" style="font-size: 35px;">{{ entries['comps'][loop.index0] }}</p>
-                        <p class="hide fade-id" style="font-size: 25px;">{{ entries['codes'][loop.index0] }}</p>
+                        <p class="" style="font-size: 40px;">{{ entries['comps'][loop.index0] }}</p>
+                        <p class="" style="font-size: 30px;">{{ entries['codes'][loop.index0] }}</p>
                     </div>
                     <div class="sub-title border border-dark rounded bd-highlight container d-flex flex-wrap align-items-center justify-content-center hide zoom-id" style="margin: 0 auto;border: 1px solid rgb(25, 25, 25);background-color: rgb(245, 245, 245);">
                         {% for dancer in entry %}
