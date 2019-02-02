@@ -27,17 +27,19 @@
                                 Born in {{ dancer['birthYear'] }}<br>
                                 {{ dancer['gender'] }}
                             </div>
-                            <div style="padding: 10px 10px;width: 100%;">
-                                <form method="POST" action="{{ url_for('edit_dancer') }}">
-                                    <input type="hidden" name="dancerId" value="{{ dancer['id'] }}" />
-                                    <button class="btn btn-primary" type="submit">Edit</button>
-                                </form>
-                            </div>
-                            <div style="padding: 10px 10px;width: 100%;">
-                                <form method="POST" action="{{ url_for('delete_dancer') }}">
-                                    <input type="hidden" value="{{ dancer['id'] }}" name="id" />
-                                    <button class="btn btn-primary" type="submit">Delete</button>
-                                </form>
+                            <div class="container-fluid d-flex flex-wrap align-items-center justify-content-center">
+                                <div class="py-3 col-6">
+                                    <form method="POST" action="{{ url_for('edit_dancer') }}">
+                                        <input type="hidden" name="dancerId" value="{{ dancer['id'] }}" />
+                                        <button style="width: 80px;" class="btn btn-primary" type="submit">Edit</button>
+                                    </form>
+                                </div>
+                                <div class="py-3 col-6">
+                                    <form method="POST" action="{{ url_for('delete_dancer') }}">
+                                        <input type="hidden" value="{{ dancer['id'] }}" name="id" />
+                                        <button style="width: 80px;" class="btn btn-primary" type="submit">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     {% endfor %}
