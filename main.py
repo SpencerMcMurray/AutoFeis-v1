@@ -183,28 +183,10 @@ def logout():
 @app.route("/welcome", methods=['GET', 'POST'])
 def welcome():
     """The (not so welcoming) welcome page"""
-    feis_fcns_form = FeisFcnsForm(request.form)
-    edit_dancer_form = EditDancerForm(request.form)
-    add_dancer_form = AddDancerForm(request.form)
-    add_feis_form = AddFeisForm(request.form)
-
     dancers = get_dancers_with_user(current_user.id)
     feiseanna = get_feiseanna_with_forg(current_user.id)
-    if request.method == 'POST':
-        if request.form.get('submit', None) == "Add a Dancer":
-            return redirect(url_for("add_dancer"))
-
-        if request.form.get('submit', None) == "Add a Feis":
-            return redirect(url_for("add_feis"))
-    return render_template("welcome.html", is_logged=current_user.is_authenticated, where="welcome",
-                           dancers=dancers,
-                           feiseanna=feiseanna,
-                           edit_dancer=edit_dancer_form,
-                           dancer_form=add_dancer_form,
-                           feis_form=add_feis_form,
-                           feis_fcns_form=feis_fcns_form,
-                           name=current_user.name,
-                           animations=box_animations)
+    return render_template("welcome.html", is_logged=current_user.is_authenticated, where="welcome", dancers=dancers,
+                           feiseanna=feiseanna, name=current_user.name, animations=box_animations)
 
 
 @app.route("/terms")
