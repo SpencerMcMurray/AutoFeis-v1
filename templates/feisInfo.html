@@ -10,7 +10,7 @@
             <div class="title container d-flex flex-wrap justify-content-center" style="margin: 0 auto;">
                 {% if feiseanna|length > 0 %}
                     {% for feis in feiseanna %}
-                        {% if loop.index == feiseanna|length and feiseanna|length % 3 != 3 %}
+                        {% if loop.index == feiseanna|length and feiseanna|length % 3 != 0 %}
                             {% set animation = animations[loop.index % 3] %}
                         {% else %}
                             {% set animation = animations[loop.index0 % 3] %}
