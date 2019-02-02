@@ -1,118 +1,85 @@
-{% from "generalTemplates/errors.html" import render_field %}
 {% extends "generalTemplates/outline.html" %}
 {% block body %}
     <body>
-        <style>
-            table {
-                margin:0px auto;
-                text-align:left;
-                font-size:20px;
-                border:2px solid black;
-            } th, td {
-                text-align:left;
-                padding: 15px;
-                border: 2px solid black;
-            }
-            table tr:nth-child(odd) {
-                background-color: #eee;
-            }
-            table tr:nth-child(even) {
-                background-color: #fff;
-            }
-        </style>
-        <div>
-            <h2 style="text-align: center">Welcome {{ name }}!</h2>
-        </div><hr>
-        <div class="dancer_box">
-            <h1 style="font-family:Teko;font-size:50px">My Dancers</h1>
-            <!-- Add a dancer and display all my dancers -->
-            {% if dancers|length > 0 %}
-                <table>
-                    <tr>
-                        <th style='text-align:center;'>Name</th>
-                        <th style='text-align:center;'>Level</th>
-                        <th style='text-align:center;'>School</th>
-                        <th style='text-align:center;'>Year</th>
-                        <th style='text-align:center;'>Gender</th>
-                        <th style='text-align:center;'>Show/Hide</th>
-                        <th colspan='2' style='text-align:center;'>Alter</th>
-                    </tr>
-                {% for dancer in dancers %}
-                    <tr>
-                        <td>{{ dancer['fName'] }} {{ dancer['lName'] }}</td>
-                        <td>{{ dancer['level'] }}</td>
-                        <td>{{ dancer['school'] }}</td>
-                        <td>{{ dancer['birthYear'] }}</td>
-                        <td>{{ dancer['gender'] }}</td>
-                        {% if dancer['show'] == 1 %}
-                            <td>Show</td>
+        <div class="sub-box">
+            <div class="container-fluid">
+                <div class="title">
+                    <h1 class="display-3 hide fade-id">Welcome, {{ name }}</h1>
+                </div>
+            </div>
+            <hr style="width: 80%">
+            <div class="sub-title">
+                <h1 class="display-3 hide fade-id">My Dancers</h1>
+            </div>
+            <div class="title container d-flex flex-wrap justify-content-center" style="margin: 0 auto;">
+                {% if dancers|length > 0 %}
+                    {% for dancer in dancers %}
+                        {% if loop.index == dancers|length and dancers|length % 3 != 3 %}
+                            {% set animation = animations[loop.index % 3] %}
                         {% else %}
-                            <td>Hide</td>
+                            {% set animation = animations[loop.index0 % 3] %}
                         {% endif %}
-                        <td>
-                            <form method="POST" action="{{ url_for('edit_dancer') }}">
-                                <input type="hidden" name="dancerId" value="{{ dancer['id'] }}" />
-                                {{ edit_dancer.submit }}
-                            </form>
-                        </td>
-                        <td>
-                            <form method="POST" action="{{ url_for('delete_dancer') }}">
-                                <input type="hidden" value="{{ dancer['id'] }}" name="id" />
-                                <input type="submit" value="Delete" />
-                            </form>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </table><br>
-            {% else %}
-                <p style='font-size:20px'>No dancers to show!</p>
-            {% endif %}
-            <form method="POST">
-                {{ dancer_form.submit }}
+                        <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded hide {{ animation }}" style="font-size:20px">
+                            <div style="padding: 10px 10px;width: 100%;">
+                                <b>{{ dancer['fName'] }} {{ dancer['lName'] }}</b><br>
+                                {{ dancer['level'] }}<br>
+                                {{ dancer['school'] }}<br>
+                                Born in {{ dancer['birthYear'] }}<br>
+                                {{ dancer['gender'] }}
+                            </div>
+                            <div style="padding: 10px 10px;width: 100%;">
+                                <form method="POST" action="{{ url_for('edit_dancer') }}">
+                                    <input type="hidden" name="dancerId" value="{{ dancer['id'] }}" />
+                                    <button class="btn btn-primary" type="submit">Edit</button>
+                                </form>
+                            </div>
+                            <div style="padding: 10px 10px;width: 100%;">
+                                <form method="POST" action="{{ url_for('delete_dancer') }}">
+                                    <input type="hidden" value="{{ dancer['id'] }}" name="id" />
+                                    <button class="btn btn-primary" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="margin: 0 auto;font-size:25px;" class="hide zoom-id">No dancers to show</p>
+                {% endif %}
+            </div>
+            <form method="POST" action="{{ url_for('add_dancer') }}">
+                <button class="btn btn-primary" type="submit">Add a dancer</button>
             </form>
-        </div><hr>
-        <div class="feis_box">
-            <h1 style="font-family:Teko;font-size:50px">My Feiseanna</h1>
-            {% if feiseanna|length > 0 %}
-                <table>
-                    <tr>
-                        <th style='text-align:center;'>Feis Info</th>
-                        <th style='text-align:center;'>Feis Links</th>
-                        <th style='text-align:center;'>Organize</th>
-                    </tr>
-                {% for feis in feiseanna %}
-                    <tr>
-                        <td>
-                            <b>{{ feis['name']}}</b><br>
-                            {{ feis['date'].strftime('%B %d, %Y') }}<br>
-                            {{ feis['location'] }}<br>
-                            {{ feis['region'] }}
-                        </td>
-                        <td>
-                            <a href='{{ feis["website"] }}'>Website</a><br>
-                            <a href='{{ url_for('entries', feis=feis['id']) }}'>Entries</a><br>
-                            <a href='{{ "/static/storage/syllabi/" + feis["syllabus"] }}'>Syllabus</a>
-                        </td>
-                        <td>
-                            <form method="POST" action="{{ url_for('feis_functions') }}">
-                                <input type="hidden" value="{{ feis['id'] }}" name="feisId" />
-                                {{ feis_fcns_form.submit }}
-                            </form>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </table><br>
-            {% else %}
-                <p style='font-size:20px'>No feiseanna to show!</p>
-            {% endif %}
-            <form method="POST">
-                {{ feis_form.submit }}
+            <hr style="width: 80%">
+            <div class="sub-title">
+                <h1 class="display-3 hide fade-id">My Feiseanna</h1>
+            </div>
+            <div class="title container d-flex flex-wrap justify-content-center" style="margin: 0 auto;">
+                {% if feiseanna|length > 0 %}
+                    {% for feis in feiseanna %}
+                        {% if loop.index == feiseanna|length and feiseanna|length % 3 != 3 %}
+                            {% set animation = animations[loop.index % 3] %}
+                        {% else %}
+                            {% set animation = animations[loop.index0 % 3] %}
+                        {% endif %}
+                        <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded hide {{ animation }}" style="font-size:20px">
+                            <div style="padding: 10px 10px;width: 100%;">
+                                <b>{{ feis['name']}}</b><br>
+                                {{ feis['date'].strftime('%B %d, %Y') }}
+                            </div>
+                            <div style="padding: 10px 10px;width: 100%;">
+                                <form method="POST" action="{{ url_for('feis_functions') }}">
+                                    <input type="hidden" value="{{ feis['id'] }}" name="feisId" />
+                                    <button class="btn btn-primary" type="submit">Organize</button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="margin: 0 auto;font-size:25px;" class="hide zoom-id">No feiseanna to show</p>
+                {% endif %}
+            </div>
+            <form method="POST" action="{{ url_for('add_feis') }}">
+                <button class="btn btn-primary" type="submit">Add a feis</button>
             </form>
         </div>
-        <script>
-            function cannotDelete() {
-                alert("For security reasons, you cannot delete a feis.\nContact us if you wish to do this.");
-            }
-        </script>
     </body>
 {% endblock body %}

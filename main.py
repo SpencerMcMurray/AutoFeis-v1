@@ -11,6 +11,7 @@ app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024     # 10MB Upload limit
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+box_animations = ['fade-left-id', 'zoom-id', 'fade-right-id']
 
 """ FLASK LOGIN """
 
@@ -62,7 +63,6 @@ def about():
 def feisinfo():
     """The Feis info page"""
     feiseanna = get_all_feiseanna()
-    box_animations = ['fade-left-id', 'zoom-id', 'fade-right-id']
     return render_template("feisInfo.html", is_logged=current_user.is_authenticated, where="feisinfo",
                            feiseanna=feiseanna,
                            animations=box_animations)
@@ -71,7 +71,6 @@ def feisinfo():
 @app.route("/results", methods=['GET', 'POST'])
 def results():
     """The results page"""
-    box_animations = ['fade-left-id', 'zoom-id', 'fade-right-id']
     if request.method == "POST":
         feis_id = request.form.get('id', 0)
         levels, comps = get_comps_by_level(feis_id)
@@ -97,7 +96,6 @@ def entries(feis):
 @app.route("/register", methods=["GET", "POST"])
 def register_page():
     """The register page"""
-    box_animations = ['fade-left-id', 'zoom-id', 'fade-right-id']
     if request.method == "POST":
         if request.form.get("startScript", None) is None:
             session['feis_id'] = request.form.get("id", -1)
@@ -205,7 +203,8 @@ def welcome():
                            dancer_form=add_dancer_form,
                            feis_form=add_feis_form,
                            feis_fcns_form=feis_fcns_form,
-                           name=current_user.name)
+                           name=current_user.name,
+                           animations=box_animations)
 
 
 @app.route("/terms")
@@ -385,7 +384,7 @@ def alter_dancer():
     return redirect(url_for('welcome'))
 
 
-@app.route("/welcome/functions", methods=['POST'])
+@app.route("/welcome/organize", methods=['POST'])
 def feis_functions():
     """The feis functions for a given feis"""
     if request.method == "POST":
@@ -397,7 +396,7 @@ def feis_functions():
     return redirect(url_for('welcome'))
 
 
-@app.route("/welcome/functions/edit", methods=['POST'])
+@app.route("/welcome/organize/edit", methods=['POST'])
 def edit_feis():
     """The edit feis function page"""
     if request.method == 'POST':
@@ -422,7 +421,7 @@ def edit_feis():
     return redirect(url_for("welcome"))
 
 
-@app.route("/welcome/functions/alter", methods=["POST"])
+@app.route("/welcome/organize/alter", methods=["POST"])
 def alter_comps():
     """Page displaying all competitions, offering the split/merge ability"""
     if request.method == "POST":
@@ -432,7 +431,7 @@ def alter_comps():
     return redirect(url_for("welcome"))
 
 
-@app.route("/welcome/functions/alter/merge", methods=["POST"])
+@app.route("/welcome/organize/alter/merge", methods=["POST"])
 def merge():
     """Page for merging two competitions"""
     if request.method == "POST":
@@ -446,7 +445,7 @@ def merge():
     return redirect(url_for("welcome"))
 
 
-@app.route("/welcome/functions/alter/split", methods=["POST"])
+@app.route("/welcome/organize/alter/split", methods=["POST"])
 def split():
     """Page for splitting a competition in two"""
     if request.method == "POST":
@@ -457,7 +456,7 @@ def split():
     return redirect(url_for("welcome"))
 
 
-@app.route("/welcome/functions/alter/split/AB", methods=["POST"])
+@app.route("/welcome/organize/alter/split/AB", methods=["POST"])
 def split_ab():
     """Script to split one competition with one age group into two sub-comps"""
     if request.method == "POST":
@@ -467,7 +466,7 @@ def split_ab():
     return redirect(url_for("welcome"))
 
 
-@app.route("/welcome/functions/alter/split/age", methods=["POST"])
+@app.route("/welcome/organize/alter/split/age", methods=["POST"])
 def split_age():
     """Script to split one competition with many age groups into two sub-comps"""
     if request.method == "POST":
@@ -478,7 +477,7 @@ def split_age():
     return redirect(url_for("welcome"))
 
 
-@app.route("/welcome/functions/choose", methods=["POST"])
+@app.route("/welcome/organize/choose", methods=["POST"])
 def choose_comp_type():
     """The page displaying the competition types to show
     TODO: Merge with show_comps, that'd be cool"""
@@ -489,7 +488,7 @@ def choose_comp_type():
     return redirect(url_for("welcome"))
 
 
-@app.route("/welcome/functions/choose/show", methods=["POST"])
+@app.route("/welcome/organize/choose/show", methods=["POST"])
 def show_comps():
     """The Page displaying all competitions of the given type"""
     if request.method == "POST":
@@ -500,7 +499,7 @@ def show_comps():
     return redirect(url_for("welcome"))
 
 
-@app.route("/welcome/functions/scoresheet", methods=["POST"])
+@app.route("/welcome/organize/scoresheet", methods=["POST"])
 def score_calc():
     """The Scoresheet calculator page"""
     if request.method == "POST":
