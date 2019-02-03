@@ -18,7 +18,6 @@ competitions with handwritten marks as well.
 * numpy
 * cv2
 * openpyxl
-* tkinter
 
 ## Author
 
