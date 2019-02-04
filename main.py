@@ -50,7 +50,8 @@ def catch_404(e):
 def index():
     """The index page"""
     feiseanna = get_latest_three_feiseanna()
-    return render_template("index.html", is_logged=current_user.is_authenticated, where="home", feiseanna=feiseanna)
+    return render_template("index.html", is_logged=current_user.is_authenticated, where="home", feiseanna=feiseanna,
+                           animations=box_animations)
 
 
 @app.route("/about")
