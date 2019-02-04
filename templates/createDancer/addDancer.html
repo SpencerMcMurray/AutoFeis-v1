@@ -16,47 +16,16 @@
                     <h1 class="display-3">Add a dancer</h1>
                 </div>
             </div>
-        </div>
-        <div>
             <form method="POST">
-                <table style="margin: 0 auto;">
-                    <tr>
-                      <td>
-                          {{ render_field(form.f_name) }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                          {{ render_field(form.l_name) }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                          {{ render_field(form.year) }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                          {{ render_field(form.school) }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                          {{ render_field(form.level) }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                          {{ render_field(form.gender) }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                          {{ render_field(form.show) }}
-                      </td>
-                    </tr>
-                </table><br>
-                <input style="margin:0 auto; display: table;" type="submit" value="Create">
+                <div class="text-left feis-box mx-auto sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded" style="font-size:20px">
+                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
+                        <label for="fname">First Name</label>
+                        {{ form.f_name(class_="form-control", placeholder="Enter First Name", id="fname") }}
+                    </div>
+                    <div class="text-center form-group col-md-12 justify-content-center" style="padding-bottom: 10px;">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+                </div>
             </form>
         </div>
     </body>

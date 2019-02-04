@@ -997,6 +997,20 @@ def fetch_signup_errors(form):
     Returns all errors generated from the given signup form
     """
     errors = list()
+    if not re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", form.email.data):
+        errors.append("Email given is not valid")
+    if len(form.f_name.data) <= 0 or len(form.l_name.data) <= 0:
+        errors.append("Name field(s) left blank")
+    if len(form.f_name.data) > 100 or len(form.l_name.data) > 100:
+        errors.append("Name field(s) too long")
+    if len(form.email.data) <= 0:
+        errors.append("Email field left blank")
+    if len(form.email.data) > 255:
+        errors.append("Email field too long")
+    if len(form.password.data) <= 0:
+        errors.append("Email field left blank")
+    if len(form.password.data) > 100:
+        errors.append("Email field too long")
     if email_taken(form.email.data):
         errors.append("The email provided already belongs to a user")
     if form.password.data != form.confirm.data:
