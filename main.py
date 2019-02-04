@@ -339,10 +339,10 @@ def edit_dancer():
     # TODO: Add current info as default input values
     if request.method != "POST":
         return redirect(url_for('welcome'))
-    form = CreateDancer(request.form)
     dancer = get_dancer_from_id(request.form.get('dancerId', 0))
+    form = set_defaults_for_dancer(dancer, CreateDancer(request.form))
     return render_template("createDancer/editDancer.html", is_logged=current_user.is_authenticated, where="welcome",
-                           dancer=dancer, form=form)
+                           form=form)
 
 
 @app.route("/welcome/edit_dancer/alter", methods=["POST"])
@@ -379,7 +379,7 @@ def edit_feis():
 
             # Update feis
             update_feis(feis_id, request.form.get('name'), request.form.get('date'), request.form.get('location'),
-                          request.form.get('region'), request.form.get('website'))
+                        request.form.get('region'), request.form.get('website'))
 
             # Upload new syllabus if entered
             if 'syllabus' in request.files:

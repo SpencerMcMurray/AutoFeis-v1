@@ -884,6 +884,21 @@ def delete_dancer_from_id(uid):
 """  DANCER CREATION  """
 
 
+def set_defaults_for_dancer(dancer, form):
+    """(dict of str:obj, Form) -> Form
+    Sets all the defaults values from the dancer to the form, and returns resultant form
+    """
+    form.f_name.default = dancer['fName']
+    form.l_name.default = dancer['lName']
+    form.gender.default = dancer['gender']
+    form.year.default = dancer['birthYear']
+    form.school.default = dancer['school']
+    form.level.default = dancer['level']
+    form.show.default = dancer['show']
+    form.process()
+    return form
+
+
 def fetch_dancer_errors(form):
     """(Form) -> list of str
     Returns a list of all errors that can be said about the given form

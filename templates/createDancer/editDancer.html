@@ -1,55 +1,55 @@
 {% extends "generalTemplates/outline.html" %}
 {% block body %}
     <body>
-        <style>
-            td {
-                text-align: center;
-                padding: 15px;
-                font-size:20px;
-            }
-        </style>
-        <h1 style="font-family:Teko;font-size:50px">Editing {{ dancer['fName'] + ' ' + dancer['lName'] }}'s Info</h1>
-        <div>
-            <form method="POST" action="{{ url_for('alter_dancer') }}">
-                <table style="margin: 0 auto;">
-                    <tr>
-                        <td>
-                            {{ render_field(form.f_name) }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {{ render_field(form.l_name) }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {{ render_field(form.year) }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {{ render_field(form.school) }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {{ render_field(form.level) }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {{ render_field(form.gender) }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {{ render_field(form.show) }}
-                        </td>
-                    </tr>
-                </table><br>
-                <input type="hidden" name="id" value="{{ dancer['id'] }}" />
-                <input style="margin:0 auto; display: table;" type="submit" value="Alter">
+        <div class="sub-box">
+            {% if errors|length > 0 %}
+                <div class="sub-title d-flex container mx-auto hide shake-id justify-content-center align-items-center flex-wrap pb-0" style="color: red;">
+                    {% for error in errors %}
+                        <div class="col-md-12">
+                            <p style="font-size: 20px;">{{ error }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="container-fluid">
+                <div class="title">
+                    <h1 class="display-3">Add a dancer</h1>
+                </div>
+            </div>
+            <form method="POST">
+                <div class="text-left feis-box mx-auto sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded" style="font-size:20px">
+                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
+                        <label for="fname">First Name</label>
+                        {{ form.f_name(class_="form-control", placeholder="Enter First Name", id="fname") }}
+                    </div>
+                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
+                        <label for="lname">Last Name</label>
+                        {{ form.l_name(class_="form-control", placeholder="Enter Last Name", id="lname") }}
+                    </div>
+                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
+                        <label for="year">Year of Birth</label>
+                        {{ form.year(class_="form-control", id="year") }}
+                    </div>
+                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
+                        <label for="school">School</label>
+                        {{ form.school(class_="form-control", id="school") }}
+                    </div>
+                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
+                        <label for="level">Level</label>
+                        {{ form.level(class_="form-control", id="level") }}
+                    </div>
+                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
+                        <label for="gender">Gender</label>
+                        {{ form.gender(class_="form-control", id="gender") }}
+                    </div>
+                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
+                        <label for="show">Show Name on Entries</label>
+                        {{ form.show(class_="form-control", id="show") }}
+                    </div>
+                    <div class="text-center form-group col-md-12 justify-content-center" style="padding-bottom: 10px;">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+                </div>
             </form>
         </div>
     </body>
