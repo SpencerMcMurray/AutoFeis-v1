@@ -17,8 +17,8 @@ class RegistrationForm(Form):
 
 
 class LoginForm(Form):
-    email = StringField('Email', [validators.InputRequired(), validators.Length(min=5, max=75), validators.Email()])
-    password = PasswordField('Password', [validators.InputRequired(), validators.Length(min=6, max=100)])
+    email = StringField('Email')
+    password = PasswordField('Password')
 
 
 class CreateDancer(Form):

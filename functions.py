@@ -884,6 +884,18 @@ def delete_dancer_from_id(uid):
 """  DANCER CREATION  """
 
 
+def fetch_dancer_errors(form):
+    """(Form) -> list of str
+    Returns a list of all errors that can be said about the given form
+    """
+    errors = list()
+    if len(form.f_name.data) <= 0 or len(form.l_name.data) <= 0:
+        errors.append("Name field(s) left blank")
+    if len(form.f_name.data) > 100 or len(form.l_name.data) > 100:
+        errors.append("Name field(s) too long")
+    return errors
+
+
 def alter_dancer(dancer_id, f_name, l_name, school, birth_year, level, gender, show):
     db = Database()
     q = """UPDATE `dancer` SET `fName` = %s, `lName` = %s, `birthYear` = %s, `school` = %s, `level` = %s,
@@ -978,6 +990,32 @@ def get_name_from_email(email):
 
 
 """  LOGIN/SIGN UP  """
+
+
+def fetch_signup_errors(form):
+    """(Form) -> list of str
+    Returns all errors generated from the given signup form
+    """
+    errors = list()
+    if email_taken(form.email.data):
+        errors.append("The email provided already belongs to a user")
+    if form.password.data != form.confirm.data:
+        errors.append("The passwords given dont match")
+    if not password_is_good(form.password.data):
+        errors.append("Your password should contain at least 6 characters, and contain a symbol")
+    return errors
+
+
+def fetch_login_errors(form):
+    """(Form) -> list of str
+    Returns all errors generated from the given login form
+    """
+    errors = list()
+    if not email_taken(form.email.data):
+        errors.append("The email given isn't registered with us")
+    if not validate(form.email.data, form.password.data):
+        errors.append("The password given is incorrect")
+    return errors
 
 
 def validate(email, password):

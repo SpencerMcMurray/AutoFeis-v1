@@ -128,17 +128,10 @@ def signup():
     if request.method == "POST":
 
         # Create any errors needed
-        if email_taken(form.email.data):
-            errors.append("The email provided already belongs to a user")
-        if form.password.data != form.confirm.data:
-            errors.append("The passwords given dont match")
-        if not password_is_good(form.password.data):
-            errors.append("Your password should contain at least 6 characters, and contain a symbol")
-
+        errors = fetch_signup_errors(form)
         if len(errors) > 0:
             return render_template("signUp.html", form=form, is_logged=current_user.is_authenticated, where="signup",
                                    errors=errors)
-
         # Otherwise sign the user up
         sign_up(form.email.data, form.password.data, form.f_name.data, form.l_name.data)
         return redirect(url_for('login'))
@@ -155,15 +148,8 @@ def login():
     errors = list()
     form = LoginForm(request.form)
     if request.method == "POST":
-
-        # Make sure the email is in the database
-        if not email_taken(form.email.data):
-            errors.append("The email given isn't registered with us")
-            return render_template("logIn.html", form=form, is_logged=current_user.is_authenticated, where="login",
-                                   errors=errors)
-        # Make sure the password matches the email given in the database
-        if not validate(form.email.data, form.password.data):
-            errors.append("The password given is incorrect")
+        errors = fetch_login_errors(form)
+        if len(errors) > 0:
             return render_template("logIn.html", form=form, is_logged=current_user.is_authenticated, where="login",
                                    errors=errors)
         # Log the user in
@@ -183,7 +169,7 @@ def logout():
 
 @app.route("/welcome", methods=['GET', 'POST'])
 def welcome():
-    """The (not so welcoming) welcome page"""
+    """The welcome page"""
     dancers = get_dancers_with_user(current_user.id)
     feiseanna = get_feiseanna_with_forg(current_user.id)
     return render_template("welcome.html", is_logged=current_user.is_authenticated, where="welcome", dancers=dancers,
@@ -326,13 +312,17 @@ def add_feis():
 def add_dancer():
     """The add dancer page"""
     form = CreateDancer(request.form)
-    if request.method == "POST" and form.validate():
-        create_dancer(current_user.id, form.f_name.data, form.l_name.data, form.school.data,
-                      int(form.year.data), form.level.data, form.gender.data, int(form.show.data))
+    errors = list()
+    if request.method == "POST":
+        errors = fetch_dancer_errors(form)
+        if len(errors) > 0:
+            return render_template("createDancer/addDancer.html", is_logged=current_user.is_authenticated,
+                                   where="welcome", form=form, errors=errors)
+        create_dancer(current_user.id, form.f_name.data, form.l_name.data, form.school.data, int(form.year.data),
+                      form.level.data, form.gender.data, int(form.show.data))
         return redirect(url_for("welcome"))
-
     return render_template("createDancer/addDancer.html", is_logged=current_user.is_authenticated, where="welcome",
-                           form=form)
+                           form=form, errors=errors)
 
 
 @app.route("/welcome/delete_dancer", methods=['POST'])

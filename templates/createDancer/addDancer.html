@@ -1,15 +1,22 @@
-{% from "generalTemplates/errors.html" import render_field %}
 {% extends "generalTemplates/outline.html" %}
 {% block body %}
     <body>
-        <style>
-            td {
-                text-align: center;
-                padding: 15px;
-                font-size:20px;
-            }
-        </style>
-        <h1 style="font-family:Teko;font-size:50px">Add a dancer</h1>
+        <div class="sub-box">
+            {% if errors|length > 0 %}
+                <div class="sub-title d-flex container mx-auto hide shake-id justify-content-center align-items-center flex-wrap pb-0" style="color: red;">
+                    {% for error in errors %}
+                        <div class="col-md-12">
+                            <p style="font-size: 20px;">{{ error }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="container-fluid">
+                <div class="title">
+                    <h1 class="display-3">Add a dancer</h1>
+                </div>
+            </div>
+        </div>
         <div>
             <form method="POST">
                 <table style="margin: 0 auto;">
