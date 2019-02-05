@@ -157,3 +157,91 @@ def delete_dancer_from_id(uid):
     db.cur.execute(q, (uid,))
     db.con.close()
     gc.collect()
+
+
+def update_dancer(dancer_id, f_name, l_name, school, birth_year, level, gender, show):
+    """(int, str, str, str, int, str, str, int) -> NoneType
+    Updates the dancer with dancer_id to have the given info
+    """
+    db = Database()
+    q = """UPDATE `dancer` SET `fName` = %s, `lName` = %s, `birthYear` = %s, `school` = %s, `level` = %s,
+    `gender` = %s, `show` = %s WHERE `id` = %s"""
+    db.cur.execute(q, (f_name, l_name,  birth_year, school, level, gender, show, dancer_id))
+    db.con.close()
+    gc.collect()
+
+
+def create_dancer(user_id, f_name, l_name, school, birth_year, level, gender, show):
+    """(int, str, str, str, int, str, str, int) -> NoneType
+    Creates a dancer for the user with user_id to have the given info
+    """
+    db = Database()
+    q = """INSERT INTO `dancer` (`user`, `fName`, `lName`, `birthYear`, `school`, `level`, `gender`, `show`) VALUES
+    (%s, %s, %s, %s, %s, %s, %s, %s)"""
+    db.cur.execute(q, (user_id, f_name, l_name, birth_year, school, level, gender, show))
+    db.con.close()
+    gc.collect()
+
+
+def get_feiseanna_with_forg(forg_id):
+    """(int) -> list of dict of str:obj
+    Returns all feiseanna owned by the organizer with the given id
+    """
+    db = Database()
+    db.cur.execute("SELECT * FROM `feiseanna` WHERE `forg` = %s ORDER BY `date` ASC", forg_id)
+    res = db.cur.fetchall()
+    db.con.close()
+    gc.collect()
+    return res
+
+
+def get_feis_with_id(feis_id):
+    """(int) -> dict of str:obj
+    Returns the feiseanna with the given id
+    """
+    db = Database()
+    db.cur.execute("SELECT * FROM `feiseanna` WHERE `id` = %s", feis_id)
+    res = db.cur.fetchone()
+    db.con.close()
+    gc.collect()
+    return res
+
+
+def get_dancers_with_user(user_id):
+    """(int) -> list of dict of str:obj
+    Returns all dancers made by the user with the given id
+    """
+    db = Database()
+    db.cur.execute("SELECT * FROM `dancer` WHERE `user` = %s", user_id)
+    res = db.cur.fetchall()
+    db.con.close()
+    gc.collect()
+    return res
+
+
+def get_id_from_email(email):
+    """(str) -> int
+    Returns the id of the user with the given email
+    """
+    db = Database()
+    num_rows = db.cur.execute("SELECT `id` FROM `users` WHERE `email` = %s", email)
+    if num_rows > 0:
+        return db.cur.fetchone()['id']
+    db.con.close()
+    gc.collect()
+    return -1
+
+
+def get_name_from_email(email):
+    """(str) -> str
+    Returns the user's name who belongs to the given email
+    """
+    db = Database()
+    q = "SELECT `name` FROM `users` WHERE `email` = %s"
+    num_rows = db.cur.execute(q, email)
+    if num_rows == 0:
+        return ""
+    res = db.cur.fetchone()
+    db.con.close()
+    gc.collect()
+    return res['name']
