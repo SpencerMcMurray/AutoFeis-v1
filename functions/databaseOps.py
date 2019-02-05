@@ -50,3 +50,29 @@ def get_all_clopen_feiseanna(is_open):
     db.con.close()
     gc.collect()
     return feiseanna
+
+
+def get_comps_from_feis_id(feis_id):
+    """(int) -> list of dict of str:obj
+    Gets all competitions associated with the given feis id
+    """
+    db = Database()
+    q = """SELECT `id`, `name`, `code` FROM `competition` WHERE `feis` = %s ORDER BY `dance`, `level`, `minAge`"""
+    db.cur.execute(q, feis_id)
+    comps = db.cur.fetchall()
+    db.con.close()
+    gc.collect()
+    return comps
+
+
+def get_latest_three_feiseanna():
+    """() -> list of dict of str:str
+    Returns the 3 most upcoming feiseanna
+    """
+    db = Database()
+    q = """SELECT * FROM `feiseanna` ORDER BY `date` ASC LIMIT 3"""
+    db.cur.execute(q)
+    feiseanna = db.cur.fetchall()
+    db.con.close()
+    gc.collect()
+    return feiseanna

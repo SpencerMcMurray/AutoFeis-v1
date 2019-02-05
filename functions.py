@@ -10,9 +10,6 @@ import random as rnd
 import re
 
 
-DANCERS_PER_PAGE = 17
-
-
 class Competition:
     def __init__(self, min_age, max_age, name, code, sex, level, dance):
         self._data = [min_age, max_age, name, code, sex, level, dance]
@@ -26,102 +23,6 @@ class Competition:
 
     def get_data(self):
         return self._data
-
-
-"""  SCORESHEET CALCULATOR  """
-
-
-def get_sheets_for_comps(comps):
-    """(list of dict of str:obj) -> list of dict of str:obj
-    Calculates the number of scoresheets per judge for each competitions based on entries
-    """
-    db = Database()
-    q = """SELECT `feis` FROM `competitor` WHERE `competition` = %s"""
-    data = list()
-    total = 0
-    for comp in comps:
-        db.cur.execute(q, comp['id'])
-        entries = len(db.cur.fetchall())
-
-        # You need one sheet for every(up to) 17 dancers
-        entries = math.ceil(entries/DANCERS_PER_PAGE)
-        total += entries
-        data.append({'name': comp['name'], 'code': comp['code'], 'entries': entries})
-    db.con.close()
-    gc.collect()
-    return data, total
-
-
-def get_comps_from_feis_id(feis_id):
-    """(int) -> list of dict of str:obj
-    Gets all competitions associated with the given feis id
-    """
-    db = Database()
-    q = """SELECT `id`, `name`, `code` FROM `competition` WHERE `feis` = %s ORDER BY `dance`, `level`, `minAge`"""
-    db.cur.execute(q, feis_id)
-    comps = db.cur.fetchall()
-    db.con.close()
-    gc.collect()
-    return comps
-
-
-def get_latest_three_feiseanna():
-    """() -> list of dict of str:str
-    Returns the 3 most upcoming feiseanna
-    """
-    db = Database()
-    q = """SELECT * FROM `feiseanna` ORDER BY `date` ASC LIMIT 3"""
-    db.cur.execute(q)
-    feiseanna = db.cur.fetchall()
-    db.con.close()
-    gc.collect()
-    return feiseanna
-
-
-"""  ENTRIES  """
-
-
-def parse_dancers_for_entries(dancers):
-    """(list of dict of str:int) -> dict of str:list of str/(list of str)
-    Takes the list of dancer ids, and their respective competition ids and formats it to make it easy for
-    the HTML to parse.
-    """
-    db = Database()
-    data = {'comps': list(), 'codes': list(), 'dancers': list(), 'schools': list()}
-    comp_q = """SELECT `name`, `code` FROM `competition` WHERE `id` = %s"""
-    dancer_q = """SELECT `fName`, `lName`, `school` FROM `dancer` WHERE `id` = %s AND `show` = %s"""
-    for dancer in dancers:
-        # Fetch data from competition, and dancer tables
-        db.cur.execute(comp_q, dancer['competition'])
-        comp = db.cur.fetchone()
-        db.cur.execute(dancer_q, (dancer['dancerId'], 1))
-        curr_dancer = db.cur.fetchone()
-        if curr_dancer is not None:
-            # Maintain format for the data dict
-            if comp['code'] not in data["codes"]:
-                data['comps'].append(comp['name'])
-                data['codes'].append(comp['code'])
-                data['dancers'].append([curr_dancer['fName'] + " " + curr_dancer['lName']])
-                data['schools'].append([curr_dancer['school']])
-            else:
-                data['dancers'][-1].append(curr_dancer['fName'] + " " + curr_dancer['lName'])
-                data['schools'][-1].append(curr_dancer['school'])
-    db.con.close()
-    gc.collect()
-    return data
-
-
-def get_entries_from_feis(feis_id):
-    """(int) -> list of dict of str:obj
-    Returns all the entries for all competitions for a given feis
-    """
-    db = Database()
-    q = """SELECT `dancerId`, `competition` FROM `competitor` WHERE feis = %s ORDER BY `competition`"""
-    db.cur.execute(q, feis_id)
-    dancers = db.cur.fetchall()
-    db.con.close()
-    gc.collect()
-    return parse_dancers_for_entries(dancers)
 
 
 """  REGISTRATION  """
