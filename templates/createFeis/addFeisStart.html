@@ -7,7 +7,7 @@
                     <h1 class="display-3">Define Main Attributes</h1>
                 </div>
             </div>
-            <form method="POST">
+            <form action="{{ url_for('ages_add_feis') }}">
                 <div class="text-left feis-box mx-auto sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded" style="font-size:20px">
                     <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
                         <label for="single">Single Age Groups</label>
@@ -26,7 +26,6 @@
                         {{ form.separate_by_sex_grades(class_="form-control", id="single") }}
                     </div>
                     <div class="text-center form-group col-md-12 justify-content-center" style="padding-bottom: 10px;">
-                        <input type="hidden" name="next" value="ages" />
                         <button type="submit" class="btn btn-primary">Next</button>
                     </div>
                 </div>

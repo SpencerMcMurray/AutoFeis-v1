@@ -198,130 +198,155 @@ def terms():
     return render_template("tos.html", is_logged=current_user.is_authenticated, where="signup")
 
 
-@app.route("/welcome/add_feis", methods=['GET', 'POST'])
+""" ADD FEIS """
+
+
+@app.route("/welcome/add_feis/start", methods=["POST"])
 @login_required
-def add_feis():
-    """The whole add feis area... This was always gonna be ugly"""
+def start_add_feis():
+    """Add feis: defining traits page"""
     traits = ChooseTraitsForm(request.form)
-    if request.method == "POST":
-        if request.form.get('next') == 'ages':
-            # Set traits
-            session['single_ages'] = request.form.get('single_ages')
-            session['levels'] = request.form.get('levels')
-            session['anyone_register'] = request.form.get('anyone_register')
-            session['boys_champ'] = request.form.get('separate_by_sex_champ')
-            session['boys_grades'] = request.form.get('separate_by_sex_grades')
-            choices = dcr.age_dropdown(session.get('single_ages'))
-            return render_template("createFeis/addFeisAges.html", is_logged=current_user.is_authenticated,
-                                   where='welcome', choices=choices, is_local=session['levels'])
-
-        if request.form.get('next') == 'basic':
-            # Set Ages
-            if session.get('include_levels'):
-                session['champ_max'] = int(request.form.get('champ'))
-                session['prelim_max'] = int(request.form.get('prelim'))
-                session['set_max'] = int(request.form.get('sets'))
-                session['grades_max'] = int(request.form.get('grades'))
-            else:
-                session['main_max'] = int(request.form.get('main'))
-            return render_template("createFeis/addFeisBasic.html", is_logged=current_user.is_authenticated,
-                                   where='welcome')
-
-        if request.form.get('next') == 'art':
-            # Setup FG info
-            FG_dict = dict()
-            FG_dict['type'] = request.form.getlist('FGType[]')
-            FG_dict['start_age'] = request.form.getlist('FGStartAge[]')
-            FG_dict['end_age'] = request.form.getlist('FGEndAge[]')
-            FG_dict['gender'] = request.form.getlist('FGGender[]')
-
-            # Setup TR info
-            TR_dict = dict()
-            TR_dict['start_age'] = request.form.getlist('TRStartAge[]')
-            TR_dict['end_age'] = request.form.getlist('TREndAge[]')
-            TR_dict['gender'] = request.form.getlist('TRGender[]')
-            TR_dict['level'] = request.form.getlist('TRLevel[]')
-
-            # Setup TNN info
-            TNN_dict = dict()
-            TNN_dict['start_age'] = request.form.getlist('TNNStartAge[]')
-            TNN_dict['end_age'] = request.form.getlist('TNNEndAge[]')
-
-            session['FG_info'] = FG_dict
-            session['TR_info'] = TR_dict
-            session['TNN_info'] = TNN_dict
-            return render_template("createFeis/addFeisArt.html", is_logged=current_user.is_authenticated,
-                                   where='welcome')
-
-        if request.form.get('next') == 'unique':
-            # Setup AR info
-            AR_dict = dict()
-            AR_dict['start_age'] = request.form.getlist('ARStartAge[]')
-            AR_dict['end_age'] = request.form.getlist('AREndAge[]')
-            AR_dict['gender'] = request.form.getlist('ARGender[]')
-            AR_dict['name'] = request.form.getlist('ARName[]')
-
-            session['AR_info'] = AR_dict
-            return render_template("createFeis/addFeisUnique.html", is_logged=current_user.is_authenticated,
-                                   where='welcome')
-
-        if request.form.get('next') == 'show':
-            # Setup SP info
-            SP_dict = dict()
-            SP_dict['start_age'] = request.form.getlist('SPStartAge[]')
-            SP_dict['end_age'] = request.form.getlist('SPEndAge[]')
-            SP_dict['gender'] = request.form.getlist('SPGender[]')
-            SP_dict['name'] = request.form.getlist('SPName[]')
-            SP_dict['level'] = request.form.getlist('SPLevel[]')
-
-            session['SP_info'] = SP_dict
-
-            # Create comps from data
-            comps = cf.get_comps_from_session(session)
-
-            # Get rid of old session vars, and add our comps dict.
-            session.pop('FG_info')
-            session.pop('TR_info')
-            session.pop('TNN_info')
-            session.pop('AR_info')
-            session.pop('SP_info')
-            if session.get('include_levels'):
-                session.pop('champ_max')
-                session.pop('prelim_max')
-                session.pop('set_max')
-                session.pop('grades_max')
-            else:
-                session.pop('main_max')
-            session['comps'] = cf.serialize_comps(comps)
-
-            return render_template("createFeis/addFeisShow.html", is_logged=current_user.is_authenticated,
-                                   where='welcome', comps=comps)
-
-        if request.form.get('next') == 'info':
-            # TODO: Implement file validity checks
-            info_form = FeisInfoForm(request.form)
-            return render_template("createFeis/addFeisInfo.html", is_logged=current_user.is_authenticated,
-                                   where='welcome', form=info_form)
-
-        if request.form.get('next') == 'create':
-            # TODO: Include pay-wall here
-
-            # Create feis
-            feis_id = db.create_feis(current_user.id, request.form.get('name'),
-                                     request.form.get('date'), request.form.get('location'), request.form.get('region'),
-                                     request.form.get('website'))
-
-            # Upload file
-            file = request.files['syllabus']
-            cf.upload_file(file, feis_id, app.config["UPLOAD_FOLDER"])
-
-            # Create all competitions
-            db.create_comps(feis_id, cf.deserialize_comps(session['comps']))
-            session.pop('comps')
-            return redirect(url_for('welcome'))
-
     return render_template("createFeis/addFeisStart.html", is_logged=current_user.is_authenticated, where='welcome',
                            form=traits)
+
+
+@app.route("/welcome/add_feis/ages")
+@login_required
+def ages_add_feis():
+    """Add feis: defining ages page"""
+    session['single_ages'] = request.form.get('single_ages')
+    session['levels'] = request.form.get('levels')
+    session['anyone_register'] = request.form.get('anyone_register')
+    session['boys_champ'] = request.form.get('separate_by_sex_champ')
+    session['boys_grades'] = request.form.get('separate_by_sex_grades')
+    choices = dcr.age_dropdown(session.get('single_ages'))
+    return render_template("createFeis/addFeisAges.html", is_logged=current_user.is_authenticated,
+                           where='welcome', choices=choices, is_local=session['levels'])
+
+
+@app.route("/welcome/add_feis/basic")
+@login_required
+def basic_add_feis():
+    """Add feis: defining basic extra comps page"""
+    if session.get('include_levels'):
+        session['champ_max'] = int(request.form.get('champ'))
+        session['prelim_max'] = int(request.form.get('prelim'))
+        session['set_max'] = int(request.form.get('sets'))
+        session['grades_max'] = int(request.form.get('grades'))
+    else:
+        session['main_max'] = int(request.form.get('main'))
+    return render_template("createFeis/addFeisBasic.html", is_logged=current_user.is_authenticated,
+                           where='welcome')
+
+
+@app.route("/welcome/add_feis/art")
+@login_required
+def art_add_feis():
+    """Add feis: defining extra special comps page"""
+    figures = dict()
+    figures['type'] = request.form.getlist('FGType[]')
+    figures['start_age'] = request.form.getlist('FGStartAge[]')
+    figures['end_age'] = request.form.getlist('FGEndAge[]')
+    figures['gender'] = request.form.getlist('FGGender[]')
+
+    # Setup TR info
+    treble = dict()
+    treble['start_age'] = request.form.getlist('TRStartAge[]')
+    treble['end_age'] = request.form.getlist('TREndAge[]')
+    treble['gender'] = request.form.getlist('TRGender[]')
+    treble['level'] = request.form.getlist('TRLevel[]')
+
+    # Setup TNN info
+    tir = dict()
+    tir['start_age'] = request.form.getlist('TNNStartAge[]')
+    tir['end_age'] = request.form.getlist('TNNEndAge[]')
+
+    session['FG_info'] = figures
+    session['TR_info'] = treble
+    session['TNN_info'] = tir
+    return render_template("createFeis/addFeisArt.html", is_logged=current_user.is_authenticated,
+                           where='welcome')
+
+
+@app.route("/welcome/add_feis/unique")
+@login_required
+def unique_add_feis():
+    """Add feis: defining unique comps page"""
+    art = dict()
+    art['start_age'] = request.form.getlist('ARStartAge[]')
+    art['end_age'] = request.form.getlist('AREndAge[]')
+    art['gender'] = request.form.getlist('ARGender[]')
+    art['name'] = request.form.getlist('ARName[]')
+
+    session['AR_info'] = art
+    return render_template("createFeis/addFeisUnique.html", is_logged=current_user.is_authenticated,
+                           where='welcome')
+
+
+@app.route("/welcome/add_feis/show")
+@login_required
+def show_add_feis():
+    """Add feis: Show all comps page"""
+    special = dict()
+    special['start_age'] = request.form.getlist('SPStartAge[]')
+    special['end_age'] = request.form.getlist('SPEndAge[]')
+    special['gender'] = request.form.getlist('SPGender[]')
+    special['name'] = request.form.getlist('SPName[]')
+    special['level'] = request.form.getlist('SPLevel[]')
+
+    session['SP_info'] = special
+
+    # Create comps from data
+    comps = cf.get_comps_from_session(session)
+
+    # Get rid of old session vars, and add our comps dict.
+    session.pop('FG_info')
+    session.pop('TR_info')
+    session.pop('TNN_info')
+    session.pop('AR_info')
+    session.pop('SP_info')
+    if session.get('include_levels'):
+        session.pop('champ_max')
+        session.pop('prelim_max')
+        session.pop('set_max')
+        session.pop('grades_max')
+    else:
+        session.pop('main_max')
+    session['comps'] = cf.serialize_comps(comps)
+
+    return render_template("createFeis/addFeisShow.html", is_logged=current_user.is_authenticated,
+                           where='welcome', comps=comps)
+
+
+@app.route("/welcome/add_feis/info")
+@login_required
+def info_add_feis():
+    """Add feis: defining feis details page"""
+    # TODO: Implement file validity checks
+    info_form = FeisInfoForm(request.form)
+    return render_template("createFeis/addFeisInfo.html", is_logged=current_user.is_authenticated,
+                           where='welcome', form=info_form)
+
+
+@app.route("/welcome/add_feis/create")
+@login_required
+def create_add_feis():
+    """Add feis: adding feis script"""
+    # TODO: Include pay-wall here
+
+    # Create feis
+    feis_id = db.create_feis(current_user.id, request.form.get('name'),
+                             request.form.get('date'), request.form.get('location'), request.form.get('region'),
+                             request.form.get('website'))
+
+    # Upload file
+    file = request.files['syllabus']
+    cf.upload_file(file, feis_id, app.config["UPLOAD_FOLDER"])
+
+    # Create all competitions
+    db.create_comps(feis_id, cf.deserialize_comps(session['comps']))
+    session.pop('comps')
+    return redirect(url_for('welcome'))
 
 
 @app.route("/welcome/add_dancer", methods=['GET', 'POST'])
