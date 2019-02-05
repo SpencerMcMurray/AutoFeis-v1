@@ -41,7 +41,7 @@
             var fadeInAnimations = ['fadeInUp', 'slow'];
             var fadeLeftAnimations = ['fadeInLeft', 'slow'];
             var fadeRightAnimations = ['fadeInRight', 'slow'];
-            var bounceAnimations = ['zoomIn', 'slow'];
+            var zoomAnimations = ['zoomIn', 'slow'];
             var shakeAnimations = ['shake', 'slow'];
 
             // Apply all animations to elements on the screen on startup
@@ -54,8 +54,8 @@
             var toFadeRight = document.querySelectorAll(".fade-right-id");
             applyAllAnimations(toFadeRight, fadeRightAnimations);
 
-            var toBounce = document.querySelectorAll(".zoom-id");
-            applyAllAnimations(toBounce, bounceAnimations);
+            var toZoom = document.querySelectorAll(".zoom-id");
+            applyAllAnimations(toZoom, zoomAnimations);
 
             var toShake = document.querySelectorAll(".shake-id");
             applyAllAnimations(toShake, shakeAnimations);
@@ -65,7 +65,7 @@
                 applyAllAnimations(toFadeIn, fadeInAnimations);
                 applyAllAnimations(toFadeLeft, fadeLeftAnimations);
                 applyAllAnimations(toFadeRight, fadeRightAnimations);
-                applyAllAnimations(toBounce, bounceAnimations);
+                applyAllAnimations(toZoom, zoomAnimations);
                 applyAllAnimations(toShake, shakeAnimations);
             });
         });
