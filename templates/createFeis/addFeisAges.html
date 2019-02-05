@@ -13,7 +13,7 @@
                     {% if is_local %}
                         <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
                             <label for="champ">Open Championship</label>
-                            <select name="champ" id="champ">
+                            <select class="form-control" name="champ" id="champ">
                                 {% for age in choices %}
                                     <option value="{{ age }}">{{ age }}</option>
                                 {% endfor %}
@@ -21,7 +21,7 @@
                         </div>
                         <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
                             <label for="prelim">Preliminary Championship</label>
-                            <select name="prelim" id="prelim">
+                            <select class="form-control" name="prelim" id="prelim">
                                 {% for age in choices %}
                                     <option value="{{ age }}">{{ age }}</option>
                                 {% endfor %}
@@ -29,7 +29,7 @@
                         </div>
                         <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
                             <label for="sets">Preliminary Championship Sets</label>
-                            <select name="sets" id="sets">
+                            <select class="form-control" name="sets" id="sets">
                                 {% for age in choices %}
                                     <option value="{{ age }}">{{ age }}</option>
                                 {% endfor %}
@@ -37,7 +37,7 @@
                         </div>
                         <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
                             <label for="grades">Grades</label>
-                            <select name="grades" id="grades">
+                            <select class="form-control" name="grades" id="grades">
                                 {% for age in choices %}
                                     <option value="{{ age }}">{{ age }}</option>
                                 {% endfor %}
@@ -46,7 +46,7 @@
                     {% else %}
                         <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
                             <label for="main">Main Competitions</label>
-                            <select name="main" id="main">
+                            <select class="form-control" name="main" id="main">
                                 {% for age in choices %}
                                     <option value="{{ age }}">{{ age }}</option>
                                 {% endfor %}

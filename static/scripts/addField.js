@@ -1,5 +1,5 @@
 function startAgeIn(name) {
-    var select = "<select name='" + name + "StartAge[]'>";
+    var select = "<select class='form-control' name='" + name + "StartAge[]'>";
     for(i=0; i < 100; i++) {
         iStr = i.toString();
         select += "<option value='" + iStr + "'>" + iStr + "</option>";
@@ -9,7 +9,7 @@ function startAgeIn(name) {
 }
 
 function endAgeIn(name) {
-    var select = "<select name='" + name + "EndAge[]'>";
+    var select = "<select class='form-control' name='" + name + "EndAge[]'>";
     for(i=0; i < 100; i++) {
         iStr = i.toString();
         select += "<option value='" + iStr + "'>" + iStr + "</option>";
@@ -19,7 +19,7 @@ function endAgeIn(name) {
 }
 
 function genderIn(name) {
-    var select = "<select name='" + name + "Gender[]'>";
+    var select = "<select class='form-control' name='" + name + "Gender[]'>";
     select += "<option value='all'>All</option>";
     if(name === "FG") {
         select += "<option value='mixed'>Mixed Only</option>";
@@ -31,7 +31,7 @@ function genderIn(name) {
 }
 
 function levelIn(name) {
-    var select = "<select name='" + name + "Level[]'>";
+    var select = "<select class='form-control' name='" + name + "Level[]'>";
     select += "<option value='All'>All Levels</option>";
     select += "<option value='Championship'>All Championship Levels</option>";
     select += "<option value='Open Championship'>Open Championship</option>";
@@ -43,7 +43,7 @@ function levelIn(name) {
 }
 
 function typeIn(name) {
-    var select = "<select name='" + name + "Type[]'>";
+    var select = "<select class='form-control' name='" + name + "Type[]'>";
     select += "<option value='8'>8-Hand</option>";
     select += "<option value='6'>6-Hand</option>";
     select += "<option value='4'>4-Hand</option>";
@@ -53,11 +53,11 @@ function typeIn(name) {
 }
 
 function nameIn(name) {
-    return "<input type='text' name='" + name + "Name[]' />";
+    return "<input class='form-control' type='text' name='" + name + "Name[]' />";
 }
 
 function removeIn() {
-    return "<button class='del'>-</button>";
+    return "<button type='button' class='btn btn-danger py-2 del'>Remove</button>";
 }
 
 var nameFG = "FG";
@@ -68,27 +68,26 @@ var nameSP = "SP";
 
 $(document).ready(function() {
     $('#addFG').click(function() {
-        console.log('hi');
-        $('#FG tr:last').after('<tr><td>' + startAgeIn(nameFG) + '</td><td>' + endAgeIn(nameFG) + '</td><td>' + genderIn(nameFG) + '</td><td>' + typeIn(nameFG) + '</td><td>' + removeIn() + '</td></tr>');
+        $('#FG div:last').after('<div class="py-2">Start Age: ' + startAgeIn(nameFG) + '<br>End Age: ' + endAgeIn(nameFG) + '<br>Genders: ' + genderIn(nameFG) + '<br>Type: ' + typeIn(nameFG) + '<br>' + removeIn() + '</div>');
     });
 
     $('#addTR').click(function() {
-        $('#TR tr:last').after('<tr><td>' + levelIn(nameTR) + '</td><td>' + startAgeIn(nameTR) + '</td><td>' + endAgeIn(nameTR) + '</td><td>' + genderIn(nameTR) + '</td><td>' + removeIn() + '</td></tr>');
+        $('#TR div:last').after('<div class="py-2">Level: ' + levelIn(nameTR) + '<br>Start Age: ' + startAgeIn(nameTR) + '<br>End Age: ' + endAgeIn(nameTR) + '<br>Genders: ' + genderIn(nameTR) + '<br>' + removeIn() + '</div>');
     });
 
     $('#addTNN').click(function() {
-        $('#TNN tr:last').after('<tr><td>' + startAgeIn(nameTNN) + '</td><td>' + endAgeIn(nameTNN) + '</td><td>' + removeIn() + '</td></tr>');
+        $('#TNN div:last').after('<div class="py-2">Start Age: ' + startAgeIn(nameTNN) + '<br>End Age: ' + endAgeIn(nameTNN) + '<br>' + removeIn() + '</div>');
     });
 
     $('#addAR').click(function() {
-        $('#AR tr:last').after('<tr><td>' + nameIn(nameAR) + '</td><td>' + startAgeIn(nameAR) + '</td><td>' + endAgeIn(nameAR) + '</td><td>' + genderIn(nameAR) + '</td><td>' + removeIn() + '</td></tr>');
+        $('#AR div:last').after('<div class="py-2">Name: ' + nameIn(nameAR) + '<br>Start Age: ' + startAgeIn(nameAR) + '<br>End Age: ' + endAgeIn(nameAR) + '<br>Genders: ' + genderIn(nameAR) + '<br>' + removeIn() + '</div>');
     });
 
     $('#addSP').click(function() {
-        $('#SP tr:last').after('<tr><td>' + nameIn(nameSP) + '</td><td>' + levelIn(nameSP) + '</td><td>' + startAgeIn(nameSP) + '</td><td>' + endAgeIn(nameSP) + '</td><td>' + genderIn(nameSP) + '</td><td>' + removeIn() + '</td></tr>');
+        $('#SP div:last').after('<div class="py-2">Name: ' + nameIn(nameSP) + '<br>Level: ' + levelIn(nameSP) + '<br>Start Age: ' + startAgeIn(nameSP) + '<br>End Age: ' + endAgeIn(nameSP) + '<br>Genders: ' + genderIn(nameSP) + '<br>' + removeIn() + '</div>');
     });
 
-    $('table').on('click','.del', function() {
-        $(this).closest('tr').remove();
+    $('div').on('click','.del', function() {
+        $(this).closest('div').remove();
     });
 });

@@ -31,7 +31,7 @@ def fetch_dancer_errors(form):
 
 def age_dropdown(is_single):
     choices = list()
-    offset = (1 if is_single is not None else 2)
+    offset = (1 if is_single else 2)
     for i in range(3, 100, offset):
         choices.append(str(i))
     return choices

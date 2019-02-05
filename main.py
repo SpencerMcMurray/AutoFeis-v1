@@ -201,7 +201,7 @@ def terms():
 """ ADD FEIS """
 
 
-@app.route("/welcome/add_feis/start", methods=["POST"])
+@app.route("/welcome/add_feis/start")
 @login_required
 def start_add_feis():
     """Add feis: defining traits page"""
@@ -214,11 +214,10 @@ def start_add_feis():
 @login_required
 def ages_add_feis():
     """Add feis: defining ages page"""
-    session['single_ages'] = request.form.get('single_ages')
-    session['levels'] = request.form.get('levels')
-    session['anyone_register'] = request.form.get('anyone_register')
-    session['boys_champ'] = request.form.get('separate_by_sex_champ')
-    session['boys_grades'] = request.form.get('separate_by_sex_grades')
+    session['single_ages'] = bool(int(request.args.get('single_ages')))
+    session['levels'] = bool(int(request.args.get('levels')))
+    session['boys_champ'] = bool(int(request.args.get('separate_by_sex_champ')))
+    session['boys_grades'] = bool(int(request.args.get('separate_by_sex_grades')))
     choices = dcr.age_dropdown(session.get('single_ages'))
     return render_template("createFeis/addFeisAges.html", is_logged=current_user.is_authenticated,
                            where='welcome', choices=choices, is_local=session['levels'])
@@ -228,13 +227,13 @@ def ages_add_feis():
 @login_required
 def basic_add_feis():
     """Add feis: defining basic extra comps page"""
-    if session.get('include_levels'):
-        session['champ_max'] = int(request.form.get('champ'))
-        session['prelim_max'] = int(request.form.get('prelim'))
-        session['set_max'] = int(request.form.get('sets'))
-        session['grades_max'] = int(request.form.get('grades'))
+    if session.get('levels'):
+        session['champ_max'] = int(request.args.get('champ'))
+        session['prelim_max'] = int(request.args.get('prelim'))
+        session['set_max'] = int(request.args.get('sets'))
+        session['grades_max'] = int(request.args.get('grades'))
     else:
-        session['main_max'] = int(request.form.get('main'))
+        session['main_max'] = int(request.args.get('main'))
     return render_template("createFeis/addFeisBasic.html", is_logged=current_user.is_authenticated,
                            where='welcome')
 
@@ -244,22 +243,22 @@ def basic_add_feis():
 def art_add_feis():
     """Add feis: defining extra special comps page"""
     figures = dict()
-    figures['type'] = request.form.getlist('FGType[]')
-    figures['start_age'] = request.form.getlist('FGStartAge[]')
-    figures['end_age'] = request.form.getlist('FGEndAge[]')
-    figures['gender'] = request.form.getlist('FGGender[]')
+    figures['type'] = request.args.getlist('FGType[]')
+    figures['start_age'] = request.args.getlist('FGStartAge[]')
+    figures['end_age'] = request.args.getlist('FGEndAge[]')
+    figures['gender'] = request.args.getlist('FGGender[]')
 
     # Setup TR info
     treble = dict()
-    treble['start_age'] = request.form.getlist('TRStartAge[]')
-    treble['end_age'] = request.form.getlist('TREndAge[]')
-    treble['gender'] = request.form.getlist('TRGender[]')
-    treble['level'] = request.form.getlist('TRLevel[]')
+    treble['start_age'] = request.args.getlist('TRStartAge[]')
+    treble['end_age'] = request.args.getlist('TREndAge[]')
+    treble['gender'] = request.args.getlist('TRGender[]')
+    treble['level'] = request.args.getlist('TRLevel[]')
 
     # Setup TNN info
     tir = dict()
-    tir['start_age'] = request.form.getlist('TNNStartAge[]')
-    tir['end_age'] = request.form.getlist('TNNEndAge[]')
+    tir['start_age'] = request.args.getlist('TNNStartAge[]')
+    tir['end_age'] = request.args.getlist('TNNEndAge[]')
 
     session['FG_info'] = figures
     session['TR_info'] = treble
@@ -273,10 +272,10 @@ def art_add_feis():
 def unique_add_feis():
     """Add feis: defining unique comps page"""
     art = dict()
-    art['start_age'] = request.form.getlist('ARStartAge[]')
-    art['end_age'] = request.form.getlist('AREndAge[]')
-    art['gender'] = request.form.getlist('ARGender[]')
-    art['name'] = request.form.getlist('ARName[]')
+    art['start_age'] = request.args.getlist('ARStartAge[]')
+    art['end_age'] = request.args.getlist('AREndAge[]')
+    art['gender'] = request.args.getlist('ARGender[]')
+    art['name'] = request.args.getlist('ARName[]')
 
     session['AR_info'] = art
     return render_template("createFeis/addFeisUnique.html", is_logged=current_user.is_authenticated,
@@ -288,11 +287,11 @@ def unique_add_feis():
 def show_add_feis():
     """Add feis: Show all comps page"""
     special = dict()
-    special['start_age'] = request.form.getlist('SPStartAge[]')
-    special['end_age'] = request.form.getlist('SPEndAge[]')
-    special['gender'] = request.form.getlist('SPGender[]')
-    special['name'] = request.form.getlist('SPName[]')
-    special['level'] = request.form.getlist('SPLevel[]')
+    special['start_age'] = request.args.getlist('SPStartAge[]')
+    special['end_age'] = request.args.getlist('SPEndAge[]')
+    special['gender'] = request.args.getlist('SPGender[]')
+    special['name'] = request.args.getlist('SPName[]')
+    special['level'] = request.args.getlist('SPLevel[]')
 
     session['SP_info'] = special
 
@@ -333,7 +332,6 @@ def info_add_feis():
 def create_add_feis():
     """Add feis: adding feis script"""
     # TODO: Include pay-wall here
-
     # Create feis
     feis_id = db.create_feis(current_user.id, request.form.get('name'),
                              request.form.get('date'), request.form.get('location'), request.form.get('region'),

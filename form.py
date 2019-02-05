@@ -36,12 +36,12 @@ class CreateDancer(Form):
 
 
 class ChooseTraitsForm(Form):
-    single_ages = SelectField('Single Age Groups', choices=[(True, "Yes"), (False, "No")])
-    levels = SelectField('Have Levels?', choices=[(True, "Yes"), (False, "No")])
-    separate_by_sex_champ = SelectField('Separate Main Championship-Level Competitions By Sex', choices=[(True, "Yes"),
-                                                                                                         (False, "No")])
-    separate_by_sex_grades = SelectField('Separate Main Grades-Level Competitions By Sex', choices=[(True, "Yes"),
-                                                                                                    (False, "No")])
+    single_ages = SelectField('Single Age Groups', choices=[("1", "Yes"), ("0", "No")])
+    levels = SelectField('Have Levels?', choices=[("1", "Yes"), ("0", "No")])
+    separate_by_sex_champ = SelectField('Separate Main Championship-Level Competitions By Sex',
+                                        choices=[("1", "Yes"), ("0", "No")])
+    separate_by_sex_grades = SelectField('Separate Main Grades-Level Competitions By Sex',
+                                         choices=[("1", "Yes"), ("0", "No")])
 
 
 class FeisInfoForm(Form):
