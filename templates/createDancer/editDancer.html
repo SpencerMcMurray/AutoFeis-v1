@@ -16,7 +16,7 @@
                     <h1 class="display-3">Add a dancer</h1>
                 </div>
             </div>
-            <form method="POST">
+            <form method="POST" action="{{ url_for('alter_dancer') }}">
                 <div class="text-left feis-box mx-auto sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded" style="font-size:20px">
                     <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
                         <label for="fname">First Name</label>
@@ -47,8 +47,9 @@
                         {{ form.show(class_="form-control", id="show") }}
                     </div>
                     <div class="text-center form-group col-md-12 justify-content-center" style="padding-bottom: 10px;">
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button type="submit" class="btn btn-primary">Alter</button>
                     </div>
+                    <input type="hidden" name="id" value="{{ id }}">
                 </div>
             </form>
         </div>

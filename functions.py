@@ -911,7 +911,7 @@ def fetch_dancer_errors(form):
     return errors
 
 
-def alter_dancer(dancer_id, f_name, l_name, school, birth_year, level, gender, show):
+def update_dancer(dancer_id, f_name, l_name, school, birth_year, level, gender, show):
     db = Database()
     q = """UPDATE `dancer` SET `fName` = %s, `lName` = %s, `birthYear` = %s, `school` = %s, `level` = %s,
     `gender` = %s, `show` = %s WHERE `id` = %s"""

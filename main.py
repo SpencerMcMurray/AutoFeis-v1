@@ -342,18 +342,17 @@ def edit_dancer():
     dancer = get_dancer_from_id(request.form.get('dancerId', 0))
     form = set_defaults_for_dancer(dancer, CreateDancer(request.form))
     return render_template("createDancer/editDancer.html", is_logged=current_user.is_authenticated, where="welcome",
-                           form=form)
+                           form=form, id=dancer['id'])
 
 
 @app.route("/welcome/edit_dancer/alter", methods=["POST"])
 def alter_dancer():
-    """The path through altering a dancer
-    TODO: Add defaults"""
+    """The path through altering a dancer"""
     if request.method != "POST":
         return redirect(url_for('welcome'))
-    alter_dancer(request.form.get('id', -1), request.form.get('f_name', ''), request.form.get('l_name', ''),
-                 request.form.get('school', ''),  request.form.get('year', -1), request.form.get('level', ''),
-                 request.form.get('gender', ''), int(request.form.get('show', -1)))
+    update_dancer(request.form.get('id', -1), request.form.get('f_name', ''), request.form.get('l_name', ''),
+                  request.form.get('school', ''),  request.form.get('year', -1), request.form.get('level', ''),
+                  request.form.get('gender', ''), int(request.form.get('show', -1)))
     return redirect(url_for('welcome'))
 
 
