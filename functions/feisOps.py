@@ -3,7 +3,7 @@ import gc
 import re
 import datetime as dt
 import random as rnd
-import databaseOps as ops
+import functions.databaseOps as ops
 from database import Database
 
 

@@ -1,5 +1,6 @@
 from wtforms import Form, StringField, PasswordField, validators, SubmitField, SelectField, BooleanField
-from functions import year_dropdown, school_dropdown, get_regions
+from functions.createDancer import year_dropdown, school_dropdown
+from functions.createFeis import get_regions
 
 
 WEBSITE = "https://www.autofeis.com"

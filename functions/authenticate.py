@@ -1,6 +1,6 @@
 import gc
 import re
-from databaseOps import email_taken
+from functions.databaseOps import email_taken
 from werkzeug.security import check_password_hash
 from database import Database
 
