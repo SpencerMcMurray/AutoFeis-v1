@@ -57,7 +57,7 @@ function nameIn(name) {
 }
 
 function removeIn() {
-    return "<button type='button' class='btn btn-danger py-2 del'>Remove</button>";
+    return "<button type='button' class='btn btn-danger my-2 del'>Remove</button>";
 }
 
 var nameFG = "FG";
@@ -65,29 +65,54 @@ var nameTR = "TR";
 var nameTNN = "TNN";
 var nameAR = "AR";
 var nameSP = "SP";
+var classes = "d-flex sub-box mx-auto feis-box rounded bd-highlight p-2";
 
 $(document).ready(function() {
     $('#addFG').click(function() {
-        $('#FG div:last').after('<div class="py-2">Start Age: ' + startAgeIn(nameFG) + '<br>End Age: ' + endAgeIn(nameFG) + '<br>Genders: ' + genderIn(nameFG) + '<br>Type: ' + typeIn(nameFG) + '<br>' + removeIn() + '</div>');
+        $('#FG .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center">' +
+            'Start Age: ' + startAgeIn(nameFG) +
+            '<br>End Age: ' + endAgeIn(nameFG) +
+            '<br>Genders: ' + genderIn(nameFG) +
+            '<br>Type: ' + typeIn(nameFG) +
+            '<br>' + removeIn() + '</div></div>');
     });
 
     $('#addTR').click(function() {
-        $('#TR div:last').after('<div class="py-2">Level: ' + levelIn(nameTR) + '<br>Start Age: ' + startAgeIn(nameTR) + '<br>End Age: ' + endAgeIn(nameTR) + '<br>Genders: ' + genderIn(nameTR) + '<br>' + removeIn() + '</div>');
+        $('#TR .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center">' +
+            'Level: ' + levelIn(nameTR) +
+            '<br>Start Age: ' + startAgeIn(nameTR) +
+            '<br>End Age: ' + endAgeIn(nameTR) +
+            '<br>Genders: ' + genderIn(nameTR) +
+            '<br>' + removeIn() + '</div></div>');
     });
 
     $('#addTNN').click(function() {
-        $('#TNN div:last').after('<div class="py-2">Start Age: ' + startAgeIn(nameTNN) + '<br>End Age: ' + endAgeIn(nameTNN) + '<br>' + removeIn() + '</div>');
+        $('#TNN .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center">' +
+            'Start Age: ' + startAgeIn(nameTNN) +
+            '<br>End Age: ' + endAgeIn(nameTNN) +
+            '<br>' + removeIn() + '</div></div>');
     });
 
     $('#addAR').click(function() {
-        $('#AR div:last').after('<div class="py-2">Name: ' + nameIn(nameAR) + '<br>Start Age: ' + startAgeIn(nameAR) + '<br>End Age: ' + endAgeIn(nameAR) + '<br>Genders: ' + genderIn(nameAR) + '<br>' + removeIn() + '</div>');
+        $('#AR .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center">' +
+            'Name: ' + nameIn(nameAR) +
+            '<br>Start Age: ' + startAgeIn(nameAR) +
+            '<br>End Age: ' + endAgeIn(nameAR) +
+            '<br>Genders: ' + genderIn(nameAR) +
+            '<br>' + removeIn() + '</div></div>');
     });
 
     $('#addSP').click(function() {
-        $('#SP div:last').after('<div class="py-2">Name: ' + nameIn(nameSP) + '<br>Level: ' + levelIn(nameSP) + '<br>Start Age: ' + startAgeIn(nameSP) + '<br>End Age: ' + endAgeIn(nameSP) + '<br>Genders: ' + genderIn(nameSP) + '<br>' + removeIn() + '</div>');
+        $('#SP .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center">' +
+            'Name: ' + nameIn(nameSP) +
+            '<br>Level: ' + levelIn(nameSP) +
+            '<br>Start Age: ' + startAgeIn(nameSP) +
+            '<br>End Age: ' + endAgeIn(nameSP) +
+            '<br>Genders: ' + genderIn(nameSP) +
+            '<br>' + removeIn() + '</div></div>');
     });
 
     $('div').on('click','.del', function() {
-        $(this).closest('div').remove();
+        $(this).closest('.feis-box').remove();
     });
 });
