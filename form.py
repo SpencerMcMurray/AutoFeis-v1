@@ -36,11 +36,12 @@ class CreateDancer(Form):
 
 
 class ChooseTraitsForm(Form):
-    single_ages = BooleanField('Single Age Groups')
-    include_levels = BooleanField('Include Levels For Main Dances')
-    anyone_register = BooleanField('Anyone Can Register')
-    separate_by_sex_champ = BooleanField('Separate Main Championship-Level Competitions By Sex')
-    separate_by_sex_grades = BooleanField('Separate Main Grades-Level Competitions By Sex')
+    single_ages = SelectField('Single Age Groups', choices=[(True, "Yes"), (False, "No")])
+    levels = SelectField('Have Levels?', choices=[(True, "Yes"), (False, "No")])
+    separate_by_sex_champ = SelectField('Separate Main Championship-Level Competitions By Sex', choices=[(True, "Yes"),
+                                                                                                         (False, "No")])
+    separate_by_sex_grades = SelectField('Separate Main Grades-Level Competitions By Sex', choices=[(True, "Yes"),
+                                                                                                    (False, "No")])
 
 
 class FeisInfoForm(Form):

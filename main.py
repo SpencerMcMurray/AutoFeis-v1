@@ -8,7 +8,7 @@ from functions import results as res
 from functions import register as reg
 from form import *
 from flask import Flask, render_template, request, redirect, url_for, session
-from flask_login import LoginManager, UserMixin, current_user, logout_user, login_user
+from flask_login import LoginManager, UserMixin, current_user, logout_user, login_user, login_required
 import os
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -48,6 +48,12 @@ def make_session_permanent():
 def catch_404(e):
     """Page for catching the 404 not found error"""
     return render_template("errorCatching/404.html")
+
+
+@app.errorhandler(401)
+def catch_401(e):
+    """Page for catching the 401 unauthorized error"""
+    return redirect(url_for('index'))
 
 
 """ APP PAGES """
@@ -168,6 +174,7 @@ def login():
 
 
 @app.route("/logout")
+@login_required
 def logout():
     """The logout page"""
     logout_user()
@@ -175,6 +182,7 @@ def logout():
 
 
 @app.route("/welcome", methods=['GET', 'POST'])
+@login_required
 def welcome():
     """The welcome page"""
     dancers = db.get_dancers_with_user(current_user.id)
@@ -191,6 +199,7 @@ def terms():
 
 
 @app.route("/welcome/add_feis", methods=['GET', 'POST'])
+@login_required
 def add_feis():
     """The whole add feis area... This was always gonna be ugly"""
     traits = ChooseTraitsForm(request.form)
@@ -198,13 +207,13 @@ def add_feis():
         if request.form.get('next') == 'ages':
             # Set traits
             session['single_ages'] = request.form.get('single_ages')
-            session['include_levels'] = request.form.get('include_levels')
+            session['levels'] = request.form.get('levels')
             session['anyone_register'] = request.form.get('anyone_register')
             session['boys_champ'] = request.form.get('separate_by_sex_champ')
             session['boys_grades'] = request.form.get('separate_by_sex_grades')
             choices = dcr.age_dropdown(session.get('single_ages'))
             return render_template("createFeis/addFeisAges.html", is_logged=current_user.is_authenticated,
-                                   where='welcome', choices=choices, is_local=session['include_levels'])
+                                   where='welcome', choices=choices, is_local=session['levels'])
 
         if request.form.get('next') == 'basic':
             # Set Ages
@@ -316,6 +325,7 @@ def add_feis():
 
 
 @app.route("/welcome/add_dancer", methods=['GET', 'POST'])
+@login_required
 def add_dancer():
     """The add dancer page"""
     form = CreateDancer(request.form)
@@ -333,6 +343,7 @@ def add_dancer():
 
 
 @app.route("/welcome/delete_dancer", methods=['POST'])
+@login_required
 def delete_dancer():
     """The path through deleting a dancer"""
     if request.method == "POST":
@@ -341,6 +352,7 @@ def delete_dancer():
 
 
 @app.route("/welcome/edit_dancer", methods=['POST'])
+@login_required
 def edit_dancer():
     """The edit dancer page for a given dancer"""
     # TODO: Add current info as default input values
@@ -353,6 +365,7 @@ def edit_dancer():
 
 
 @app.route("/welcome/edit_dancer/alter", methods=["POST"])
+@login_required
 def alter_dancer():
     """The path through altering a dancer"""
     if request.method != "POST":
@@ -364,6 +377,7 @@ def alter_dancer():
 
 
 @app.route("/welcome/organize", methods=['POST'])
+@login_required
 def feis_functions():
     """The feis functions for a given feis"""
     if request.method == "POST":
@@ -376,6 +390,7 @@ def feis_functions():
 
 
 @app.route("/welcome/organize/edit", methods=['POST'])
+@login_required
 def edit_feis():
     """The edit feis function page"""
     if request.method == 'POST':
@@ -401,6 +416,7 @@ def edit_feis():
 
 
 @app.route("/welcome/organize/alter", methods=["POST"])
+@login_required
 def alter_comps():
     """Page displaying all competitions, offering the split/merge ability"""
     if request.method == "POST":
@@ -411,6 +427,7 @@ def alter_comps():
 
 
 @app.route("/welcome/organize/alter/merge", methods=["POST"])
+@login_required
 def merge():
     """Page for merging two competitions"""
     if request.method == "POST":
@@ -425,6 +442,7 @@ def merge():
 
 
 @app.route("/welcome/organize/alter/split", methods=["POST"])
+@login_required
 def split():
     """Page for splitting a competition in two"""
     if request.method == "POST":
@@ -436,6 +454,7 @@ def split():
 
 
 @app.route("/welcome/organize/alter/split/AB", methods=["POST"])
+@login_required
 def split_ab():
     """Script to split one competition with one age group into two sub-comps"""
     if request.method == "POST":
@@ -446,6 +465,7 @@ def split_ab():
 
 
 @app.route("/welcome/organize/alter/split/age", methods=["POST"])
+@login_required
 def split_age():
     """Script to split one competition with many age groups into two sub-comps"""
     if request.method == "POST":
@@ -457,6 +477,7 @@ def split_age():
 
 
 @app.route("/welcome/organize/choose", methods=["POST"])
+@login_required
 def choose_comp_type():
     """The page displaying the competition types to show
     TODO: Merge with show_comps, that'd be cool"""
@@ -468,6 +489,7 @@ def choose_comp_type():
 
 
 @app.route("/welcome/organize/choose/show", methods=["POST"])
+@login_required
 def show_comps():
     """The Page displaying all competitions of the given type"""
     if request.method == "POST":
@@ -479,6 +501,7 @@ def show_comps():
 
 
 @app.route("/welcome/organize/scoresheet", methods=["POST"])
+@login_required
 def score_calc():
     """The Scoresheet calculator page"""
     if request.method == "POST":

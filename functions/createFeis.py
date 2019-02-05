@@ -96,7 +96,7 @@ def make_champ_comps(start_age, end_age, step, name, code, affix, boys):
     """
     comps = []
     prev_age = 0
-    if boys is None:
+    if not boys:
         for age in range(start_age, end_age+1, step):
             curr_name = name + " Under " + str(age)
             curr_code = code + str(age) + affix
@@ -146,7 +146,7 @@ def make_grades_comps(start_age, end_age, step, name, code, boys, dance_and_code
     comps = []
     for dance in dance_and_code:
         prev_age = 0
-        if boys is None:
+        if not boys:
             for age in range(start_age, end_age+1, step):
                 curr_name = name + " Under " + str(age) + " " + dance[0]
                 curr_code = code + str(age) + dance[1]
@@ -192,8 +192,8 @@ def make_main_competitions(single_ages, boys_champ, boys_grades, champ_max, prel
     """(bool, bool, bool, int, int, int, int) -> dict of str:list of Competition
     Returns the formatted dict of level-name to list of competitions for that level defined by the given input
     """
-    step = (1 if single_ages is not None else 2)
-    start = (4 if single_ages is not None else 5)
+    step = (1 if single_ages else 2)
+    start = (4 if single_ages else 5)
 
     # Make all our main competitions
     comps = {'Open Championship': make_champ_comps(start, champ_max, step, "Open Championship", "C", "", boys_champ),
@@ -222,8 +222,8 @@ def make_main_major_competitions(single_ages, boys, age_max):
     """(bool, bool, int) -> dict of str:list of Competition
     Returns the formatted dict of Main to the list of all main competitions defined by the given input
     """
-    step = (1 if single_ages is not None else 2)
-    start = (4 if single_ages is not None else 5)
+    step = (1 if single_ages else 2)
+    start = (4 if single_ages else 5)
 
     comps = {'Main': []}
     prev_age = 0
@@ -381,9 +381,9 @@ def get_comps_from_session(session):
     # TODO: Allow for much deeper customization
     """
     comps = dict()
-    if session['include_levels'] is None:
+    if not session['levels']:
         # Checks if either boys champ or boys grades is checked
-        boys = session['boys_champ'] is not None or session['boys_grades'] is not None
+        boys = session['boys_champ'] or session['boys_grades']
         mains = make_main_major_competitions(session['single_ages'], boys, session['main_max'])
     else:
         mains = make_main_competitions(session['single_ages'], session['boys_champ'],
