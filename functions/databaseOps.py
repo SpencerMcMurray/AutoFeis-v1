@@ -1,4 +1,7 @@
 import gc
+
+from werkzeug.security import generate_password_hash
+
 from database import Database
 
 
@@ -245,3 +248,60 @@ def get_name_from_email(email):
     db.con.close()
     gc.collect()
     return res['name']
+
+
+def email_taken(email):
+    """(str) -> bool
+    Returns True iff the email given exists in the database
+    """
+    db = Database()
+    q = "SELECT `email` FROM `users` WHERE `email` = %s"
+    num_rows = db.cur.execute(q, (email,))
+    db.con.close()
+    gc.collect()
+    return num_rows != 0
+
+
+def sign_up(email, password, f_name, l_name):
+    """(str, str, str, str) -> NoneType
+    Registers the user with the given data into our Database
+    """
+    q = "INSERT INTO `users` (`email`, `password`, `name`) VALUES (%s, %s, %s)"
+    db = Database()
+    name = f_name + " " + l_name
+    db.cur.execute(q, (email, generate_password_hash(password), name))
+    db.con.close()
+    gc.collect()
+
+
+def feis_name_from_id(feis_id):
+    """(int) -> str
+    Returns the name of the feis with the given id
+    """
+    return get_feis_with_id(feis_id)['name']
+
+
+def get_user_from_id(usr_id):
+    """(int) -> dict of str:obj
+    Returns the user with the given id
+    """
+    db = Database()
+    q = """SELECT * FROM `users` WHERE `id` = %s"""
+    db.cur.execute(q, usr_id)
+    user = db.cur.fetchone()
+    db.con.close()
+    gc.collect()
+    return user
+
+
+def get_user_from_email(usr_email):
+    """(str) -> dict of str:obj
+    Returns the user with the given email
+    """
+    db = Database()
+    q = """SELECT * FROM `users` WHERE `email` = %s"""
+    db.cur.execute(q, usr_email)
+    user = db.cur.fetchone()
+    db.con.close()
+    gc.collect()
+    return user
