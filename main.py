@@ -1,4 +1,11 @@
-from functions import *
+from functions import authenticate as auth
+from functions import databaseOps as db
+from functions import createFeis as cf
+from functions import feisOps as fops
+from functions import createDancer as dcr
+from functions import entries as en
+from functions import results as res
+from functions import register as reg
 from form import *
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_login import LoginManager, UserMixin, current_user, logout_user, login_user
@@ -18,7 +25,7 @@ box_animations = ['fade-left-id', 'zoom-id', 'fade-right-id']
 
 @login_manager.user_loader
 def load_user(user_id):
-    user = get_user_from_id(int(user_id))
+    user = db.get_user_from_id(int(user_id))
     return User(user['id'], user['email'], user['name'])
 
 
@@ -49,7 +56,7 @@ def catch_404(e):
 @app.route("/")
 def index():
     """The index page"""
-    feiseanna = get_latest_three_feiseanna()
+    feiseanna = db.get_latest_three_feiseanna()
     return render_template("index.html", is_logged=current_user.is_authenticated, where="home", feiseanna=feiseanna,
                            animations=box_animations)
 
@@ -63,7 +70,7 @@ def about():
 @app.route("/info")
 def feisinfo():
     """The Feis info page"""
-    feiseanna = get_all_feiseanna()
+    feiseanna = db.get_all_feiseanna()
     return render_template("feisInfo.html", is_logged=current_user.is_authenticated, where="feisinfo",
                            feiseanna=feiseanna,
                            animations=box_animations)
@@ -74,11 +81,11 @@ def results():
     """The results page"""
     if request.method == "POST":
         feis_id = request.form.get('id', 0)
-        levels, comps = get_comps_by_level(feis_id)
+        levels, comps = res.get_comps_by_level(feis_id)
         return render_template("results/resultsForFeis.html", is_logged=current_user.is_authenticated, where="results",
                                comps=comps,
                                levels=levels, animations=box_animations)
-    feiseanna = get_all_clopen_feiseanna(False)
+    feiseanna = db.get_all_clopen_feiseanna(False)
     return render_template("results/results.html", is_logged=current_user.is_authenticated, where="results",
                            feiseanna=feiseanna,
                            animations=box_animations)
@@ -90,8 +97,8 @@ def entries(feis):
     TODO: Take away id from url
     TODO: Use flex to make nicer"""
     return render_template("entries.html", is_logged=current_user.is_authenticated, where="feisinfo",
-                           entries=get_entries_from_feis(feis),
-                           name=feis_name_from_id(feis))
+                           entries=en.get_entries_from_feis(feis),
+                           name=db.feis_name_from_id(feis))
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -101,21 +108,21 @@ def register_page():
         if request.form.get("startScript", None) is None:
             session['feis_id'] = request.form.get("id", -1)
         # Get the feis info and all the user's dancers
-        feis = get_feis_with_id(session['feis_id'])
-        dancers = get_dancers_with_user(current_user.id)
+        feis = db.get_feis_with_id(session['feis_id'])
+        dancers = db.get_dancers_with_user(current_user.id)
 
         if request.form.get("startScript", None) is not None:
             for dancer in dancers:
-                register(request.form.getlist('register[' + str(dancer['id']) + '][]'), feis['id'], dancer['id'])
+                reg.register(request.form.getlist('register[' + str(dancer['id']) + '][]'), feis['id'], dancer['id'])
             session.pop('feis_id')
             return redirect(url_for('welcome'))
 
-        comps = get_all_comps_for_dancers(session['feis_id'], dancers)
+        comps = reg.get_all_comps_for_dancers(session['feis_id'], dancers)
 
         return render_template("registration/registerFor.html", is_logged=current_user.is_authenticated,
                                where="register", feis_name=feis['name'], dancers=dancers, comps=comps,
                                animations=box_animations)
-    feiseanna = get_all_clopen_feiseanna(True)
+    feiseanna = db.get_all_clopen_feiseanna(True)
     return render_template("registration/register.html", is_logged=current_user.is_authenticated, where="register",
                            feiseanna=feiseanna, animations=box_animations)
 
@@ -128,12 +135,12 @@ def signup():
     if request.method == "POST":
 
         # Create any errors needed
-        errors = fetch_signup_errors(form)
+        errors = auth.fetch_signup_errors(form)
         if len(errors) > 0:
             return render_template("signUp.html", form=form, is_logged=current_user.is_authenticated, where="signup",
                                    errors=errors)
         # Otherwise sign the user up
-        sign_up(form.email.data, form.password.data, form.f_name.data, form.l_name.data)
+        db.sign_up(form.email.data, form.password.data, form.f_name.data, form.l_name.data)
         return redirect(url_for('login'))
     return render_template("signUp.html", form=form, is_logged=current_user.is_authenticated, where="signup",
                            errors=errors)
@@ -148,12 +155,12 @@ def login():
     errors = list()
     form = LoginForm(request.form)
     if request.method == "POST":
-        errors = fetch_login_errors(form)
+        errors = auth.fetch_login_errors(form)
         if len(errors) > 0:
             return render_template("logIn.html", form=form, is_logged=current_user.is_authenticated, where="login",
                                    errors=errors)
         # Log the user in
-        user = get_user_from_email(form.email.data)
+        user = db.get_user_from_email(form.email.data)
         login_user(User(user['id'], user['email'], user['name']))
         return redirect(url_for("welcome"))
     return render_template("logIn.html", form=form, is_logged=current_user.is_authenticated, where="login",
@@ -170,8 +177,8 @@ def logout():
 @app.route("/welcome", methods=['GET', 'POST'])
 def welcome():
     """The welcome page"""
-    dancers = get_dancers_with_user(current_user.id)
-    feiseanna = get_feiseanna_with_forg(current_user.id)
+    dancers = db.get_dancers_with_user(current_user.id)
+    feiseanna = db.get_feiseanna_with_forg(current_user.id)
     return render_template("welcome.html", is_logged=current_user.is_authenticated, where="welcome", dancers=dancers,
                            feiseanna=feiseanna, name=current_user.name, animations=box_animations)
 
@@ -195,7 +202,7 @@ def add_feis():
             session['anyone_register'] = request.form.get('anyone_register')
             session['boys_champ'] = request.form.get('separate_by_sex_champ')
             session['boys_grades'] = request.form.get('separate_by_sex_grades')
-            choices = age_dropdown(session.get('single_ages'))
+            choices = dcr.age_dropdown(session.get('single_ages'))
             return render_template("createFeis/addFeisAges.html", is_logged=current_user.is_authenticated,
                                    where='welcome', choices=choices, is_local=session['include_levels'])
 
@@ -261,7 +268,7 @@ def add_feis():
             session['SP_info'] = SP_dict
 
             # Create comps from data
-            comps = get_comps_from_session(session)
+            comps = cf.get_comps_from_session(session)
 
             # Get rid of old session vars, and add our comps dict.
             session.pop('FG_info')
@@ -276,7 +283,7 @@ def add_feis():
                 session.pop('grades_max')
             else:
                 session.pop('main_max')
-            session['comps'] = serialize_comps(comps)
+            session['comps'] = cf.serialize_comps(comps)
 
             return render_template("createFeis/addFeisShow.html", is_logged=current_user.is_authenticated,
                                    where='welcome', comps=comps)
@@ -291,16 +298,16 @@ def add_feis():
             # TODO: Include pay-wall here
 
             # Create feis
-            feis_id = create_feis(current_user.id, request.form.get('name'),
-                                  request.form.get('date'), request.form.get('location'), request.form.get('region'),
-                                  request.form.get('website'))
+            feis_id = db.create_feis(current_user.id, request.form.get('name'),
+                                     request.form.get('date'), request.form.get('location'), request.form.get('region'),
+                                     request.form.get('website'))
 
             # Upload file
             file = request.files['syllabus']
-            upload_file(file, feis_id, app.config["UPLOAD_FOLDER"])
+            cf.upload_file(file, feis_id, app.config["UPLOAD_FOLDER"])
 
             # Create all competitions
-            create_comps(feis_id, deserialize_comps(session['comps']))
+            db.create_comps(feis_id, cf.deserialize_comps(session['comps']))
             session.pop('comps')
             return redirect(url_for('welcome'))
 
@@ -314,12 +321,12 @@ def add_dancer():
     form = CreateDancer(request.form)
     errors = list()
     if request.method == "POST":
-        errors = fetch_dancer_errors(form)
+        errors = dcr.fetch_dancer_errors(form)
         if len(errors) > 0:
             return render_template("createDancer/addDancer.html", is_logged=current_user.is_authenticated,
                                    where="welcome", form=form, errors=errors)
-        create_dancer(current_user.id, form.f_name.data, form.l_name.data, form.school.data, int(form.year.data),
-                      form.level.data, form.gender.data, int(form.show.data))
+        db.create_dancer(current_user.id, form.f_name.data, form.l_name.data, form.school.data, int(form.year.data),
+                         form.level.data, form.gender.data, int(form.show.data))
         return redirect(url_for("welcome"))
     return render_template("createDancer/addDancer.html", is_logged=current_user.is_authenticated, where="welcome",
                            form=form, errors=errors)
@@ -329,7 +336,7 @@ def add_dancer():
 def delete_dancer():
     """The path through deleting a dancer"""
     if request.method == "POST":
-        delete_dancer_from_id(request.form.get('id', 0))
+        db.delete_dancer_from_id(request.form.get('id', 0))
     return redirect(url_for('welcome'))
 
 
@@ -339,8 +346,8 @@ def edit_dancer():
     # TODO: Add current info as default input values
     if request.method != "POST":
         return redirect(url_for('welcome'))
-    dancer = get_dancer_from_id(request.form.get('dancerId', 0))
-    form = set_defaults_for_dancer(dancer, CreateDancer(request.form))
+    dancer = db.get_dancer_from_id(request.form.get('dancerId', 0))
+    form = dcr.set_defaults_for_dancer(dancer, CreateDancer(request.form))
     return render_template("createDancer/editDancer.html", is_logged=current_user.is_authenticated, where="welcome",
                            form=form, id=dancer['id'])
 
@@ -350,9 +357,9 @@ def alter_dancer():
     """The path through altering a dancer"""
     if request.method != "POST":
         return redirect(url_for('welcome'))
-    update_dancer(request.form.get('id', -1), request.form.get('f_name', ''), request.form.get('l_name', ''),
-                  request.form.get('school', ''),  request.form.get('year', -1), request.form.get('level', ''),
-                  request.form.get('gender', ''), int(request.form.get('show', -1)))
+    db.update_dancer(request.form.get('id', -1), request.form.get('f_name', ''), request.form.get('l_name', ''),
+                     request.form.get('school', ''),  request.form.get('year', -1), request.form.get('level', ''),
+                     request.form.get('gender', ''), int(request.form.get('show', -1)))
     return redirect(url_for('welcome'))
 
 
@@ -361,8 +368,8 @@ def feis_functions():
     """The feis functions for a given feis"""
     if request.method == "POST":
         feis_id = request.form.get('feisId', 0)
-        name = feis_name_from_id(feis_id)
-        is_open = get_open_from_id(feis_id)
+        name = db.feis_name_from_id(feis_id)
+        is_open = db.get_open_from_id(feis_id)
         return render_template("functions/feisFunctions.html", is_logged=current_user.is_authenticated,
                                where="welcome", name=name, is_open=is_open, feis_id=feis_id)
     return redirect(url_for('welcome'))
@@ -377,17 +384,17 @@ def edit_feis():
             session.pop('go')
 
             # Update feis
-            update_feis(feis_id, request.form.get('name'), request.form.get('date'), request.form.get('location'),
-                        request.form.get('region'), request.form.get('website'))
+            db.update_feis(feis_id, request.form.get('name'), request.form.get('date'), request.form.get('location'),
+                           request.form.get('region'), request.form.get('website'))
 
             # Upload new syllabus if entered
             if 'syllabus' in request.files:
                 file = request.files['syllabus']
-                upload_file(file, feis_id, app.config["UPLOAD_FOLDER"])
+                cf.upload_file(file, feis_id, app.config["UPLOAD_FOLDER"])
             return redirect(url_for('welcome'))
         session['go'] = True
-        feis = get_feis_with_id(feis_id)
-        form = set_defaults_for_feis(feis, FeisInfoForm(request.form))
+        feis = db.get_feis_with_id(feis_id)
+        form = cf.set_defaults_for_feis(feis, FeisInfoForm(request.form))
         return render_template("functions/editFeisInfo.html", is_logged=current_user.is_authenticated, where="welcome",
                                feis=feis, form=form)
     return redirect(url_for("welcome"))
@@ -397,7 +404,7 @@ def edit_feis():
 def alter_comps():
     """Page displaying all competitions, offering the split/merge ability"""
     if request.method == "POST":
-        comps = get_comps_from_feis_id(request.form.get('feisId', 0))
+        comps = db.get_comps_from_feis_id(request.form.get('feisId', 0))
         return render_template("functions/alterComps.html", is_logged=current_user.is_authenticated, where="welcome",
                                comps=comps)
     return redirect(url_for("welcome"))
@@ -408,10 +415,10 @@ def merge():
     """Page for merging two competitions"""
     if request.method == "POST":
         if request.form.get('compatCompId', None) is not None:
-            merge_comps(request.form.get('compId'), request.form.get('compatCompId'))
+            fops.merge_comps(request.form.get('compId'), request.form.get('compatCompId'))
         else:
-            comp = get_comp_from_id(request.form.get('compId', 0))
-            mergable = get_mergeable_comps(comp)
+            comp = db.get_comp_from_id(request.form.get('compId', 0))
+            mergable = fops.get_mergeable_comps(comp)
             return render_template("functions/mergeComps.html", is_logged=current_user.is_authenticated,
                                    where="welcome", comp=comp, merge=mergable)
     return redirect(url_for("welcome"))
@@ -421,7 +428,7 @@ def merge():
 def split():
     """Page for splitting a competition in two"""
     if request.method == "POST":
-        comp = get_comp_from_id(request.form.get('compId', 0))
+        comp = db.get_comp_from_id(request.form.get('compId', 0))
         ages = [x + 1 for x in range(comp['minAge'], comp['maxAge'])]
         return render_template("functions/splitComps.html", is_logged=current_user.is_authenticated, where="welcome",
                                comp=comp, ages=ages)
@@ -433,8 +440,8 @@ def split_ab():
     """Script to split one competition with one age group into two sub-comps"""
     if request.method == "POST":
         comp_id = request.form.get('compId', 0)
-        comp = get_comp_from_id(comp_id)
-        split_into_ab(comp)
+        comp = db.get_comp_from_id(comp_id)
+        fops.split_into_ab(comp)
     return redirect(url_for("welcome"))
 
 
@@ -444,8 +451,8 @@ def split_age():
     if request.method == "POST":
         comp_id = request.form.get('compId', 0)
         age = int(request.form.get('age', -1))
-        comp = get_comp_from_id(comp_id)
-        split_by_age(comp, age)
+        comp = db.get_comp_from_id(comp_id)
+        fops.split_by_age(comp, age)
     return redirect(url_for("welcome"))
 
 
@@ -465,7 +472,7 @@ def show_comps():
     """The Page displaying all competitions of the given type"""
     if request.method == "POST":
         feis_id, comp_type = request.form.get('feisId'), request.form.get('type')
-        titles, tables = make_titles_tables_for(feis_id, comp_type)
+        titles, tables = fops.make_titles_tables_for(feis_id, comp_type)
         return render_template("functions/showCompType.html", is_logged=current_user.is_authenticated, where="welcome",
                                titles=titles, tables=tables)
     return redirect(url_for("welcome"))
@@ -476,8 +483,8 @@ def score_calc():
     """The Scoresheet calculator page"""
     if request.method == "POST":
         feis_id = request.form.get('feisId', 0)
-        comps = get_comps_from_feis_id(feis_id)
-        sheets, total = get_sheets_for_comps(comps)
+        comps = db.get_comps_from_feis_id(feis_id)
+        sheets, total = fops.get_sheets_for_comps(comps)
         return render_template("functions/scoresheetCalc.html", is_logged=current_user.is_authenticated,
                                where="welcome", sheets=sheets, total=total)
     return redirect("welcome")
