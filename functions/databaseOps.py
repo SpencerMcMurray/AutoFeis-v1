@@ -89,3 +89,71 @@ def get_all_feiseanna():
     db.con.close()
     gc.collect()
     return feiseanna
+
+
+def update_feis(feis_id, name, date, location, region, website):
+    """(int, str, stt, str, str, str) -> NoneType
+    Updates the old feis info of feis with id given to be the info given
+    """
+    db = Database()
+    q = """UPDATE `feiseanna` SET `name` = %s, `date` = %s, `location` = %s, `region` = %s, `website` = %s WHERE
+           `id` = %s"""
+    db.cur.execute(q, (name, date, location, region, website, feis_id))
+    db.con.close()
+    gc.collect()
+
+
+def create_comps(feis_id, comps):
+    """(int, dict of str:list of Competition) -> NoneType
+    Inserts all the Competitions given by comps to the Database, under the feis with id given
+    """
+    db = Database()
+    q = """INSERT INTO `competition` (`feis`, `name`, `code`, `minAge`, `maxAge`, `level`, `genders`, `dance`) VALUES 
+           (%s, %s, %s, %s, %s, %s, %s, %s)"""
+    for level in comps:
+        for comp in comps[level]:
+            comp_data = comp.get_data()
+            db.cur.execute(q, (feis_id, comp_data[2], comp_data[3], comp_data[0], comp_data[1], comp_data[5],
+                           comp_data[4], comp_data[6]))
+    db.con.close()
+    gc.collect()
+
+
+def create_feis(forg, name, date, location, region, website):
+    """(int, str, str, str, str, str) -> int
+    Returns the id of the feis that is created in this function with the given inputs
+    """
+    db = Database()
+    q = """INSERT INTO `feiseanna` (`forg`, `name`, `date`, `location`, `region`, `isOpen`, `website`, `syllabus`)
+           VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
+    db.cur.execute(q, (forg, name, date, location, region, 1, website, ""))
+    feis_id = db.con.insert_id()
+    q = """UPDATE feiseanna SET `syllabus` = %s WHERE `id` = %s"""
+    db.cur.execute(q, (str(feis_id) + ".pdf", feis_id))
+    db.con.close()
+    gc.collect()
+    return feis_id
+
+
+def get_dancer_from_id(dancer_id):
+    """(int) -> sict of str:obj
+    Returns the dancer with the given id
+    """
+    db = Database()
+    q = "SELECT * FROM `dancer` WHERE `id` = %s"
+    db.cur.execute(q, dancer_id)
+    dancer = db.cur.fetchone()
+    db.con.close()
+    gc.collect()
+    return dancer
+
+
+def delete_dancer_from_id(uid):
+    """(int) -> NoneType
+    Deletes the dancer with the given id
+    """
+    db = Database()
+    q = "DELETE FROM `dancer` WHERE `id` = %s"
+    db.cur.execute(q, (uid,))
+    db.con.close()
+    gc.collect()
