@@ -76,3 +76,16 @@ def get_latest_three_feiseanna():
     db.con.close()
     gc.collect()
     return feiseanna
+
+
+def get_all_feiseanna():
+    """() -> list of dict of str:obj
+    Returns all feiseanna from our database ordered by date
+    """
+    db = Database()
+    q = """SELECT * FROM `feiseanna` ORDER BY `date` DESC"""
+    db.cur.execute(q)
+    feiseanna = db.cur.fetchall()
+    db.con.close()
+    gc.collect()
+    return feiseanna
