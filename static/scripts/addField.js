@@ -49,6 +49,7 @@ function typeIn(name) {
     select += "<option value='4'>4-Hand</option>";
     select += "<option value='3'>3-Hand</option>";
     select += "<option value='2'>2-Hand</option>";
+    select += "</select>";
     return select
 }
 
@@ -67,6 +68,7 @@ var nameAR = "AR";
 var nameSP = "SP";
 var classes = "d-flex sub-box mx-auto feis-box rounded bd-highlight p-2";
 
+// TODO: Make each text before input a label to standardize UI
 $(document).ready(function() {
     $('#addFG').click(function() {
         $('#FG .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center">' +
