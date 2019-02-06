@@ -1,25 +1,25 @@
-function startAgeIn(name) {
-    var select = "<select class='form-control' name='" + name + "StartAge[]'>";
-    for(i=0; i < 100; i++) {
-        iStr = i.toString();
+function startAgeIn(name, id_counter) {
+    var select = "<select id='" + id_counter + "' class='form-control' name='" + name + "StartAge[]'>";
+    for(var i=0; i < 100; i++) {
+        var iStr = i.toString();
         select += "<option value='" + iStr + "'>" + iStr + "</option>";
     }
     select += "</select>";
     return select;
 }
 
-function endAgeIn(name) {
-    var select = "<select class='form-control' name='" + name + "EndAge[]'>";
-    for(i=0; i < 100; i++) {
-        iStr = i.toString();
+function endAgeIn(name, id_counter) {
+    var select = "<select id='" + id_counter + "' class='form-control' name='" + name + "EndAge[]'>";
+    for(var i=0; i < 100; i++) {
+        var iStr = i.toString();
         select += "<option value='" + iStr + "'>" + iStr + "</option>";
     }
     select += "</select>";
     return select;
 }
 
-function genderIn(name) {
-    var select = "<select class='form-control' name='" + name + "Gender[]'>";
+function genderIn(name, id_counter) {
+    var select = "<select id='" + id_counter + "' class='form-control' name='" + name + "Gender[]'>";
     select += "<option value='all'>All</option>";
     if(name === "FG") {
         select += "<option value='mixed'>Mixed Only</option>";
@@ -30,8 +30,8 @@ function genderIn(name) {
     return select;
 }
 
-function levelIn(name) {
-    var select = "<select class='form-control' name='" + name + "Level[]'>";
+function levelIn(name, id_counter) {
+    var select = "<select id='" + id_counter + "' class='form-control' name='" + name + "Level[]'>";
     select += "<option value='All'>All Levels</option>";
     select += "<option value='Championship'>All Championship Levels</option>";
     select += "<option value='Open Championship'>Open Championship</option>";
@@ -42,8 +42,8 @@ function levelIn(name) {
     return select;
 }
 
-function typeIn(name) {
-    var select = "<select class='form-control' name='" + name + "Type[]'>";
+function typeIn(name, id_counter) {
+    var select = "<select id='" + id_counter + "' class='form-control' name='" + name + "Type[]'>";
     select += "<option value='8'>8-Hand</option>";
     select += "<option value='6'>6-Hand</option>";
     select += "<option value='4'>4-Hand</option>";
@@ -53,12 +53,12 @@ function typeIn(name) {
     return select
 }
 
-function nameIn(name) {
-    return "<input class='form-control' type='text' name='" + name + "Name[]' />";
+function nameIn(name, id_counter) {
+    return "<input id='" + id_counter + "' class='form-control' placeholder='Enter Name' type='text' name='" + name + "Name[]' />";
 }
 
 function removeIn() {
-    return "<button type='button' class='btn btn-danger my-2 del'>Remove</button>";
+    return "<div class='pt-3 form-group d-flex justify-content-center'><button type='button' class='btn btn-danger mt-2 del'>Remove</button></div>";
 }
 
 var nameFG = "FG";
@@ -66,52 +66,57 @@ var nameTR = "TR";
 var nameTNN = "TNN";
 var nameAR = "AR";
 var nameSP = "SP";
-var classes = "d-flex sub-box mx-auto feis-box rounded bd-highlight p-2";
+var classes = "d-flex sub-box mx-auto feis-box rounded bd-highlight p-2 align-items-center";
 
-// TODO: Make each text before input a label to standardize UI
 $(document).ready(function() {
+    var id_counter = 0;
     $('#addFG').click(function() {
-        $('#FG .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center">' +
-            'Start Age: ' + startAgeIn(nameFG) +
-            '<br>End Age: ' + endAgeIn(nameFG) +
-            '<br>Genders: ' + genderIn(nameFG) +
-            '<br>Type: ' + typeIn(nameFG) +
-            '<br>' + removeIn() + '</div></div>');
+        $('#FG .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
+            '<label class="pt-3" for="' + id_counter + '">Start Age: </label>' + startAgeIn(nameFG, id_counter) +
+            '<label class="pt-3" for="' + ++id_counter + '">End Age: </label>' + endAgeIn(nameFG, id_counter) +
+            '<label class="pt-3" for="' + ++id_counter + '">Genders: </label>' + genderIn(nameFG, id_counter) +
+            '<label class="pt-3" for="' + ++id_counter + '">Type: </label>' + typeIn(nameFG, id_counter) +
+            removeIn() + '</div></div>');
+        ++id_counter;
     });
 
     $('#addTR').click(function() {
-        $('#TR .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center">' +
-            'Level: ' + levelIn(nameTR) +
-            '<br>Start Age: ' + startAgeIn(nameTR) +
-            '<br>End Age: ' + endAgeIn(nameTR) +
-            '<br>Genders: ' + genderIn(nameTR) +
-            '<br>' + removeIn() + '</div></div>');
+        $('#TR .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
+            '<label class="pt-3" for="' + id_counter + '">Level: </label>' + levelIn(nameTR, id_counter) +
+            '<label class="pt-3" for="' + ++id_counter + '">Start Age: </label>' + startAgeIn(nameTR, id_counter) +
+            '<label class="pt-3" for="' + ++id_counter + '">End Age: </label>' + endAgeIn(nameTR, id_counter) +
+            '<label class="pt-3" for="' + ++id_counter + '">Genders: </label>' + genderIn(nameTR, id_counter) +
+            removeIn() + '</div></div>');
+        ++id_counter;
     });
 
     $('#addTNN').click(function() {
-        $('#TNN .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center">' +
-            'Start Age: ' + startAgeIn(nameTNN) +
-            '<br>End Age: ' + endAgeIn(nameTNN) +
-            '<br>' + removeIn() + '</div></div>');
+        $('#TNN .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
+            '<label class="pt-3" for="' + id_counter + '">Start Age: </label>' + startAgeIn(nameTNN, id_counter) +
+            '<label class="pt-3" for="' + id_counter+1 + '">End Age: </label>' + endAgeIn(nameTNN, id_counter) +
+            removeIn() + '</div></div>');
+        ++id_counter;
     });
 
     $('#addAR').click(function() {
-        $('#AR .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center">' +
-            'Name: ' + nameIn(nameAR) +
-            '<br>Start Age: ' + startAgeIn(nameAR) +
-            '<br>End Age: ' + endAgeIn(nameAR) +
-            '<br>Genders: ' + genderIn(nameAR) +
-            '<br>' + removeIn() + '</div></div>');
+        $('#AR .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
+            '<label class="pt-3" for="' + id_counter + '">Name: </label>' + nameIn(nameAR, id_counter) +
+            '<label class="pt-3" for="' + ++id_counter + '">Start Age: </label>' + startAgeIn(nameAR, id_counter) +
+            '<label class="pt-3" for="' + ++id_counter + '">End Age: </label>' + endAgeIn(nameAR, id_counter) +
+            '<label class="pt-3" for="' + ++id_counter + '">Genders: </label>' + genderIn(nameAR, id_counter) +
+            removeIn() + '</div></div>');
+        ++id_counter;
     });
 
     $('#addSP').click(function() {
-        $('#SP .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center">' +
-            'Name: ' + nameIn(nameSP) +
-            '<br>Level: ' + levelIn(nameSP) +
-            '<br>Start Age: ' + startAgeIn(nameSP) +
-            '<br>End Age: ' + endAgeIn(nameSP) +
-            '<br>Genders: ' + genderIn(nameSP) +
-            '<br>' + removeIn() + '</div></div>');
+        $('#SP .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
+            '<label class="pt-3" for="' + id_counter + '">Name: </label>' + nameIn(nameSP, id_counter) +
+            '<label class="pt-3" for="' + ++id_counter + '">Level: </label>' + levelIn(nameSP, id_counter) +
+            '<label class="pt-3" for="' + ++id_counter + '">Start Age: </label>' + startAgeIn(nameSP, id_counter) +
+            '<label class="pt-3" for="' + ++id_counter + '">End Age: </label>' + endAgeIn(nameSP, id_counter) +
+            '<label class="pt-3" for="' + ++id_counter + '">Genders: </label>' + genderIn(nameSP, id_counter) +
+            removeIn() + '</div></div>');
+        ++id_counter;
     });
 
     $('div').on('click','.del', function() {
