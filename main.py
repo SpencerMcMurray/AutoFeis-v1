@@ -304,7 +304,7 @@ def show_add_feis():
     session.pop('TNN_info')
     session.pop('AR_info')
     session.pop('SP_info')
-    if session.get('include_levels'):
+    if session.get('levels'):
         session.pop('champ_max')
         session.pop('prelim_max')
         session.pop('set_max')
