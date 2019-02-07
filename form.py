@@ -3,9 +3,6 @@ from functions.createDancer import year_dropdown, school_dropdown
 from functions.createFeis import get_regions
 
 
-WEBSITE = "https://www.autofeis.com"
-
-
 class RegistrationForm(Form):
     f_name = StringField('First Name', [validators.InputRequired(), validators.Length(min=1, max=45)])
     l_name = StringField('Last Name', [validators.InputRequired(), validators.Length(min=1, max=45)])
@@ -48,7 +45,7 @@ class FeisInfoForm(Form):
     name = StringField("Feis Name", [validators.InputRequired()])
     location = StringField("Location of Feis", [validators.InputRequired()])
     region = SelectField("Region of Feis", choices=get_regions())
-    website = StringField("Website for Feis", [validators.InputRequired()], default=WEBSITE)
+    website = StringField("Website for Feis", [validators.InputRequired()])
 
 
 class FeisFcnsForm(Form):
