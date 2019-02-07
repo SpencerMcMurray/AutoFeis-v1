@@ -1,5 +1,6 @@
 import csv
 import os
+import datetime as dt
 
 from werkzeug.utils import secure_filename
 
@@ -407,3 +408,27 @@ def get_comps_from_session(session):
     special = make_special_competitions(session['SP_info'])
     comps.update(special)
     return comps
+
+
+def fetch_feis_errors(form, date, file_size, max_size):
+    """(Form, str, int, int) -> list of str
+    Returns the list of errors generated from the given input
+    """
+    errors = list()
+    if len(form.name.data) < 0:
+        errors.append("Feis name is empty")
+    if len(form.name.data) >= 255:
+        errors.append("Feis name too large")
+    if len(form.location.data) < 0:
+        errors.append("Location is empty")
+    if len(form.location.data) >= 255:
+        errors.append("Location too large")
+    if len(form.website.data) < 0:
+        errors.append("Website is empty. Use our website if your feis doesnt have one, it can be edited later")
+    if len(form.website.data) >= 2083:
+        errors.append("Website is too long. If this is an issue, contact us")
+    if dt.datetime.strptime(date, "%Y-%m-%d").date() < dt.date.today():
+        errors.append("Date chosen is before today")
+    if file_size >= max_size:
+        errors.append("Syllabus file is too big")
+    return errors

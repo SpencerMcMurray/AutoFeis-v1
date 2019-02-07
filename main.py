@@ -310,8 +310,16 @@ def info_add_feis():
     """Add feis: defining feis details page"""
     # TODO: Implement file validity checks
     info_form = FeisInfoForm(request.form)
+    errors = list()
+    if request.method == "POST":
+        errors = cf.fetch_feis_errors(info_form, request.form.get('date'), request.files['syllabus'].content_length,
+                                      app.config['MAX_CONTENT_LENGTH'])
+        if len(errors) > 0:
+            return render_template("createFeis/addFeisInfo.html", is_logged=current_user.is_authenticated,
+                                   where='welcome', form=info_form, errors=errors)
+
     return render_template("createFeis/addFeisInfo.html", is_logged=current_user.is_authenticated,
-                           where='welcome', form=info_form)
+                           where='welcome', form=info_form, errors=errors)
 
 
 @app.route("/welcome/add_feis/create")

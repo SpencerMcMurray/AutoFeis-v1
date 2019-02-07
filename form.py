@@ -1,4 +1,4 @@
-from wtforms import Form, StringField, PasswordField, validators, SubmitField, SelectField, BooleanField
+from wtforms import Form, StringField, PasswordField, validators, SubmitField, SelectField
 from functions.createDancer import year_dropdown, school_dropdown
 from functions.createFeis import get_regions
 
@@ -23,8 +23,8 @@ class LoginForm(Form):
 
 
 class CreateDancer(Form):
-    f_name = StringField('First Name', [validators.InputRequired(), validators.Length(min=1, max=45)])
-    l_name = StringField('Last Name', [validators.InputRequired(), validators.Length(min=1, max=45)])
+    f_name = StringField('First Name', [validators.InputRequired()])
+    l_name = StringField('Last Name', [validators.InputRequired()])
     year = SelectField('Birth Year', choices=year_dropdown())
     school = SelectField('Dance School', choices=school_dropdown())
     level = SelectField('Level', choices=[('Open Championship', 'Open Championship'),
@@ -45,10 +45,10 @@ class ChooseTraitsForm(Form):
 
 
 class FeisInfoForm(Form):
-    name = StringField("Feis Name")
-    location = StringField("Location of Feis")
+    name = StringField("Feis Name", [validators.InputRequired()])
+    location = StringField("Location of Feis", [validators.InputRequired()])
     region = SelectField("Region of Feis", choices=get_regions())
-    website = StringField("Website for Feis", default=WEBSITE)
+    website = StringField("Website for Feis", [validators.InputRequired()], default=WEBSITE)
 
 
 class FeisFcnsForm(Form):
