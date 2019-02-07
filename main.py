@@ -1,15 +1,18 @@
-from functions import authenticate as auth
-from functions import databaseOps as db
-from functions import createFeis as cf
-from functions import feisOps as fops
-from functions import createDancer as dcr
-from functions import entries as en
-from functions import results as res
-from functions import register as reg
-from form import *
+import os
+
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_login import LoginManager, UserMixin, current_user, logout_user, login_user, login_required
-import os
+
+from form import *
+from functions import authenticate as auth
+from functions import createDancer as dcr
+from functions import createFeis as cf
+from functions import databaseOps as db
+from functions import entries as en
+from functions import feisOps as fops
+from functions import register as reg
+from functions import results as res
+
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.config['UPLOAD_FOLDER'] = "static/storage/syllabi"
@@ -304,11 +307,10 @@ def show_add_feis():
                            where='welcome', comps=comps)
 
 
-@app.route("/welcome/add_feis/info")
+@app.route("/welcome/add_feis/info", methods=["GET", "POST"])
 @login_required
 def info_add_feis():
     """Add feis: defining feis details page"""
-    # TODO: Implement file validity checks
     info_form = FeisInfoForm(request.form)
     errors = list()
     if request.method == "POST":
@@ -318,42 +320,37 @@ def info_add_feis():
             return render_template("createFeis/addFeisInfo.html", is_logged=current_user.is_authenticated,
                                    where='welcome', form=info_form, errors=errors)
 
+        # TODO: Include pay-wall here
+        # Create feis
+        feis_id = db.create_feis(current_user.id, request.form.get('name'),
+                                 request.form.get('date'), request.form.get('location'), request.form.get('region'),
+                                 request.form.get('website'))
+
+        # Upload file
+        file = request.files['syllabus']
+        cf.upload_file(file, feis_id, app.config["UPLOAD_FOLDER"])
+
+        # Create all competitions
+        db.create_comps(feis_id, cf.deserialize_comps(session['comps']))
+
+        # Get rid of unneeded session vars
+        session.pop('comps')
+        session.pop('FG_info')
+        session.pop('TR_info')
+        session.pop('TNN_info')
+        session.pop('AR_info')
+        session.pop('SP_info')
+        if session.get('levels'):
+            session.pop('champ_max')
+            session.pop('prelim_max')
+            session.pop('set_max')
+            session.pop('grades_max')
+        else:
+            session.pop('main_max')
+        return redirect(url_for('welcome'))
+
     return render_template("createFeis/addFeisInfo.html", is_logged=current_user.is_authenticated,
                            where='welcome', form=info_form, errors=errors)
-
-
-@app.route("/welcome/add_feis/create")
-@login_required
-def create_add_feis():
-    """Add feis: adding feis script"""
-    # TODO: Include pay-wall here
-    # Create feis
-    feis_id = db.create_feis(current_user.id, request.form.get('name'),
-                             request.form.get('date'), request.form.get('location'), request.form.get('region'),
-                             request.form.get('website'))
-
-    # Upload file
-    file = request.files['syllabus']
-    cf.upload_file(file, feis_id, app.config["UPLOAD_FOLDER"])
-
-    # Create all competitions
-    db.create_comps(feis_id, cf.deserialize_comps(session['comps']))
-
-    # Get rid of unneeded session vars
-    session.pop('comps')
-    session.pop('FG_info')
-    session.pop('TR_info')
-    session.pop('TNN_info')
-    session.pop('AR_info')
-    session.pop('SP_info')
-    if session.get('levels'):
-        session.pop('champ_max')
-        session.pop('prelim_max')
-        session.pop('set_max')
-        session.pop('grades_max')
-    else:
-        session.pop('main_max')
-    return redirect(url_for('welcome'))
 
 
 @app.route("/welcome/add_dancer", methods=['GET', 'POST'])
