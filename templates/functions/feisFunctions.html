@@ -1,63 +1,49 @@
 {% extends "generalTemplates/outline.html" %}
 {% block body %}
     <body>
-        <style>
-            table {
-                font-size:20px;
-                border:2px solid black;
-            } th, td {
-                padding: 15px;
-                border: 2px solid black;
-            } table tr:nth-child(odd) {
-                background-color: #eee;
-            }
-            table tr:nth-child(even) {
-                background-color: #fff;
-            }
-        </style><br>
-        <h2>What would you like to do with {{ name }}?</h2><hr>
-        <div style="width:50%;display: flex;margin: 0 auto;justify-content: center;">
-            <table>
-                <tr>
-                    <td>
-                        <form method="POST" action="{{ url_for('edit_feis') }}">
+        <div class="sub-box">
+            <div class="container-fluid">
+                <div class="title">
+                    <h1 class="display-3">Organizing {{ name }}</h1>
+                </div>
+            </div>
+            <div class="text-left feis-box mx-auto sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded" style="font-size:20px">
+                <form class="col-md-12 justify-content-center align-items-center my-3" method="POST" action="{{ url_for('edit_feis') }}">
+                    <div class="text-center form-group col-md-12 justify-content-center my-2">
+                        <input type="hidden" value="{{ feis_id }}" name="feisId" />
+                        <button type="submit" class="btn btn-primary btn-lg">Edit Info</button>
+                    </div>
+                </form><hr style="width: 80%;" class="my-1">
+                {% if not is_open %}
+                    <form class="col-md-12 justify-content-center align-items-center my-3" method="POST" action="{{ url_for('alter_comps') }}">
+                        <div class="text-center form-group col-md-12 justify-content-center my-2">
                             <input type="hidden" value="{{ feis_id }}" name="feisId" />
-                            <input type="submit" value="Edit Feis Info" />
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        {% if not is_open %}
-                            <form method="POST" action="{{ url_for('alter_comps') }}">
-                                <input type="hidden" value="{{ feis_id }}" name="feisId" />
-                                <input type="submit" value="Merge/Split Competitions" />
-                            </form>
-                        {% else %}
-                            Merge/Split Competitions
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <form method="POST" action="{{ url_for('choose_comp_type') }}">
-                            <input type="hidden" value="{{ feis_id }}" name="feisId" />
-                            <input type="submit" value="Show Competitions" />
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <form method="POST" action="{{ url_for('score_calc') }}">
-                            <input type="hidden" value="{{ feis_id }}" name="feisId" />
-                            <input type="submit" value="Scoresheet Calculator" />
-                        </form>
-                    </td>
-                </tr>
-            </table>
+                            <button type="submit" class="btn btn-primary btn-lg">Merge/Split</button>
+                        </div>
+                    </form>
+                {% else %}
+                    <div class="text-center form-group col-md-12 justify-content-center align-items-center my-3">
+                        <button type="button" class="btn btn-primary btn-lg" onclick="blockAccess();">Merge/Split</button>
+                    </div>
+                {% endif %}<hr style="width: 80%;" class="my-1">
+                <form class="col-md-12 justify-content-center align-items-center my-3" method="POST" action="{{ url_for('choose_comp_type') }}">
+                    <div class="text-center form-group col-md-12 justify-content-center my-2">
+                        <input type="hidden" value="{{ feis_id }}" name="feisId" />
+                        <button type="submit" class="btn btn-primary btn-lg">Show Competitions</button>
+                    </div>
+                </form><hr style="width: 80%;" class="my-1">
+                <form class="col-md-12 justify-content-center align-items-center my-3" method="POST" action="{{ url_for('score_calc') }}">
+                    <div class="text-center form-group col-md-12 justify-content-center my-2">
+                        <input type="hidden" value="{{ feis_id }}" name="feisId" />
+                        <button type="submit" class="btn btn-primary btn-lg">Scoresheet Calculator</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        {% if is_open %}
-            <br><b style="font-size: 15px">(Note: Merge/Split is unavailable until the feis is closed to registration)</b>
-        {% endif %}
+        <script>
+            function blockAccess() {
+                alert("You may only Merge/Split once the feis is closed to registration");
+            }
+        </script>
     </body>
 {% endblock body %}
