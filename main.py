@@ -298,19 +298,6 @@ def show_add_feis():
     # Create comps from data
     comps = cf.get_comps_from_session(session)
 
-    # Get rid of old session vars, and add our comps dict.
-    session.pop('FG_info')
-    session.pop('TR_info')
-    session.pop('TNN_info')
-    session.pop('AR_info')
-    session.pop('SP_info')
-    if session.get('levels'):
-        session.pop('champ_max')
-        session.pop('prelim_max')
-        session.pop('set_max')
-        session.pop('grades_max')
-    else:
-        session.pop('main_max')
     session['comps'] = cf.serialize_comps(comps)
 
     return render_template("createFeis/addFeisShow.html", is_logged=current_user.is_authenticated,
@@ -343,7 +330,21 @@ def create_add_feis():
 
     # Create all competitions
     db.create_comps(feis_id, cf.deserialize_comps(session['comps']))
+
+    # Get rid of unneeded session vars
     session.pop('comps')
+    session.pop('FG_info')
+    session.pop('TR_info')
+    session.pop('TNN_info')
+    session.pop('AR_info')
+    session.pop('SP_info')
+    if session.get('levels'):
+        session.pop('champ_max')
+        session.pop('prelim_max')
+        session.pop('set_max')
+        session.pop('grades_max')
+    else:
+        session.pop('main_max')
     return redirect(url_for('welcome'))
 
 
