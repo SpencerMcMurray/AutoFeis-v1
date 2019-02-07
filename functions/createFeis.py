@@ -1,6 +1,6 @@
 import csv
-import os
 import datetime as dt
+import os
 
 from werkzeug.utils import secure_filename
 
@@ -410,8 +410,8 @@ def get_comps_from_session(session):
     return comps
 
 
-def fetch_feis_errors(form, date, file_size, max_size):
-    """(Form, str, int, int) -> list of str
+def fetch_feis_errors(form, date, file, max_size):
+    """(Form, str, dict of obj, int) -> list of str
     Returns the list of errors generated from the given input
     """
     errors = list()
@@ -429,6 +429,10 @@ def fetch_feis_errors(form, date, file_size, max_size):
         errors.append("Website is too long. If this is an issue, contact us")
     if dt.datetime.strptime(date, "%Y-%m-%d").date() < dt.date.today():
         errors.append("Date chosen is before today")
-    if file_size >= max_size:
+    if file is None:
+        errors.append("No syllabus given")
+    elif file.content_type != 'application/pdf':
+        errors.append("Syllabus must be a pdf")
+    elif file.content_length >= max_size:
         errors.append("Syllabus file is too big")
     return errors

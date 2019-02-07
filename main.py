@@ -49,13 +49,13 @@ def make_session_permanent():
 
 @app.errorhandler(404)
 def catch_404(e):
-    """Page for catching the 404 not found error"""
+    """Catching the 404 not found error"""
     return render_template("errorCatching/404.html")
 
 
 @app.errorhandler(401)
 def catch_401(e):
-    """Page for catching the 401 unauthorized error"""
+    """Catching the 401 unauthorized error"""
     return redirect(url_for('index'))
 
 
@@ -314,7 +314,8 @@ def info_add_feis():
     info_form = FeisInfoForm(request.form)
     errors = list()
     if request.method == "POST":
-        errors = cf.fetch_feis_errors(info_form, request.form.get('date'), request.files['syllabus'].content_length,
+        print(request.files['syllabus'].content_type)
+        errors = cf.fetch_feis_errors(info_form, request.form.get('date'), request.files.get('syllabus', None),
                                       app.config['MAX_CONTENT_LENGTH'])
         if len(errors) > 0:
             return render_template("createFeis/addFeisInfo.html", is_logged=current_user.is_authenticated,
