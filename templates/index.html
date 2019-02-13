@@ -33,7 +33,7 @@
                             {% else %}
                                 {% set animation = animations[loop.index0 % 3] %}
                             {% endif %}
-                            <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight justify-content-center rounded hide {{ animation }}" style="font-size:20px">
+                            <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight justify-content-center rounded hide zoom-id" style="font-size:20px">
                                 <div style="padding: 10px 10px;">
                                     <b>{{ feis['name']}}</b><br>
                                     {{ feis['date'].strftime('%B %d, %Y') }}<br>

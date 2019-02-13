@@ -21,8 +21,6 @@ app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024     # 10MB Upload limit
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-box_animations = ['fade-left-id', 'zoom-id', 'fade-right-id']
-
 """ FLASK LOGIN """
 
 
@@ -66,8 +64,7 @@ def catch_401(e):
 def index():
     """The index page"""
     feiseanna = db.get_latest_three_feiseanna()
-    return render_template("index.html", is_logged=current_user.is_authenticated, where="home", feiseanna=feiseanna,
-                           animations=box_animations)
+    return render_template("index.html", is_logged=current_user.is_authenticated, where="home", feiseanna=feiseanna)
 
 
 @app.route("/about")
@@ -81,8 +78,7 @@ def feisinfo():
     """The Feis info page"""
     feiseanna = db.get_all_feiseanna()
     return render_template("feisInfo.html", is_logged=current_user.is_authenticated, where="feisinfo",
-                           feiseanna=feiseanna,
-                           animations=box_animations)
+                           feiseanna=feiseanna)
 
 
 @app.route("/results", methods=['GET', 'POST'])
@@ -92,12 +88,10 @@ def results():
         feis_id = request.form.get('id', 0)
         levels, comps = res.get_comps_by_level(feis_id)
         return render_template("results/resultsForFeis.html", is_logged=current_user.is_authenticated, where="results",
-                               comps=comps,
-                               levels=levels, animations=box_animations)
+                               comps=comps)
     feiseanna = db.get_all_clopen_feiseanna(False)
     return render_template("results/results.html", is_logged=current_user.is_authenticated, where="results",
-                           feiseanna=feiseanna,
-                           animations=box_animations)
+                           feiseanna=feiseanna)
 
 
 @app.route("/entries/<int:feis>")
@@ -129,11 +123,10 @@ def register_page():
         comps = reg.get_all_comps_for_dancers(session['feis_id'], dancers)
 
         return render_template("registration/registerFor.html", is_logged=current_user.is_authenticated,
-                               where="register", feis_name=feis['name'], dancers=dancers, comps=comps,
-                               animations=box_animations)
+                               where="register", feis_name=feis['name'], dancers=dancers, comps=comps)
     feiseanna = db.get_all_clopen_feiseanna(True)
     return render_template("registration/register.html", is_logged=current_user.is_authenticated, where="register",
-                           feiseanna=feiseanna, animations=box_animations)
+                           feiseanna=feiseanna)
 
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -191,7 +184,7 @@ def welcome():
     dancers = db.get_dancers_with_user(current_user.id)
     feiseanna = db.get_feiseanna_with_forg(current_user.id)
     return render_template("welcome.html", is_logged=current_user.is_authenticated, where="welcome", dancers=dancers,
-                           feiseanna=feiseanna, name=current_user.name, animations=box_animations)
+                           feiseanna=feiseanna, name=current_user.name)
 
 
 @app.route("/terms")

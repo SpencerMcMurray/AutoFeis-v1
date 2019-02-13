@@ -16,12 +16,7 @@
                         </div>
                         {% if comps[dancer]|length > 0 %}
                             {% for comp in comps[dancer] %}
-                                {% if loop.index == comps[dancer]|length and comps[dancer]|length % 3 != 3 %}
-                                    {% set animation = animations[loop.index % 3] %}
-                                {% else %}
-                                    {% set animation = animations[loop.index0 % 3] %}
-                                {% endif %}
-                                <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded hide {{ animation }}" style="font-size:20px">
+                                <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded hide zoom-id" style="font-size:20px">
                                     <div style="padding: 10px 10px;">
                                         {{ comp['name'] }}<br>
                                         {{ comp['code'] }}
