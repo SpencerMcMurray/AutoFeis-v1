@@ -378,25 +378,25 @@ def delete_dancer():
 @login_required
 def edit_dancer():
     """The edit dancer page for a given dancer"""
-    # TODO: Add current info as default input values
     if request.method != "POST":
+        return redirect(url_for('welcome'))
+    form = CreateDancer(request.form)
+    errors = list()
+    # If we have submitted an update, error check and update
+    if 'id' in request.form:
+        errors = dcr.fetch_dancer_errors(form)
+        if len(errors) > 0:
+            return render_template("createDancer/editDancer.html", is_logged=current_user.is_authenticated,
+                                   where="welcome", form=form, id=request.form.get('id', -1), errors=errors,
+                                   name=request.form.get('name', ''))
+        db.update_dancer(request.form.get('id', -1), request.form.get('f_name', ''), request.form.get('l_name', ''),
+                         request.form.get('school', ''),  request.form.get('year', -1), request.form.get('level', ''),
+                         request.form.get('gender', ''), int(request.form.get('show', -1)))
         return redirect(url_for('welcome'))
     dancer = db.get_dancer_from_id(request.form.get('dancerId', 0))
-    form = dcr.set_defaults_for_dancer(dancer, CreateDancer(request.form))
+    form = dcr.set_defaults_for_dancer(dancer, form)
     return render_template("createDancer/editDancer.html", is_logged=current_user.is_authenticated, where="welcome",
-                           form=form, id=dancer['id'])
-
-
-@app.route("/welcome/edit_dancer/alter", methods=["POST"])
-@login_required
-def alter_dancer():
-    """The path through altering a dancer"""
-    if request.method != "POST":
-        return redirect(url_for('welcome'))
-    db.update_dancer(request.form.get('id', -1), request.form.get('f_name', ''), request.form.get('l_name', ''),
-                     request.form.get('school', ''),  request.form.get('year', -1), request.form.get('level', ''),
-                     request.form.get('gender', ''), int(request.form.get('show', -1)))
-    return redirect(url_for('welcome'))
+                           form=form, id=dancer['id'], errors=errors, name=dancer['fName'])
 
 
 @app.route("/welcome/organize", methods=['POST'])

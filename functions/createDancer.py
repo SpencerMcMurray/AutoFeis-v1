@@ -24,7 +24,7 @@ def fetch_dancer_errors(form):
     errors = list()
     if len(form.f_name.data) <= 0 or len(form.l_name.data) <= 0:
         errors.append("Name field(s) left blank")
-    if len(form.f_name.data) > 100 or len(form.l_name.data) > 100:
+    if len(form.f_name.data) >= 100 or len(form.l_name.data) >= 100:
         errors.append("Name field(s) too long")
     return errors
 

@@ -13,10 +13,10 @@
             {% endif %}
             <div class="container-fluid">
                 <div class="title">
-                    <h1 class="display-3">Add a dancer</h1>
+                    <h1 class="display-3">Edit {{ name }}'s Info</h1>
                 </div>
             </div>
-            <form method="POST" action="{{ url_for('alter_dancer') }}">
+            <form method="POST">
                 <div class="text-left feis-box mx-auto sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded" style="font-size:20px">
                     <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
                         <label for="fname">First Name</label>
@@ -50,6 +50,7 @@
                         <button type="submit" class="btn btn-primary">Alter</button>
                     </div>
                     <input type="hidden" name="id" value="{{ id }}">
+                    <input type="hidden" name="name" value="{{ name }}">
                 </div>
             </form>
         </div>
