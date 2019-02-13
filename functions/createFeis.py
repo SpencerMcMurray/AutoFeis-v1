@@ -410,8 +410,8 @@ def get_comps_from_session(session):
     return comps
 
 
-def fetch_feis_errors(form, date, file, max_size):
-    """(Form, str, dict of obj, int) -> list of str
+def fetch_feis_errors(form, date, file, max_size, is_edit):
+    """(Form, str, dict of obj, int, bool) -> list of str
     Returns the list of errors generated from the given input
     """
     errors = list()
@@ -426,13 +426,14 @@ def fetch_feis_errors(form, date, file, max_size):
     if len(form.website.data) < 0:
         errors.append("Website is empty. Use our website if your feis doesnt have one, it can be edited later")
     if len(form.website.data) >= 2083:
-        errors.append("Website is too long. If this is an issue, contact us")
+        errors.append("Website is too long. Try using the front page")
     if dt.datetime.strptime(date, "%Y-%m-%d").date() < dt.date.today():
         errors.append("Date chosen is before today")
-    if file is None:
+    if file is None and not is_edit:
         errors.append("No syllabus given")
-    elif file.content_type != 'application/pdf':
-        errors.append("Syllabus must be a pdf")
-    elif file.content_length >= max_size:
-        errors.append("Syllabus file is too big")
+    elif file is not None:
+        if file.content_type != 'application/pdf':
+            errors.append("Syllabus must be a pdf")
+        if file.content_length >= max_size:
+            errors.append("Syllabus file is too big")
     return errors

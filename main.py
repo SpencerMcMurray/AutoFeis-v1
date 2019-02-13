@@ -309,7 +309,7 @@ def info_add_feis():
     if request.method == "POST":
         print(request.files['syllabus'].content_type)
         errors = cf.fetch_feis_errors(info_form, request.form.get('date'), request.files.get('syllabus', None),
-                                      app.config['MAX_CONTENT_LENGTH'])
+                                      app.config['MAX_CONTENT_LENGTH'], False)
         if len(errors) > 0:
             return render_template("createFeis/addFeisInfo.html", is_logged=current_user.is_authenticated,
                                    where='welcome', form=info_form, errors=errors)
@@ -418,9 +418,15 @@ def edit_feis():
     """The edit feis function page"""
     if request.method == 'POST':
         feis_id = request.form.get('feisId', 0)
-        if 'go' in session:
-            session.pop('go')
-
+        feis = db.get_feis_with_id(feis_id)
+        form = FeisInfoForm(request.form)
+        errors = list()
+        if 'name' in request.form:
+            errors = cf.fetch_feis_errors(form, request.form.get('date'), request.files.get('syllabus', None),
+                                          app.config['MAX_CONTENT_LENGTH'], True)
+            if len(errors) > 0:
+                return render_template("functions/editFeisInfo.html", is_logged=current_user.is_authenticated,
+                                       where="welcome", feis=feis, form=form, errors=errors)
             # Update feis
             db.update_feis(feis_id, request.form.get('name'), request.form.get('date'), request.form.get('location'),
                            request.form.get('region'), request.form.get('website'))
@@ -430,11 +436,9 @@ def edit_feis():
                 file = request.files['syllabus']
                 cf.upload_file(file, feis_id, app.config["UPLOAD_FOLDER"])
             return redirect(url_for('welcome'))
-        session['go'] = True
-        feis = db.get_feis_with_id(feis_id)
-        form = cf.set_defaults_for_feis(feis, FeisInfoForm(request.form))
+        form = cf.set_defaults_for_feis(feis, form)
         return render_template("functions/editFeisInfo.html", is_logged=current_user.is_authenticated, where="welcome",
-                               feis=feis, form=form)
+                               feis=feis, form=form, errors=errors)
     return redirect(url_for("welcome"))
 
 
