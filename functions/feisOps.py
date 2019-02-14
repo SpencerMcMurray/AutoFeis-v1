@@ -48,6 +48,41 @@ def nested_empty_lists(in_list):
     return ret_bool
 
 
+def get_formatted_competitions(feis_id):
+    """(int) -> dict of str:list of dict of str:obj
+    Return the formatted comps in the style that is used in a way like the add feis show template
+    """
+    db = Database()
+    comps = dict()
+    q = """SELECT * FROM `competition` WHERE `level` = %s AND `feis` = %s ORDER BY `dance`, `level`, `minAge`"""
+    db.cur.execute(q, ("Main", feis_id))
+    mains = db.cur.fetchall()
+    # If there are no mains, then get all levels
+    if len(mains) == 0:
+        levels = ["Open Championship", "Preliminary Championship", "Preliminary Championship Set", "Beginner",
+                  "Advanced Beginner", "Novice", "Open Prizewinner"]
+        for level in levels:
+            db.cur.execute(q, (level, feis_id))
+            comps[level] = db.cur.fetchall()
+    else:
+        comps["Main"] = mains
+    # Get remaining comps
+    q = """SELECT * FROM `competition` WHERE `feis` = %s AND `level` != %s AND `level` != %s AND `level` != %s AND
+           `level` != %s AND `level` != %s AND `level` != %s AND `level` != %s AND `level` != %s 
+           ORDER BY `dance`, `level`, `minAge`"""
+    db.cur.execute(q, (feis_id, "Main", "Open Championship", "Preliminary Championship", "Novice", "Open Prizewinner"
+                       "Preliminary Championship Set", "Beginner", "Advanced Beginner"))
+    extras = db.cur.fetchall()
+    i = 0
+    while i < len(extras):
+        curr_level = extras[i]['level']
+        comps[curr_level] = list()
+        while extras[i]['level'] == curr_level:
+            comps[curr_level].append(extras[i])
+            i += 1
+    return comps
+
+
 def make_titles_tables_for(feis_id, comp_type):
     """(int, str) -> list of str, list of list of dict of str:obj
     Makes all the titles for the tables, and also fetches all the competitions necessary for each type

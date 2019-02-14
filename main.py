@@ -509,6 +509,7 @@ def choose_comp_type():
     """The page displaying the competition types to show
     TODO: Merge with show_comps, that'd be cool"""
     if request.method == "POST":
+        comps = fops.get_formatted_competitions(request.form.get('feisId', 0))
         comp_types = ["Main", "Treble Reel", "Figure", "Art", "Special"]
         return render_template("functions/pickCompType.html", is_logged=current_user.is_authenticated, where="welcome",
                                comp_types=comp_types, feis_id=request.form.get('feisId', 0))
