@@ -1,0 +1,49 @@
+{% extends "generalTemplates/outline.html" %}
+{% block body %}
+    <body>
+        <div class="sub-box">
+            <div class="container-fluid">
+                <div class="title">
+                    <h1 class="display-3">Competitions for {{ name }}</h1>
+                </div>
+            </div>
+            <div class="container">
+                {% for level in comps %}
+                    <div class="title">
+                        <h1 class="display-4">{{ level }}</h1>
+                    </div>
+                    <div class="mx-auto container d-flex p-2 flex-wrap align-items-center justify-content-center" style="font-size: 20px">
+                        {% for comp in comps[level] %}
+                            {% set comp = comp.get_data() %}
+                            <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded" style="height: 340px;">
+                                <div class="col-md-10 py-2">
+                                    <strong>{{ comp[2] }}</strong>
+                                </div>
+                                <div class="col-md-12 py-2">
+                                    <strong>{{ comp[3] }}</strong>
+                                </div>
+                                <div class="col-md-12 py-2">
+                                    <strong>Ages:</strong> {{ comp[0] }} to {{ comp[1] }}
+                                </div>
+                                <div class="col-md-12 py-2">
+                                    <strong>Levels:</strong>  {{ comp[5] }}
+                                </div>
+                                <div class="col-md-12 py-2">
+                                    <strong>Genders:</strong>  {{ comp[4] }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% if loop.index != comps|length %}
+                        <hr>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <form action="{{ url_for('info_add_feis') }}">
+                <div class="text-center form-group col-md-12 justify-content-center" style="padding-bottom: 10px;">
+                    <button type="submit" class="btn btn-primary">Next</button>
+                </div>
+            </form>
+        </div>
+    </body>
+{% endblock body %}

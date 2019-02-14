@@ -503,28 +503,16 @@ def split_age():
     return redirect(url_for("welcome"))
 
 
-@app.route("/welcome/organize/choose", methods=["POST"])
-@login_required
-def choose_comp_type():
-    """The page displaying the competition types to show
-    TODO: Merge with show_comps, that'd be cool"""
-    if request.method == "POST":
-        comps = fops.get_formatted_competitions(request.form.get('feisId', 0))
-        comp_types = ["Main", "Treble Reel", "Figure", "Art", "Special"]
-        return render_template("functions/pickCompType.html", is_logged=current_user.is_authenticated, where="welcome",
-                               comp_types=comp_types, feis_id=request.form.get('feisId', 0))
-    return redirect(url_for("welcome"))
-
-
-@app.route("/welcome/organize/choose/show", methods=["POST"])
+@app.route("/welcome/organize/show", methods=["POST"])
 @login_required
 def show_comps():
     """The Page displaying all competitions of the given type"""
     if request.method == "POST":
-        feis_id, comp_type = request.form.get('feisId'), request.form.get('type')
-        titles, tables = fops.make_titles_tables_for(feis_id, comp_type)
-        return render_template("functions/showCompType.html", is_logged=current_user.is_authenticated, where="welcome",
-                               titles=titles, tables=tables)
+        feis_id = request.form.get('feisId')
+        name = db.get_feis_with_id('feisId')['name']
+        comps = fops.get_formatted_competitions(feis_id)
+        return render_template("functions/showComp.html", is_logged=current_user.is_authenticated, where="welcome",
+                               comps=comps, name=name)
     return redirect(url_for("welcome"))
 
 

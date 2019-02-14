@@ -26,7 +26,7 @@
                         <button type="button" class="btn btn-primary btn-lg" onclick="blockAccess();">Merge/Split</button>
                     </div>
                 {% endif %}<hr style="width: 80%;" class="my-1">
-                <form class="col-md-12 justify-content-center align-items-center my-3" method="POST" action="{{ url_for('choose_comp_type') }}">
+                <form class="col-md-12 justify-content-center align-items-center my-3" method="POST" action="{{ url_for('show_comps') }}">
                     <div class="text-center form-group col-md-12 justify-content-center my-2">
                         <input type="hidden" value="{{ feis_id }}" name="feisId" />
                         <button type="submit" class="btn btn-primary btn-lg">Show Competitions</button>
