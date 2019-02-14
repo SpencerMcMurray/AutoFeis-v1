@@ -70,14 +70,14 @@ def get_formatted_competitions(feis_id):
     q = """SELECT * FROM `competition` WHERE `feis` = %s AND `level` != %s AND `level` != %s AND `level` != %s AND
            `level` != %s AND `level` != %s AND `level` != %s AND `level` != %s AND `level` != %s 
            ORDER BY `dance`, `level`, `minAge`"""
-    db.cur.execute(q, (feis_id, "Main", "Open Championship", "Preliminary Championship", "Novice", "Open Prizewinner"
+    db.cur.execute(q, (feis_id, "Main", "Open Championship", "Preliminary Championship", "Novice", "Open Prizewinner",
                        "Preliminary Championship Set", "Beginner", "Advanced Beginner"))
     extras = db.cur.fetchall()
     i = 0
     while i < len(extras):
         curr_level = extras[i]['level']
         comps[curr_level] = list()
-        while extras[i]['level'] == curr_level:
+        while i < len(extras) and extras[i]['level'] == curr_level:
             comps[curr_level].append(extras[i])
             i += 1
     return comps
