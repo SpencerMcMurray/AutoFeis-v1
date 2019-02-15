@@ -1,53 +1,38 @@
 {% extends "generalTemplates/outline.html" %}
 {% block body %}
-    <style>
-        table {
-            margin:0 auto;
-            font-size:20px;
-            border:2px solid black;
-        } th, td {
-            padding: 15px;
-            border: 2px solid black;
-        } td {
-            text-align: center;
-        }
-        table tr:nth-child(odd) {
-            background-color: #eee;
-        }
-        table tr:nth-child(even) {
-            background-color: #fff;
-        }
-        p {
-            font-size: 15px;
-        }
-    </style>
     <body>
-        <h1 style="font-family:Teko;font-size:50px">Splitting: {{ comp['code'] }}</h1><hr>
-        {% if comp['minAge'] == comp['maxAge'] %}
-            <p>
-                This competition only covers one age group, would you like to split it into two separate competitions?
-            </p>
-            <form style="text-align: center" method="POST" action="{{ url_for('split_ab') }}">
-                <input type="hidden" value="{{ comp['id'] }}" name="compId">
-                <input type="submit" value="Yes">
-            </form>
-            <b>
-                (Note: Competitors will be distributed randomly, but the size of the competitions will be at most
-                 within one competitor of each other)
-            </b>
-        {% else %}
-            <p>
-                This competition covers many ages, please choose the starting age of the older split
-            </p>
-            <form style="text-align: center" method="POST" action="{{ url_for('split_age') }}">
-                <input type="hidden" value="{{ comp['id'] }}" name="compId">
-                <select name="age">
-                    {% for age in ages %}
-                        <option value="{{ age }}">{{ age }}</option>
-                    {% endfor %}
-                </select>
-                <input type="submit" value="Split">
-            </form>
-        {% endif %}
+        <div class="sub-box">
+            <div class="container-fluid">
+                <div class="title">
+                    <h1 class="display-3">Splitting {{ comp['code'] }}</h1>
+                </div>
+            </div>
+            {% if comp['minAge'] == comp['maxAge'] %}
+                <p style="margin: 0 auto;font-size:25px;">
+                    This competition only covers one age group, would you like to split it into two separate competitions?
+                </p><br>
+                <form method="POST" action="{{ url_for('split_ab') }}">
+                    <input type="hidden" value="{{ comp['id'] }}" name="compId">
+                    <button type="submit" class="btn btn-primary">Split</button>
+                </form>
+            {% else %}
+                <form method="POST" action="{{ url_for('split_age') }}">
+                    <div class="text-left feis-box mx-auto sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded">
+                        <input type="hidden" value="{{ comp['id'] }}" name="compId">
+                        <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
+                            <label for="age">Older Split Starting Age</label>
+                            <select class="form-control" name="age" id="age">
+                                {% for age in ages %}
+                                    <option value="{{ age }}">{{ age }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="text-center form-group col-md-12 justify-content-center" style="padding-bottom: 10px;">
+                            <button type="submit" class="btn btn-primary">Split</button>
+                        </div>
+                    </div>
+                </form>
+            {% endif %}
+        </div>
     </body>
 {% endblock body %}
