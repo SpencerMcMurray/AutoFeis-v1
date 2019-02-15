@@ -282,6 +282,7 @@ def unique_add_feis():
 @login_required
 def show_add_feis():
     """Add feis: Show all comps page"""
+    # TODO: Make look a bit cleaner
     special = dict()
     special['start_age'] = request.args.getlist('SPStartAge[]')
     special['end_age'] = request.args.getlist('SPEndAge[]')
@@ -507,11 +508,12 @@ def split_age():
 @login_required
 def show_comps():
     """The Page displaying all competitions of the given type"""
+    # TODO: Make look a bit cleaner
     if request.method == "POST":
         feis_id = request.form.get('feisId')
         name = db.get_feis_with_id(feis_id)['name']
         comps = fops.get_formatted_competitions(feis_id)
-        return render_template("functions/showComp.html", is_logged=current_user.is_authenticated, where="welcome",
+        return render_template("functions/showComps.html", is_logged=current_user.is_authenticated, where="welcome",
                                comps=comps, name=name)
     return redirect(url_for("welcome"))
 

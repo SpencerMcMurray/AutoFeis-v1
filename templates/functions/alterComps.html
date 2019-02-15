@@ -1,49 +1,36 @@
 {% extends "generalTemplates/outline.html" %}
 {% block body %}
-    <style>
-        table {
-            margin:0 auto;
-            font-size:20px;
-            border:2px solid black;
-        } th, td {
-            padding: 15px;
-            border: 2px solid black;
-        } td {
-            text-align: center;
-        }
-        table tr:nth-child(odd) {
-            background-color: #eee;
-        }
-        table tr:nth-child(even) {
-            background-color: #fff;
-        }
-    </style>
     <body>
-        <h1 style="font-family:Teko;font-size:50px">Which competition do you want to alter?</h1>
-        <table>
-            <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th colspan="2">Alter</th>
-            </tr>
-            {% for comp in comps %}
-                <tr>
-                    <td>{{ comp['code'] }}</td>
-                    <td>{{ comp['name'] }}</td>
-                    <td>
-                        <form method="POST" action="{{ url_for('merge') }}">
-                            <input type="hidden" value="{{ comp['id'] }}" name="compId">
-                            <input type="submit" value="Merge">
-                        </form>
-                    </td>
-                    <td>
-                        <form method="POST" action="{{ url_for('split') }}">
-                            <input type="hidden" value="{{ comp['id'] }}" name="compId">
-                            <input type="submit" value="Split">
-                        </form>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
+        <div class="sub-box">
+            <div class="container-fluid">
+                <div class="title">
+                    <h1 class="display-3">Choose a Feis to Alter</h1>
+                </div>
+            </div>
+            <div class="container">
+                {% for comp in comps %}
+                    <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded hide zoom-id" style="font-size:20px">
+                        <div style="padding: 10px 10px;" class="container-fluid">
+                            {{ comp['name'] }}<br>
+                            {{ comp['code'] }}
+                        </div>
+                        <div class="container d-flex align-items-center justify-content-center">
+                            <div class="col-md-5 d-flex flex-wrap align-items-center justify-content-center py-4">
+                                <form class="mx-auto" method="POST" action="{{ url_for('merge') }}">
+                                    <input type="hidden" value="{{ comp['id'] }}" name="compId">
+                                    <button type="submit" class="btn btn-primary">Merge</button>
+                                </form>
+                            </div>
+                            <div class="col-md-5 d-flex flex-wrap align-items-center justify-content-center py-4">
+                                <form class="mx-auto" method="POST" action="{{ url_for('split') }}">
+                                    <input type="hidden" value="{{ comp['id'] }}" name="compId">
+                                    <button type="submit" class="btn btn-primary">Split</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </body>
 {% endblock body %}
