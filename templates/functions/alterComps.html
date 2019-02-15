@@ -4,12 +4,12 @@
         <div class="sub-box">
             <div class="container-fluid">
                 <div class="title">
-                    <h1 class="display-3">Choose a Feis to Alter</h1>
+                    <h1 class="display-3">Choose a Competition to Alter</h1>
                 </div>
             </div>
-            <div class="container">
+            <div class="container flex-wrap d-flex align-items-center justify-content-center">
                 {% for comp in comps %}
-                    <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded hide zoom-id" style="font-size:20px">
+                    <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded hide zoom-id" style="font-size:20px;height: 260px;">
                         <div style="padding: 10px 10px;" class="container-fluid">
                             {{ comp['name'] }}<br>
                             {{ comp['code'] }}

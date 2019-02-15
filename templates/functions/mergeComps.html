@@ -1,49 +1,36 @@
 {% extends "generalTemplates/outline.html" %}
 {% block body %}
-    <style>
-        table {
-            margin:0 auto;
-            font-size:20px;
-            border:2px solid black;
-        } th, td {
-            padding: 15px;
-            border: 2px solid black;
-        } td {
-            text-align: center;
-        }
-        table tr:nth-child(odd) {
-            background-color: #eee;
-        }
-        table tr:nth-child(even) {
-            background-color: #fff;
-        }
-    </style>
     <body>
-        <h1 style="font-family:Teko;font-size:50px">Select the competition to merge with {{ comp['code'] }}</h1>
-        <table>
-            <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Select</th>
-            </tr>
-            {% for compat_comp in merge %}
-                <tr>
-                    <td>{{ compat_comp['code'] }}</td>
-                    <td>{{ compat_comp['name'] }}</td>
-                    <td>
-                        <form method="POST">
-                            {% if compat_comp['maxAge'] > comp['maxAge'] %}
-                                <input type="hidden" value="{{ comp['id'] }}" name="compatCompId">
-                                <input type="hidden" value="{{ compat_comp['id'] }}" name="compId">
-                            {% else %}
-                                <input type="hidden" value="{{ compat_comp['id'] }}" name="compatCompId">
-                                <input type="hidden" value="{{ comp['id'] }}" name="compId">
-                            {% endif %}
-                            <input type="submit" value="Merge">
-                        </form>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
+        <div class="sub-box">
+            <div class="container-fluid">
+                <div class="title">
+                    <h1 class="display-3">Choose the Competition to Merge With {{ comp['code'] }}</h1>
+                </div>
+            </div>
+            <div class="container flex-wrap d-flex align-items-center justify-content-center">
+                {% for compat_comp in merge %}
+                    <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded hide zoom-id" style="font-size:20px;height: 260px;">
+                        <div style="padding: 10px 10px;" class="container-fluid">
+                            {{ compat_comp['name'] }}<br>
+                            {{ compat_comp['code'] }}
+                        </div>
+                        <div class="container d-flex align-items-center justify-content-center">
+                            <div class="col-md-5 d-flex flex-wrap align-items-center justify-content-center py-4">
+                                <form class="mx-auto" method="POST">
+                                    {% if compat_comp['maxAge'] > comp['maxAge'] %}
+                                        <input type="hidden" value="{{ comp['id'] }}" name="compatCompId">
+                                        <input type="hidden" value="{{ compat_comp['id'] }}" name="compId">
+                                    {% else %}
+                                        <input type="hidden" value="{{ compat_comp['id'] }}" name="compatCompId">
+                                        <input type="hidden" value="{{ comp['id'] }}" name="compId">
+                                    {% endif %}
+                                    <button type="submit" class="btn btn-primary">Merge</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </body>
 {% endblock body %}
