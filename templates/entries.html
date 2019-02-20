@@ -16,19 +16,17 @@
                     </div>
                     <div class="sub-title border border-dark rounded bd-highlight container d-flex flex-wrap align-items-center justify-content-center hide zoom-id" style="margin: 0 auto;border: 1px solid rgb(25, 25, 25);background-color: rgb(245, 245, 245);">
                         {% for dancer in entry %}
-                            {% if loop.index == entry|length %}
-                                {% set extra_border = "" %}
-                            {% else %}
-                                {% set extra_border = "border-bottom border-dark" %}
-                            {% endif %}
-                            <div class="text-left py-2 {{ extra_border }} col-md-12 d-flex flex-wrap align-items-center justify-content-center">
-                                <div class="col-sm-5 d-flex flex-wrap align-items-center justify-content-end" style="font-size:20px">
-                                    <h1 style="font-size: 25px;">{{ dancer }}</h1>
+                            <div class="text-left py-2 col-md-12 d-flex flex-wrap align-items-center justify-content-center">
+                                <div class="col-sm-5 d-flex flex-wrap align-items-center justify-content-end">
+                                    <p style="font-size: 25px;">{{ dancer }}</p>
                                 </div>
-                                <div class="col-sm-5 d-flex flex-wrap align-items-center justify-content-start" style="font-size:20px">
-                                    <h1 style="font-size: 25px;">{{ entries['schools'][i][loop.index0] }}</h1>
+                                <div class="col-sm-5 d-flex flex-wrap align-items-center justify-content-start">
+                                    <p style="font-size: 25px;">{{ entries['schools'][i][loop.index0] }}</p>
                                 </div>
                             </div>
+                            {% if loop.index != entry|length %}
+                                <hr style="width: 80%;" class="my-1">
+                            {% endif %}
                         {% endfor %}
                     </div>
                 {% endfor %}
