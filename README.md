@@ -23,10 +23,6 @@ competitions with handwritten marks as well.
 
 *Spencer McMurray*, Computer Science student at The University of Toronto
 
-## License
-
-*Insert licence info here*
-
 ## Acknowledgments
 
 * Convolutional neural network is altered from [this repo](https://github.com/Hvass-Labs/TensorFlow-Tutorials)
