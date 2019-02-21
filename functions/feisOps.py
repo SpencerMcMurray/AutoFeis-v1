@@ -25,7 +25,7 @@ def get_sheets_for_comps(comps):
         # You need one sheet for every(up to) 17 dancers
         entries = math.ceil(entries/DANCERS_PER_PAGE)
         total += entries
-        data.append({'name': comp['name'], 'code': comp['code'], 'entries': entries})
+        data.append({'name': comp['name'], 'code': comp['code'], 'entries': entries, 'level': comp['level']})
     db.con.close()
     gc.collect()
     return data, total

@@ -60,7 +60,7 @@ def get_comps_from_feis_id(feis_id):
     Gets all competitions associated with the given feis id
     """
     db = Database()
-    q = """SELECT `id`, `name`, `code` FROM `competition` WHERE `feis` = %s ORDER BY `dance`, `level`, `minAge`"""
+    q = """SELECT * FROM `competition` WHERE `feis` = %s ORDER BY `dance`, `level`, `minAge`"""
     db.cur.execute(q, feis_id)
     comps = db.cur.fetchall()
     db.con.close()
