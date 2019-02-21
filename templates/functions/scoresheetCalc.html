@@ -1,35 +1,65 @@
 {% extends "generalTemplates/outline.html" %}
 {% block body %}
     <script type="text/javascript">
+    function updateTotal(toAdd, prevTotal) {
+        var total = prevTotal + toAdd;
+        console.log("Total: " + total);
+        console.log("To Add: " + toAdd);
+        console.log("Prev Total: " + prevTotal);
+        $('#total').text('Total Required: ' + total);
+        return total;
+    }
     $(document).ready(function (e) {
+        var prevTotal = 0;
         $('#champ').change(function () {
            var mult = parseInt($(this).val());
-           $('.Open.Championship').each(function () {
-               var newVal = mult * parseInt($(this).parent().find('td:last').text());
-               $(this).text(newVal);
-           });
+           if(!isNaN(mult)) {
+               $('.Open.Championship').each(function () {
+                   var origVal = parseInt($(this).parent().find('td:last').text());
+                   var oldVal = parseInt($(this).text());
+                   var newVal = mult * origVal;
+                   $(this).text(newVal);
+                   prevTotal = updateTotal(newVal - oldVal, prevTotal);
+               });
+           }
         });
         $('#prelim').change(function () {
            var mult = parseInt($(this).val());
-           $('.Preliminary.Championship').each(function () {
-               var newVal = mult * parseInt($(this).parent().find('td:last').text());
-               $(this).text(newVal);
-           });
+           if(!isNaN(mult)) {
+               $('.Preliminary.Championship').each(function () {
+                   var origVal = parseInt($(this).parent().find('td:last').text());
+                   var oldVal = parseInt($(this).text());
+                   var newVal = mult * origVal;
+                   $(this).text(newVal);
+                   prevTotal = updateTotal(newVal - oldVal, prevTotal);
+               });
+           }
         });
         $('#set').change(function () {
            var mult = parseInt($(this).val());
-           $('.Preliminary.Championship.Set').each(function () {
-               var newVal = mult * parseInt($(this).parent().find('td:last').text());
-               $(this).text(newVal);
-           });
+           if(!isNaN(mult)) {
+               $('.Preliminary.Championship.Set').each(function () {
+                   var origVal = parseInt($(this).parent().find('td:last').text());
+                   var oldVal = parseInt($(this).text());
+                   var newVal = mult * origVal;
+                   $(this).text(newVal);
+                   prevTotal = updateTotal(newVal - oldVal, prevTotal);
+               });
+           }
         });
         $('#grades').change(function () {
            var mult = parseInt($(this).val());
-           $('.Grades').each(function () {
-               var newVal = mult * parseInt($(this).parent().find('td:last').text());
-               $(this).text(newVal);
-           });
+           if(!isNaN(mult)) {
+               $('.Grades').each(function () {
+                   var origVal = parseInt($(this).parent().find('td:last').text());
+                   var oldVal = parseInt($(this).text());
+                   var newVal = mult * origVal;
+                   $(this).text(newVal);
+                   prevTotal = updateTotal(newVal - oldVal, prevTotal);
+               });
+           }
         });
+        prevTotal = updateTotal(parseInt($('#origTotal').text()), prevTotal);
     });
     </script>
     <body>
@@ -37,7 +67,8 @@
             <div class="container-fluid">
                 <div class="title">
                     <h1 class="display-3">Scoresheet Calculator</h1>
-                    <h1 class="display-4">Total Required: {{ total }}</h1>
+                    <h1 class="display-4" id="total"></h1>
+                    <p id="origTotal" hidden>{{ total }}</p>
                 </div>
             </div>
             <div class="container">
@@ -75,7 +106,7 @@
                         {% for sheet in sheets %}
                             <tr>
                                 <td>{{ sheet['name'] }}</td>
-                                <td class="{{ sheet['level'] }}">{{ sheet['entries'] }}</td>
+                                <td class="{{ sheet['level'] }} toAdd">{{ sheet['entries'] }}</td>
                                 <td hidden>{{ sheet['entries'] }}</td>
                             </tr>
                         {% endfor %}
