@@ -72,24 +72,24 @@
                 </div>
             </div>
             <div class="container">
-                <p style="font-size: 20px">Judges per Competition</p>
+                <p style="font-size: 25px">Judges per Competition</p>
                 <form>
                     <div class="text-center feis-box mx-auto sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded mt-0" style="width: auto;">
                         <div class="form-group col-md-3 align-items-center justify-content-center">
                             <label for="champ">Open Championship</label>
-                            <input class="form-control" type="text" id="champ" placeholder="Enter a Number">
+                            <input class="form-control" type="text" id="champ" placeholder="Number of Judges">
                         </div>
                         <div class="form-group col-md-3 align-items-center justify-content-center">
                             <label for="prelim">Preliminary Championship</label>
-                            <input class="form-control" type="text" id="prelim" placeholder="Enter a Number">
+                            <input class="form-control" type="text" id="prelim" placeholder="Number of Judges">
                         </div>
                         <div class="form-group col-md-3 align-items-center justify-content-center">
                             <label for="set">Prelim. Championship Set</label>
-                            <input class="form-control" type="text" id="set" placeholder="Enter a Number">
+                            <input class="form-control" type="text" id="set" placeholder="Number of Judges">
                         </div>
                         <div class="form-group col-md-3 align-items-center justify-content-center">
                             <label for="grades">Grades</label>
-                            <input class="form-control" type="text" id="grades" placeholder="Enter a Number">
+                            <input class="form-control" type="text" id="grades" placeholder="Number of Judges">
                         </div>
                     </div>
                 </form>
@@ -104,11 +104,13 @@
                     </thead>
                     <tbody>
                         {% for sheet in sheets %}
-                            <tr>
-                                <td>{{ sheet['name'] }}</td>
-                                <td class="{{ sheet['level'] }} toAdd">{{ sheet['entries'] }}</td>
-                                <td hidden>{{ sheet['entries'] }}</td>
-                            </tr>
+                            {% if sheet['entries'] > 0 %}
+                                <tr>
+                                    <td>{{ sheet['name'] }}</td>
+                                    <td class="{{ sheet['level'] }} toAdd">{{ sheet['entries'] }}</td>
+                                    <td hidden>{{ sheet['entries'] }}</td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
                     </tbody>
                 </table>
