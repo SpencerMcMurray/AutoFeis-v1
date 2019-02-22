@@ -5,7 +5,7 @@ import time
 from datetime import timedelta
 import os
 
-data = input_data.read_data_sets("MNIST_data/", one_hot=True)
+data = input_data.read_data_sets("../../static/tabulation/MNIST_data/", one_hot=True)
 data.test.cls = np.argmax(data.test.labels, axis=1)
 data.validation.cls = np.argmax(data.validation.labels, axis=1)
 

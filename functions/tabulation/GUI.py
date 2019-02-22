@@ -17,7 +17,7 @@ def go_to_site(ext=''):
     """(str) -> NoneType
     Opens the website for ease of access, ext is any extension required.
     """
-    wb.open('https://www.autofeis.ca/' + ext)
+    wb.open('https://www.autofeis.com/' + ext)
 
 
 class Window(tk.Tk):

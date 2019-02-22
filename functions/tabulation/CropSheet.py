@@ -79,7 +79,7 @@ def find_squares(in_file, num_rounds):
         # Not an ideal solution, but not a common problem, only arises when decimals are placed outside the boxes.
         if last_x != 0 and last_x - rect.tl[0] not in range(-500, 500):
             while len(cropped_images) % (4 + 3 * num_rounds) != 0:
-                img = cv2.imread("filler.png")
+                img = cv2.imread("../../static/tabulation/filler.png")
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
                 cropped_images.append(img)
         last_x = rect.tl[0]

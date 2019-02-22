@@ -15,7 +15,7 @@ def build_individuals(dancers, feis_name, comp_name, judge_names):
     num_judges = len(dancers[0].scores)
     num_rounds = len(dancers[0].scores[0]) - 1
 
-    wb = xl.load_workbook("outlines/" + str(num_judges) + "j" + str(num_rounds) + "r" + ".xlsx")
+    wb = xl.load_workbook("../../static/tabulation/outlines/" + str(num_judges) + "j" + str(num_rounds) + "r" + ".xlsx")
     ws = wb["Sheet1"]
 
     # General setup for all dancers.
@@ -81,7 +81,7 @@ def build_individuals(dancers, feis_name, comp_name, judge_names):
         for k in range(num_judges):
             total += ws[ALPHA[5 + k * 4] + "3"].value
         ws["O3"] = total
-        wb.save("to_print/" + comp_name + "/dancer#" +
+        wb.save("../../static/tabulation/output/" + comp_name + "/dancer#" +
                 str(int(dancers[i].dancer_num)) + ".xlsx")
 
 
@@ -89,7 +89,7 @@ def build_placers(dancers, comp_name):
     """(list of Dancer, str) -> NoneType
     Builds the overall results for the competition. Saves to to_print/<comp name>/overall.xlsx
     """
-    wb = xl.load_workbook("outlines/overall.xlsx")
+    wb = xl.load_workbook("../../static/tabulation/outlines/overall.xlsx")
     ws = wb["Sheet1"]
     ws["E1"] = comp_name
 
@@ -101,14 +101,14 @@ def build_placers(dancers, comp_name):
         ws["B" + str(i * 2 + 2)] = dancers[i].dancer_num
         ws["C" + str(i * 2 + 2)] = "Spencer McMurray"  # Get their name
         ws["C" + str(i * 2 + 3)] = "BFOC"  # Get their school.
-    wb.save("to_print/" + comp_name + "/" + "overall" + ".xlsx")
+    wb.save("../../static/tabulation/output/" + comp_name + "/" + "overall" + ".xlsx")
 
 
 def build_round_placers(dancers, comp_name, judge_names, judge_for_round):
     """(list of list of Dancer, str, list of str, bool) -> NoneType
     Builds the round medals for the competition. Saves to to_print/<comp name>/round_medals.xlsx
     """
-    wb = xl.load_workbook("outlines/round.xlsx")
+    wb = xl.load_workbook("../../static/tabulation/outlines/round.xlsx")
     ws = wb["Sheet1"]
     ws["A1"] = comp_name
 
@@ -128,4 +128,4 @@ def build_round_placers(dancers, comp_name, judge_names, judge_for_round):
             ws[ALPHA[1 + i * 4] + str(4 + j * 2)] = dancers[i][j].dancer_num
             ws[ALPHA[2 + i * 4] + str(4 + j * 2)] = "Spencer McMurray"
             ws[ALPHA[2 + i * 4] + str(5 + j * 2)] = "BFOC"
-    wb.save("to_print/" + comp_name + "/" + "round_medals" + ".xlsx")
+    wb.save("../../static/tabulation/output/" + comp_name + "/" + "round_medals" + ".xlsx")

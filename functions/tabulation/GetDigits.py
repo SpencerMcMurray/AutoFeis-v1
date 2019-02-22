@@ -4,7 +4,7 @@ import os.path
 import numpy as np
 
 saver = tf.train.Saver()
-save_dir = 'checkpoints/'
+save_dir = '../../static/tabulation/checkpoints/'
 save_path = os.path.join(save_dir, 'best_validation')
 
 
