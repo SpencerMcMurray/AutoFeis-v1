@@ -194,6 +194,20 @@ def terms():
     return render_template("tos.html", is_logged=current_user.is_authenticated, where="signup")
 
 
+""" TABULATION """
+
+
+@app.route("/welcome/tabulate/choose", methods=["POST"])
+@login_required
+def choose_tab_comp():
+    """The page for choosing a competition to tabulate"""
+    feis_id = request.form.get('feisId')
+    feis = db.get_feis_with_id(feis_id)
+    comps = db.get_comps_from_feis_id(feis_id)
+    return render_template("tabulation/chooseComp.html", is_logged=current_user.is_authenticated, where="welcome",
+                           feis=feis, comps=comps)
+
+
 """ ADD FEIS """
 
 

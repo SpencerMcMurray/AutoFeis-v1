@@ -57,11 +57,19 @@
                                 <b>{{ feis['name']}}</b><br>
                                 {{ feis['date'].strftime('%B %d, %Y') }}
                             </div>
-                            <div style="padding: 10px 10px;width: 100%;">
-                                <form method="POST" action="{{ url_for('feis_functions') }}">
-                                    <input type="hidden" value="{{ feis['id'] }}" name="feisId" />
-                                    <button class="btn btn-primary" type="submit">Organize</button>
-                                </form>
+                            <div class="container-fluid d-flex flex-wrap align-items-center justify-content-center">
+                                <div class="py-3 col-6">
+                                    <form method="POST" action="{{ url_for('feis_functions') }}">
+                                        <input type="hidden" name="feisId" value="{{ feis['id'] }}" />
+                                        <button class="btn btn-primary" type="submit">Organize</button>
+                                    </form>
+                                </div>
+                                <div class="py-3 col-6">
+                                    <form method="POST" action="{{ url_for('choose_tab_comp') }}">
+                                        <input type="hidden" value="{{ feis['id'] }}" name="feisId" />
+                                        <button class="btn btn-primary" type="submit">Tabulate</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     {% endfor %}

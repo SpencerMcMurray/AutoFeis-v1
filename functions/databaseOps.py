@@ -1,7 +1,5 @@
 import gc
-
 from werkzeug.security import generate_password_hash
-
 from database import Database
 
 

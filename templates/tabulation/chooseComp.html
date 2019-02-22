@@ -1,0 +1,46 @@
+{% extends "generalTemplates/outline.html" %}
+{% block body %}
+    <body>
+        <div class="sub-box">
+            <div class="container-fluid">
+                <div class="title">
+                    <h1 class="display-3">Tabulating {{ feis['name'] }}</h1>
+                </div>
+                <div class="title">
+                    <h1 class="display-4">Choose a Competition</h1>
+                </div>
+            </div>
+            <div class="container">
+                {% if comps|length > 0 %}
+                    <table class="table table-striped table-bordered" style="font-size: 20px">
+                        <thead>
+                            <tr>
+                                <th scope="col">Competition</th>
+                                <th scope="col">Choose</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for comp in comps %}
+                                <tr>
+                                    <td>{{ comp['name'] }}</td>
+                                    <td>
+                                        {% if comp['isTab'] == 0 %}
+                                            <form method="POST" action="{{ url_for('choose_tab_comp') }}">
+                                                <input type="hidden" value="{{ feis['id'] }}" name="feisId">
+                                                <button class="btn btn-primary" type="submit">Tabulate</button>
+                                            </form>
+                                        {% else %}
+                                            <button type="button" class="btn btn-primary" disabled>Completed</button>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p style="margin: 0 auto;font-size:25px;" class="hide zoom-id">No Competitions to Tabulate</p>
+                {% endif %}
+            </div>
+        </div>
+    </body>
+{% endblock body %}
