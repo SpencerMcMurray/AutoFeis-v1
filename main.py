@@ -197,7 +197,7 @@ def terms():
 """ TABULATION """
 
 
-@app.route("/welcome/tabulate/choose", methods=["POST"])
+@app.route("/welcome/tabulate/comps", methods=["POST"])
 @login_required
 def choose_tab_comp():
     """The page for choosing a competition to tabulate"""
@@ -206,6 +206,24 @@ def choose_tab_comp():
     comps = db.get_comps_from_feis_id(feis_id)
     return render_template("tabulation/chooseComp.html", is_logged=current_user.is_authenticated, where="welcome",
                            feis=feis, comps=comps)
+
+
+@app.route("/welcome/tabulate/redirect", methods=["POST"])
+@login_required
+def render_judges():
+    """Renders to define_judges if they aren't defined, otherwise to select_sheet"""
+    feis_id = request.form.get('feisId')
+    comp_id = request.form.get('compId')
+    judges = db.get_judges_from_comp(comp_id)
+    # Add availability to use this page to add more judges later
+    if len(judges) == 0 or request.form.get('addJudges', None) is not None:
+        # Define judges
+        feis = db.get_feis_with_id(feis_id)
+        return render_template("tabulation/defineJudges.html", is_logged=current_user.is_authenticated, where="welcome",
+                               judges=judges, feis=feis)
+    comp = db.get_comp_from_id(comp_id)
+    return render_template("tabulation/selectSheet.html", is_logged=current_user.is_authenticated, where="welcome",
+                           comp=comp, judges=judges)
 
 
 """ ADD FEIS """

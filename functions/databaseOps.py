@@ -3,6 +3,19 @@ from werkzeug.security import generate_password_hash
 from database import Database
 
 
+def get_judges_from_comp(comp_id):
+    """(int) -> list of dict of str:obj
+    Returns the list of judges to the given competition
+    """
+    db = Database()
+    q = """SELECT * FROM `judge` WHERE `comp` = %s"""
+    db.cur.execute(q, comp_id)
+    judges = db.cur.fetchall()
+    db.con.close()
+    gc.collect()
+    return judges
+
+
 def delete_comp(comp_id):
     """(int) -> NoneType
     Deletes the competition with the given id
