@@ -7,7 +7,7 @@
                     <h1 class="display-3">Create new Scoresheets</h1>
                 </div>
             </div>
-            <div class="container">
+            <div id="judgeContainer" class="container">
                 {% for judge in judges %}
                     <div class="sub-title">
                         <h1 class="display-4">{{ judge['name'] }}'s Sheets</h1>
@@ -15,7 +15,6 @@
                     <table class="table table-striped table-bordered" style="font-size: 20px">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
                                 <th scope="col">Contains Data</th>
                                 <th scope="col">Enter Data</th>
                                 <th scope="col">Delete</th>
@@ -24,7 +23,6 @@
                         <tbody>
                             {% for sheet in sheets %}
                                 <tr>
-                                    <td scope="row">{{ loop.index }}</td>
                                     <td>Yes</td>
                                     <td>
                                         <form method="POST" action="{{ url_for('enter_marks') }}">

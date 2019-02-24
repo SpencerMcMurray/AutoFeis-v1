@@ -74,10 +74,9 @@ var classes = "d-flex sub-box mx-auto feis-box rounded bd-highlight p-2 align-it
 
 $(document).ready(function() {
     var id_counter = 0;
-    $('.addSheet').click(function () {
-        $(this).closest('table tbody').append(
+    $('#judgeContainer').on('click', '.addSheet', function () {
+        $(this).parent().closest('table tbody').append(
             '<tr><td scope="row">' +
-            $(this).children().length +
             '</td>' +
             '<td>No</td>' +
             '<td><form method="POST" action="/welcome/tabulate/judges/marks">' +
@@ -86,18 +85,18 @@ $(document).ready(function() {
             '<td>' + removeBtn() +
             '</td></tr>'
         );
+        console.log($(this).parent().closest('table tbody').html());
     });
     $('#addJudge').click(function () {
         $('#table tbody').append(
-            '<tr><td scope="row">' +
-            $(this).children().length +
-            '</td>' +
+            '<tr>' +
             '<td class="form-group text-left">' +
             '<input name="Judge[]" type="text" class="form-control" placeholder="Enter Name">' +
             '</td>' +
             '<td>' + removeBtn() +
             '</td></tr>'
         );
+        console.log($(this).closest('table tbody').html());
     });
     $('#addFG').click(function() {
         $('#FG .feis-box:last').after(
