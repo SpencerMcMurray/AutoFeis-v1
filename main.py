@@ -213,27 +213,37 @@ def choose_tab_comp():
 def render_judges():
     """Renders to define_judges if they aren't defined, otherwise to select_sheet"""
     comp_id = request.form.get('compId')
-    judge_id = request.form.get('judgeId', None)
-    if judge_id is not None:
-        db.delete_judge(judge_id)
-    judges_to_add = request.form.getlist('Judge')
-    print(request.form)
+    # If we are given a sheet to delete, do so
+    del_sheet_id = request.form.get('sheetId', None)
+    if del_sheet_id is not None:
+        db.delete_sheet(del_sheet_id)
+
+    # If we are given a judge to delete, do so
+    del_judge_id = request.form.get('judgeId', None)
+    if del_judge_id is not None:
+        db.delete_judge(del_judge_id)
+
+    # If we are given a list of judge names, create them
+    judges_to_add = request.form.getlist('Judge[]')
     if len(judges_to_add) > 0:
         db.create_judges(judges_to_add, comp_id)
+
+    # Start rendering either define judges, or select sheet
     comp = db.get_comp_from_id(comp_id)
     judges = db.get_judges_from_comp(comp_id)
-    # Add availability to use this page to add more judges later
     if len(judges) == 0 or request.form.get('addJudges', None) is not None:
         return render_template("tabulation/defineJudges.html", is_logged=current_user.is_authenticated, where="welcome",
                                judges=judges, comp=comp)
+    sheets = db.get_sheets_from_comp(comp_id)
     return render_template("tabulation/selectSheet.html", is_logged=current_user.is_authenticated, where="welcome",
-                           comp=comp, judges=judges)
+                           comp=comp, judges=judges, sheets=sheets)
 
 
-@app.route("/welcome/tabulate/judges/update", methods=["POST"])
+@app.route("/welcome/tabulate/judges/marks", methods=["POST"])
 @login_required
-def update_judges():
-    """Updates/Uploads judges to the given competition"""
+def enter_marks():
+    """The page for entering marks"""
+    pass
 
 
 """ ADD FEIS """

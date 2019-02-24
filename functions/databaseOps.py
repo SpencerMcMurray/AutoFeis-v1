@@ -3,6 +3,36 @@ from werkzeug.security import generate_password_hash
 from database import Database
 
 
+def delete_sheet(sheet):
+    """(int) -> NoneType
+    Deletes the sheet with given id
+    """
+    db = Database()
+    db.cur.execute("""DELETE FROM `sheet` WHERE `id` = %s""", sheet)
+    db.con.close()
+    gc.collect()
+
+
+def get_sheets_from_comp(comp):
+    """(int) -> list of dict of str:int/str
+    Returns the list of all sheets and their judge
+    """
+    db = Database()
+    q = """SELECT * FROM `judge` WHERE `comp` = %s"""
+    db.cur.execute(q, comp)
+    formatted_sheets = list()
+    judges = db.cur.fetchall()
+    q = """SELECT * FROM `sheet` WHERE `judge` = %s"""
+    for judge in judges:
+        db.cur.execute(q, judge['id'])
+        sheets = db.cur.fetchall()
+        for sheet in sheets:
+            formatted_sheets.append({'judge': judge['name'], 'id': sheet['id']})
+    db.con.close()
+    gc.collect()
+    return formatted_sheets
+
+
 def create_judges(judges, comp):
     """(list of str, int) -> NoneType
     Creates len(judges) judges with the names contained in the given list
@@ -16,7 +46,7 @@ def create_judges(judges, comp):
 
 def delete_judge(judge_id):
     """(int) -> NoneType
-    Deletes the everything attached to the given judge
+    Deletes everything attached to the given judge
     """
     db = Database()
     db.cur.execute("""DELETE FROM `judge` WHERE `id` = %s""", judge_id)
