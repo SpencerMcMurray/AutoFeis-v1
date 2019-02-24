@@ -25,8 +25,7 @@
                                     <td>{{ comp['name'] }}</td>
                                     <td>
                                         {% if comp['isTab'] == 0 %}
-                                            <form method="POST" action="{{ url_for('choose_tab_comp') }}">
-                                                <input type="hidden" value="{{ feis['id'] }}" name="feisId">
+                                            <form method="POST" action="{{ url_for('render_judges') }}">
                                                 <input type="hidden" value="{{ comp['id'] }}" name="compId">
                                                 <button class="btn btn-primary" type="submit">Tabulate</button>
                                             </form>

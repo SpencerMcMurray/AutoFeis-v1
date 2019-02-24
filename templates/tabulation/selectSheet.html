@@ -5,6 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-
+    {% for judge in judges %}
+        {{ judge['name'] }}
+    {% endfor %}
 </body>
 </html>

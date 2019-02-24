@@ -61,6 +61,10 @@ function removeIn() {
     return "<div class='pt-3 form-group d-flex justify-content-center'><button type='button' class='btn btn-danger mt-2 del'>Remove</button></div>";
 }
 
+function removeBtn() {
+    return "<button type='button' class='btn btn-danger mt-2 del'>Remove</button>";
+}
+
 var nameFG = "FG";
 var nameTR = "TR";
 var nameTNN = "TNN";
@@ -70,53 +74,76 @@ var classes = "d-flex sub-box mx-auto feis-box rounded bd-highlight p-2 align-it
 
 $(document).ready(function() {
     var id_counter = 0;
+    $('#addJudge').click(function () {
+        $('#table tbody').append(
+            '<tr><td class="form-group text-left">' +
+            '<input name="Judge" type="text" class="form-control" placeholder="Enter Name">' +
+            '</td>' +
+            '<td>' + removeBtn() +
+            '</td></tr>'
+        );
+    });
     $('#addFG').click(function() {
-        $('#FG .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
+        $('#FG .feis-box:last').after(
+            '<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
             '<label class="pt-3" for="' + id_counter + '">Start Age: </label>' + startAgeIn(nameFG, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">End Age: </label>' + endAgeIn(nameFG, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">Genders: </label>' + genderIn(nameFG, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">Type: </label>' + typeIn(nameFG, id_counter) +
-            removeIn() + '</div></div>');
+            removeIn() + '</div></div>'
+        );
         ++id_counter;
     });
 
     $('#addTR').click(function() {
-        $('#TR .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
+        $('#TR .feis-box:last').after(
+            '<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
             '<label class="pt-3" for="' + id_counter + '">Level: </label>' + levelIn(nameTR, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">Start Age: </label>' + startAgeIn(nameTR, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">End Age: </label>' + endAgeIn(nameTR, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">Genders: </label>' + genderIn(nameTR, id_counter) +
-            removeIn() + '</div></div>');
+            removeIn() + '</div></div>'
+        );
         ++id_counter;
     });
 
     $('#addTNN').click(function() {
-        $('#TNN .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
+        $('#TNN .feis-box:last').after(
+            '<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
             '<label class="pt-3" for="' + id_counter + '">Start Age: </label>' + startAgeIn(nameTNN, id_counter) +
             '<label class="pt-3" for="' + id_counter+1 + '">End Age: </label>' + endAgeIn(nameTNN, id_counter) +
-            removeIn() + '</div></div>');
+            removeIn() + '</div></div>'
+        );
         ++id_counter;
     });
 
     $('#addAR').click(function() {
-        $('#AR .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
+        $('#AR .feis-box:last').after(
+            '<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
             '<label class="pt-3" for="' + id_counter + '">Name: </label>' + nameIn(nameAR, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">Start Age: </label>' + startAgeIn(nameAR, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">End Age: </label>' + endAgeIn(nameAR, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">Genders: </label>' + genderIn(nameAR, id_counter) +
-            removeIn() + '</div></div>');
+            removeIn() + '</div></div>'
+        );
         ++id_counter;
     });
 
     $('#addSP').click(function() {
-        $('#SP .feis-box:last').after('<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
+        $('#SP .feis-box:last').after(
+            '<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
             '<label class="pt-3" for="' + id_counter + '">Name: </label>' + nameIn(nameSP, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">Level: </label>' + levelIn(nameSP, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">Start Age: </label>' + startAgeIn(nameSP, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">End Age: </label>' + endAgeIn(nameSP, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">Genders: </label>' + genderIn(nameSP, id_counter) +
-            removeIn() + '</div></div>');
+            removeIn() + '</div></div>'
+        );
         ++id_counter;
+    });
+
+    $('tbody').on('click', '.del', function() {
+        $(this).closest('tr').remove();
     });
 
     $('div').on('click','.del', function() {

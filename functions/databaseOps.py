@@ -3,6 +3,32 @@ from werkzeug.security import generate_password_hash
 from database import Database
 
 
+def create_judges(judges, comp):
+    """(list of str, int) -> NoneType
+    Creates len(judges) judges with the names contained in the given list
+    """
+    db = Database()
+    for judge in judges:
+        db.cur.execute("""INSERT INTO `judge` (`name`, `comp`) VALUES (%s, %s)""", (judge, comp))
+    db.con.close()
+    gc.collect()
+
+
+def delete_judge(judge_id):
+    """(int) -> NoneType
+    Deletes the everything attached to the given judge
+    """
+    db = Database()
+    db.cur.execute("""DELETE FROM `judge` WHERE `id` = %s""", judge_id)
+    db.cur.execute("""SELECT `id` FROM `sheet` WHERE `judge` = %s""", judge_id)
+    sheets = db.cur.fetchall()
+    for sheet in sheets:
+        db.cur.execute("""DELETE FROM `mark` WHERE `sheet` = %s""", sheet['id'])
+    db.cur.execute("""DELETE FROM `sheet` where `judge` = %s""", judge_id)
+    db.con.close()
+    gc.collect()
+
+
 def get_judges_from_comp(comp_id):
     """(int) -> list of dict of str:obj
     Returns the list of judges to the given competition
@@ -214,7 +240,7 @@ def get_feis_with_id(feis_id):
     Returns the feiseanna with the given id
     """
     db = Database()
-    db.cur.execute("SELECT * FROM `feiseanna` WHERE `id` = %s", feis_id)
+    db.cur.execute("""SELECT * FROM `feiseanna` WHERE `id` = %s""", feis_id)
     res = db.cur.fetchone()
     db.con.close()
     gc.collect()
