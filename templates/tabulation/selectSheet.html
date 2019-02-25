@@ -4,44 +4,46 @@
         <div class="sub-box">
             <div class="container-fluid">
                 <div class="title">
-                    <h1 class="display-3">Create new Scoresheets</h1>
+                    <h1 class="display-3">Create New Scoresheets</h1>
                 </div>
             </div>
             <div id="judgeContainer" class="container">
                 {% for judge in judges %}
-                    <div class="sub-title">
-                        <h1 class="display-4">{{ judge['name'] }}'s Sheets</h1>
-                    </div>
-                    <table class="table table-striped table-bordered" style="font-size: 20px">
-                        <thead>
-                            <tr>
-                                <th scope="col">Contains Data</th>
-                                <th scope="col">Enter Data</th>
-                                <th scope="col">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for sheet in sheets %}
+                    <div class="judge">
+                        <div class="sub-title">
+                            <h1 class="display-4">{{ judge['name'] }}'s Sheets</h1>
+                        </div>
+                        <table class="table table-striped table-bordered" style="font-size: 20px">
+                            <thead>
                                 <tr>
-                                    <td>Yes</td>
-                                    <td>
-                                        <form method="POST" action="{{ url_for('enter_marks') }}">
-                                            <input type="hidden" value="{{ sheet['id'] }}" name="sheetId">
-                                            <button type='submit' class='btn btn-info mt-2 del'>Enter</button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form method="POST">
-                                            <input type="hidden" value="{{ sheet['id'] }}" name="sheetId">
-                                            <button type='submit' class='btn btn-danger mt-2 del'>Remove</button>
-                                        </form>
-                                    </td>
+                                    <th scope="col">Contains Data</th>
+                                    <th scope="col">Enter Data</th>
+                                    <th scope="col">Delete</th>
                                 </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <div class="text-center form-group col-md-12 justify-content-center py-3" style="padding-bottom: 10px;">
-                        <button type="button" class="addSheet btn btn-success">Add Judge</button>
+                            </thead>
+                            <tbody>
+                                {% for sheet in sheets %}
+                                    <tr>
+                                        <td>Yes</td>
+                                        <td>
+                                            <form method="POST" action="{{ url_for('enter_marks') }}">
+                                                <input type="hidden" value="{{ sheet['id'] }}" name="sheetId">
+                                                <button type='submit' class='btn btn-info mt-2 del'>Enter</button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <form method="POST">
+                                                <input type="hidden" value="{{ sheet['id'] }}" name="sheetId">
+                                                <button type='submit' class='btn btn-danger mt-2 del'>Remove</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="text-center form-group col-md-12 justify-content-center py-3" style="padding-bottom: 10px;">
+                            <button type="button" class="addSheet btn btn-success">Add Judge</button>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
