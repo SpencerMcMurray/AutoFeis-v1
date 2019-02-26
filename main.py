@@ -246,6 +246,13 @@ def enter_marks():
     pass
 
 
+@app.route("/welcome/tabulate/judges/tabulate", methods=["POST"])
+@login_required
+def tabulate_marks():
+    """The tabulation script"""
+    pass
+
+
 """ ADD FEIS """
 
 

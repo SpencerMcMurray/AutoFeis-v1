@@ -47,6 +47,21 @@
                     </div>
                 {% endfor %}
             </div>
+            <div class="container d-flex flex-wrap align-items-center justify-content-center">
+                <div class="py-3 col-6">
+                    <form method="POST">
+                        <input type="hidden" name="compId" value="{{ comp['id'] }}" />
+                        <input type="hidden" name="addJudges" value="1" />
+                        <button class="btn btn-primary" type="submit">Add Judges</button>
+                    </form>
+                </div>
+                <div class="py-3 col-6">
+                    <form method="POST" action="{{ url_for('tabulate_marks') }}">
+                        <input type="hidden" value="{{ comp['id'] }}" name="compId" />
+                        <button class="btn btn-primary" type="submit">Submit Marks</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </body>
 {% endblock body %}
