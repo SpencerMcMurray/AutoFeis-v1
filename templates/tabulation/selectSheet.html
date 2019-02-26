@@ -28,12 +28,13 @@
                                         <td>
                                             <form method="POST" action="{{ url_for('enter_marks') }}">
                                                 <input type="hidden" value="{{ sheet['id'] }}" name="sheetId">
-                                                <button type='submit' class='btn btn-info mt-2 del'>Enter</button>
+                                                <button type='submit' class='btn btn-info mt-2 del'>Edit</button>
                                             </form>
                                         </td>
                                         <td>
-                                            <form method="POST">
+                                            <form method="POST" action="{{ url_for('del_sheet') }}">
                                                 <input type="hidden" value="{{ sheet['id'] }}" name="sheetId">
+                                                <input type="hidden" value="{{ comp['id'] }}" name="compId">
                                                 <button type='submit' class='btn btn-danger mt-2 del'>Remove</button>
                                             </form>
                                         </td>
@@ -42,7 +43,7 @@
                             </tbody>
                         </table>
                         <div class="text-center form-group col-md-12 justify-content-center py-3" style="padding-bottom: 10px;">
-                            <button type="button" class="addSheet btn btn-success">Add Judge</button>
+                            <button type="button" class="addSheet btn btn-success">Add Sheet</button>
                         </div>
                     </div>
                 {% endfor %}
