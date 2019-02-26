@@ -264,14 +264,16 @@ def render_judges():
 @login_required
 def enter_marks():
     """The page for entering marks"""
-    pass
+    holders = list()
+    render_template('tabulation/enterMarks.html', is_logged=current_user.is_authenticated, where="welcome",
+                    holders=holders)
 
 
 @app.route("/welcome/tabulate/judges/tabulate", methods=["POST"])
 @login_required
 def tabulate_marks():
     """The tabulation script"""
-    pass
+    redirect(url_for('welcome'))
 
 
 """ ADD FEIS """
