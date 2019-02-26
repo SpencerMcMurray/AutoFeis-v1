@@ -23,8 +23,9 @@
                             <tr>
                                 <td>{{ judge['name'] }}</td>
                                 <td>
-                                    <form method="POST">
+                                    <form method="POST" action="{{ url_for('del_judge') }}">
                                         <input type="hidden" name="judgeId" value="{{ judge['id'] }}">
+                                        <input type="hidden" name="compId" value="{{ comp['id'] }}">
                                         <input type="hidden" name="addJudges" value="1">
                                         <button type='submit' class='btn btn-danger mt-2'>Delete</button>
                                     </form>
@@ -35,7 +36,7 @@
                 </table>
             </div>
             <div class="container">
-                <form method="POST">
+                <form method="POST" action="{{ url_for('make_judges') }}">
                     <div class="sub-box">
                         <div class="sub-title">
                             <h1 class="display-4">New Judges</h1>

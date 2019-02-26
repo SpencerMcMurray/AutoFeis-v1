@@ -78,7 +78,7 @@ $(document).ready(function() {
         $(this).closest('.judge').children('table').children('tbody').append(
             '<tr><td>No</td>' +
             '<td><form method="POST" action="/welcome/tabulate/judges/marks">' +
-            '<button type="submit" class="btn btn-info mt-2 del">Enter</button>' +
+            '<button type="submit" class="btn btn-info mt-2">Enter</button>' +
             '</form></td>' +
             '<td>' + removeBtn() +
             '</td></tr>'
@@ -90,7 +90,7 @@ $(document).ready(function() {
         $('#table tbody').append(
             '<tr>' +
             '<td class="form-group text-left">' +
-            '<input name="Judge[]" type="text" class="form-control" placeholder="Enter Name">' +
+            '<input required name="Judge[]" type="text" class="form-control" placeholder="Enter Name">' +
             '</td>' +
             '<td>' + removeBtn() +
             '</td></tr>'

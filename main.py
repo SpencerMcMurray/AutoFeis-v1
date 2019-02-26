@@ -208,30 +208,51 @@ def choose_tab_comp():
                            feis=feis, comps=comps)
 
 
+@app.route("/welcome/tabulate/judges/del-sheet", methods=["POST"])
+@login_required
+def del_sheet():
+    """Script for deleting a sheet"""
+    comp_id = request.form.get('compId')
+    session['compId'] = comp_id
+    db.delete_sheet(request.form.get('sheetId'))
+    return redirect(url_for('render_judges'), code=307)
+
+
+@app.route("/welcome/tabulate/judges/del-judge", methods=["POST"])
+@login_required
+def del_judge():
+    """Script for deleting a judge"""
+    comp_id = request.form.get('compId')
+    session['compId'] = comp_id
+    db.delete_judge(request.form.get('judgeId'))
+    return redirect(url_for('render_judges', addJudges=1), code=307)
+
+
+@app.route("/welcome/tabulate/judges/make", methods=["POST"])
+@login_required
+def make_judges():
+    """Script for creating a list of judges"""
+    comp_id = request.form.get('compId')
+    session['compId'] = comp_id
+    judges_to_add = request.form.getlist('Judge[]')
+    db.create_judges(judges_to_add, comp_id)
+    return redirect(url_for('render_judges'), code=307)
+
+
 @app.route("/welcome/tabulate/judges", methods=["POST"])
 @login_required
 def render_judges():
     """Renders to define_judges if they aren't defined, otherwise to select_sheet"""
     comp_id = request.form.get('compId')
-    # If we are given a sheet to delete, do so
-    del_sheet_id = request.form.get('sheetId', None)
-    if del_sheet_id is not None:
-        db.delete_sheet(del_sheet_id)
-
-    # If we are given a judge to delete, do so
-    del_judge_id = request.form.get('judgeId', None)
-    if del_judge_id is not None:
-        db.delete_judge(del_judge_id)
-
-    # If we are given a list of judge names, create them
-    judges_to_add = request.form.getlist('Judge[]')
-    if len(judges_to_add) > 0:
-        db.create_judges(judges_to_add, comp_id)
-
+    if 'compId' in session:
+        comp_id = session['compId']
+    add_judges = request.form.get('addJudges')
+    if add_judges is None:
+        add_judges = request.args.get('addJudges')
     # Start rendering either define judges, or select sheet
     comp = db.get_comp_from_id(comp_id)
     judges = db.get_judges_from_comp(comp_id)
-    if len(judges) == 0 or request.form.get('addJudges', None) is not None:
+    if len(judges) == 0 or add_judges is not None:
         return render_template("tabulation/defineJudges.html", is_logged=current_user.is_authenticated, where="welcome",
                                judges=judges, comp=comp)
     sheets = db.get_sheets_from_comp(comp_id)
@@ -243,6 +264,13 @@ def render_judges():
 @login_required
 def enter_marks():
     """The page for entering marks"""
+    pass
+
+
+@app.route("/welcome/tabulate/judges/tabulate", methods=["POST"])
+@login_required
+def tabulate_marks():
+    """The tabulation script"""
     pass
 
 
