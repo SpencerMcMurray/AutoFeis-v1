@@ -4,15 +4,12 @@
         <div class="sub-box">
             <div class="container-fluid">
                 <div class="title">
-                    <h1 class="display-3">Define Judges for {{ comp['code'] }}</h1>
+                    <h1 class="display-3">Enter Marks for {{ judge['name'] }}</h1>
                 </div>
             </div>
             <div class="container">
                 <form method="POST">
                     <div class="sub-box">
-                        <div class="sub-title">
-                            <h1 class="display-4">New Judges</h1>
-                        </div>
                         <table id="table" class="table table-striped table-bordered" style="font-size: 20px">
                             <thead>
                                 <tr>
@@ -35,18 +32,23 @@
                                             </div>
                                         </td>
                                     {% endfor %}
+                                        <td>
+                                            <button type='button' class='btn btn-danger mt-2 del'>Delete</button>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
-                        <div class="text-center form-group col-md-6 justify-content-center py-3">
-                            <button type="button" id="addRow" class="btn btn-success">Add Row</button>
-                        </div>
-                        <div class="text-center form-group col-md-6 justify-content-center py-3">
-                            <button type="button" id="addCol" class="btn btn-success">Add Column</button>
+                        <div class="d-flex flex-wrap align-items-center justify-content-center">
+                            <div class="text-center form-group col-md-6 justify-content-center py-3">
+                                <button type="button" id="addRow" class="btn btn-success">Add Row</button>
+                            </div>
+                            <div class="text-center form-group col-md-6 justify-content-center py-3">
+                                <button type="button" id="addCol" class="btn btn-success">Add Column</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="text-center form-group col-md-6 justify-content-center py-3">
+                    <div class="text-center form-group col-md-12 justify-content-center py-3">
                         {% if sheet != -1 %}
                             <input type="hidden" name="sheetId" value="{{ sheet }}">
                         {% else %}

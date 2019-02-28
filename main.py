@@ -266,7 +266,26 @@ def render_judges():
 @login_required
 def enter_marks():
     """The page for entering marks"""
-    marks = list()
+    # Setup for 4x17
+    marks = [
+        ['', '', '', ''],
+        ['', '', '', ''],
+        ['', '', '', ''],
+        ['', '', '', ''],
+        ['', '', '', ''],
+        ['', '', '', ''],
+        ['', '', '', ''],
+        ['', '', '', ''],
+        ['', '', '', ''],
+        ['', '', '', ''],
+        ['', '', '', ''],
+        ['', '', '', ''],
+        ['', '', '', ''],
+        ['', '', '', ''],
+        ['', '', '', ''],
+        ['', '', '', ''],
+        ['', '', '', '']
+    ]
     sheet_id = -1
     if 'sheetId' in request.form:
         sheet_id = request.form.get('sheetId')
