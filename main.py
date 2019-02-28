@@ -267,10 +267,14 @@ def render_judges():
 def enter_marks():
     """The page for entering marks"""
     marks = list()
+    sheet_id = -1
     if 'sheetId' in request.form:
-        marks = tab.make_marks_from_sheet(request.form.get('sheetId', None))
+        sheet_id = request.form.get('sheetId')
+        marks = tab.make_marks_from_sheet(sheet_id)
+    judge = db.get_judge_from_id(request.form.get('judgeId'))
+    # Need to get # of columns so we can parse input
     return render_template("tabulation/enterMarks.html", is_logged=current_user.is_authenticated, where="welcome",
-                           marks=marks)
+                           marks=marks, judge=judge, sheet=sheet_id)
 
 
 @app.route("/welcome/tabulate/judges/tabulate", methods=["POST"])

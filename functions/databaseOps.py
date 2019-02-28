@@ -3,6 +3,18 @@ from werkzeug.security import generate_password_hash
 from database import Database
 
 
+def get_judge_from_id(judge_id):
+    """(int) -> dict of str:obj
+    Returns the judge with the given id
+    """
+    db = Database()
+    db.cur.execute("""SELECT * FROM `judge` WHERE `id` = %s""", judge_id)
+    judge = db.cur.fetchone()
+    db.con.close()
+    gc.collect()
+    return judge
+
+
 def delete_sheet(sheet):
     """(int) -> NoneType
     Deletes the sheet with given id
