@@ -12,6 +12,7 @@ from functions import entries as en
 from functions import feisOps as fops
 from functions import register as reg
 from functions import results as res
+from functions.tabulation import tabOps as tab
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -201,6 +202,7 @@ def terms():
 @login_required
 def choose_tab_comp():
     """The page for choosing a competition to tabulate"""
+    # TODO: Add search feature
     feis_id = request.form.get('feisId')
     feis = db.get_feis_with_id(feis_id)
     comps = db.get_comps_from_feis_id(feis_id)
@@ -264,7 +266,11 @@ def render_judges():
 @login_required
 def enter_marks():
     """The page for entering marks"""
-    pass
+    marks = list()
+    if 'sheetId' in request.form:
+        marks = tab.make_marks_from_sheet(request.form.get('sheetId', None))
+    return render_template("tabulation/enterMarks.html", is_logged=current_user.is_authenticated, where="welcome",
+                           marks=marks)
 
 
 @app.route("/welcome/tabulate/judges/tabulate", methods=["POST"])

@@ -75,9 +75,11 @@ var classes = "d-flex sub-box mx-auto feis-box rounded bd-highlight p-2 align-it
 $(document).ready(function() {
     var id_counter = 0;
     $('#judgeContainer').on('click', '.addSheet', function () {
+        var judgeId = $(this).closest('.judge').children('.judgeId').text();
         $(this).closest('.judge').children('table').children('tbody').append(
             '<tr><td>No</td>' +
             '<td><form method="POST" action="/welcome/tabulate/judges/marks">' +
+            '<input type="hidden" name="judgeId" value="' + judgeId + '">' +
             '<button type="submit" class="btn btn-info mt-2">Enter</button>' +
             '</form></td>' +
             '<td>' + removeBtn() +

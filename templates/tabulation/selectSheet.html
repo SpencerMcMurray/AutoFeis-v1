@@ -10,6 +10,7 @@
             <div id="judgeContainer" class="container">
                 {% for judge in judges %}
                     <div class="judge">
+                        <p hidden class="judgeId">{{ judge['id'] }}</p>
                         <div class="sub-title">
                             <h1 class="display-4">{{ judge['name'] }}'s Sheets</h1>
                         </div>
@@ -28,6 +29,7 @@
                                         <td>
                                             <form method="POST" action="{{ url_for('enter_marks') }}">
                                                 <input type="hidden" value="{{ sheet['id'] }}" name="sheetId">
+                                                <input type="hidden" value="{{ sheet['judge'] }}" name="judgeId">
                                                 <button type='submit' class='btn btn-info mt-2 del'>Edit</button>
                                             </form>
                                         </td>
@@ -48,12 +50,13 @@
                     </div>
                 {% endfor %}
             </div>
+            <hr style="width: 80%">
             <div class="container d-flex flex-wrap align-items-center justify-content-center">
                 <div class="py-3 col-6">
                     <form method="POST">
                         <input type="hidden" name="compId" value="{{ comp['id'] }}" />
                         <input type="hidden" name="addJudges" value="1" />
-                        <button class="btn btn-primary" type="submit">Add Judges</button>
+                        <button class="btn btn-primary" type="submit">Edit Judges</button>
                     </form>
                 </div>
                 <div class="py-3 col-6">
