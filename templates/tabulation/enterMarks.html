@@ -32,7 +32,7 @@
                                             </div>
                                         </td>
                                     {% endfor %}
-                                        <td>
+                                        <td class="delBtn">
                                             <button type='button' class='btn btn-danger'>Delete</button>
                                         </td>
                                     </tr>
@@ -46,9 +46,14 @@
                             <div class="text-center form-group col-md-6 justify-content-center py-3">
                                 <button type="button" id="addCol" class="btn btn-success">Add Column</button>
                             </div>
+                            <div class="text-center form-group col-md-6 justify-content-center py-3">
+                                <button type="button" id="delCol" class="btn btn-danger">Delete Last Column</button>
+                            </div>
                         </div>
                     </div>
                     <div class="text-center form-group col-md-12 justify-content-center py-3">
+                        <input type="hidden" name="save" value="1">
+                        <input type="hidden" name="compId" value="{{ judge['comp'] }}">
                         {% if sheet != -1 %}
                             <input type="hidden" name="sheetId" value="{{ sheet }}">
                         {% else %}

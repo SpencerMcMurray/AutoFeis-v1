@@ -74,6 +74,20 @@ var classes = "d-flex sub-box mx-auto feis-box rounded bd-highlight p-2 align-it
 
 $(document).ready(function() {
     // Dynamic tabulation logic
+    $('#delCol').click( function () {
+        if ($('tbody tr:last').children('td').length > 3) {
+            $('.delBtn').prev().remove();
+        }
+    });
+    $('#addCol').click( function () {
+        $('.delBtn').before(
+            '<td>' +
+            '<div class="form-group mb-0">' +
+            '<input name="entries[]" class="form-control" type="text" placeholder="Mark">' +
+            '</div>' +
+            '</td>'
+        );
+    });
     $('#addRow').click( function () {
         var body = $('tbody');
         if (body.children('tr').length === 0) {
@@ -85,16 +99,13 @@ $(document).ready(function() {
                 '<td><div class="form-group mb-0">' +
                 '<input name="entries[]" class="form-control" type="text" placeholder="Mark">' +
                 '</div></td>' +
-                '<td><button type="button" class="btn btn-danger del">Delete</button></td>' +
+                '<td class="delBtn"><button type="button" class="btn btn-danger del">Delete</button></td>' +
                 '</tr>'
             );
         } else {
             var newRow = body.children('tr:last').clone();
             newRow.find(':text').val('');
             body.append(newRow);
-            console.log("Done");
-            console.log(body.html());
-            console.log(newRow.html());
         }
     });
     // Dynamic preparation for tabulation logic
