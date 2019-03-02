@@ -73,7 +73,31 @@ var nameSP = "SP";
 var classes = "d-flex sub-box mx-auto feis-box rounded bd-highlight p-2 align-items-center";
 
 $(document).ready(function() {
-    var id_counter = 0;
+    // Dynamic tabulation logic
+    $('#addRow').click( function () {
+        var body = $('tbody');
+        if (body.children('tr').length === 0) {
+            body.append(
+                '<tr>' +
+                '<td><div class="form-group mb-0">' +
+                '<input name="entries[]" class="form-control" type="text" placeholder="Dancer">' +
+                '</div></td>' +
+                '<td><div class="form-group mb-0">' +
+                '<input name="entries[]" class="form-control" type="text" placeholder="Mark">' +
+                '</div></td>' +
+                '<td><button type="button" class="btn btn-danger del">Delete</button></td>' +
+                '</tr>'
+            );
+        } else {
+            var newRow = body.children('tr:last').clone();
+            newRow.find(':text').val('');
+            body.append(newRow);
+            console.log("Done");
+            console.log(body.html());
+            console.log(newRow.html());
+        }
+    });
+    // Dynamic preparation for tabulation logic
     $('#judgeContainer').on('click', '.addSheet', function () {
         var judgeId = $(this).closest('.judge').children('.judgeId').text();
         $(this).closest('.judge').children('table').children('tbody').append(
@@ -85,8 +109,6 @@ $(document).ready(function() {
             '<td>' + removeBtn() +
             '</td></tr>'
         );
-        console.log("Here");
-        console.log($(this).closest('.judge').children('table').children('tbody').text());
     });
     $('#addJudge').click(function () {
         $('#table tbody').append(
@@ -97,8 +119,9 @@ $(document).ready(function() {
             '<td>' + removeBtn() +
             '</td></tr>'
         );
-        console.log($(this).closest('table tbody').html());
     });
+    // Dynamic competition logic
+    var id_counter = 0;
     $('#addFG').click(function() {
         $('#FG .feis-box:last').after(
             '<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +

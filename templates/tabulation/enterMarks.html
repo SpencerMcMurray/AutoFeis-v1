@@ -27,13 +27,13 @@
                                             {% set place = "Mark" %}
                                         {% endif %}
                                         <td>
-                                            <div class="form-group">
+                                            <div class="form-group mb-0">
                                                 <input value="{{ entry }}" name="entries[]" class="form-control" type="text" placeholder="{{ place }}">
                                             </div>
                                         </td>
                                     {% endfor %}
                                         <td>
-                                            <button type='button' class='btn btn-danger mt-2 del'>Delete</button>
+                                            <button type='button' class='btn btn-danger'>Delete</button>
                                         </td>
                                     </tr>
                                 {% endfor %}
