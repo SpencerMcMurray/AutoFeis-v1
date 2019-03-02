@@ -266,8 +266,16 @@ def render_judges():
 @login_required
 def enter_marks():
     """The page for entering marks"""
-    marks = [
-    ]
+    # Save if we need to
+    if 'save' in request.form:
+        comp_id = request.form.get('compId')
+        if 'sheetId' not in request.form:
+            sheet_id = db.create_sheet(comp_id)
+        else:
+            sheet_id = request.form.get('sheetId')
+        session['compId'] = comp_id
+        return redirect(url_for('render_judges'), code=307)
+    marks = [['', '', '']]
     sheet_id = -1
     if 'sheetId' in request.form:
         sheet_id = request.form.get('sheetId')

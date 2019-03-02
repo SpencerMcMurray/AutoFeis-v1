@@ -80,24 +80,21 @@ $(document).ready(function() {
         }
     });
     $('#addCol').click( function () {
-        $('.delBtn').before(
-            '<td>' +
-            '<div class="form-group mb-0">' +
-            '<input name="entries[]" class="form-control" type="text" placeholder="Mark">' +
-            '</div>' +
-            '</td>'
-        );
+        var delBtn = $('.delBtn');
+        var clone = delBtn.prev().clone();
+        delBtn.before(clone);
     });
     $('#addRow').click( function () {
         var body = $('tbody');
-        if (body.children('tr').length === 0) {
+        var numRows = body.children('tr').length;
+        if (numRows === 0) {
             body.append(
                 '<tr>' +
                 '<td><div class="form-group mb-0">' +
-                '<input name="entries[]" class="form-control" type="text" placeholder="Dancer">' +
+                '<input name="entries[' + numRows + '][]" class="form-control" type="text" placeholder="Dancer">' +
                 '</div></td>' +
                 '<td><div class="form-group mb-0">' +
-                '<input name="entries[]" class="form-control" type="text" placeholder="Mark">' +
+                '<input name="entries[' + numRows + '][]" class="form-control" type="text" placeholder="Mark">' +
                 '</div></td>' +
                 '<td class="delBtn"><button type="button" class="btn btn-danger del">Delete</button></td>' +
                 '</tr>'
@@ -107,6 +104,10 @@ $(document).ready(function() {
             newRow.find(':text').val('');
             body.append(newRow);
         }
+        // Update name arrays
+        body.children('tr').each( function (idx) {
+            $(this).children('td').children('div').children('input').attr('name', 'entries[' + idx + '][]')
+        });
     });
     // Dynamic preparation for tabulation logic
     $('#judgeContainer').on('click', '.addSheet', function () {

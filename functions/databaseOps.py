@@ -3,6 +3,18 @@ from werkzeug.security import generate_password_hash
 from database import Database
 
 
+def create_sheet(comp):
+    """(int) -> int
+    Creates a sheet with the given comp id, and returns the created id
+    """
+    db = Database()
+    db.cur.execute("""INSERT INTO `sheet` (`judge`) VALUES (%s)""", comp)
+    sheet_id = db.cur.lastrowid
+    db.con.close()
+    gc.collect()
+    return sheet_id
+
+
 def get_judge_from_id(judge_id):
     """(int) -> dict of str:obj
     Returns the judge with the given id

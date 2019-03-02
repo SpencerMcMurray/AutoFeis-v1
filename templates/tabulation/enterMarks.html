@@ -19,6 +19,7 @@
                             </thead>
                             <tbody>
                                 {% for mark in marks %}
+                                    {% set i = loop.index0 %}
                                     <tr>
                                     {% for entry in mark %}
                                         {% if loop.index == 1 %}
@@ -28,12 +29,12 @@
                                         {% endif %}
                                         <td>
                                             <div class="form-group mb-0">
-                                                <input value="{{ entry }}" name="entries[]" class="form-control" type="text" placeholder="{{ place }}">
+                                                <input value="{{ entry }}" name="entries[{{ i }}][]" class="form-control" type="text" placeholder="{{ place }}">
                                             </div>
                                         </td>
                                     {% endfor %}
                                         <td class="delBtn">
-                                            <button type='button' class='btn btn-danger'>Delete</button>
+                                            <button type='button' class='btn btn-danger del'>Delete</button>
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -56,8 +57,6 @@
                         <input type="hidden" name="compId" value="{{ judge['comp'] }}">
                         {% if sheet != -1 %}
                             <input type="hidden" name="sheetId" value="{{ sheet }}">
-                        {% else %}
-                            <input type="hidden" name="newSheet" value="1">
                         {% endif %}
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
