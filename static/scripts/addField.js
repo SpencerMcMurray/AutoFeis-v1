@@ -80,11 +80,11 @@ $(document).ready(function() {
         }
     });
     $('#addCol').click( function () {
-        var delBtn = $('.delBtn');
-        var newCol = delBtn.prev();
-        console.log(newCol.html());
-        delBtn.before(newCol);
-        newCol.find(':text').val('');
+        $('.delBtn').each( function () {
+            var newCol = $(this).prev().clone();
+            $(this).before(newCol);
+            newCol.find(':text').val('');
+        });
     });
     $('#addRow').click( function () {
         var body = $('tbody');
