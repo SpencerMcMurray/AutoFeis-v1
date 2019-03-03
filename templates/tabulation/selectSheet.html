@@ -24,23 +24,25 @@
                             </thead>
                             <tbody>
                                 {% for sheet in sheets %}
-                                    <tr>
-                                        <td>Yes</td>
-                                        <td>
-                                            <form method="POST" action="{{ url_for('enter_marks') }}">
-                                                <input type="hidden" value="{{ sheet['id'] }}" name="sheetId">
-                                                <input type="hidden" value="{{ sheet['judge'] }}" name="judgeId">
-                                                <button type='submit' class='btn btn-info mt-2 del'>Edit</button>
-                                            </form>
-                                        </td>
-                                        <td>
-                                            <form method="POST" action="{{ url_for('del_sheet') }}">
-                                                <input type="hidden" value="{{ sheet['id'] }}" name="sheetId">
-                                                <input type="hidden" value="{{ comp['id'] }}" name="compId">
-                                                <button type='submit' class='btn btn-danger mt-2 del'>Remove</button>
-                                            </form>
-                                        </td>
-                                    </tr>
+                                    {% if judge['id'] == sheet['judge'] %}
+                                        <tr>
+                                            <td>Yes</td>
+                                            <td>
+                                                <form method="POST" action="{{ url_for('enter_marks') }}">
+                                                    <input type="hidden" value="{{ sheet['id'] }}" name="sheetId">
+                                                    <input type="hidden" value="{{ sheet['judge'] }}" name="judgeId">
+                                                    <button type='submit' class='btn btn-info mt-2'>Edit</button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form method="POST" action="{{ url_for('del_sheet') }}">
+                                                    <input type="hidden" value="{{ sheet['id'] }}" name="sheetId">
+                                                    <input type="hidden" value="{{ comp['id'] }}" name="compId">
+                                                    <button type='submit' class='btn btn-danger mt-2 del'>Remove</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
                                 {% endfor %}
                             </tbody>
                         </table>

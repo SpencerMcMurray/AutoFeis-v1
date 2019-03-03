@@ -268,11 +268,18 @@ def enter_marks():
     """The page for entering marks"""
     # Save if we need to
     if 'save' in request.form:
-        comp_id = request.form.get('compId')
         if 'sheetId' not in request.form:
-            sheet_id = db.create_sheet(comp_id)
+            sheet_id = db.create_sheet(request.form.get('judgeId'))
         else:
             sheet_id = request.form.get('sheetId')
+            db.clear_sheet(sheet_id)
+        # Grab all the entries lists and save them as marks
+        for item in request.form:
+            if item.startswith('entries'):
+                row = request.form.getlist(item)
+                tab.save_marks(row, sheet_id)
+
+        comp_id = request.form.get('compId')
         session['compId'] = comp_id
         return redirect(url_for('render_judges'), code=307)
     marks = [['', '', '']]

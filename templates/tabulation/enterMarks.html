@@ -29,7 +29,7 @@
                                         {% endif %}
                                         <td>
                                             <div class="form-group mb-0">
-                                                <input value="{{ entry }}" name="entries[{{ i }}][]" class="form-control" type="text" placeholder="{{ place }}">
+                                                <input required value="{{ entry }}" name="entries[{{ i }}][]" class="form-control" type="text" placeholder="{{ place }}">
                                             </div>
                                         </td>
                                     {% endfor %}
@@ -54,6 +54,7 @@
                     </div>
                     <div class="text-center form-group col-md-12 justify-content-center py-3">
                         <input type="hidden" name="save" value="1">
+                        <input type="hidden" name="judgeId" value="{{ judge['id'] }}">
                         <input type="hidden" name="compId" value="{{ judge['comp'] }}">
                         {% if sheet != -1 %}
                             <input type="hidden" name="sheetId" value="{{ sheet }}">

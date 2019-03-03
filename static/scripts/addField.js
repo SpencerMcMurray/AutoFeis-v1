@@ -81,8 +81,10 @@ $(document).ready(function() {
     });
     $('#addCol').click( function () {
         var delBtn = $('.delBtn');
-        var clone = delBtn.prev().clone();
-        delBtn.before(clone);
+        var newCol = delBtn.prev();
+        console.log(newCol.html());
+        delBtn.before(newCol);
+        newCol.find(':text').val('');
     });
     $('#addRow').click( function () {
         var body = $('tbody');
@@ -91,10 +93,10 @@ $(document).ready(function() {
             body.append(
                 '<tr>' +
                 '<td><div class="form-group mb-0">' +
-                '<input name="entries[' + numRows + '][]" class="form-control" type="text" placeholder="Dancer">' +
+                '<input required name="entries[' + numRows + '][]" class="form-control" type="text" placeholder="Dancer">' +
                 '</div></td>' +
                 '<td><div class="form-group mb-0">' +
-                '<input name="entries[' + numRows + '][]" class="form-control" type="text" placeholder="Mark">' +
+                '<input required name="entries[' + numRows + '][]" class="form-control" type="text" placeholder="Mark">' +
                 '</div></td>' +
                 '<td class="delBtn"><button type="button" class="btn btn-danger del">Delete</button></td>' +
                 '</tr>'
