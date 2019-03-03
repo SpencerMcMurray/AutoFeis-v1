@@ -43,6 +43,7 @@ def delete_sheet(sheet):
     """
     db = Database()
     db.cur.execute("""DELETE FROM `sheet` WHERE `id` = %s""", sheet)
+    db.cur.execute("""DELETE FROM `mark` WHERE `sheet` = %s""", sheet)
     db.con.close()
     gc.collect()
 

@@ -2,6 +2,15 @@
 {% block body %}
     <body>
         <div class="sub-box">
+            {% if errors|length > 0 %}
+                <div class="sub-title d-flex container mx-auto hide shake-id justify-content-center align-items-center flex-wrap pb-0" style="color: red;">
+                    {% for error in errors %}
+                        <div class="col-md-12">
+                            <p style="font-size: 20px;">{{ error }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
             <div class="container-fluid">
                 <div class="title">
                     <h1 class="display-3">Enter Marks for {{ judge['name'] }}</h1>
@@ -13,7 +22,7 @@
                         <table id="table" class="table table-striped table-bordered" style="font-size: 20px">
                             <thead>
                                 <tr>
-                                    <th scope="col">Dancer #</th>
+                                    <th scope="col">Dancer Number</th>
                                     <th scope="col" colspan="100">Rounds</th>
                                 </tr>
                             </thead>

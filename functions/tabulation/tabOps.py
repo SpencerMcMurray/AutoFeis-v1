@@ -1,5 +1,43 @@
 from database import Database
 import gc
+import re
+
+
+def fetch_ordered_rows(form):
+    """(dict of str:obj) -> list of list of str
+    Returns all entries sorted by row
+    """
+    # Used for sorting using the int within the string
+    def atoi(text):
+        return int(text) if text.isdigit() else text
+
+    def natural_keys(text):
+        return [atoi(c) for c in re.split(r'(\d+)', text)]
+
+    entries = list()
+    for element in form:
+        if element.startswith('entries'):
+            entries.append(element)
+    entries.sort(key=natural_keys)
+    for i in range(len(entries)):
+        entries[i] = form.getlist(entries[i])
+    return entries
+
+
+def fetch_mark_errors(form):
+    """(dict of str:obj) -> set of str
+    Returns all errors with the given mark form
+    """
+    errors = set()
+    for element in form:
+        if element.startswith('entries'):
+            data = form.getlist(element)
+            for entry in data:
+                for char in entry:
+                    if char.isalpha():
+                        errors.add("All entries must be numbers")
+                        return errors
+    return errors
 
 
 def save_marks(data, sheet):

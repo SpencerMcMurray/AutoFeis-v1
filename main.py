@@ -266,31 +266,37 @@ def render_judges():
 @login_required
 def enter_marks():
     """The page for entering marks"""
-    # Save if we need to
-    if 'save' in request.form:
+    errors = tab.fetch_mark_errors(request.form)
+    marks = [['', '', '']]
+    stop_loading = False
+    # Save, only if there are't any errors
+    if 'save' in request.form and len(errors) == 0:
         if 'sheetId' not in request.form:
             sheet_id = db.create_sheet(request.form.get('judgeId'))
         else:
             sheet_id = request.form.get('sheetId')
             db.clear_sheet(sheet_id)
         # Grab all the entries lists and save them as marks
-        for item in request.form:
-            if item.startswith('entries'):
-                row = request.form.getlist(item)
+        rows = tab.fetch_ordered_rows(request.form)
+        for row in rows:
                 tab.save_marks(row, sheet_id)
 
         comp_id = request.form.get('compId')
         session['compId'] = comp_id
         return redirect(url_for('render_judges'), code=307)
-    marks = [['', '', '']]
+    # Otherwise make sure previous rows still reappear even though not saved
+    elif 'save' in request.form:
+        stop_loading = True
+        marks = tab.fetch_ordered_rows(request.form)
+
     sheet_id = -1
     if 'sheetId' in request.form:
         sheet_id = request.form.get('sheetId')
-        marks = tab.make_marks_from_sheet(sheet_id)
+        if not stop_loading:
+            marks = tab.make_marks_from_sheet(sheet_id)
     judge = db.get_judge_from_id(request.form.get('judgeId'))
-    # Need to get # of columns so we can parse input
     return render_template("tabulation/enterMarks.html", is_logged=current_user.is_authenticated, where="welcome",
-                           marks=marks, judge=judge, sheet=sheet_id)
+                           marks=marks, judge=judge, sheet=sheet_id, errors=errors)
 
 
 @app.route("/welcome/tabulate/judges/tabulate", methods=["POST"])
