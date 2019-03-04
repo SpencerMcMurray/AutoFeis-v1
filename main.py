@@ -266,6 +266,7 @@ def render_judges():
 @login_required
 def enter_marks():
     """The page for entering marks"""
+    # TODO: Add AutoAssist button
     errors = tab.fetch_mark_errors(request.form)
     marks = [['', '', '']]
     stop_loading = False
@@ -303,7 +304,8 @@ def enter_marks():
 @login_required
 def tabulate_marks():
     """The tabulation script"""
-    pass
+    comp_id = request.form.get('compId')
+    tab.tabulate_comp(comp_id)
 
 
 """ ADD FEIS """

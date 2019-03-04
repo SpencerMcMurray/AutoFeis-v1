@@ -48,6 +48,18 @@ def delete_sheet(sheet):
     gc.collect()
 
 
+def get_sheets_from_judge(judge):
+    """(int) -> list of dict of str:int/str
+    Returns the list of all sheets from a judge
+    """
+    db = Database()
+    db.cur.execute("""SELECT * FROM `sheet` WHERE `judge` = %s""", judge)
+    sheets = db.cur.fetchall()
+    db.con.close()
+    gc.collect()
+    return sheets
+
+
 def get_sheets_from_comp(comp):
     """(int) -> list of dict of str:int/str
     Returns the list of all sheets and their judge
