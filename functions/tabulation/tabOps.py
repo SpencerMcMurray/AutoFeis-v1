@@ -1,5 +1,5 @@
 from database import Database
-from functions.databaseOps import get_judges_from_comp, get_sheets_from_judge
+from functions.databaseOps import get_judges_from_comp, get_sheets_from_judge, get_competitors_with_comp
 from functools import total_ordering
 import gc
 import re
@@ -14,57 +14,90 @@ place_to_irish = {1: 100, 2: 75, 3: 65, 4: 60, 5: 56, 6: 53, 7: 50, 8: 47, 9: 45
 
 @total_ordering
 class Dancer:
-    """Manages a dancer's data"""
-    def __init__(self, data):
-        self.number = int(data[0])
-        self.raw_scores = data[1:]
-        self.total_raw = round(sum(self.raw_scores), 3)
-        self.grid = 0
+    """Manages a dancer's data from all judges"""
+    def __init__(self, num, marks):
+        self.number = int(num)
+        self.scores = marks
+        self.total_grid = 0
 
     def __repr__(self):
-        return "#:" + str(self.number) + "\n" + "Raw Scores:" + str(self.raw_scores) + "\n" +\
-               "Total Raw:" + str(self.total_raw) + "\n" + "Grid:" + str(self.grid) + "\n"
+        return "#: " + str(self.number) + "\n" + "Scores: " + str(self.scores) + "\n" + "Total Grid: " +\
+               str(self.total_grid) + "\n"
 
     def __lt__(self, other):
-        return self.total_raw < other.total_raw
+        return self.total_grid < other.total_grid
 
     def __eq__(self, other):
-        return self.total_raw == other.total_raw
+        return self.total_grid == other.total_grid
+
+    def update_grid(self, new_grid, judge):
+        self.scores[judge]['grid'] = new_grid
+
+
+def find_mark(sheet, num):
+    """(int, int) -> dict of str:obj
+    Returns the mark in the sheet for the dancer with the given number
+    """
+    db = Database()
+    db.cur.execute("""SELECT * FROM `mark` WHERE `sheet` = %s AND `data` LIKE %s""", (sheet, str(num) + "%"))
+    mark = db.cur.fetchone()
+    db.con.close()
+    gc.collect()
+    return mark
 
 
 def tabulate_comp(comp):
     """(int) -> NoneType
     Creates a pdf with all tabulated mark data that one could want for the given competition
-    TODO: Add some error checking(dancer numbers not matching/in db, etc.)
+    TODO: Currently uses cptr id as dancer number; change that
     """
-    marks = dict()
+    competitors = get_competitors_with_comp(comp)
     judges = get_judges_from_comp(comp)
+    sheets = dict()
+    # Get all sheets, and organize them by their judge
     for judge in judges:
-        sheets = get_sheets_from_judge(judge['id'])
-        marks[judge['id']] = list()
-        for sheet in sheets:
-            sheet_marks = make_marks_from_sheet(sheet['id'])
-            for mark in sheet_marks:
-                marks[judge['id']].append(Dancer([float(f) for f in mark]))
-        marks[judge['id']].sort(reverse=True)
-        marks[judge['id']] = fill_grid_pts(marks[judge['id']])
+        sheets[judge['id']] = get_sheets_from_judge(judge['id'])
+    dancers = list()
+    for cptr in competitors:
+        marks = dict()
+        for judge_id in sheets.keys():
+            mark = []
+            # In each sheet every dancer has at most 1 mark in it, once we find one, break
+            for sheet in sheets[judge_id]:
+                mark = find_mark(sheet['id'], cptr['id'])
+                if mark is not None:
+                    mark = mark['data'].split(',')[1:]
+                    mark = [float(f) for f in mark]
+                    break
+            total = round(sum(mark), 3)
+            marks[judge_id] = {'raw': mark, 'total': total}
+        dancers.append(Dancer(cptr['id'], marks))
+    dancers = fill_grid_pts(dancers)
+    dancers.sort(reverse=True)
 
 
 def fill_grid_pts(dancers):
     """(list of Dancer) -> list of Dancer
-    Calculates and fills in the correct grid points for all dancers
-    REQ: dancers is sorted by each Dancer's total_raw
+    Calculates and fills in the correct grid points for all dancers for all judges
     """
-    i = 0
-    while i < len(dancers):
-        ties = 0
-        # As long as there is a next dancer, make sure their score isn't the same as the current one.
-        while i + ties + 1 < len(dancers) and dancers[i].total_raw == dancers[i + ties + 1].total_raw:
-            ties += 1
-        irish_pts = get_irish_points(i + 1, ties)
-        for j in range(i, i + ties + 1):
-            dancers[j].grid = irish_pts
-        i += ties + 1
+    for judge in dancers[0].scores.keys():
+        i = 0
+        while i < len(dancers):
+            ties = 0
+            # As long as there is a next dancer, make sure their score isn't the same as the current one.
+            while (i + ties < len(dancers) and
+                   dancers[i].scores[judge]['total'] == dancers[i + ties + 1].scores[judge]['total']):
+                ties += 1
+            irish_pts = get_irish_points(i + 1, ties)
+            for j in range(i, i + ties + 1):
+                dancers[j].update_grid(irish_pts, judge)
+            i += ties + 1
+    # Update each dancers total grid points so we can sort
+    for dancer in dancers:
+        total = 0
+        for judge in dancer.scores:
+            total += judge['grid']
+        dancer.total_grid = total
     return dancers
 
 

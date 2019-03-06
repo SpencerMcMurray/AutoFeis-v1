@@ -3,6 +3,18 @@ from werkzeug.security import generate_password_hash
 from database import Database
 
 
+def get_competitors_with_comp(comp):
+    """(int) -> list of dict of str:obj
+    Returns all competitors registered for the given competition
+    """
+    db = Database()
+    db.cur.execute("""SELECT * FROM `competitor` WHERE `competition` = %s""", comp)
+    competitors = db.cur.fetchall()
+    db.con.close()
+    gc.collect()
+    return competitors
+
+
 def clear_sheet(sheet):
     """(int) -> NoneType
     Removes all marks associated with sheet

@@ -7,6 +7,12 @@ from math import ceil
 ALPHA = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O"]
 
 
+def build_individuals2(dancers, comp_id):
+    """(dict of str:list of Dancer, int) -> NoneType
+    Generates a pdf
+    """
+
+
 def build_individuals(dancers, feis_name, comp_name, judge_names):
     """(list of Dancer, str, str, list of str) -> NoneType
     Builds individual tabulated sheets for each dancer telling them their marks and the competition's marks. Saves
