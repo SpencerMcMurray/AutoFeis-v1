@@ -61,8 +61,8 @@ commands = {"judgeCols": cmd_judge_cols, "judgeIter": cmd_judges, "roundCols": c
             "dancerIter": cmd_dancer, "dancerInfo": cmd_dancer_info, "compName": cmd_comp_name}
 
 
-def fill_tex_file(dancers, placements, comp_id, outline):
-    """(list of Dancer, str) -> NoneType
+def fill_tex_file(dancers, comp_id, outline):
+    """(list of Dancer, int, str) -> NoneType
     Reads the tex outline given, fills in the correct data, and generates a pdf
     """
     # Create a folder for this competition
@@ -80,4 +80,4 @@ def fill_tex_file(dancers, placements, comp_id, outline):
                 cmd = line[1:].split(" ")[0]
                 # Don't do any sub-commands in the initial parse
                 if cmd != "sub":
-                    line = commands[cmd]({"placements": placements, "dancers": dancers, "comp": comp, "judges": judges})
+                    line = commands[cmd]({"dancers": dancers, "comp": comp, "judges": judges})

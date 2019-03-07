@@ -19,6 +19,7 @@ class Dancer:
         self.number = int(num)
         self.scores = marks
         self.total_grid = 0
+        self.place = 0
 
     def __repr__(self):
         return "#: " + str(self.number) + "\n" + "Scores: " + str(self.scores) + "\n" + "Total Grid: " +\
@@ -74,6 +75,23 @@ def tabulate_comp(comp):
         dancers.append(Dancer(cptr['id'], marks))
     dancers = fill_grid_pts(dancers)
     dancers.sort(reverse=True)
+    dancers = fill_placements(dancers)
+
+
+def fill_placements(dancers):
+    """(list of Dancer) -> list of Dancer
+    Fills in the dancer's placements including the appropriate ties
+    """
+    place = 1
+    i = 0
+    while i < len(dancers):
+        ties = 0
+        while i + ties < len(dancers) and dancers[i].total_grid == dancers[i + ties].total_grid:
+            dancers[i + ties].place = place
+            ties += 1
+        place += ties
+        i += ties + 1
+    return dancers
 
 
 def fill_grid_pts(dancers):
