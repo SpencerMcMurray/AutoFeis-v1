@@ -8,9 +8,12 @@ def register(reg, feis_id, dancer_id):
     Registers all dancer ids to the given competition id
     """
     db = Database()
-    q = """INSERT INTO `competitor` (`dancerId`, `competition`, `feis`) VALUES (%s, %s, %s)"""
+    db.cur.execute("""SELECT `dancerNum` FROM `feiseanna` WHERE `id` = %s""", feis_id)
+    curr_num = db.cur.fetchone()['dancerNum']
+    q = """INSERT INTO `competitor` (`dancerId`, `competition`, `feis`, `number`) VALUES (%s, %s, %s, %s)"""
     for comp in reg:
-        db.cur.execute(q, (dancer_id, comp, feis_id))
+        db.cur.execute(q, (dancer_id, comp, feis_id, curr_num))
+    db.cur.execute("""UPDATE `feiseanna` SET `dancerNum` = `dancerNum` + 1 WHERE `id` = %s""", feis_id)
     db.con.close()
     gc.collect()
 

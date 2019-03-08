@@ -85,7 +85,7 @@ def tabulate_comp(comp):
             total = round(sum(mark), 3)
             marks[judge_id] = {'raw': mark, 'total': total, 'grid': 0}
         curr_dancer = get_dancer_from_id(cptr['dancerId'])
-        dancers.append(Dancer(cptr['id'], curr_dancer['fName'] + curr_dancer['lName'], curr_dancer['school'], marks))
+        dancers.append(Dancer(cptr['number'], curr_dancer['fName'] + curr_dancer['lName'], curr_dancer['school'], marks))
     dancers = fill_grid_pts(dancers)
     dancers.sort(reverse=True)
     dancers = fill_placements(dancers)
