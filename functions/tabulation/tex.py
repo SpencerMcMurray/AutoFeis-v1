@@ -1,9 +1,6 @@
 import os
 from functions.databaseOps import get_comp_from_id, get_judges_from_comp
-from pylatex import Document
-
-
-from functions.tabulation.tabOps import Dancer
+from latex import build_pdf
 
 
 def cmd_judge_cols(data):
@@ -67,18 +64,6 @@ commands = {"judgeCols": cmd_judge_cols, "judgeIter": cmd_judges, "roundCols": c
             "dancerIter": cmd_dancer, "compName": cmd_comp_name}
 
 
-def tesing_tex_creation():
-    comp_id = 85
-    outline = "D:/Users/Spencer/Downloads/Outlines/portraitOutline.tex"
-    dancers = [Dancer(234, "Leo Mackintire", "Scoliosis", {22: {'raw': [87], 'total': 87, 'grid': 100}}),
-               Dancer(234, "Oliver Mackintire", "Scoliosis 2.0", {22: {'raw': [85.5], 'total': 85.5, 'grid': 75}})]
-    dancers[0].update_place(1)
-    dancers[0].update_total_grid(100)
-    dancers[1].update_place(2)
-    dancers[1].update_total_grid(75)
-    fill_tex_file(dancers, comp_id, outline)
-
-
 def fill_tex_file(dancers, comp_id, outline):
     """(list of Dancer, int, str) -> NoneType
     Reads the tex outline given, fills in the correct data, and generates a pdf
@@ -98,7 +83,5 @@ def fill_tex_file(dancers, comp_id, outline):
                 cmd = line[1:].split(" ")[0]
                 line = commands[cmd]({"dancers": dancers, "comp": comp, "judges": judges})
             filled_tex += line + "\n"
-    with open(dir_path + "/test.tex", "w") as tex:
-        tex.write(filled_tex)
-    # doc = Document()
-    # doc.generate_pdf(dir_path + "/test")
+    pdf = build_pdf(filled_tex)
+    pdf.save_to(os.path.join(dir_path, "overall.pdf"))
