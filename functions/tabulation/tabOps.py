@@ -7,8 +7,8 @@ import gc
 import re
 
 
-PORTRAIT = "/static/tabulation/outlines/portraitOutline.tex"
-LANDSCAPE = "/static/tabulation/outlines/landscapeOutline.tex"
+PORTRAIT = "static/tabulation/outlines/portraitOutline.tex"
+LANDSCAPE = "static/tabulation/outlines/landscapeOutline.tex"
 # Place to irish point conversion; past 50th is 0 points
 place_to_irish = {1: 100, 2: 75, 3: 65, 4: 60, 5: 56, 6: 53, 7: 50, 8: 47, 9: 45, 10: 43, 11: 40, 12: 39, 13: 38,
                   14: 37, 15: 36, 16: 35, 17: 34, 18: 33, 19: 32, 20: 31, 21: 30, 22: 29, 23: 28, 24: 27, 25: 26,
@@ -77,7 +77,7 @@ def tabulate_comp(comp):
             mark = []
             # In each sheet every dancer has at most 1 mark in it, once we find one, break
             for sheet in sheets[judge_id]:
-                mark = find_mark(sheet['id'], cptr['id'])
+                mark = find_mark(sheet['id'], cptr['number'])
                 if mark is not None:
                     mark = mark['data'].split(',')[1:]
                     mark = [float(f) for f in mark]
@@ -85,12 +85,13 @@ def tabulate_comp(comp):
             total = round(sum(mark), 3)
             marks[judge_id] = {'raw': mark, 'total': total, 'grid': 0}
         curr_dancer = get_dancer_from_id(cptr['dancerId'])
-        dancers.append(Dancer(cptr['number'], curr_dancer['fName'] + curr_dancer['lName'], curr_dancer['school'], marks))
+        dancers.append(Dancer(cptr['number'], curr_dancer['fName'] + ' ' + curr_dancer['lName'], curr_dancer['school'],
+                              marks))
     dancers = fill_grid_pts(dancers)
     dancers.sort(reverse=True)
     dancers = fill_placements(dancers)
     # Load landscape outline when its a major
-    generate_pdf(dancers, comp['id'], PORTRAIT)
+    generate_pdf(dancers, comp, PORTRAIT)
 
 
 def fill_placements(dancers):
@@ -119,8 +120,9 @@ def fill_grid_pts(dancers):
             ties = 0
             # As long as there is a next dancer, make sure their score isn't the same as the current one.
             while (i + ties < len(dancers) and
-                   dancers[i].scores[judge]['total'] == dancers[i + ties + 1].scores[judge]['total']):
+                   dancers[i].scores[judge]['total'] == dancers[i + ties].scores[judge]['total']):
                 ties += 1
+            ties -= 1
             irish_pts = get_irish_points(i + 1, ties)
             for j in range(i, i + ties + 1):
                 dancers[j].update_grid(irish_pts, judge)
@@ -129,7 +131,7 @@ def fill_grid_pts(dancers):
     for dancer in dancers:
         total = 0
         for judge in dancer.scores:
-            total += judge['grid']
+            total += dancer.scores[judge]['grid']
         dancer.total_grid = total
     return dancers
 

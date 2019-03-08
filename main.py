@@ -308,8 +308,9 @@ def tabulate_marks():
     """The tabulation script"""
     comp_id = request.form.get('compId')
     tab.tabulate_comp(comp_id)
+    db.indicate_tabulated_comp(comp_id)
     session['feis'] = db.get_feis_id_with_comp(comp_id)
-    redirect(url_for('choose_tab_comp'), code=307)
+    return redirect(url_for('choose_tab_comp'), code=307)
 
 
 """ ADD FEIS """

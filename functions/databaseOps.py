@@ -3,6 +3,16 @@ from werkzeug.security import generate_password_hash
 from database import Database
 
 
+def indicate_tabulated_comp(comp):
+    """(int) -> NoneType
+    Updates the indicator that tells us if a competition has been tabulated
+    """
+    db = Database()
+    db.cur.execute("""UPDATE `competition` SET `isTab` = 1 WHERE `id` = %s""", comp)
+    db.con.close()
+    gc.collect()
+
+
 def get_feis_id_with_comp(comp):
     """(int) -> dict of str:obj
     Returns the feis id that the given competition belongs to
