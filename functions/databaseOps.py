@@ -3,6 +3,19 @@ from werkzeug.security import generate_password_hash
 from database import Database
 
 
+def get_feis_id_with_comp(comp):
+    """(int) -> dict of str:obj
+    Returns the feis id that the given competition belongs to
+    """
+    db = Database()
+    q = """SELECT `feis` FROM `competition` WHERE `id` = %s"""
+    db.cur.execute(q, comp)
+    feis_id = db.cur.fetchone()['feis']
+    db.con.close()
+    gc.collect()
+    return feis_id
+
+
 def get_competitors_with_comp(comp):
     """(int) -> list of dict of str:obj
     Returns all competitors registered for the given competition

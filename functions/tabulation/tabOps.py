@@ -1,11 +1,14 @@
 from database import Database
 from functions.databaseOps import get_judges_from_comp, get_sheets_from_judge, get_competitors_with_comp,\
                                   get_dancer_from_id
+from functions.tabulation.tex import generate_pdf
 from functools import total_ordering
 import gc
 import re
 
 
+PORTRAIT = "/static/tabulation/outlines/portraitOutline.tex"
+LANDSCAPE = "/static/tabulation/outlines/landscapeOutline.tex"
 # Place to irish point conversion; past 50th is 0 points
 place_to_irish = {1: 100, 2: 75, 3: 65, 4: 60, 5: 56, 6: 53, 7: 50, 8: 47, 9: 45, 10: 43, 11: 40, 12: 39, 13: 38,
                   14: 37, 15: 36, 16: 35, 17: 34, 18: 33, 19: 32, 20: 31, 21: 30, 22: 29, 23: 28, 24: 27, 25: 26,
@@ -86,6 +89,8 @@ def tabulate_comp(comp):
     dancers = fill_grid_pts(dancers)
     dancers.sort(reverse=True)
     dancers = fill_placements(dancers)
+    # Load landscape outline when its a major
+    generate_pdf(dancers, comp['id'], PORTRAIT)
 
 
 def fill_placements(dancers):

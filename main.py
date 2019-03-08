@@ -204,6 +204,8 @@ def choose_tab_comp():
     """The page for choosing a competition to tabulate"""
     # TODO: Add search feature
     feis_id = request.form.get('feisId')
+    if feis_id is None:
+        feis_id = session['feis']
     feis = db.get_feis_with_id(feis_id)
     comps = db.get_comps_from_feis_id(feis_id)
     return render_template("tabulation/chooseComp.html", is_logged=current_user.is_authenticated, where="welcome",
@@ -306,6 +308,8 @@ def tabulate_marks():
     """The tabulation script"""
     comp_id = request.form.get('compId')
     tab.tabulate_comp(comp_id)
+    session['feis'] = db.get_feis_id_with_comp(comp_id)
+    redirect(url_for('choose_tab_comp'), code=307)
 
 
 """ ADD FEIS """

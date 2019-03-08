@@ -64,7 +64,7 @@ commands = {"judgeCols": cmd_judge_cols, "judgeIter": cmd_judges, "roundCols": c
             "dancerIter": cmd_dancer, "compName": cmd_comp_name}
 
 
-def fill_tex_file(dancers, comp_id, outline):
+def generate_pdf(dancers, comp_id, outline):
     """(list of Dancer, int, str) -> NoneType
     Reads the tex outline given, fills in the correct data, and generates a pdf
     """

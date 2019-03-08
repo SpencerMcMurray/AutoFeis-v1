@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left=5mm, right=5mm, top=5mm, bottom=5mm]{geometry}
+\usepackage[table]{xcolor}
+\usepackage[document]{ragged2e}
+\usepackage{setspace}
+\usepackage{makecell}
+
+\newcommand{\specialcell}[2][c]{\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+\newcommand{\rowfont}[1]{\gdef\rowfonttype{#1}#1}
+\renewcommand{\baselinestretch}{1.1} 
+
+\newenvironment{myFont}{\fontfamily{put}\selectfont}{\par}
+
+\begin{document}
+\begin{myFont}
+    \rowcolors{1}{gray!15}{white}
+    \begin{center}
+		%compName
+        \newline
+        \vspace*{5 mm}
+        \scriptsize
+        \rowcolors{1}{gray!15}{white}
+		\setlength\arrayrulewidth{1pt}
+        \begin{tabular}{|c|c|c|
+		%judgeCols (c*rounds)(|*judges)
+		c|}
+            \hline
+            \rowcolor{white}
+            \multicolumn{3}{|c|}{Overall} & 
+			%judgeIter (\multicolumn{rounds}{c|}{name} &)*judges
+			\\\hline
+            Place & Number & Name &
+			%roundCols (($R_i$ &)*rounds Grid &)*judges
+			$\Sigma$ \\\hline
+            %dancerIter (place & dancerNum & \specialcell{name\\\tiny{school}} (& scores & totalGrid)*judges \\\hline)*dancers
+        \end{tabular}
+        \newline
+        \vspace*{\fill}
+    \end{center}
+\end{myFont}
+\end{document}
