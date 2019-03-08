@@ -1,5 +1,6 @@
 from database import Database
-from functions.databaseOps import get_judges_from_comp, get_sheets_from_judge, get_competitors_with_comp
+from functions.databaseOps import get_judges_from_comp, get_sheets_from_judge, get_competitors_with_comp,\
+                                  get_dancer_from_id
 from functools import total_ordering
 import gc
 import re
@@ -15,7 +16,9 @@ place_to_irish = {1: 100, 2: 75, 3: 65, 4: 60, 5: 56, 6: 53, 7: 50, 8: 47, 9: 45
 @total_ordering
 class Dancer:
     """Manages a dancer's data from all judges"""
-    def __init__(self, num, marks):
+    def __init__(self, num, name, school, marks):
+        self.name = name
+        self.school = school
         self.number = int(num)
         self.scores = marks
         self.total_grid = 0
@@ -33,6 +36,12 @@ class Dancer:
 
     def update_grid(self, new_grid, judge):
         self.scores[judge]['grid'] = new_grid
+
+    def update_total_grid(self, new_total):
+        self.total_grid = new_total
+
+    def update_place(self, new_place):
+        self.place = new_place
 
 
 def find_mark(sheet, num):
@@ -71,8 +80,9 @@ def tabulate_comp(comp):
                     mark = [float(f) for f in mark]
                     break
             total = round(sum(mark), 3)
-            marks[judge_id] = {'raw': mark, 'total': total}
-        dancers.append(Dancer(cptr['id'], marks))
+            marks[judge_id] = {'raw': mark, 'total': total, 'grid': 0}
+        curr_dancer = get_dancer_from_id(cptr['dancerId'])
+        dancers.append(Dancer(cptr['id'], curr_dancer['fName'] + curr_dancer['lName'], curr_dancer['school'], marks))
     dancers = fill_grid_pts(dancers)
     dancers.sort(reverse=True)
     dancers = fill_placements(dancers)
