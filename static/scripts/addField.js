@@ -93,8 +93,8 @@ $(document).ready(function() {
             body.append(
                 '<tr>' +
                 '<td><div class="form-group flex-nowrap row mb-0 justify-content-center">' +
-                '<i class="far fa-times-circle mx-2 my-auto" style="color: red;"></i>' +
-                '<input required style="width: 80%;" name="entries[' + numRows + '][]" class="form-control mx-2 Dancer my-auto mr-2" type="text" placeholder="Dancer">' +
+                '<span class="mx-2 my-auto" title="Dancer not registered"><i class="far fa-times-circle" style="color: red;"></i></span>' +
+                '<input required style="width: 80%;" name="entries[' + numRows + '][]" class="form-control mx-2 Dancer my-auto" type="text" placeholder="Dancer">' +
                 '</div></td>' +
                 '<td><div class="form-group mb-0">' +
                 '<input required name="entries[' + numRows + '][]" class="form-control" type="text" placeholder="Mark">' +
@@ -105,15 +105,14 @@ $(document).ready(function() {
         } else {
             var newRow = body.children('tr:last').clone();
             newRow.find(':text').val('');
-            newRow.children('td:first').children('div').children('i').remove();
-            newRow.children('td:first').children('div').prepend('<i class="far fa-times-circle mx-2 my-auto" style="color: red;"></i>');
+            newRow.children('td:first').children('div').children('span').remove();
+            newRow.children('td:first').children('div').prepend('<span class="mx-2 my-auto" title="Dancer not registered"><i class="far fa-times-circle" style="color: red;"></i></span>');
             body.append(newRow);
         }
         // Update name arrays
         body.children('tr').each( function (idx) {
             $(this).children('td').children('div').children('input').attr('name', 'entries[' + idx + '][]')
         });
-        console.log("row Added");
     });
     // Dynamic preparation for tabulation logic
     $('#judgeContainer').on('click', '.addSheet', function () {

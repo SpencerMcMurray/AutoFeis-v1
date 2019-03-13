@@ -46,8 +46,10 @@
                                         <td>
                                             {% if loop.index == 1 %}
                                                 <div class="form-group flex-nowrap row mb-0 justify-content-center">
-                                                    <i class="far fa-times-circle mx-2 my-auto" style="color: red;"></i>
-                                                    <input required style="width: 80%;" value="{{ entry }}" name="entries[{{ i }}][]" class="form-control Dancer my-auto mx-2" type="text" placeholder="Dancer">
+                                                    <span class="mx-2 my-auto" title="Dancer not registered">
+                                                        <i class="far fa-times-circle mx-2 my-auto" style="color: red;"></i>
+                                                    </span>
+                                                    <input required style="width: 80%;" value="{{ entry }}" name="entries[{{ i }}][]" class="form-control mx-2 Dancer my-auto" type="text" placeholder="Dancer">
                                                 </div>
                                             {% else %}
                                                 <div class="form-group mb-0">
