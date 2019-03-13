@@ -92,9 +92,9 @@ $(document).ready(function() {
         if (numRows === 0) {
             body.append(
                 '<tr>' +
-                '<td><div class="form-group row mb-0 justify-content-center">' +
-                '<i class="far fa-times-circle m-auto" style="color: red;"></i>' +
-                '<input required style="width: 80%;" name="entries[' + numRows + '][]" class="form-control Dancer my-auto mr-2" type="text" placeholder="Dancer">' +
+                '<td><div class="form-group flex-nowrap row mb-0 justify-content-center">' +
+                '<i class="far fa-times-circle mx-2 my-auto" style="color: red;"></i>' +
+                '<input required style="width: 80%;" name="entries[' + numRows + '][]" class="form-control mx-2 Dancer my-auto mr-2" type="text" placeholder="Dancer">' +
                 '</div></td>' +
                 '<td><div class="form-group mb-0">' +
                 '<input required name="entries[' + numRows + '][]" class="form-control" type="text" placeholder="Mark">' +
@@ -105,7 +105,8 @@ $(document).ready(function() {
         } else {
             var newRow = body.children('tr:last').clone();
             newRow.find(':text').val('');
-            newRow.children('td:first').children('i').html('<i class="far fa-times-circle" style="color: red;"></i>');
+            newRow.children('td:first').children('div').children('i').remove();
+            newRow.children('td:first').children('div').prepend('<i class="far fa-times-circle mx-2 my-auto" style="color: red;"></i>');
             body.append(newRow);
         }
         // Update name arrays

@@ -16,9 +16,9 @@ function applyValidation(domObj, comp, url) {
         $(domObj).parent().children('i').remove();
         // TODO: Mouse over these for brief explanation
         if(parseInt(data['valid']) === 1) {
-            html = '<i class="far fa-check-circle m-auto" style="color: green;"></i>';
+            html = '<i class="far fa-check-circle mx-2 my-auto" style="color: green;"></i>';
         } else {
-            html = '<i class="far fa-times-circle m-auto" style="color: red;"></i>';
+            html = '<i class="far fa-times-circle mx-2 my-auto" style="color: red;"></i>';
         }
         $(domObj).parent().prepend(html)
     });
