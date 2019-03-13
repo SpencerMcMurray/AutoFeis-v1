@@ -92,9 +92,9 @@ $(document).ready(function() {
         if (numRows === 0) {
             body.append(
                 '<tr>' +
-                '<td><div class="form-group mb-0">' +
-                '<i class="far fa-times-circle" style="color: red;"></i>' +
-                '<input required name="entries[' + numRows + '][]" class="form-control Dancer" type="text" placeholder="Dancer">' +
+                '<td><div class="form-group row mb-0 justify-content-center">' +
+                '<i class="far fa-times-circle m-auto" style="color: red;"></i>' +
+                '<input required style="width: 80%;" name="entries[' + numRows + '][]" class="form-control Dancer my-auto mr-2" type="text" placeholder="Dancer">' +
                 '</div></td>' +
                 '<td><div class="form-group mb-0">' +
                 '<input required name="entries[' + numRows + '][]" class="form-control" type="text" placeholder="Mark">' +
@@ -112,6 +112,7 @@ $(document).ready(function() {
         body.children('tr').each( function (idx) {
             $(this).children('td').children('div').children('input').attr('name', 'entries[' + idx + '][]')
         });
+        console.log("row Added");
     });
     // Dynamic preparation for tabulation logic
     $('#judgeContainer').on('click', '.addSheet', function () {
