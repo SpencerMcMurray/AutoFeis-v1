@@ -9,12 +9,14 @@ def register(reg, feis_id, dancer_id):
     """
     db = Database()
     db.cur.execute("""SELECT `number` FROM `competitor` WHERE `dancerId` = %s""", dancer_id)
-    curr_num = db.cur.fetchone()['number']
+    curr_num = db.cur.fetchone()
     # If the dancer hasn't been registered, create a new number for them
     if curr_num is None:
         db.cur.execute("""SELECT `dancerNum` FROM `feiseanna` WHERE `id` = %s""", feis_id)
         curr_num = db.cur.fetchone()['dancerNum']
         db.cur.execute("""UPDATE `feiseanna` SET `dancerNum` = `dancerNum` + 1 WHERE `id` = %s""", feis_id)
+    else:
+        curr_num = curr_num['number']
     q = """INSERT INTO `competitor` (`dancerId`, `competition`, `feis`, `number`) VALUES (%s, %s, %s, %s)"""
     for comp in reg:
         db.cur.execute(q, (dancer_id, comp, feis_id, curr_num))

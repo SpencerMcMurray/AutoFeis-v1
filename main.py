@@ -1,6 +1,7 @@
 import os
+from json import loads
 
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask_login import LoginManager, UserMixin, current_user, logout_user, login_user, login_required
 
 from form import *
@@ -21,6 +22,25 @@ app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024     # 10MB Upload limit
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+
+""" AJAX REQUESTS """
+
+
+@app.route("/welcome/tabulate/judges/check", methods=["POST"])
+@login_required
+def check_dancer_num():
+    """A script for checking if a dancer is registered under this competition"""
+    data = list()
+    for key in request.form.keys():
+        data.append(loads(key))
+    # data[0] contains dict contents
+    data = {**data[0]}
+    is_valid = db.check_valid_competitor(float(data['num']), int(data['comp']))
+    result = {'valid': int(is_valid)}
+    resp = jsonify(result)
+    return resp
+
 
 """ FLASK LOGIN """
 

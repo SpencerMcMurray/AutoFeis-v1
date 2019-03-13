@@ -9,13 +9,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Python 3.6" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="bootstrap" level="application" />
-    <orderEntry type="library" name="jquery-3.3.1" level="application" />
-    <orderEntry type="library" name="popper" level="application" />
-    <orderEntry type="library" name="jquery-3.3.1.slim" level="application" />
-    <orderEntry type="library" name="p5" level="application" />
-    <orderEntry type="library" name="p5.dom" level="application" />
-    <orderEntry type="library" name="p5.sound" level="application" />
+    <orderEntry type="library" name="jquery" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />

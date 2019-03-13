@@ -62,7 +62,6 @@ def find_mark(sheet, num):
 def tabulate_comp(comp):
     """(int) -> NoneType
     Creates a pdf with all tabulated mark data that one could want for the given competition
-    TODO: Currently uses cptr id as dancer number; change that
     """
     competitors = get_competitors_with_comp(comp)
     judges = get_judges_from_comp(comp)

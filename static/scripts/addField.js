@@ -93,7 +93,8 @@ $(document).ready(function() {
             body.append(
                 '<tr>' +
                 '<td><div class="form-group mb-0">' +
-                '<input required name="entries[' + numRows + '][]" class="form-control" type="text" placeholder="Dancer">' +
+                '<i class="far fa-times-circle" style="color: red;"></i>' +
+                '<input required name="entries[' + numRows + '][]" class="form-control Dancer" type="text" placeholder="Dancer">' +
                 '</div></td>' +
                 '<td><div class="form-group mb-0">' +
                 '<input required name="entries[' + numRows + '][]" class="form-control" type="text" placeholder="Mark">' +
@@ -104,6 +105,7 @@ $(document).ready(function() {
         } else {
             var newRow = body.children('tr:last').clone();
             newRow.find(':text').val('');
+            newRow.children('td:first').children('i').html('<i class="far fa-times-circle" style="color: red;"></i>');
             body.append(newRow);
         }
         // Update name arrays

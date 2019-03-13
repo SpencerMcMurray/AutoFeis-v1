@@ -1,6 +1,19 @@
 {% extends "generalTemplates/outline.html" %}
 {% block body %}
     <body>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var dancerNums = $(".Dancer");
+            dancerNums.each(function (i) {
+                if(!isNaN(parseFloat($(this).val()))) {
+                    applyValidation(this, {{ judge['comp'] }}, '{{ url_for('check_dancer_num') }}');
+                }
+            });
+            dancerNums.on('input', function () {
+                applyValidation(this, {{ judge['comp'] }}, '{{ url_for('check_dancer_num') }}');
+            });
+        });
+    </script>
         <div class="sub-box">
             {% if errors|length > 0 %}
                 <div class="sub-title d-flex container mx-auto hide shake-id justify-content-center align-items-center flex-wrap pb-0" style="color: red;">
@@ -33,12 +46,17 @@
                                     {% for entry in mark %}
                                         {% if loop.index == 1 %}
                                             {% set place = "Dancer" %}
+                                            {% set extra = " Dancer" %}
                                         {% else %}
                                             {% set place = "Mark" %}
+                                            {% set extra = "" %}
                                         {% endif %}
                                         <td>
                                             <div class="form-group mb-0">
-                                                <input required value="{{ entry }}" name="entries[{{ i }}][]" class="form-control" type="text" placeholder="{{ place }}">
+                                                {% if place == "Dancer" %}
+                                                    <i class="far fa-times-circle" style="color: red;"></i>
+                                                {% endif %}
+                                                <input required value="{{ entry }}" name="entries[{{ i }}][]" class="form-control{{ extra }}" type="text" placeholder="{{ place }}">
                                             </div>
                                         </td>
                                     {% endfor %}

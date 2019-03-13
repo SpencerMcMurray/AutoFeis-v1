@@ -3,6 +3,18 @@ from werkzeug.security import generate_password_hash
 from database import Database
 
 
+def check_valid_competitor(dancer_num, comp):
+    """(int, int) -> bool
+    Returns True iff the dancer number is registered in the competition
+    """
+    db = Database()
+    db.cur.execute("""SELECT * FROM `competitor` WHERE `number` = %s AND `competition` = %s""", (dancer_num, comp))
+    is_valid = db.cur.fetchone()
+    db.con.close()
+    gc.collect()
+    return is_valid is not None
+
+
 def indicate_tabulated_comp(comp):
     """(int) -> NoneType
     Updates the indicator that tells us if a competition has been tabulated
