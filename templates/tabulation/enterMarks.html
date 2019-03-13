@@ -3,20 +3,13 @@
     <body>
     <script type="text/javascript">
         $(document).ready(function () {
-            var dancerNums = $(".Dancer");
-            dancerNums.each(function (i) {
+            $(".Dancer").each(function (i) {
                 if(!isNaN(parseFloat($(this).val()))) {
                     applyValidation(this, {{ judge['comp'] }}, '{{ url_for('check_dancer_num') }}');
                 }
             });
-            dancerNums.on('input', function () {
+            $(document).on('input', '.Dancer', function () {
                 applyValidation(this, {{ judge['comp'] }}, '{{ url_for('check_dancer_num') }}');
-            });
-            // Update dancer selector
-            $("#addRow").mouseup(function () {
-                console.log("mouse up");
-                dancerNums = $(".Dancer");
-                console.log(dancerNums);
             });
         });
     </script>
