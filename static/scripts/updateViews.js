@@ -12,13 +12,13 @@ function applyValidation(domObj, comp, url) {
         dataType: 'json'
     }).done(function (data) {
         var html;
-        $(domObj).parent().children('span').remove();
+        $(domObj).parent().children('div').children('span').remove();
         // TODO: Mouse over these for brief explanation
         if(parseInt(data['valid']) === 1) {
-            html = '<span class="mx-2 my-auto" title="Dancer registered"><i class="far fa-check-circle" style="color: green;"></i></span>';
+            html = '<span class="input-group-text" title="Dancer registered"><i class="far fa-check-circle" style="color: green;"></i></span>';
         } else {
-            html = '<span class="mx-2 my-auto" title="Dancer not registered"><i class="far fa-times-circle" style="color: red;"></i></span>';
+            html = '<span class="input-group-text" title="Dancer not registered"><i class="far fa-times-circle" style="color: red;"></i></span>';
         }
-        $(domObj).parent().prepend(html)
+        $(domObj).parent().children('div').prepend(html)
     });
 }

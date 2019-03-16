@@ -45,11 +45,13 @@
                                     {% for entry in mark %}
                                         <td>
                                             {% if loop.index == 1 %}
-                                                <div class="form-group flex-nowrap row mb-0 justify-content-center">
-                                                    <span class="mx-2 my-auto" title="Dancer not registered">
-                                                        <i class="far fa-times-circle mx-2 my-auto" style="color: red;"></i>
-                                                    </span>
-                                                    <input required style="width: 80%;" value="{{ entry }}" name="entries[{{ i }}][]" class="form-control mx-2 Dancer my-auto" type="text" placeholder="Dancer">
+                                                <div class="input-group mb-0 justify-content-center">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" title="Dancer not registered">
+                                                            <i class="far fa-times-circle" style="color: red;"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input required value="{{ entry }}" name="entries[{{ i }}][]" class="form-control Dancer" type="text" placeholder="Dancer">
                                                 </div>
                                             {% else %}
                                                 <div class="form-group mb-0">
