@@ -29,7 +29,7 @@ def fetch_signup_errors(form):
     if form.password.data != form.confirm.data:
         errors.append("The passwords given dont match")
     if not password_is_good(form.password.data):
-        errors.append("Your password should contain at least 6 characters, and contain a symbol")
+        errors.append("Your password should contain at least 6 characters and a symbol")
     return errors
 
 
