@@ -13,31 +13,37 @@
             </div>
             <div class="title container d-flex flex-wrap justify-content-center" style="margin: 0 auto;">
                 {% if dancers|length > 0 %}
+                    <div class="row justify-content-around w-100">
                     {% for dancer in dancers %}
-                        <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded hide zoom-id" style="font-size:20px">
-                            <div style="padding: 10px 10px;width: 100%;">
-                                <b>{{ dancer['fName'] }} {{ dancer['lName'] }}</b><br>
-                                {{ dancer['level'] }}<br>
-                                {{ dancer['school'] }}<br>
-                                Born in {{ dancer['birthYear'] }}<br>
-                                {{ dancer['gender'] }}
-                            </div>
-                            <div class="container-fluid d-flex flex-wrap align-items-center justify-content-center">
-                                <div class="py-3 col-6">
-                                    <form method="POST" action="{{ url_for('edit_dancer') }}">
-                                        <input type="hidden" name="dancerId" value="{{ dancer['id'] }}" />
-                                        <button style="width: 80px;" class="btn btn-primary" type="submit">Edit</button>
-                                    </form>
+                        <div class="py-3">
+                            <div class="card hide fade-id" style="width: 300px;">
+                                <div class="card-header text-left"><h4 class="card-title">{{ dancer['fName'] }} {{ dancer['lName'] }}</h4></div>
+                                <div class="card-body text-center" style="font-size: 20px">
+                                    <p>{{ dancer['level'] }}</p>
+                                    <p>{{ dancer['school'] }}</p>
+                                    <p>{{ dancer['birthYear'] }}</p>
+                                    <p>{{ dancer['gender'] }}</p>
                                 </div>
-                                <div class="py-3 col-6">
-                                    <form method="POST" action="{{ url_for('delete_dancer') }}">
-                                        <input type="hidden" value="{{ dancer['id'] }}" name="id" />
-                                        <button style="width: 80px;" class="btn btn-primary" type="submit">Delete</button>
-                                    </form>
+                                <div class="card-footer text-center">
+                                    <div class="row">
+                                        <div class="py-3 col-6">
+                                            <form method="POST" action="{{ url_for('edit_dancer') }}">
+                                                <input type="hidden" name="dancerId" value="{{ dancer['id'] }}" />
+                                                <button style="width: 80px;" class="btn btn-primary" type="submit">Edit</button>
+                                            </form>
+                                        </div>
+                                        <div class="py-3 col-6">
+                                            <form method="POST" action="{{ url_for('delete_dancer') }}">
+                                                <input type="hidden" value="{{ dancer['id'] }}" name="id" />
+                                                <button style="width: 80px;" class="btn btn-primary" type="submit">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
+                    </div>
                 {% else %}
                     <p style="margin: 0 auto;font-size:25px;" class="hide zoom-id">No dancers to show</p>
                 {% endif %}
@@ -51,28 +57,36 @@
             </div>
             <div class="title container d-flex flex-wrap justify-content-center" style="margin: 0 auto;">
                 {% if feiseanna|length > 0 %}
+                    <div class="row justify-content-around w-100">
                     {% for feis in feiseanna %}
-                        <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded hide zoom-id" style="font-size:20px">
-                            <div style="padding: 10px 10px;width: 100%;">
-                                <b>{{ feis['name']}}</b><br>
-                                {{ feis['date'].strftime('%B %d, %Y') }}
-                            </div>
-                            <div class="container-fluid d-flex flex-wrap align-items-center justify-content-center">
-                                <div class="py-3 col-6">
-                                    <form method="POST" action="{{ url_for('feis_functions') }}">
-                                        <input type="hidden" name="feisId" value="{{ feis['id'] }}" />
-                                        <button class="btn btn-primary" type="submit">Organize</button>
-                                    </form>
+                        <div class="py-3">
+                            <div class="card hide fade-id" style="width: 300px;">
+                                <div class="card-header text-left"><h4 class="card-title">{{ feis['name']}}</h4></div>
+                                <div class="card-body text-center" style="font-size: 20px">
+                                    <p>{{ feis['date'].strftime('%B %d, %Y') }}</p>
+                                    <p>{{ feis['location'] }}</p>
+                                    <p>{{ feis['region'] }}</p>
                                 </div>
-                                <div class="py-3 col-6">
-                                    <form method="POST" action="{{ url_for('choose_tab_comp') }}">
-                                        <input type="hidden" value="{{ feis['id'] }}" name="feisId" />
-                                        <button class="btn btn-primary" type="submit">Tabulate</button>
-                                    </form>
+                                <div class="card-footer text-center">
+                                    <div class="row">
+                                        <div class="py-3 col-6">
+                                            <form method="POST" action="{{ url_for('feis_functions') }}">
+                                                <input type="hidden" name="feisId" value="{{ feis['id'] }}" />
+                                                <button class="btn btn-primary" type="submit">Organize</button>
+                                            </form>
+                                        </div>
+                                        <div class="py-3 col-6">
+                                            <form method="POST" action="{{ url_for('choose_tab_comp') }}">
+                                                <input type="hidden" value="{{ feis['id'] }}" name="feisId" />
+                                                <button class="btn btn-primary" type="submit">Tabulate</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
+                    </div>
                 {% else %}
                     <p style="margin: 0 auto;font-size:25px;" class="hide zoom-id">No feiseanna to show</p>
                 {% endif %}

@@ -5,16 +5,16 @@
         <div id="sketch"></div>
         <div class="box">
             <div id='welcome'>
-                <div class="hide fade-id">
-                    <p style='font-size:25px'>
+                <div class="hide fade-id lead" style='font-size:25px'>
+                    <p>
                         AutoFeis is a feis organization platform providing its services
                         <strong>Worldwide</strong> at the same, low price.
-                    </p><br>
-                    <p style='font-size:25px'>
+                    </p>
+                    <p>
                         We tabulate using <strong>Artificial Intelligence</strong> to provide results
                         faster than your favourite tabulators by a mile.
-                    </p><br>
-                    <p style='font-size:25px'>
+                    </p>
+                    <p>
                         Learn more about the new way to tabulate <a href="{{ url_for('about') }}">here</a>
                     </p>
                 </div>
@@ -25,29 +25,33 @@
                 <div class="title">
                     <h1 class="display-3">Upcoming Feiseanna</h1>
                 </div>
-                <div class="title container d-flex flex-wrap justify-content-center" style="margin: 0 auto;">
+                <div class="title container d-flex flex-wrap justify-content-center mx-auto">
                     {% if feiseanna|length > 0 %}
+                        <div class="row justify-content-around w-100">
                         {% for feis in feiseanna %}
-                            <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight justify-content-center rounded hide zoom-id" style="font-size:20px">
-                                <div style="padding: 10px 10px;">
-                                    <b>{{ feis['name']}}</b><br>
-                                    {{ feis['date'].strftime('%B %d, %Y') }}<br>
-                                    {{ feis['location'] }}<br>
-                                    {{ feis['region'] }}
-                                </div>
-                                <div style="padding: 10px 10px;">
-                                    <a href='{{ feis["website"] }}' role="button" class="btn btn-link btn-sm" style="font-size:20px">
-                                        Website
-                                    </a><br>
-                                    <a href='{{ url_for('entries', feis=feis['id']) }}' role="button" class="btn btn-link btn-sm" style="font-size:20px">
-                                        Entries
-                                    </a><br>
-                                    <a href='{{ "/static/storage/syllabi/" + feis["syllabus"] }}' role="button" class="btn btn-link btn-sm" style="font-size:20px">
-                                        Syllabus
-                                    </a>
+                            <div class="py-3">
+                                <div class="card hide fade-id" style="width: 300px;">
+                                    <div class="card-header text-left"><h4 class="card-title">{{ feis['name']}}</h4></div>
+                                    <div class="card-body text-center" style="font-size: 20px">
+                                        <p>{{ feis['date'].strftime('%B %d, %Y') }}</p>
+                                        <p>{{ feis['location'] }}</p>
+                                        <p>{{ feis['region'] }}</p>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <a href='{{ feis["website"] }}' class="card-link">
+                                            Website
+                                        </a>
+                                        <a href='{{ url_for('entries', feis=feis['id']) }}' class="card-link">
+                                            Entries
+                                        </a>
+                                        <a href='{{ "/static/storage/syllabi/" + feis["syllabus"] }}' class="card-link">
+                                            Syllabus
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         {% endfor %}
+                        </div>
                     {% else %}
                         <p style="margin: 0 auto;font-size:25px;" class="zoom-id">None yet!</p>
                     {% endif %}

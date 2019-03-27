@@ -9,22 +9,25 @@
             </div>
             <div class="title container d-flex flex-wrap justify-content-center" style="margin: 0 auto;">
                 {% if feiseanna|length > 0 %}
+                    <div class="row justify-content-around w-100">
                     {% for feis in feiseanna %}
-                        <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded hide zoom-id" style="font-size:20px">
-                            <div class="d-flex col-md-12 justify-content-center" style="padding-top: 10px;">
-                                <h2>{{ feis['name']}}</h2>
-                            </div>
-                            <div class="d-flex col-md-12 justify-content-center" style="padding-bottom: 10px;">
-                                <h4>{{ feis['date'].strftime('%B %d, %Y') }}</h4>
-                            </div>
-                            <div class="d-flex col-md-12 justify-content-center" style="padding: 10px 10px;">
-                                <form method="POST">
-                                    <input type="hidden" value="{{ feis['id'] }}" name="id">
-                                    <button class="btn btn-primary" type="submit">Results</button>
-                                </form>
+                        <div class="py-3">
+                            <div class="card hide fade-id" style="width: 300px;">
+                                <div class="card-header text-left"><h4 class="card-title">{{ feis['name']}}</h4></div>
+                                <div class="card-body text-center" style="font-size: 20px">
+                                    <p>{{ feis['date'].strftime('%B %d, %Y') }}</p>
+                                    <p>{{ feis['location'] }}</p>
+                                    <p>{{ feis['region'] }}</p>
+                                    <hr>
+                                    <form method="POST">
+                                        <input type="hidden" value="{{ feis['id'] }}" name="id">
+                                        <button class="btn btn-primary" type="submit">Results</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     {% endfor %}
+                    </div>
                 {% else %}
                     <p style="margin: 0 auto;font-size:25px;" class="hide zoom-id">No feiseanna to show</p>
                 {% endif %}
