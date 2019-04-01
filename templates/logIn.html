@@ -26,17 +26,17 @@
                     <h1 class="display-3">Log In</h1>
                 </div>
             </div>
-            <form method="POST">
-                <div class="text-left feis-box mx-auto sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded" style="font-size:20px">
-                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
-                        <label for="email">Email</label>
-                        {{ form.email(class_="form-control", type="email", placeholder="Enter Email", id="email") }}
+            <form method="POST" class="pb-4 mx-auto" style="width: 300px">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <div class="card-text form-group my-4">
+                            {{ form.email(class_="form-control", type="email", placeholder="Enter Email", id="email") }}
+                        </div>
+                        <div class="card-text form-group my-4">
+                            {{ form.password(class_="form-control", type="password", placeholder="Enter Password", id="pass") }}
+                        </div>
                     </div>
-                    <div class="form-group col-md-12 justify-content-center" style="padding-bottom: 10px;">
-                        <label for="pass">Password</label>
-                        {{ form.password(class_="form-control", type="password", placeholder="Enter Password", id="pass") }}
-                    </div>
-                    <div class="text-center form-group col-md-12 justify-content-center" style="padding-bottom: 10px;">
+                    <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Log In</button>
                     </div>
                 </div>

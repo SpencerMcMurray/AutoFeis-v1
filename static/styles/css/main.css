@@ -9,6 +9,22 @@ header div a {
     text-decoration: none;
 }
 
+.form-control:not(.Dancer):not(.Mark) {
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1px solid gray;
+    box-shadow: none;
+}
+
+.form-control:focus:not(.Dancer):not(.Mark) {
+    background-color: transparent;
+}
+
+td {
+    vertical-align: middle !important;
+}
+
 header {
     top: 0;
 }

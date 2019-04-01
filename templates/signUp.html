@@ -26,34 +26,31 @@
                     <h1 class="display-3">Sign Up</h1>
                 </div>
             </div>
-            <form method="POST">
-                <div class="text-left feis-box mx-auto sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded" style="font-size:20px">
-                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
-                        <label for="fname">First Name</label>
-                        {{ form.f_name(class_="form-control", placeholder="Enter First Name", id="fname") }}
+            <form method="POST" class="pb-4 mx-auto" style="width: 300px">
+                <div class="card bg-light">
+                    <div class="card-body text-left">
+                        <div class="card-text form-group my-4">
+                            {{ form.f_name(class_="form-control", placeholder="Enter First Name", id="fname") }}
+                        </div>
+                        <div class="card-text form-group my-4">
+                            {{ form.l_name(class_="form-control", placeholder="Enter Last Name", id="lname") }}
+                        </div>
+                        <div class="card-text form-group my-4">
+                            {{ form.email(class_="form-control", type="email", placeholder="Enter Email", id="email") }}
+                        </div>
+                        <div class="card-text form-group my-4">
+                            {{ form.password(class_="form-control", type="password", placeholder="Enter Password", id="pass") }}
+                        </div>
+                        <div class="card-text form-group my-4">
+                            {{ form.confirm(class_="form-control", type="password", placeholder="Confirm Password", id="repass") }}
+                        </div>
                     </div>
-                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
-                        <label for="lname">Last Name</label>
-                        {{ form.l_name(class_="form-control", placeholder="Enter Last Name", id="lname") }}
-                    </div>
-                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
-                        <label for="email">Email</label>
-                        {{ form.email(class_="form-control", type="email", placeholder="Enter Email", id="email") }}
-                    </div>
-                    <div class="form-group col-md-12 justify-content-center" style="padding-bottom: 10px;">
-                        <label for="pass">Password</label>
-                        {{ form.password(class_="form-control", type="password", placeholder="Enter Password", id="pass") }}
-                    </div>
-                    <div class="form-group col-md-12 justify-content-center" style="padding-bottom: 10px;">
-                        <label for="repass">Re-type Password</label>
-                        {{ form.confirm(class_="form-control", type="password", placeholder="Confirm Password", id="repass") }}
-                    </div>
-                    <div class="text-center form-group col-md-12 justify-content-center" style="padding-bottom: 10px;">
+                    <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Sign Up</button>
                     </div>
                 </div>
             </form>
-            <p style="font-size:25px;bottom: 0;">
+            <p>
                 By signing up you are agreeing to our <a href="{{ url_for('terms') }}">Terms of Service.</a>
             </p>
         </div>

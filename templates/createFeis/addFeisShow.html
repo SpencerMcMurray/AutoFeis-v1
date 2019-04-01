@@ -12,24 +12,19 @@
                     <div class="title">
                         <h1 class="display-4">{{ level }}</h1>
                     </div>
-                    <div class="mx-auto container d-flex p-2 flex-wrap align-items-center justify-content-center" style="font-size: 20px">
+                    <div class="mx-auto container d-flex flex-wrap align-items-center justify-content-center pb-4">
                         {% for comp in comps[level] %}
                             {% set comp = comp.get_data() %}
-                            <div class="mx-auto feis-box sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded" style="height: 340px;">
-                                <div class="col-md-10 py-2">
-                                    <strong>{{ comp[2] }}</strong>
-                                </div>
-                                <div class="col-md-12 py-2">
-                                    <strong>{{ comp[3] }}</strong>
-                                </div>
-                                <div class="col-md-12 py-2">
-                                    <strong>Ages:</strong> {{ comp[0] }} to {{ comp[1] }}
-                                </div>
-                                <div class="col-md-12 py-2">
-                                    <strong>Levels:</strong>  {{ comp[5] }}
-                                </div>
-                                <div class="col-md-12 py-2">
-                                    <strong>Genders:</strong>  {{ comp[4] }}
+                            <div class="p-2">
+                                <div class="card bg-light" style="width: 300px">
+                                    <div class="card-header text-left"><h4 class="card-title">{{ comp[2] }}</h4></div>
+                                    <div class="card-body">
+                                        <div class="card-text" style="font-size: 20px">
+                                            <p>{{ comp[0] }} to {{ comp[1] }}</p>
+                                            <p>{{ comp[5] }}</p>
+                                            <p>Genders: {{ comp[4] }}</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         {% endfor %}

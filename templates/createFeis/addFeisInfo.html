@@ -26,33 +26,35 @@
                     <h1 class="display-3">Feis Information</h1>
                 </div>
             </div>
-            <form method="POST" enctype="multipart/form-data">
-                <div class="text-left feis-box mx-auto sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded" style="font-size:20px">
-                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
-                        <label for="name">Feis Name</label>
-                        {{ form.name(class_="form-control", placeholder="Enter Feis Name", id="name") }}
+            <form method="POST" enctype="multipart/form-data" class="pb-4 mx-auto" style="width: 300px">
+                <div class="card bg-light">
+                    <div class="card-body text-left">
+                        <div class="card-text form-group my-4">
+                            <label for="name">Feis Name</label>
+                            {{ form.name(class_="form-control", placeholder="Enter Feis Name", id="name") }}
+                        </div>
+                        <div class="card-text form-group my-4">
+                            <label for="date">Date</label>
+                            <input id="date" required class="form-control" type="date" name="date">
+                        </div>
+                        <div class="card-text form-group my-4">
+                            <label for="loc">Location</label>
+                            {{ form.location(class_="form-control", placeholder="Enter Location", id="loc") }}
+                        </div>
+                        <div class="card-text form-group my-4">
+                            <label for="reg">Region</label>
+                            {{ form.region(class_="form-control", id="reg") }}
+                        </div>
+                        <div class="card-text form-group my-4">
+                            <label for="web">Website</label>
+                            {{ form.website(class_="form-control", placeholder="Enter Website", id="web") }}
+                        </div>
+                        <div class="card-text form-group my-4">
+                            <label for="syl">Syllabus</label>
+                            <input id="syl" type="file" accept="application/pdf" name="syllabus" class="form-control-file">
+                        </div>
                     </div>
-                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
-                        <label for="date">Date</label>
-                        <input id="date" required class="form-control" type="date" name="date">
-                    </div>
-                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
-                        <label for="loc">Location</label>
-                        {{ form.location(class_="form-control", placeholder="Enter Location", id="loc") }}
-                    </div>
-                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
-                        <label for="reg">Region</label>
-                        {{ form.region(class_="form-control", id="reg") }}
-                    </div>
-                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
-                        <label for="web">Website</label>
-                        {{ form.website(class_="form-control", placeholder="Enter Website", id="web") }}
-                    </div>
-                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
-                        <label for="syl">Syllabus</label>
-                        <input id="syl" type="file" accept="application/pdf" name="syllabus" class="form-control-file">
-                    </div>
-                    <div class="text-center form-group col-md-12 justify-content-center" style="padding-bottom: 10px;">
+                    <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Create</button>
                     </div>
                 </div>

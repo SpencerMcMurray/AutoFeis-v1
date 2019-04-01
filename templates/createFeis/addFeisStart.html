@@ -7,25 +7,27 @@
                     <h1 class="display-3">Define Main Attributes</h1>
                 </div>
             </div>
-            <form action="{{ url_for('ages_add_feis') }}">
-                <div class="text-left feis-box mx-auto sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded" style="font-size:20px">
-                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
-                        <label for="single">Single Age Groups</label>
-                        {{ form.single_ages(class_="form-control", id="single") }}
+            <form action="{{ url_for('ages_add_feis') }}" style="width: 300px" class="mx-auto text-left">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <div class="card-text form-group my-4">
+                            <label for="single">Single Age Groups</label>
+                            {{ form.single_ages(class_="form-control", id="single") }}
+                        </div>
+                        <div class="card-text form-group my-4">
+                            <label for="level">Include Levels(Open Championship, Novice, etc.)</label>
+                            {{ form.levels(class_="form-control", id="level") }}
+                        </div>
+                        <div class="card-text form-group my-4">
+                            <label for="champ">Separate Championship-level competitions by gender</label>
+                            {{ form.separate_by_sex_champ(class_="form-control", id="champ") }}
+                        </div>
+                        <div class="card-text form-group my-4">
+                            <label for="grades">Separate Grades-level competitions by gender</label>
+                            {{ form.separate_by_sex_grades(class_="form-control", id="grades") }}
+                        </div>
                     </div>
-                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
-                        <label for="level">Include Levels(Open Championship, Novice, etc.)</label>
-                        {{ form.levels(class_="form-control", id="level") }}
-                    </div>
-                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
-                        <label for="champ">Separate Championship-level competitions by gender</label>
-                        {{ form.separate_by_sex_champ(class_="form-control", id="champ") }}
-                    </div>
-                    <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
-                        <label for="grades">Separate Grades-level competitions by gender</label>
-                        {{ form.separate_by_sex_grades(class_="form-control", id="grades") }}
-                    </div>
-                    <div class="text-center form-group col-md-12 justify-content-center" style="padding-bottom: 10px;">
+                    <div class="card-footer text-center">
                         <button type="submit" class="btn btn-primary">Next</button>
                     </div>
                 </div>

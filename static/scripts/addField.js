@@ -141,60 +141,60 @@ $(document).ready(function() {
     // Dynamic competition logic
     var id_counter = 0;
     $('#addFG').click(function() {
-        $('#FG .feis-box:last').after(
-            '<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
+        $('#FG').append(
+            '<div class="p-2"><div class="card bg-light" style="width: 300px"><div class="card-body">' +
             '<label class="pt-3" for="' + id_counter + '">Start Age: </label>' + startAgeIn(nameFG, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">End Age: </label>' + endAgeIn(nameFG, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">Genders: </label>' + genderIn(nameFG, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">Type: </label>' + typeIn(nameFG, id_counter) +
-            removeIn() + '</div></div>'
+            '</div><div class="card-footer">' + removeIn() + '</div></div></div>'
         );
         ++id_counter;
     });
 
     $('#addTR').click(function() {
-        $('#TR .feis-box:last').after(
-            '<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
+        $('#TR').append(
+            '<div class="p-2"><div class="card bg-light" style="width: 300px"><div class="card-body">' +
             '<label class="pt-3" for="' + id_counter + '">Level: </label>' + levelIn(nameTR, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">Start Age: </label>' + startAgeIn(nameTR, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">End Age: </label>' + endAgeIn(nameTR, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">Genders: </label>' + genderIn(nameTR, id_counter) +
-            removeIn() + '</div></div>'
+            '</div><div class="card-footer">' + removeIn() + '</div></div></div>'
         );
         ++id_counter;
     });
 
     $('#addTNN').click(function() {
-        $('#TNN .feis-box:last').after(
-            '<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
+        $('#TNN').append(
+            '<div class="p-2"><div class="card bg-light" style="width: 300px"><div class="card-body">' +
             '<label class="pt-3" for="' + id_counter + '">Start Age: </label>' + startAgeIn(nameTNN, id_counter) +
             '<label class="pt-3" for="' + id_counter+1 + '">End Age: </label>' + endAgeIn(nameTNN, id_counter) +
-            removeIn() + '</div></div>'
+            '</div><div class="card-footer">' + removeIn() + '</div></div></div>'
         );
         ++id_counter;
     });
 
     $('#addAR').click(function() {
-        $('#AR .feis-box:last').after(
-            '<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
+        $('#AR').append(
+            '<div class="p-2"><div class="card bg-light" style="width: 300px"><div class="card-body">' +
             '<label class="pt-3" for="' + id_counter + '">Name: </label>' + nameIn(nameAR, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">Start Age: </label>' + startAgeIn(nameAR, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">End Age: </label>' + endAgeIn(nameAR, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">Genders: </label>' + genderIn(nameAR, id_counter) +
-            removeIn() + '</div></div>'
+            '</div><div class="card-footer">' + removeIn() + '</div></div></div>'
         );
         ++id_counter;
     });
 
     $('#addSP').click(function() {
-        $('#SP .feis-box:last').after(
-            '<div class="' + classes + '"><div class="form-group col-md-12 justify-content-center align-items-center">' +
+        $('#SP').append(
+            '<div class="p-2"><div class="card bg-light" style="width: 300px"><div class="card-body">' +
             '<label class="pt-3" for="' + id_counter + '">Name: </label>' + nameIn(nameSP, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">Level: </label>' + levelIn(nameSP, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">Start Age: </label>' + startAgeIn(nameSP, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">End Age: </label>' + endAgeIn(nameSP, id_counter) +
             '<label class="pt-3" for="' + ++id_counter + '">Genders: </label>' + genderIn(nameSP, id_counter) +
-            removeIn() + '</div></div>'
+            '</div><div class="card-footer">' + removeIn() + '</div></div></div>'
         );
         ++id_counter;
     });
@@ -204,6 +204,6 @@ $(document).ready(function() {
     });
 
     $('div').on('click','.del', function() {
-        $(this).closest('.feis-box').remove();
+        $(this).closest('.p-2').remove();
     });
 });

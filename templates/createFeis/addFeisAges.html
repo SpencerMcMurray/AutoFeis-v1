@@ -5,55 +5,57 @@
             <div class="container-fluid">
                 <div class="title">
                     <h1 class="display-3">Select Senior Ages</h1>
-                    <p style="font-size: 25px">The age chosen will be the last age before the senior competitions</p>
+                    <p class="lead" style="font-size: 25px">The age chosen will be the last age before the senior competitions</p>
                 </div>
             </div>
-            <form action="{{ url_for('basic_add_feis') }}">
-                <div class="text-left feis-box mx-auto sub-box d-flex p-2 flex-wrap bd-highlight align-items-center justify-content-center rounded" style="font-size:20px">
-                    {% if is_local %}
-                        <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
-                            <label for="champ">Open Championship</label>
-                            <select class="form-control" name="champ" id="champ">
-                                {% for age in choices %}
-                                    <option value="{{ age }}">{{ age }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
-                            <label for="prelim">Preliminary Championship</label>
-                            <select class="form-control" name="prelim" id="prelim">
-                                {% for age in choices %}
-                                    <option value="{{ age }}">{{ age }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
-                            <label for="sets">Preliminary Championship Sets</label>
-                            <select class="form-control" name="sets" id="sets">
-                                {% for age in choices %}
-                                    <option value="{{ age }}">{{ age }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
-                            <label for="grades">Grades</label>
-                            <select class="form-control" name="grades" id="grades">
-                                {% for age in choices %}
-                                    <option value="{{ age }}">{{ age }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    {% else %}
-                        <div class="form-group col-md-12 justify-content-center" style="padding-top: 10px;">
-                            <label for="main">Main Competitions</label>
-                            <select class="form-control" name="main" id="main">
-                                {% for age in choices %}
-                                    <option value="{{ age }}">{{ age }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    {% endif %}
-                    <div class="text-center form-group col-md-12 justify-content-center" style="padding-bottom: 10px;">
+            <form action="{{ url_for('basic_add_feis') }}" style="width: 300px" class="mx-auto text-left">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        {% if is_local %}
+                            <div class="card-text form-group my-4">
+                                <label for="champ">Open Championship</label>
+                                <select class="form-control" name="champ" id="champ">
+                                    {% for age in choices %}
+                                        <option value="{{ age }}">{{ age }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="card-text form-group my-4">
+                                <label for="prelim">Preliminary Championship</label>
+                                <select class="form-control" name="prelim" id="prelim">
+                                    {% for age in choices %}
+                                        <option value="{{ age }}">{{ age }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="card-text form-group my-4">
+                                <label for="sets">Preliminary Championship Sets</label>
+                                <select class="form-control" name="sets" id="sets">
+                                    {% for age in choices %}
+                                        <option value="{{ age }}">{{ age }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="card-text form-group my-4">
+                                <label for="grades">Grades</label>
+                                <select class="form-control" name="grades" id="grades">
+                                    {% for age in choices %}
+                                        <option value="{{ age }}">{{ age }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        {% else %}
+                            <div class="card-text form-group my-4">
+                                <label for="grades">Main Competitions</label>
+                                <select class="form-control" name="grades" id="grades">
+                                    {% for age in choices %}
+                                        <option value="{{ age }}">{{ age }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer text-center">
                         <button type="submit" class="btn btn-primary">Next</button>
                     </div>
                 </div>
