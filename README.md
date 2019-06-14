@@ -8,7 +8,7 @@ Its distinguishing factor is tabulation. It uses computer vision and a neural ne
 to provide very fast tabulation of results from Irish Dancing competitions.
 
 Its worth noting that the tabulation could be easily be extended to other judged 
-competitions with handwritten marks as well.
+sports with handwritten marks as well.
 
 ## Dependencies
 
@@ -17,7 +17,6 @@ competitions with handwritten marks as well.
 * tensorflow
 * numpy
 * cv2
-* openpyxl
 
 ## Author
 
